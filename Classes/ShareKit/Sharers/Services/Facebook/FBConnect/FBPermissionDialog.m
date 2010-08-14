@@ -48,7 +48,7 @@ static NSString* kPermissionURL = @"http://www.facebook.com/connect/prompt_permi
 // NSObject
 
 - (id)initWithSession:(FBSession*)session {
-  if (self = [super initWithSession:session]) {
+  if ((self = [super initWithSession:session])) {
     _permission = nil;
     _redirectTimer = nil;
   }

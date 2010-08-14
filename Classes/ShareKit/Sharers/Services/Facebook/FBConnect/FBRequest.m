@@ -162,9 +162,9 @@ static const NSTimeInterval kTimeoutInterval = 180.0;
     } else {
       NSAssert([_dataParam isKindOfClass:[NSData class]], @"dataParam must be a UIImage or NSData");
       [self utfAppendBody:body
-                     data:[NSString stringWithFormat:@"Content-Disposition: form-data; filename=\"data\"\r\n"]];
+                     data:[NSString stringWithFormat:@"Content-Disposition: form-data; filename=\"data.3gp\"\r\n"]];
       [self utfAppendBody:body
-                     data:[NSString stringWithString:@"Content-Type: content/unknown\r\n\r\n"]];
+                     data:[NSString stringWithString:@"Content-Type: video/3gp\r\n\r\n"]];
       [body appendData:(NSData*)_dataParam];
     }
     [self utfAppendBody:body data:endLine];
