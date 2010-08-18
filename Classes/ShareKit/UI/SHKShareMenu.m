@@ -213,7 +213,8 @@
     
 	NSDictionary *rowData = [self rowDataAtIndexPath:indexPath];
 	cell.textLabel.text = [rowData objectForKey:@"name"];
-	
+	cell.imageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"%@.%@",[rowData objectForKey:@"className"],@"png"]];
+    
 	if (cell.editingAccessoryView == nil)
 	{
 		UISwitch *toggle = [[UISwitch alloc] initWithFrame:CGRectZero];
