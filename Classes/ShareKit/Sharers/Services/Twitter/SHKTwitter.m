@@ -325,8 +325,9 @@
 	
 	else
 	{		
-		if (SHKDebugShowLogs)
+#if SHKDebugShowLogs
 			SHKLog(@"Twitter Send Status Error: %@", [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease]);
+#endif
 		
 		// CREDIT: Oliver Drobnik
 		
