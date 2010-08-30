@@ -150,14 +150,21 @@
 
 - (NSString *)getValue
 {
-	switch (settings.type) 
+  NSString *returnValue = nil;
+	
+  switch (settings.type) 
 	{
 		case SHKFormFieldTypeSwitch:
-			return toggle.on ? SHKFormFieldSwitchOn : SHKFormFieldSwitchOff;
+			returnValue = toggle.on ? SHKFormFieldSwitchOn : SHKFormFieldSwitchOff;
 			break;
+    
+    case SHKFormFieldTypeText:
+    case SHKFormFieldTypePassword:
+      returnValue = textField.text;
+      break;
 	}
 	
-	return textField.text;
+	return returnValue;
 }
 
 @end

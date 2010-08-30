@@ -297,7 +297,11 @@ BOOL SHKinit;
 			case SHKShareTypeFile:
 				favoriteSharers = [NSArray arrayWithObjects:@"SHKMail", nil];
 				break;
-		}
+
+      case SHKShareTypeUndefined:
+        SHKLog(@"Received call to favoriteSharersForType for type SHKShareTypeUndefined!");
+        break;
+    }
 		
 		// Save defaults to prefs
 		[self setFavorites:favoriteSharers forType:type];
