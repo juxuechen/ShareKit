@@ -160,7 +160,7 @@
 		}
 
 		// Auto-detect Dailymotion links and generate an attached embed player
-		if ([item.URL.host hasSuffix:@"dailymotion.com"] || [item.URL.host hasSuffix:@"dai.ly"])
+		if ([item.URL.host hasSuffix:@"dailymotion.com"])
 		{
 			BOOL idIsNextComponent = NO;
 			NSString *videoId = nil;
