@@ -31,5 +31,13 @@
 @implementation SHKCustomShareMenuCell
 
 // See http://getsharekit.com/customize/ for additional information on customizing
-
+- (void) layoutSubviews {
+	[UIView beginAnimations:@"alignment" context:nil];
+	if(self.editing)
+		self.textLabel.textAlignment = UITextAlignmentLeft;
+	else
+		self.textLabel.textAlignment = UITextAlignmentCenter;
+	[super layoutSubviews];
+	[UIView commitAnimations];
+}
 @end
