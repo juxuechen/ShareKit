@@ -132,7 +132,7 @@ BOOL SHKinit;
 		UINavigationController *nav = [[[UINavigationController alloc] initWithRootViewController:vc] autorelease];
 		
 		if ([nav respondsToSelector:@selector(modalPresentationStyle)])
-			nav.modalPresentationStyle = [SHK modalPresentationStyle];
+			[nav setModalTransitionStyle:[SHK modalPresentationStyle]];
 		
 		if ([nav respondsToSelector:@selector(modalTransitionStyle)])
 			nav.modalTransitionStyle = [SHK modalTransitionStyle];
@@ -147,7 +147,7 @@ BOOL SHKinit;
 	else
 	{		
 		if ([vc respondsToSelector:@selector(modalPresentationStyle)])
-			vc.modalPresentationStyle = [SHK modalPresentationStyle];
+			[vc setModalTransitionStyle:[SHK modalPresentationStyle]];
 		
 		if ([vc respondsToSelector:@selector(modalTransitionStyle)])
 			vc.modalTransitionStyle = [SHK modalTransitionStyle];
@@ -231,6 +231,8 @@ BOOL SHKinit;
 	return UIBarStyleDefault;
 }
 
+#ifdef __IPHONE_3_2
+
 + (UIModalPresentationStyle)modalPresentationStyle
 {
 	if ([SHKModalPresentationStyle isEqualToString:@"UIModalPresentationFullScreen"])		
@@ -258,6 +260,13 @@ BOOL SHKinit;
 	
 	return UIModalTransitionStyleCoverVertical;
 }
+
+#else
+
++ (int)modalPresentationStyle { return 0; }
++ (int)modalTransitionStyle   { return 0; }
+
+#endif
 
 
 #pragma mark -

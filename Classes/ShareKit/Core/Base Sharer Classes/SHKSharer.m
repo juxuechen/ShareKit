@@ -163,10 +163,11 @@
 	{
 		self.shareDelegate = self;
 		self.item = [[[SHKItem alloc] init] autorelease];
-				
+		
+#ifdef __IPHONE_3_2
 		if ([self respondsToSelector:@selector(modalPresentationStyle)])
 			self.modalPresentationStyle = [SHK modalPresentationStyle];
-		
+#endif
 		if ([self respondsToSelector:@selector(modalTransitionStyle)])
 			self.modalTransitionStyle = [SHK modalTransitionStyle];
 	}
