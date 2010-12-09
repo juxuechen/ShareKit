@@ -247,7 +247,11 @@
 	NSString *result = [item customValueForKey:@"shortenURL"];
 	if(result==nil||result.length==0) 
 		result = [item.URL.absoluteString stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-	[item setCustomValue:[NSString stringWithFormat:@"%@ %@", item.title, result] forKey:@"status"];
+	if([[item customValueForKey:@"statusFormat"] isKindOfClass:[NSString class]]) {
+		[item setCustomValue:[NSString stringWithFormat:[item customValueForKey:@"statusFormat"], result] forKey:@"status"];
+	} else {
+		[item setCustomValue:[NSString stringWithFormat:@"%@ %@", item.title, result] forKey:@"status"];	
+	}
 	[self showTwitterForm];
 }
 
