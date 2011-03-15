@@ -259,7 +259,7 @@
 #pragma mark -
 #pragma mark Share API Methods
 
-- (BOOL)validate
+- (BOOL)validateItem
 {
 	NSString *status = [item customValueForKey:@"status"];
 	return status != nil && status.length >= 0 && status.length <= 140;
@@ -271,7 +271,7 @@
 	if (xAuth && [item customBoolForSwitchKey:@"followMe"])
 		[self followMe];	
 	
-	if (![self validate])
+	if (![self validateItem])
 		[self show];
 	
 	else
