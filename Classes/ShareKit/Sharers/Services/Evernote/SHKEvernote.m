@@ -70,10 +70,10 @@
   TBinaryProtocol *userStoreProtocol = [[[TBinaryProtocol alloc] initWithTransport:userStoreHTTPClient] autorelease];
   EDAMUserStoreClient *userStore = [[[EDAMUserStoreClient alloc] initWithProtocol:userStoreProtocol] autorelease];
 
-	BOOL versionOK = [userStore checkVersion:@"ShrareKit EDMA" :[EDAMUserStoreConstants EDAM_VERSION_MAJOR] :[EDAMUserStoreConstants EDAM_VERSION_MINOR]];
+	BOOL versionOK = [userStore checkVersion:@"ShrareKit EDAM" :[EDAMUserStoreConstants EDAM_VERSION_MAJOR] :[EDAMUserStoreConstants EDAM_VERSION_MINOR]];
   if(!versionOK) {
-  	[[[[UIAlertView alloc] initWithTitle:@"EDMA Error"
-    														 message:@"EDMA Version is too old."
+  	[[[[UIAlertView alloc] initWithTitle:@"EDAM Error"
+    														 message:@"EDAM Version is too old."
                                 delegate:nil cancelButtonTitle:@"Close"
                        otherButtonTitles:nil] autorelease] show];
   	return nil;
