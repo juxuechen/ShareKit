@@ -37,6 +37,16 @@
  */
 
 
+// Evernote - http://www.evernote.com/about/developer/api/
+
+#define SHKEvernoteUserStoreURL    @"https://sandbox.evernote.com/edam/user"
+#define SHKEvernoteNetStoreURLBase @"http://sandbox.evernote.com/edam/note/"
+#define SHKEvernoteConsumerKey   @""
+#define SHKEvernoteSecretKey     @""
+// If your Consumer Key is activated by Evernote support,
+// change these constants to the following.
+//#define SHKEvernoteUserStoreURL    @"https://www.evernote.com/edam/user"
+//#define SHKEvernoteNetStoreURLBase @"http://www.evernote.com/edam/note/"
 
 // Delicious - https://developer.apps.yahoo.com/projects
 #define SHKDeliciousConsumerKey		@""
