@@ -31,7 +31,6 @@
 		4379F2BF1291AC9700D2A41E /* TTransportException.m in Sources */ = {isa = PBXBuildFile; fileRef = 4379F2AD1291AC9700D2A41E /* TTransportException.m */; };
 		4379F2C01291AC9700D2A41E /* TSharedProcessorFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 4379F2AF1291AC9700D2A41E /* TSharedProcessorFactory.m */; };
 		4379F2C11291AC9700D2A41E /* SHKEvernote.m in Sources */ = {isa = PBXBuildFile; fileRef = 4379F2B11291AC9700D2A41E /* SHKEvernote.m */; };
-		4379F2C21291AC9700D2A41E /* SHKEvernote.md in Resources */ = {isa = PBXBuildFile; fileRef = 4379F2B21291AC9700D2A41E /* SHKEvernote.md */; };
 		4379F2EA1291AE5700D2A41E /* NSData+md5.m in Sources */ = {isa = PBXBuildFile; fileRef = 4379F2E91291AE5700D2A41E /* NSData+md5.m */; };
 		4379F3B21291C45700D2A41E /* SHKTextMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 4379F3B11291C45700D2A41E /* SHKTextMessage.m */; };
 		43A5370011DBE3B9004A1712 /* SHKOAuthSharer.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A5367511DBE3B9004A1712 /* SHKOAuthSharer.m */; };
@@ -106,6 +105,7 @@
 		43D1DEF011D5CDD200550D75 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43D1DEEF11D5CDD200550D75 /* SystemConfiguration.framework */; };
 		43EF406E11D3FFF800B1F700 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43EF406D11D3FFF800B1F700 /* Security.framework */; };
 		43FF9C7412270E9F00ADE53C /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 43FF9C7212270E9F00ADE53C /* Localizable.strings */; };
+		854CD5B513388C7F000AE00E /* SHKItem+EDAMNote.m in Sources */ = {isa = PBXBuildFile; fileRef = 854CD5B413388C7F000AE00E /* SHKItem+EDAMNote.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -310,6 +310,8 @@
 		43EF406D11D3FFF800B1F700 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		43FF9C7312270E9F00ADE53C /* en */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = en; path = Classes/ShareKit/Localization/en.lproj/Localizable.strings; sourceTree = SOURCE_ROOT; };
 		43FF9C7512270EB900ADE53C /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = Classes/ShareKit/Localization/de.lproj/Localizable.strings; sourceTree = SOURCE_ROOT; };
+		854CD5B313388C7F000AE00E /* SHKItem+EDAMNote.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SHKItem+EDAMNote.h"; sourceTree = "<group>"; };
+		854CD5B413388C7F000AE00E /* SHKItem+EDAMNote.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SHKItem+EDAMNote.m"; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* ShareKit-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "ShareKit-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -438,6 +440,8 @@
 				4379F2B01291AC9700D2A41E /* SHKEvernote.h */,
 				4379F2B11291AC9700D2A41E /* SHKEvernote.m */,
 				4379F2B21291AC9700D2A41E /* SHKEvernote.md */,
+				854CD5B313388C7F000AE00E /* SHKItem+EDAMNote.h */,
+				854CD5B413388C7F000AE00E /* SHKItem+EDAMNote.m */,
 			);
 			path = Evernote;
 			sourceTree = "<group>";
@@ -957,7 +961,6 @@
 				43A5382911DBE480004A1712 /* sanFran.jpg in Resources */,
 				43C91D1D11EB963600F31FAE /* MainWindow-iPad.xib in Resources */,
 				43FF9C7412270E9F00ADE53C /* Localizable.strings in Resources */,
-				4379F2C21291AC9700D2A41E /* SHKEvernote.md in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1052,6 +1055,7 @@
 				4379F2C11291AC9700D2A41E /* SHKEvernote.m in Sources */,
 				4379F2EA1291AE5700D2A41E /* NSData+md5.m in Sources */,
 				4379F3B21291C45700D2A41E /* SHKTextMessage.m in Sources */,
+				854CD5B513388C7F000AE00E /* SHKItem+EDAMNote.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

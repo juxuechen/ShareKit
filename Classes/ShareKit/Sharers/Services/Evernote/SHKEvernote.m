@@ -9,7 +9,13 @@
 #import "SHKEvernote.h"
 #import "THTTPClient.h"
 #import "TBinaryProtocol.h"
-#import "NSData+md5.h"
+#import "SHKEvernoteFormController.h"
+#import "SHKItem+EDAMNote.h"
+
+#import "Types.h"
+#import "UserStore.h"
+#import "NoteStore.h"
+
 
 @implementation SHKEvernoteItem
 @synthesize note;
@@ -26,6 +32,10 @@
 
 - (void)authFinished:(BOOL)success;
 - (void)sendFinished:(BOOL)success;
+- (void)_show;
+- (void)_send;
+
+- (EDAMAuthenticationResult *)getAuthenticationResultForUsername:(NSString *)username password:(NSString *)password;
 
 @end
 
@@ -145,19 +155,11 @@
 	[form saveForm];
 }
 
+
 #pragma mark -
 #pragma mark Implementation
 
 - (BOOL)validateItem {  return [super validateItem]; }
-
-- (EDAMNotebook *)defaultNoteBookFromNoteStore:(EDAMNoteStoreClient *)noteStore authToken:(NSString *)authToken {
-	NSArray *notebooks = [noteStore listNotebooks:authToken];
-	for(int i = 0; i < [notebooks count]; i++) {
-		EDAMNotebook *notebook = (EDAMNotebook*)[notebooks objectAtIndex:i];
-		if([notebook defaultNotebook]) return notebook;
-	}
-	return nil;
-}
 
 - (BOOL)send {
 	if (![self validateItem])
@@ -193,107 +195,8 @@
   	////////////////////////////////////////////////
     // Make EDAMNote contents
   	////////////////////////////////////////////////
-		SHKEvernoteItem *enItem = nil;
-		NSMutableArray *resources = nil;
-		EDAMNote *note = nil;
-		if([item isKindOfClass:[SHKEvernoteItem class]]) {
-			enItem = (SHKEvernoteItem *)item;
-			note = enItem.note;
-			resources = [note.resources mutableCopy];
-		}
-
-		if(!resources)
-    	resources = [[NSMutableArray alloc] init];
-		if(!note)
-    	note = [[[EDAMNote alloc] init] autorelease];
-
-		
-		EDAMNoteAttributes *atr = [note attributesIsSet] ? [note.attributes retain] : [[EDAMNoteAttributes alloc] init];
-
-		if(![atr sourceURLIsSet]&&enItem.URL)
-    	[atr setSourceURL:[enItem.URL absoluteString]];
-		if(![note notebookGuidIsSet])
-    	[note setNotebookGuid:[[self defaultNoteBookFromNoteStore:noteStore authToken:authToken] guid]];
-
-		note.title = item.title.length > 0 ?
-    	item.title :
-      ( [note titleIsSet] ?
-            note.title :
-            SHKLocalizedString(@"Untitled") );
-
-		if(![note tagNamesIsSet]&&item.tags)
-    	[note setTagNames:[item.tags componentsSeparatedByString:@" "]];
-
-		if(![note contentIsSet]) {
-			NSMutableString* contentStr = [[NSMutableString alloc] initWithString:kENMLPrefix];
-      NSString * strURL = [item.URL absoluteString];
-
-      if(strURL.length>0) {
-        if(item.title.length>0)
-        	[contentStr appendFormat:@"<h1><a href=\"%@\">%@</a></h1>",strURL,item.title];
-      	[contentStr appendFormat:@"<p><a href=\"%@\">%@</a></p>",strURL,strURL];
-        atr.sourceURL = strURL;
-      } else if(item.title.length>0)
-        [contentStr appendFormat:@"<h1>%@</h1>",item.title];
-
-			if(item.text.length>0 )
-      	[contentStr appendFormat:@"<p>%@</p>",item.text];
-
-			if(item.image) {
-				EDAMResource *img = [[[EDAMResource alloc] init] autorelease];
-				NSData *rawimg = UIImageJPEGRepresentation(item.image, 0.6);
-				EDAMData *imgd = [[[EDAMData alloc] initWithBodyHash:rawimg size:[rawimg length] body:rawimg] autorelease];
-				[img setData:imgd];
-				[img setRecognition:imgd];
-				[img setMime:@"image/jpeg"];
-				[resources addObject:img];
-				[contentStr appendString:[NSString stringWithFormat:@"<p>%@</p>",[self enMediaTagWithResource:img width:item.image.size.width height:item.image.size.height]]];
-			}
-
-			if(item.data) {
-				EDAMResource *file = [[[EDAMResource alloc] init] autorelease];	
-				EDAMData *filed = [[[EDAMData alloc] initWithBodyHash:item.data size:[item.data length] body:item.data] autorelease];
-				[file setData:filed];
-				[file setRecognition:filed];
-				[file setMime:item.mimeType];
-				[resources addObject:file];
-				[contentStr appendString:[NSString stringWithFormat:@"<p>%@</p>",[self enMediaTagWithResource:file width:0 height:0]]];
-			}
-			[contentStr appendString:kENMLSuffix];
-			[note setContent:contentStr];
-			[contentStr release];
-		}
     
-    
-  	////////////////////////////////////////////////
-    // Replace <img> HTML elements with en-media elements
-  	////////////////////////////////////////////////
-
-		for(EDAMResource *res in resources) {
-			if(![res dataIsSet]&&[res attributesIsSet]&&res.attributes.sourceURL.length>0&&[res.mime isEqualToString:@"image/jpeg"]) {
-				@try {
-					NSData *rawimg = [NSData dataWithContentsOfURL:[NSURL URLWithString:res.attributes.sourceURL]];
-					UIImage *img = [UIImage imageWithData:rawimg];
-					if(img) {
-						EDAMData *imgd = [[[EDAMData alloc] initWithBodyHash:rawimg size:[rawimg length] body:rawimg] autorelease];
-						[res setData:imgd];
-						[res setRecognition:imgd];
-						[note setContent:
-						 	[note.content stringByReplacingOccurrencesOfString:[NSString stringWithFormat:@"<img src=\"%@\" />",res.attributes.sourceURL]
-																											withString:[self enMediaTagWithResource:res width:img.size.width height:img.size.height]]];
-					}
-				}
-				@catch (NSException * e) {
-					SHKLog(@"Caught: %@",e);
-				}
-			}
-		}
-		[note setResources:resources];
- 		[note setAttributes:atr];
-		[resources release];
-		[atr release];
-    [note setCreated:(long long)[[NSDate date] timeIntervalSince1970] * 1000];
-    EDAMNote *createdNote = [noteStore createNote:authToken :note];
+    EDAMNote *createdNote = [noteStore createNote:authToken :[item edamNoteForNotebook:[noteStore getDefaultNotebook:authToken]]];
     if (createdNote != NULL) {
       SHKLog(@"Created note: %@", [createdNote title]);
 			success = YES;
@@ -346,11 +249,6 @@
 									   shouldRelogin?@"1":@"0",@"shouldRelogin",
 									   nil] waitUntilDone:YES];
 	[pool release];
-}
-
-- (NSString *)enMediaTagWithResource:(EDAMResource *)src width:(CGFloat)width height:(CGFloat)height {
-	NSString *sizeAtr = width > 0 && height > 0 ? [NSString stringWithFormat:@"height=\"%.0f\" width=\"%.0f\" ",height,width]:@"";
-	return [NSString stringWithFormat:@"<en-media type=\"%@\" %@hash=\"%@\"/>",src.mime,sizeAtr,[src.data.body md5]];
 }
 
 - (void)_sendFinished:(NSDictionary *)args 
