@@ -12,6 +12,7 @@
 	</array>
 	<key>services</key>
 	<array>
+		<string>SHKSinaWeibo</string>
 		<string>SHKEvernote</string>
 		<string>SHKTwitter</string>
 		<string>SHKPinboard</string>
