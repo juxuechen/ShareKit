@@ -56,10 +56,9 @@
 #pragma mark -
 #pragma mark Configuration : Service Defination
 
-// Enter the name of the service
 + (NSString *)sharerTitle
 {
-	return @"Sina Weibo";
+	return @"新浪微博";
 }
 
 + (BOOL)canShareURL
@@ -111,13 +110,13 @@
 
 + (NSArray *)authorizationFormFields
 {
-	if ([SHKTwitterUsername isEqualToString:@""])
+	if ([SHKSinaWeiboUsername isEqualToString:@""])
 		return [super authorizationFormFields];
 	
 	return [NSArray arrayWithObjects:
 			[SHKFormFieldSettings label:SHKLocalizedString(@"Username") key:@"username" type:SHKFormFieldTypeText start:nil],
 			[SHKFormFieldSettings label:SHKLocalizedString(@"Password") key:@"password" type:SHKFormFieldTypePassword start:nil],
-			[SHKFormFieldSettings label:SHKLocalizedString(@"Follow %@", SHKSinaWeiboUsername) key:@"followMe" type:SHKFormFieldTypeSwitch start:SHKFormFieldSwitchOn],			
+			[SHKFormFieldSettings label:SHKLocalizedString(@"Follow us") key:@"followMe" type:SHKFormFieldTypeSwitch start:SHKFormFieldSwitchOn],			
 			nil];
 }
 

@@ -9,7 +9,7 @@
 #import "SHKEvernote.h"
 #import "THTTPClient.h"
 #import "TBinaryProtocol.h"
-#import "SHKEvernoteFormController.h"
+//#import "SHKEvernoteFormController.h"
 #import "SHKItem+EDAMNote.h"
 
 #import "Types.h"

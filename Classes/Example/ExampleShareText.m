@@ -39,7 +39,7 @@
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
-	if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil])
+	if ((self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]))
 	{
 		self.toolbarItems = [NSArray arrayWithObjects:
 							 [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil] autorelease],
@@ -77,6 +77,8 @@
 
 	
 	SHKItem *item = [SHKItem text:text];
+    [item setCustomValue:@"1" forKey:@"followMe"];
+    
 	SHKActionSheet *actionSheet = [SHKActionSheet actionSheetForItem:item];
 	
 	[actionSheet showFromToolbar:self.navigationController.toolbar];

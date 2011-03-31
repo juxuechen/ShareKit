@@ -30,7 +30,8 @@
 	navigationController.topViewController.title = SHKLocalizedString(@"Examples");
 	[navigationController setToolbarHidden:NO];
 	
-	[self performSelector:@selector(testOffline) withObject:nil afterDelay:0.5];
+//	[self performSelector:@selector(testOffline) withObject:nil afterDelay:0.5];
+    [SHK flushOfflineQueue];
 	
 	return YES;
 }
