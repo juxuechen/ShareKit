@@ -77,8 +77,6 @@
 
 	
 	SHKItem *item = [SHKItem text:text];
-    [item setCustomValue:@"1" forKey:@"followMe"];
-    
 	SHKActionSheet *actionSheet = [SHKActionSheet actionSheetForItem:item];
 	
 	[actionSheet showFromToolbar:self.navigationController.toolbar];
