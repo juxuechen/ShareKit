@@ -110,7 +110,7 @@
 
 + (NSArray *)authorizationFormFields
 {
-	if ([SHKSinaWeiboUsername isEqualToString:@""])
+	if ([SHKSinaWeiboUserID isEqualToString:@""])
 		return [super authorizationFormFields];
 	
 	return [NSArray arrayWithObjects:
@@ -334,7 +334,7 @@
 	OAMutableURLRequest *oRequest = [[OAMutableURLRequest alloc] initWithURL:serviceURL
 																	consumer:consumer
 																	   token:accessToken
-																	   realm:@"http://api.twitter.com/"
+																	   realm:API_DOMAIN
 														   signatureProvider:signatureProvider];
 	[oRequest setHTTPMethod:@"GET"];
 	
@@ -353,7 +353,7 @@
 		oRequest = [[OAMutableURLRequest alloc] initWithURL:serviceURL
 												   consumer:consumer
 													  token:accessToken
-													  realm:@"http://api.twitter.com/"
+													  realm:API_DOMAIN
 										  signatureProvider:signatureProvider];
 		[oRequest setHTTPMethod:@"POST"];
 		[oRequest setValue:@"https://api.twitter.com/1/account/verify_credentials.json" forHTTPHeaderField:@"X-Auth-Service-Provider"];
@@ -458,15 +458,15 @@
 {
 	// remove it so in case of other failures this doesn't get hit again
 	[item setCustomValue:nil forKey:@"followMe"];
-	
-	OAMutableURLRequest *oRequest = [[OAMutableURLRequest alloc] initWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/friendships/create/%@.json", API_DOMAIN, SHKSinaWeiboUsername]]
+    
+	OAMutableURLRequest *oRequest = [[OAMutableURLRequest alloc] initWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/friendships/create/%@.json", API_DOMAIN, SHKSinaWeiboUserID]]
 																	consumer:consumer
 																	   token:accessToken
 																	   realm:nil
 														   signatureProvider:nil];
 	
 	[oRequest setHTTPMethod:@"POST"];
-	
+    
 	OAAsynchronousDataFetcher *fetcher = [OAAsynchronousDataFetcher asynchronousFetcherWithRequest:oRequest
                                                                                           delegate:nil // Currently not doing any error handling here.  If it fails, it's probably best not to bug the user to follow you again.
                                                                                  didFinishSelector:nil

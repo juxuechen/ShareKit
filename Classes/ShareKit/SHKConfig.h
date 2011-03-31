@@ -82,16 +82,16 @@
 #define SHKTwitterConsumerKey		@""
 #define SHKTwitterSecret			@""
 #define SHKTwitterCallbackUrl		@"" // You need to set this if using OAuth, see note above (xAuth users can skip it)
-#define SHKTwitterUseXAuth			1 // To use xAuth, set to 1
+#define SHKTwitterUseXAuth			0 // To use xAuth, set to 1
 #define SHKTwitterUsername			@"" // Enter your app's twitter account if you'd like to ask the user to follow it when logging in. (Only for xAuth)
 
 // Sina Weibo 
-#define SHKSinaWeiboConsumerKey     @"1084217096"	// The consumer key
-#define SHKSinaWeiboSecretKey       @"7a18152a2815ee3719418f5210ad514c"	// The secret key
+#define SHKSinaWeiboConsumerKey     @""	// The consumer key
+#define SHKSinaWeiboSecretKey       @""	// The secret key
 #define SHKSinaWeiboCallbackUrl     @""	// The user defined callback url
 #define SHKSinaWeiboUseXAuth		1   // To use xAuth, set to 1
-#define SHKSinaWeiboAppName         @"房产小助手"
-#define SHKSinaWeiboUsername		@"lejucalc" // Enter your app's sina weibo account if you'd like to ask the user to follow it when logging in. (Only for xAuth)
+#define SHKSinaWeiboAppName         @""
+#define SHKSinaWeiboUserID          @"" // Enter your app's sina weibo account if you'd like to ask the user to follow it when logging in. (Only for xAuth)
 
 // Bit.ly (for shortening URLs on Twitter) - http://bit.ly/account/register - after signup: http://bit.ly/a/your_api_key
 #define SHKBitLyLogin				@""
