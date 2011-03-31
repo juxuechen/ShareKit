@@ -2,8 +2,8 @@
 //  SHKSinaWeibo
 //  ShareKit
 //
-//  Created by «FULLUSERNAME» on «DATE».
-//  Copyright «YEAR» «ORGANIZATIONNAME». All rights reserved.
+//  Created by icyleaf on 11-03-31.
+//  Copyright 2011 icyleaf.com. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>

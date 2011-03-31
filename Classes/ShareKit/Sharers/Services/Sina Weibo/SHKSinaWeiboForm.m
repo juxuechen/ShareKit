@@ -2,8 +2,8 @@
 //  «FILENAME»
 //  «PROJECTNAME»
 //
-//  Created by «FULLUSERNAME» on «DATE».
-//  Copyright «YEAR» «ORGANIZATIONNAME». All rights reserved.
+//  Created by icyleaf on 11-03-31.
+//  Copyright 2011 icyleaf.com. All rights reserved.
 //
 
 #import "SHKSinaWeiboForm.h"
@@ -34,7 +34,7 @@
 																							  target:self
 																							  action:@selector(cancel)];
 		
-		self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Send to Sina Weibo"
+		self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:SHKLocalizedString(@"Send to %@", @"Sina Weibo")
 																				  style:UIBarButtonItemStyleDone
 																				 target:self
 																				 action:@selector(save)];

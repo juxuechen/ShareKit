@@ -1,13 +1,33 @@
-//  Created by «FULLUSERNAME» on «DATE».
+//
+//  SHKSinaWeibo.m
+//  ShareKit
+//
+//  Created by Nathan icyleaf on 11-03-31.
 
-
-/*
-
- For a step by step guide to creating your service class, start at the top and move down through the comments.
- 
-*/
+//
+//  Permission is hereby granted, free of charge, to any person obtaining a copy
+//  of this software and associated documentation files (the "Software"), to deal
+//  in the Software without restriction, including without limitation the rights
+//  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+//  copies of the Software, and to permit persons to whom the Software is
+//  furnished to do so, subject to the following conditions:
+//
+//  The above copyright notice and this permission notice shall be included in
+//  all copies or substantial portions of the Software.
+//
+//  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+//  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+//  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+//  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+//  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+//  THE SOFTWARE.
+//
+//
 
 #import "SHKSinaWeibo.h"
+
+#define API_DOMAIN  @"http://api.t.sina.com.cn"
 
 @implementation SHKSinaWeibo
 
@@ -25,13 +45,10 @@
         // xAuth
 		self.xAuth = SHKSinaWeiboUseXAuth ? YES : NO;
 		
-		// -- //
-		
-		
 		// You do not need to edit these, they are the same for everyone
-        self.authorizeURL = [NSURL URLWithString:@"http://api.t.sina.com.cn/oauth/authorize"];
-	    self.requestURL = [NSURL URLWithString:@"http://api.t.sina.com.cn/oauth/request_token"];
-	    self.accessURL = [NSURL URLWithString:@"http://api.t.sina.com.cn/oauth/access_token"];
+        self.authorizeURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@/oauth/authorize", API_DOMAIN]];
+	    self.requestURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@/oauth/request_token", API_DOMAIN]];
+	    self.accessURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@/oauth/access_token", API_DOMAIN]];
 	}	
 	return self;
 }
@@ -43,6 +60,11 @@
 + (NSString *)sharerTitle
 {
 	return @"Sina Weibo";
+}
+
++ (BOOL)canShareURL
+{
+	return YES;
 }
 
 + (BOOL)canShareImage
@@ -228,7 +250,7 @@
 
 - (void)sendStatus
 {
-	OAMutableURLRequest *oRequest = [[OAMutableURLRequest alloc] initWithURL:[NSURL URLWithString:@"http://api.t.sina.com.cn/statuses/update.json"]
+	OAMutableURLRequest *oRequest = [[OAMutableURLRequest alloc] initWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/statuses/update.json", API_DOMAIN]]
                                                                     consumer:consumer
                                                                        token:accessToken
                                                                        realm:nil
@@ -261,7 +283,7 @@
 	else
 	{		
 		if (SHKDebugShowLogs)
-			SHKLog(@"Twitter Send Status Error: %@", [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease]);
+			SHKLog(@"Sina Weibo Send Status Error: %@", [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease]);
 		
 		// CREDIT: Oliver Drobnik
 		
@@ -438,7 +460,7 @@
 	// remove it so in case of other failures this doesn't get hit again
 	[item setCustomValue:nil forKey:@"followMe"];
 	
-	OAMutableURLRequest *oRequest = [[OAMutableURLRequest alloc] initWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://api.t.sina.com.cn/friendships/create/%@.json", SHKTwitterUsername]]
+	OAMutableURLRequest *oRequest = [[OAMutableURLRequest alloc] initWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/friendships/create/%@.json", API_DOMAIN, SHKSinaWeiboUsername]]
 																	consumer:consumer
 																	   token:accessToken
 																	   realm:nil
