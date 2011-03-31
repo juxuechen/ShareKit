@@ -90,7 +90,7 @@
 #define SHKSinaWeiboSecretKey       @""	// The secret key
 #define SHKSinaWeiboCallbackUrl     @""	// The user defined callback url
 #define SHKSinaWeiboUseXAuth		1   // To use xAuth, set to 1
-#define SHKSinaWeiboAppName         @""
+#define SHKSinaWeiboScreenName      @""
 #define SHKSinaWeiboUserID          @"" // Enter your app's sina weibo account if you'd like to ask the user to follow it when logging in. (Only for xAuth)
 
 // Bit.ly (for shortening URLs on Twitter) - http://bit.ly/account/register - after signup: http://bit.ly/a/your_api_key

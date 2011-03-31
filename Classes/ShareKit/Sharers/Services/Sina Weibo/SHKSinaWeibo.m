@@ -113,10 +113,15 @@
 	if ([SHKSinaWeiboUserID isEqualToString:@""])
 		return [super authorizationFormFields];
 	
-	return [NSArray arrayWithObjects:
+    NSString *followMeString = SHKLocalizedString(@"Follow us");
+    if ( ! [SHKSinaWeiboScreenName isEqualToString:@""]) {
+        followMeString = SHKLocalizedString(@"Follow %@", SHKSinaWeiboScreenName);
+    }
+    
+    return [NSArray arrayWithObjects:
 			[SHKFormFieldSettings label:SHKLocalizedString(@"Username") key:@"username" type:SHKFormFieldTypeText start:nil],
 			[SHKFormFieldSettings label:SHKLocalizedString(@"Password") key:@"password" type:SHKFormFieldTypePassword start:nil],
-			[SHKFormFieldSettings label:SHKLocalizedString(@"Follow us") key:@"followMe" type:SHKFormFieldTypeSwitch start:SHKFormFieldSwitchOn],			
+			[SHKFormFieldSettings label:followMeString key:@"followMe" type:SHKFormFieldTypeSwitch start:SHKFormFieldSwitchOn],			
 			nil];
 }
 
