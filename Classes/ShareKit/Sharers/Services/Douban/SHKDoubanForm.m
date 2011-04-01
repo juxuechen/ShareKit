@@ -214,7 +214,7 @@
 	if (textView.text.length > (hasAttachment?115:140))
 	{
 		[[[[UIAlertView alloc] initWithTitle:SHKLocalizedString(@"Message is too long")
-									 message:SHKLocalizedString(@"Twitter posts can only be 140 characters in length.")
+									 message:SHKLocalizedString(@"Posts can only be 140 characters in length.")
 									delegate:nil
 						   cancelButtonTitle:SHKLocalizedString(@"Close")
 						   otherButtonTitles:nil] autorelease] show];
