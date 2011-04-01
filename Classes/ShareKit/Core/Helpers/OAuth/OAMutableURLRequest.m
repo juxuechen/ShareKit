@@ -45,9 +45,9 @@
             realm:(NSString *)aRealm
 signatureProvider:(id<OASignatureProviding, NSObject>)aProvider
 {
-    if (self = [super initWithURL:aUrl
+    if ((self = [super initWithURL:aUrl
 					  cachePolicy:NSURLRequestReloadIgnoringCacheData
-				  timeoutInterval:10.0])
+				  timeoutInterval:10.0]))
 	{
 		consumer = [aConsumer retain];
 		
@@ -86,9 +86,9 @@ signatureProvider:(id<OASignatureProviding, NSObject>)aProvider
             nonce:(NSString *)aNonce
         timestamp:(NSString *)aTimestamp
 {
-	if (self = [super initWithURL:aUrl
+	if ((self = [super initWithURL:aUrl
 					  cachePolicy:NSURLRequestReloadIgnoringCacheData
-				  timeoutInterval:10.0])
+				  timeoutInterval:10.0]))
 	{
 		consumer = [aConsumer retain];
 		
@@ -126,6 +126,7 @@ signatureProvider:(id<OASignatureProviding, NSObject>)aProvider
 	[timestamp release];
 	[nonce release];
 	[extraOAuthParameters release];
+    [extraOAuthBaseStringParameters release];
 	[super dealloc];
 }
 
@@ -141,6 +142,17 @@ signatureProvider:(id<OASignatureProviding, NSObject>)aProvider
 	}
 	
 	[extraOAuthParameters setObject:parameterValue forKey:parameterName];
+}
+
+- (void)setOAuthBaseStringParameterName:(NSString*)parameterName withValue:(NSString*)parameterValue
+{
+    assert(parameterName && parameterValue);
+	
+	if (extraOAuthBaseStringParameters == nil) {
+		extraOAuthBaseStringParameters = [NSMutableDictionary new];
+	}
+	
+	[extraOAuthBaseStringParameters setObject:parameterValue forKey:parameterName];
 }
 
 - (void)prepare
@@ -223,6 +235,11 @@ signatureProvider:(id<OASignatureProviding, NSObject>)aProvider
 	
 	for(NSString *parameterName in [[extraOAuthParameters allKeys] sortedArrayUsingSelector:@selector(compare:)]) {
 		[parameterPairs addObject:[[OARequestParameter requestParameterWithName:[parameterName URLEncodedString] value: [[extraOAuthParameters objectForKey:parameterName] URLEncodedString]] URLEncodedNameValuePair]];
+	}
+    
+    
+    for(NSString *parameterName in [[extraOAuthBaseStringParameters allKeys] sortedArrayUsingSelector:@selector(compare:)]) {
+		[parameterPairs addObject:[[OARequestParameter requestParameterWithName:[parameterName URLEncodedString] value: [extraOAuthBaseStringParameters objectForKey:parameterName]] URLEncodedNameValuePair]];
 	}
 	
 	if (![[self valueForHTTPHeaderField:@"Content-Type"] hasPrefix:@"multipart/form-data"]) {

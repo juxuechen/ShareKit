@@ -43,6 +43,7 @@
 "Send to Twitter" = "Send to Twitter";
 
 "Message is too long" = "Message is too long";
+"Posts can only be 140 characters in length." = "Posts can only be 140 characters in length.";
 "Twitter posts can only be 140 characters in length." = "Twitter posts can only be 140 characters in length.";
 "Message is empty" = "Message is empty";
 "You must enter a message in order to post." = "You must enter a message in order to post.";

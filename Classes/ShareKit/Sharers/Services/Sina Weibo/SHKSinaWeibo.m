@@ -287,7 +287,9 @@
 	else
 	{		
 		if (SHKDebugShowLogs)
-			SHKLog(@"Sina Weibo Send Status Error: %@", [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease]);
+        {
+            SHKLog(@"Sina Weibo Send Status Error: %@", [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease]);
+        }
 		
 		// CREDIT: Oliver Drobnik
 		
@@ -316,7 +318,7 @@
 		}
 		else 
 		{
-			NSError *error = [NSError errorWithDomain:@"Twitter" code:2 userInfo:[NSDictionary dictionaryWithObject:errorMessage forKey:NSLocalizedDescriptionKey]];
+			NSError *error = [NSError errorWithDomain:@"Sina Weibo" code:2 userInfo:[NSDictionary dictionaryWithObject:errorMessage forKey:NSLocalizedDescriptionKey]];
 			[self sendDidFailWithError:error];
 		}
 	}
@@ -331,9 +333,9 @@
 	
 	NSURL *serviceURL = nil;
 	if([item customValueForKey:@"profile_update"]){
-		serviceURL = [NSURL URLWithString:@"http://api.twitter.com/1/account/update_profile_image.json"];
+		serviceURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@/account/update_profile_image.json", API_DOMAIN]];
 	} else {
-		serviceURL = [NSURL URLWithString:@"https://api.twitter.com/1/account/verify_credentials.json"];
+		serviceURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@/statuses/upload.json", API_DOMAIN]];
 	}
 	
 	OAMutableURLRequest *oRequest = [[OAMutableURLRequest alloc] initWithURL:serviceURL
@@ -341,29 +343,13 @@
 																	   token:accessToken
 																	   realm:API_DOMAIN
 														   signatureProvider:signatureProvider];
-	[oRequest setHTTPMethod:@"GET"];
 	
-	if([item customValueForKey:@"profile_update"]){
-		[oRequest prepare];
-	} else {
-		[oRequest prepare];
-        
-		NSDictionary * headerDict = [oRequest allHTTPHeaderFields];
-		NSString * oauthHeader = [NSString stringWithString:[headerDict valueForKey:@"Authorization"]];
-		
-		[oRequest release];
-		oRequest = nil;
-		
-		serviceURL = [NSURL URLWithString:@"http://img.ly/api/2/upload.xml"];
-		oRequest = [[OAMutableURLRequest alloc] initWithURL:serviceURL
-												   consumer:consumer
-													  token:accessToken
-													  realm:API_DOMAIN
-										  signatureProvider:signatureProvider];
-		[oRequest setHTTPMethod:@"POST"];
-		[oRequest setValue:@"https://api.twitter.com/1/account/verify_credentials.json" forHTTPHeaderField:@"X-Auth-Service-Provider"];
-		[oRequest setValue:oauthHeader forHTTPHeaderField:@"X-Verify-Credentials-Authorization"];
+	if( ! [item customValueForKey:@"profile_update"]){
+        [oRequest setOAuthBaseStringParameterName:@"status" withValue:[item customValueForKey:@"status"]];
 	}
+    
+    [oRequest setHTTPMethod:@"POST"];
+    [oRequest prepare];
     
 	CGFloat compression = 0.9f;
 	NSData *imageData = UIImageJPEGRepresentation([item image], compression);
@@ -389,10 +375,9 @@
 	if([item customValueForKey:@"profile_update"]){
 		dispKey = @"Content-Disposition: form-data; name=\"image\"; filename=\"upload.jpg\"\r\n";
 	} else {
-		dispKey = @"Content-Disposition: form-data; name=\"media\"; filename=\"upload.jpg\"\r\n";
+		dispKey = @"Content-Disposition: form-data; name=\"pic\"; filename=\"upload.jpg\"\r\n";
 	}
     
-	
 	[body appendData:[[NSString stringWithFormat:@"--%@\r\n",boundary] dataUsingEncoding:NSUTF8StringEncoding]];
 	[body appendData:[dispKey dataUsingEncoding:NSUTF8StringEncoding]];
 	[body appendData:[@"Content-Type: image/jpg\r\n\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
@@ -403,7 +388,7 @@
 		// no ops
 	} else {
 		[body appendData:[[NSString stringWithFormat:@"--%@\r\n",boundary] dataUsingEncoding:NSUTF8StringEncoding]];
-		[body appendData:[[NSString stringWithString:@"Content-Disposition: form-data; name=\"message\"\r\n\r\n"] dataUsingEncoding:NSUTF8StringEncoding]];
+		[body appendData:[[NSString stringWithString:@"Content-Disposition: form-data; name=\"status\"\r\n\r\n"] dataUsingEncoding:NSUTF8StringEncoding]];
 		[body appendData:[[item customValueForKey:@"status"] dataUsingEncoding:NSUTF8StringEncoding]];
 		[body appendData:[@"\r\n" dataUsingEncoding:NSUTF8StringEncoding]];	
 	}
@@ -430,11 +415,13 @@
 
 - (void)sendImageTicket:(OAServiceTicket *)ticket didFinishWithData:(NSData *)data {
 	// TODO better error handling here
+    SHKLog(@"%@", [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease]);
+    
 	// NSLog([[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease]);
 	
 	if (ticket.didSucceed) {
 		[self sendDidFinish];
-		// Finished uploading Image, now need to posh the message and url in twitter
+		// Finished uploading Image, now need to posh the message and url in sina weibo
 		NSString *dataString = [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease];
 		NSRange startingRange = [dataString rangeOfString:@"<url>" options:NSCaseInsensitiveSearch];
 		//NSLog(@"found start string at %d, len %d",startingRange.location,startingRange.length);

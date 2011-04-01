@@ -44,9 +44,11 @@
 "Send to Twitter" = "发送到 Twitter";
 
 "Message is too long" = "消息太长了";
+"Posts can only be 140 characters in length." = "消息不能超过 140 个字符。";
 "Twitter posts can only be 140 characters in length." = "Twitter 消息不能超过 140 个字符。";
 "Message is empty" = "消息为空";
 "You must enter a message in order to post." = "你必须先输入一条消息。";
+
 
 "Enter your message:" = "输入你的消息：";
 
