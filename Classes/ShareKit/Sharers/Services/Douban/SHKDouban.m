@@ -234,12 +234,14 @@
 														   signatureProvider:nil];
 	
 	[oRequest setHTTPMethod:@"POST"];
-	
-	OARequestParameter *statusParam = [[OARequestParameter alloc] initWithName:@"status"
-																		 value:[item customValueForKey:@"status"]];
-	NSArray *params = [NSArray arrayWithObjects:statusParam, nil];
-	[oRequest setParameters:params];
-	[statusParam release];
+	[oRequest addValue:@"application/atom+xml" forHTTPHeaderField:@"Content-Type"];
+    
+	NSMutableString *body = [NSMutableString stringWithFormat:@"<?xml version='1.0' encoding='UTF-8'?>"];
+    [body appendFormat:@"<entry xmlns:ns0=\"http://www.w3.org/2005/Atom\" xmlns:db=\"http://www.douban.com/xmlns/\">"];
+    [body appendFormat:@"<content><![CDATA[%@]]></content>", [item customValueForKey:@"status"]];
+    [body appendFormat:@"</entry>"];
+    
+    [oRequest setHTTPBody:[body dataUsingEncoding:NSUnicodeStringEncoding allowLossyConversion:YES]];
 	
 	OAAsynchronousDataFetcher *fetcher = [OAAsynchronousDataFetcher asynchronousFetcherWithRequest:oRequest
 																						  delegate:self
@@ -253,7 +255,9 @@
 - (void)sendStatusTicket:(OAServiceTicket *)ticket didFinishWithData:(NSData *)data 
 {	
 	// TODO better error handling here
-	
+	SHKLog(@"%@", [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease]);
+    
+    
 	if (ticket.didSucceed) 
 		[self sendDidFinish];
 	
