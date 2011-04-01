@@ -87,11 +87,16 @@
 
 // Sina Weibo 
 #define SHKSinaWeiboConsumerKey     @""	// The consumer key
-#define SHKSinaWeiboSecretKey       @""	// The secret key
+#define SHKSinaWeiboConsumerSecret  @""	// The secret key
 #define SHKSinaWeiboCallbackUrl     @""	// The user defined callback url
 #define SHKSinaWeiboUseXAuth		1   // To use xAuth, set to 1
 #define SHKSinaWeiboScreenName      @""
 #define SHKSinaWeiboUserID          @"" // Enter your app's sina weibo account if you'd like to ask the user to follow it when logging in. (Only for xAuth)
+
+// Douban
+#define SHKDoubanConsumerKey        @""	// The consumer key
+#define SHKDoubanConsumerSecret     @""	// The secret key
+#define SHKDoubanCallbackUrl        @""	// The user defined callback url
 
 // Bit.ly (for shortening URLs on Twitter) - http://bit.ly/account/register - after signup: http://bit.ly/a/your_api_key
 #define SHKBitLyLogin				@""

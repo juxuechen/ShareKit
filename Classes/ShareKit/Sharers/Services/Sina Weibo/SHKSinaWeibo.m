@@ -39,7 +39,7 @@
 	{		
         // OAuth
 		self.consumerKey = SHKSinaWeiboConsumerKey;		
-		self.secretKey = SHKSinaWeiboSecretKey;
+		self.secretKey = SHKSinaWeiboConsumerSecret;
  		self.authorizeCallbackURL = [NSURL URLWithString:SHKSinaWeiboCallbackUrl];
 		
         // xAuth
