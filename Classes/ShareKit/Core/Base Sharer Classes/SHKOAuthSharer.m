@@ -104,8 +104,10 @@
 
 - (void)tokenRequestTicket:(OAServiceTicket *)ticket didFinishWithData:(NSData *)data 
 {
-	if (SHKDebugShowLogs) // check so we don't have to alloc the string with the data if we aren't logging
-		SHKLog(@"tokenRequestTicket Response Body: %@", [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease]);
+	if (SHKDebugShowLogs) {
+        // check so we don't have to alloc the string with the data if we aren't logging
+        SHKLog(@"tokenRequestTicket Response Body: %@", [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease]);
+    }
 	
 	[[SHKActivityIndicator currentIndicator] hide];
 	
@@ -141,6 +143,13 @@
 - (void)tokenAuthorize
 {	
 	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@?oauth_token=%@", authorizeURL.absoluteString, requestToken.key]];
+    if ( ! [SHKDoubanCallbackUrl isEqualToString:@""]) {
+        url = [NSURL URLWithString:[NSString stringWithFormat:@"%@?oauth_token=%@&oauth_callback=%@", 
+                                    authorizeURL.absoluteString, 
+                                    requestToken.key, 
+                                    SHKDoubanCallbackUrl]];
+    }
+    
 	
 	SHKOAuthView *auth = [[SHKOAuthView alloc] initWithURL:url delegate:self];
 	[[SHK currentHelper] showViewController:auth];	
@@ -211,9 +220,11 @@
 
 - (void)tokenAccessTicket:(OAServiceTicket *)ticket didFinishWithData:(NSData *)data 
 {
-	if (SHKDebugShowLogs) // check so we don't have to alloc the string with the data if we aren't logging
+	if (SHKDebugShowLogs) {
+        // check so we don't have to alloc the string with the data if we aren't logging
 		SHKLog(@"tokenAccessTicket Response Body: %@", [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease]);
-	
+	}
+    
 	[[SHKActivityIndicator currentIndicator] hide];
 	
 	if (ticket.didSucceed) 

@@ -29,6 +29,8 @@
 
 #import "SHKDouban.h"
 
+#define API_DOMAIN      @"http://api.douban.com"
+
 @implementation SHKDouban
 
 - (id)init
@@ -42,9 +44,9 @@
 		
 		
 		// You do not need to edit these, they are the same for everyone
-	    self.authorizeURL = [NSURL URLWithString:@"https://Douban.com/oauth/authorize"];
-	    self.requestURL = [NSURL URLWithString:@"https://Douban.com/oauth/request_token"];
-	    self.accessURL = [NSURL URLWithString:@"https://Douban.com/oauth/access_token"]; 
+	    self.authorizeURL = [NSURL URLWithString:@"http://www.douban.com/service/auth/authorize"];
+	    self.requestURL = [NSURL URLWithString:@"http://www.douban.com/service/auth/request_token"];
+	    self.accessURL = [NSURL URLWithString:@"http://www.douban.com/service/auth/access_token"]; 
 	}	
 	return self;
 }
@@ -225,7 +227,7 @@
 
 - (void)sendStatus
 {
-	OAMutableURLRequest *oRequest = [[OAMutableURLRequest alloc] initWithURL:[NSURL URLWithString:@"http://api.Douban.com/1/statuses/update.json"]
+	OAMutableURLRequest *oRequest = [[OAMutableURLRequest alloc] initWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/miniblog/saying", API_DOMAIN]]
 																	consumer:consumer
 																	   token:accessToken
 																	   realm:nil
@@ -258,7 +260,9 @@
 	else
 	{		
 		if (SHKDebugShowLogs)
-			SHKLog(@"Douban Send Status Error: %@", [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease]);
+        {
+            SHKLog(@"Douban Send Status Error: %@", [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease]);
+        }
 		
 		// CREDIT: Oliver Drobnik
 		
