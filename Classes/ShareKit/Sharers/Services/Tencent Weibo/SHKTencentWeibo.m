@@ -28,7 +28,7 @@
 
 #import "SHKTencentWeibo.h"
 
-#define API_DOMAIN  @"http://open.t.qq.com"
+#define API_DOMAIN  @"http://open.t.qq.com/api"
 
 @implementation SHKTencentWeibo
 
@@ -262,29 +262,30 @@
 	return NO;
 }
 
+// TODO: Write it!
 - (void)sendStatus
 {
-	OAMutableURLRequest *oRequest = [[OAMutableURLRequest alloc] initWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/statuses/update.json", API_DOMAIN]]
-                                                                    consumer:consumer
-                                                                       token:accessToken
-                                                                       realm:nil
-                                                           signatureProvider:nil];
-	
-	[oRequest setHTTPMethod:@"POST"];
-	
-	OARequestParameter *statusParam = [[OARequestParameter alloc] initWithName:@"status"
-																		 value:[item customValueForKey:@"status"]];
-	NSArray *params = [NSArray arrayWithObjects:statusParam, nil];
-	[oRequest setParameters:params];
-	[statusParam release];
-	
-	OAAsynchronousDataFetcher *fetcher = [OAAsynchronousDataFetcher asynchronousFetcherWithRequest:oRequest
-                                                                                          delegate:self
-                                                                                 didFinishSelector:@selector(sendStatusTicket:didFinishWithData:)
-                                                                                   didFailSelector:@selector(sendStatusTicket:didFailWithError:)];	
-    
-	[fetcher start];
-	[oRequest release];
+//	OAMutableURLRequest *oRequest = [[OAMutableURLRequest alloc] initWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/t/add", API_DOMAIN]]
+//                                                                    consumer:consumer
+//                                                                       token:accessToken
+//                                                                       realm:nil
+//                                                           signatureProvider:nil];
+//	
+//	[oRequest setHTTPMethod:@"POST"];
+//	
+//	OARequestParameter *statusParam = [[OARequestParameter alloc] initWithName:@"status"
+//																		 value:[item customValueForKey:@"status"]];
+//	NSArray *params = [NSArray arrayWithObjects:statusParam, nil];
+//	[oRequest setParameters:params];
+//	[statusParam release];
+//	
+//	OAAsynchronousDataFetcher *fetcher = [OAAsynchronousDataFetcher asynchronousFetcherWithRequest:oRequest
+//                                                                                          delegate:self
+//                                                                                 didFinishSelector:@selector(sendStatusTicket:didFinishWithData:)
+//                                                                                   didFailSelector:@selector(sendStatusTicket:didFailWithError:)];	
+//    
+//	[fetcher start];
+//	[oRequest release];
 }
 
 - (void)sendStatusTicket:(OAServiceTicket *)ticket didFinishWithData:(NSData *)data 
@@ -339,91 +340,94 @@
 	[self sendDidFailWithError:error];
 }
 
-- (void)sendImage {
-	
-	NSURL *serviceURL = nil;
-	if([item customValueForKey:@"profile_update"]){
-		serviceURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@/account/update_profile_image.json", API_DOMAIN]];
-	} else {
-		serviceURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@/statuses/upload.json", API_DOMAIN]];
-	}
-	
-	OAMutableURLRequest *oRequest = [[OAMutableURLRequest alloc] initWithURL:serviceURL
-																	consumer:consumer
-																	   token:accessToken
-																	   realm:API_DOMAIN
-														   signatureProvider:signatureProvider];
-	
-	if( ! [item customValueForKey:@"profile_update"]){
-        [oRequest setOAuthBaseStringParameterName:@"status" withValue:[item customValueForKey:@"status"]];
-	}
-    
-    [oRequest setHTTPMethod:@"POST"];
-    [oRequest prepare];
-    
-	CGFloat compression = 0.9f;
-	NSData *imageData = UIImageJPEGRepresentation([item image], compression);
-	
-	// TODO
-	// Note from Nate to creator of sendImage method - This seems like it could be a source of sluggishness.
-	// For example, if the image is large (say 3000px x 3000px for example), it would be better to resize the image
-	// to an appropriate size (max of img.ly) and then start trying to compress.
-	
-	while ([imageData length] > 700000 && compression > 0.1) {
-		// NSLog(@"Image size too big, compression more: current data size: %d bytes",[imageData length]);
-		compression -= 0.1;
-		imageData = UIImageJPEGRepresentation([item image], compression);
-		
-	}
-	
-	NSString *boundary = @"0xKhTmLbOuNdArY";
-	NSString *contentType = [NSString stringWithFormat:@"multipart/form-data; boundary=%@",boundary];
-	[oRequest setValue:contentType forHTTPHeaderField:@"Content-Type"];
-	
-	NSMutableData *body = [NSMutableData data];
-	NSString *dispKey = @"";
-	if([item customValueForKey:@"profile_update"]){
-		dispKey = @"Content-Disposition: form-data; name=\"image\"; filename=\"upload.jpg\"\r\n";
-	} else {
-		dispKey = @"Content-Disposition: form-data; name=\"pic\"; filename=\"upload.jpg\"\r\n";
-	}
-    
-	[body appendData:[[NSString stringWithFormat:@"--%@\r\n",boundary] dataUsingEncoding:NSUTF8StringEncoding]];
-	[body appendData:[dispKey dataUsingEncoding:NSUTF8StringEncoding]];
-	[body appendData:[@"Content-Type: image/jpg\r\n\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
-	[body appendData:imageData];
-	[body appendData:[@"\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
-	
-	if([item customValueForKey:@"profile_update"]){
-		// no ops
-	} else {
-		[body appendData:[[NSString stringWithFormat:@"--%@\r\n",boundary] dataUsingEncoding:NSUTF8StringEncoding]];
-		[body appendData:[[NSString stringWithString:@"Content-Disposition: form-data; name=\"status\"\r\n\r\n"] dataUsingEncoding:NSUTF8StringEncoding]];
-		[body appendData:[[item customValueForKey:@"status"] dataUsingEncoding:NSUTF8StringEncoding]];
-		[body appendData:[@"\r\n" dataUsingEncoding:NSUTF8StringEncoding]];	
-	}
-	
-	[body appendData:[[NSString stringWithFormat:@"--%@--\r\n",boundary] dataUsingEncoding:NSUTF8StringEncoding]];
-	
-	// setting the body of the post to the reqeust
-	[oRequest setHTTPBody:body];
-    
-	// Notify delegate
-	[self sendDidStart];
-    
-	// Start the request
-	OAAsynchronousDataFetcher *fetcher = [OAAsynchronousDataFetcher asynchronousFetcherWithRequest:oRequest
-																						  delegate:self
-																				 didFinishSelector:@selector(sendImageTicket:didFinishWithData:)
-																				   didFailSelector:@selector(sendImageTicket:didFailWithError:)];	
-	
-	[fetcher start];
-	
-	
-	[oRequest release];
+// TODO: Write it!
+- (void)sendImage 
+{
+//	
+//	NSURL *serviceURL = nil;
+//	if([item customValueForKey:@"profile_update"]){
+//		serviceURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@/user/update_head", API_DOMAIN]];
+//	} else {
+//		serviceURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@/t/add_pic", API_DOMAIN]];
+//	}
+//	
+//	OAMutableURLRequest *oRequest = [[OAMutableURLRequest alloc] initWithURL:serviceURL
+//																	consumer:consumer
+//																	   token:accessToken
+//																	   realm:API_DOMAIN
+//														   signatureProvider:signatureProvider];
+//	
+//	if( ! [item customValueForKey:@"profile_update"]){
+//        [oRequest setOAuthBaseStringParameterName:@"status" withValue:[item customValueForKey:@"status"]];
+//	}
+//    
+//    [oRequest setHTTPMethod:@"POST"];
+//    [oRequest prepare];
+//    
+//	CGFloat compression = 0.9f;
+//	NSData *imageData = UIImageJPEGRepresentation([item image], compression);
+//	
+//	// TODO
+//	// Note from Nate to creator of sendImage method - This seems like it could be a source of sluggishness.
+//	// For example, if the image is large (say 3000px x 3000px for example), it would be better to resize the image
+//	// to an appropriate size (max of img.ly) and then start trying to compress.
+//	
+//	while ([imageData length] > 700000 && compression > 0.1) {
+//		// NSLog(@"Image size too big, compression more: current data size: %d bytes",[imageData length]);
+//		compression -= 0.1;
+//		imageData = UIImageJPEGRepresentation([item image], compression);
+//		
+//	}
+//	
+//	NSString *boundary = @"0xKhTmLbOuNdArY";
+//	NSString *contentType = [NSString stringWithFormat:@"multipart/form-data; boundary=%@",boundary];
+//	[oRequest setValue:contentType forHTTPHeaderField:@"Content-Type"];
+//	
+//	NSMutableData *body = [NSMutableData data];
+//	NSString *dispKey = @"";
+//	if([item customValueForKey:@"profile_update"]){
+//		dispKey = @"Content-Disposition: form-data; name=\"image\"; filename=\"upload.jpg\"\r\n";
+//	} else {
+//		dispKey = @"Content-Disposition: form-data; name=\"pic\"; filename=\"upload.jpg\"\r\n";
+//	}
+//    
+//	[body appendData:[[NSString stringWithFormat:@"--%@\r\n",boundary] dataUsingEncoding:NSUTF8StringEncoding]];
+//	[body appendData:[dispKey dataUsingEncoding:NSUTF8StringEncoding]];
+//	[body appendData:[@"Content-Type: image/jpg\r\n\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
+//	[body appendData:imageData];
+//	[body appendData:[@"\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
+//	
+//	if([item customValueForKey:@"profile_update"]){
+//		// no ops
+//	} else {
+//		[body appendData:[[NSString stringWithFormat:@"--%@\r\n",boundary] dataUsingEncoding:NSUTF8StringEncoding]];
+//		[body appendData:[[NSString stringWithString:@"Content-Disposition: form-data; name=\"status\"\r\n\r\n"] dataUsingEncoding:NSUTF8StringEncoding]];
+//		[body appendData:[[item customValueForKey:@"status"] dataUsingEncoding:NSUTF8StringEncoding]];
+//		[body appendData:[@"\r\n" dataUsingEncoding:NSUTF8StringEncoding]];	
+//	}
+//	
+//	[body appendData:[[NSString stringWithFormat:@"--%@--\r\n",boundary] dataUsingEncoding:NSUTF8StringEncoding]];
+//	
+//	// setting the body of the post to the reqeust
+//	[oRequest setHTTPBody:body];
+//    
+//	// Notify delegate
+//	[self sendDidStart];
+//    
+//	// Start the request
+//	OAAsynchronousDataFetcher *fetcher = [OAAsynchronousDataFetcher asynchronousFetcherWithRequest:oRequest
+//																						  delegate:self
+//																				 didFinishSelector:@selector(sendImageTicket:didFinishWithData:)
+//																				   didFailSelector:@selector(sendImageTicket:didFailWithError:)];	
+//	
+//	[fetcher start];
+//	
+//	
+//	[oRequest release];
 }
 
-- (void)sendImageTicket:(OAServiceTicket *)ticket didFinishWithData:(NSData *)data {
+- (void)sendImageTicket:(OAServiceTicket *)ticket didFinishWithData:(NSData *)data 
+{
 	// TODO better error handling here
     SHKLog(@"%@", [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease]);
     
@@ -451,7 +455,8 @@
 	}
 }
 
-- (void)sendImageTicket:(OAServiceTicket *)ticket didFailWithError:(NSError*)error {
+- (void)sendImageTicket:(OAServiceTicket *)ticket didFailWithError:(NSError*)error 
+{
 	[self sendDidFailWithError:error];
 }
 
