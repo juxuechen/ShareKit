@@ -193,7 +193,12 @@
 
 - (void)show
 {
-	if (item.shareType == SHKShareTypeImage)
+    if (item.shareType == SHKShareTypeURL)
+	{
+		[self shortenURL];
+	}
+	
+    else if (item.shareType == SHKShareTypeImage)
 	{
 		[item setCustomValue:item.title forKey:@"status"];
 		[self showSinaWeiboForm];
@@ -228,6 +233,63 @@
 	[self tryToSend];
 }
 
+#pragma mark -
+
+#pragma mark -
+
+- (void)shortenURL
+{	
+	if (![SHK connected])
+	{
+		[item setCustomValue:[NSString stringWithFormat:@"%@: %@", item.title, [item.URL.absoluteString stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]] forKey:@"status"];
+		[self showSinaWeiboForm];		
+		return;
+	}
+    
+	if (!quiet)
+		[[SHKActivityIndicator currentIndicator] displayActivity:SHKLocalizedString(@"Shortening URL...")];
+	
+	self.request = [[[SHKRequest alloc] initWithURL:[NSURL URLWithString:[NSMutableString stringWithFormat:@"http://api.bit.ly/v3/shorten?login=%@&apikey=%@&longUrl=%@&format=txt",
+																		  SHKBitLyLogin,
+																		  SHKBitLyKey,																		  
+																		  SHKEncodeURL(item.URL)
+																		  ]]
+											 params:nil
+										   delegate:self
+								 isFinishedSelector:@selector(shortenURLFinished:)
+											 method:@"GET"
+										  autostart:YES] autorelease];
+}
+
+- (void)shortenURLFinished:(SHKRequest *)aRequest
+{
+	[[SHKActivityIndicator currentIndicator] hide];
+	
+	NSString *result = [[aRequest getResult] stringByTrimmingCharactersInSet:[NSCharacterSet newlineCharacterSet]];
+	
+	if (result == nil || [NSURL URLWithString:result] == nil)
+	{
+		// TODO - better error message
+		[[[[UIAlertView alloc] initWithTitle:SHKLocalizedString(@"Shorten URL Error")
+									 message:SHKLocalizedString(@"We could not shorten the URL.")
+									delegate:nil
+						   cancelButtonTitle:SHKLocalizedString(@"Continue")
+						   otherButtonTitles:nil] autorelease] show];
+		
+		[item setCustomValue:[NSString stringWithFormat:@"%@ %@", item.text ? item.text : item.title, [item.URL.absoluteString stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]] forKey:@"status"];
+	}
+	
+	else
+	{		
+		///if already a bitly login, use url instead
+		if ([result isEqualToString:@"ALREADY_A_BITLY_LINK"])
+			result = [item.URL.absoluteString stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+		
+		[item setCustomValue:[NSString stringWithFormat:@"%@ %@", item.text ? item.text : item.title, result] forKey:@"status"];
+	}
+	
+	[self showSinaWeiboForm];
+}
 
 #pragma mark -
 #pragma mark Share API Methods

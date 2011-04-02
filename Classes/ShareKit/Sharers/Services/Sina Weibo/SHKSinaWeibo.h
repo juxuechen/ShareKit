@@ -27,12 +27,12 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "SHK.h"
 #import "SHKOAuthSharer.h"
 #import "SHKSinaWeiboForm.h"
 
 
-@interface SHKSinaWeibo : SHKOAuthSharer {
+@interface SHKSinaWeibo : SHKOAuthSharer 
+{
     BOOL xAuth;		
 }
     
@@ -46,6 +46,9 @@
     
 #pragma mark -
 #pragma mark Share API Methods
+
+- (void)shortenURL;
+- (void)shortenURLFinished:(SHKRequest *)aRequest;
     
 - (void)sendForm:(SHKSinaWeiboForm *)form;
     
