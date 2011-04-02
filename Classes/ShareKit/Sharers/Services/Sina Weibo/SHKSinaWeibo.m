@@ -2,7 +2,8 @@
 //  SHKSinaWeibo.m
 //  ShareKit
 //
-//  Created by Nathan icyleaf on 11-03-31.
+//  Created by icyleaf on 11-03-31.
+//  Copyright 2011 icyleaf.com. All rights reserved.
 
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
