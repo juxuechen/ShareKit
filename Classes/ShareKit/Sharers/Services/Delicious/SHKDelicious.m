@@ -41,7 +41,7 @@
 
 - (id)init
 {
-	if (self = [super init])
+	if ((self = [super init]))
 	{		
 		self.consumerKey = SHKDeliciousConsumerKey;		
 		self.secretKey = SHKDeliciousSecretKey;
@@ -189,8 +189,11 @@
 	
 	else 
 	{	
-		if (SHKDebugShowLogs) // check so we don't have to alloc the string with the data if we aren't logging
+		if (SHKDebugShowLogs) 
+        {
+            // check so we don't have to alloc the string with the data if we aren't logging
 			SHKLog(@"SHKDelicious sendTicket Response Body: %@", [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease]);
+        }
 		
 		// Look for oauth problems		
 		// TODO - I'd prefer to use regex for this but that would require OS4 or adding a regex library
