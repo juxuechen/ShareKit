@@ -90,13 +90,18 @@
 #define SHKSinaWeiboConsumerSecret  @""	// The secret key
 #define SHKSinaWeiboCallbackUrl     @""	// The user defined callback url
 #define SHKSinaWeiboUseXAuth		1   // To use xAuth, set to 1
-#define SHKSinaWeiboScreenName      @""
+#define SHKSinaWeiboScreenName      @"" // Enter your sina weibo screen name
 #define SHKSinaWeiboUserID          @"" // Enter your app's sina weibo account if you'd like to ask the user to follow it when logging in. (Only for xAuth)
 
 // Douban
 #define SHKDoubanConsumerKey        @""	// The consumer key
 #define SHKDoubanConsumerSecret     @""	// The secret key
 #define SHKDoubanCallbackUrl        @""	// The user defined callback url
+
+// Tencent Weibo 
+#define SHKTencentWeiboConsumerKey      @""	// The consumer key
+#define SHKTencentWeiboConsumerSecret   @""	// The secret key
+#define SHKTencentWeiboCallbackUrl      @""	// The user defined callback url
 
 // Bit.ly (for shortening URLs on Twitter) - http://bit.ly/account/register - after signup: http://bit.ly/a/your_api_key
 #define SHKBitLyLogin				@""
@@ -163,12 +168,12 @@
  */
 
 // A : show debug output
-//#define SHKDebugShowLogs			1
-//#define SHKLog( s, ... ) NSLog( @"<%p %@:(%d)> %@", self, [[NSString stringWithUTF8String:__FILE__] lastPathComponent], __LINE__, [NSString stringWithFormat:(s), ##__VA_ARGS__] )
+#define SHKDebugShowLogs			1
+#define SHKLog( s, ... ) NSLog( @"<%p %@:(%d)> %@", self, [[NSString stringWithUTF8String:__FILE__] lastPathComponent], __LINE__, [NSString stringWithFormat:(s), ##__VA_ARGS__] )
 
 // B : hide debug output
-#define SHKDebugShowLogs			0
-#define SHKLog( s, ... ) 
+//#define SHKDebugShowLogs			0
+//#define SHKLog( s, ... ) 
 
 
 

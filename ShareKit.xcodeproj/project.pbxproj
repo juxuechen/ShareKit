@@ -110,6 +110,8 @@
 		ACA483431343679900A03B1F /* SHKSinaWeiboForm.m in Sources */ = {isa = PBXBuildFile; fileRef = ACA483411343679900A03B1F /* SHKSinaWeiboForm.m */; };
 		ACA8F4781345E3E80058C93D /* SHKDouban.m in Sources */ = {isa = PBXBuildFile; fileRef = ACA8F4751345E3E80058C93D /* SHKDouban.m */; };
 		ACA8F4791345E3E80058C93D /* SHKDoubanForm.m in Sources */ = {isa = PBXBuildFile; fileRef = ACA8F4771345E3E80058C93D /* SHKDoubanForm.m */; };
+		ACA8F53D1347087D0058C93D /* SHKTencentWeibo.m in Sources */ = {isa = PBXBuildFile; fileRef = ACA8F53A1347087D0058C93D /* SHKTencentWeibo.m */; };
+		ACA8F53E1347087D0058C93D /* SHKTencentWeiboForm.m in Sources */ = {isa = PBXBuildFile; fileRef = ACA8F53C1347087D0058C93D /* SHKTencentWeiboForm.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -325,6 +327,10 @@
 		ACA8F4751345E3E80058C93D /* SHKDouban.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKDouban.m; sourceTree = "<group>"; };
 		ACA8F4761345E3E80058C93D /* SHKDoubanForm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKDoubanForm.h; sourceTree = "<group>"; };
 		ACA8F4771345E3E80058C93D /* SHKDoubanForm.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKDoubanForm.m; sourceTree = "<group>"; };
+		ACA8F5391347087D0058C93D /* SHKTencentWeibo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKTencentWeibo.h; sourceTree = "<group>"; };
+		ACA8F53A1347087D0058C93D /* SHKTencentWeibo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKTencentWeibo.m; sourceTree = "<group>"; };
+		ACA8F53B1347087D0058C93D /* SHKTencentWeiboForm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKTencentWeiboForm.h; sourceTree = "<group>"; };
+		ACA8F53C1347087D0058C93D /* SHKTencentWeiboForm.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKTencentWeiboForm.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -736,6 +742,7 @@
 		43A536C011DBE3B9004A1712 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				ACA8F5381347087C0058C93D /* Tencent Weibo */,
 				ACA8F4731345E3E80058C93D /* Douban */,
 				ACA4833D1343679900A03B1F /* Sina Weibo */,
 				43A536C111DBE3B9004A1712 /* Delicious */,
@@ -931,6 +938,17 @@
 			path = Douban;
 			sourceTree = "<group>";
 		};
+		ACA8F5381347087C0058C93D /* Tencent Weibo */ = {
+			isa = PBXGroup;
+			children = (
+				ACA8F5391347087D0058C93D /* SHKTencentWeibo.h */,
+				ACA8F53A1347087D0058C93D /* SHKTencentWeibo.m */,
+				ACA8F53B1347087D0058C93D /* SHKTencentWeiboForm.h */,
+				ACA8F53C1347087D0058C93D /* SHKTencentWeiboForm.m */,
+			);
+			path = "Tencent Weibo";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1096,6 +1114,8 @@
 				ACA483431343679900A03B1F /* SHKSinaWeiboForm.m in Sources */,
 				ACA8F4781345E3E80058C93D /* SHKDouban.m in Sources */,
 				ACA8F4791345E3E80058C93D /* SHKDoubanForm.m in Sources */,
+				ACA8F53D1347087D0058C93D /* SHKTencentWeibo.m in Sources */,
+				ACA8F53E1347087D0058C93D /* SHKTencentWeiboForm.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
