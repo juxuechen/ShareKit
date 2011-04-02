@@ -143,11 +143,11 @@
 - (void)tokenAuthorize
 {	
 	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@?oauth_token=%@", authorizeURL.absoluteString, requestToken.key]];
-    if ( ! [SHKDoubanCallbackUrl isEqualToString:@""]) {
+    if ( ! [[authorizeCallbackURL absoluteString] isEqualToString:@""]) {
         url = [NSURL URLWithString:[NSString stringWithFormat:@"%@?oauth_token=%@&oauth_callback=%@", 
                                     authorizeURL.absoluteString, 
                                     requestToken.key, 
-                                    SHKDoubanCallbackUrl]];
+                                    [authorizeCallbackURL absoluteString]]];
     }
     
 	
