@@ -170,8 +170,9 @@
 			[sectionData addObject:[NSDictionary dictionaryWithObjectsAndKeys:sharerClassName,@"className",[class sharerTitle],@"name",nil]];
 	}
 
-	if (sectionData.count && SHKShareMenuAlphabeticalOrder)
-		[sectionData sortUsingDescriptors:[NSArray arrayWithObject:[[[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES selector:@selector(localizedCaseInsensitiveCompare:)] autorelease]]];
+    // Sort source menu by manually in SHKSharers.plist
+//	if (sectionData.count && SHKShareMenuAlphabeticalOrder)
+//		[sectionData sortUsingDescriptors:[NSArray arrayWithObject:[[[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES selector:@selector(localizedCaseInsensitiveCompare:)] autorelease]]];
 	
 	return sectionData;
 }
