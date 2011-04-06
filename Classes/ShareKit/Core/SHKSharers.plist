@@ -13,7 +13,6 @@
 	<key>services</key>
 	<array>
 		<string>SHKSinaWeibo</string>
-		<string>SHKTencentWeibo</string>
 		<string>SHKDouban</string>
 		<string>SHKEvernote</string>
 		<string>SHKTwitter</string>
