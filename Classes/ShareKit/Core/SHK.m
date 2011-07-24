@@ -33,7 +33,8 @@
 #import "SFHFKeychainUtils.h"
 #import "Reachability.h"
 #import <MessageUI/MessageUI.h>
-
+#import <objc/runtime.h>
+#import <objc/message.h>
 
 @implementation SHK
 
