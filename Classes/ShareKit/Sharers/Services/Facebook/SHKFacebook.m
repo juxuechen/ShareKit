@@ -148,16 +148,16 @@
 		dialog.delegate = self;
 		dialog.userMessagePrompt = SHKLocalizedString(@"Enter your message:");
 
+    // http://developers.facebook.com/docs/reference/dialogs/feed/
+    NSArray *keys = [@"message picture source caption description properties actions" componentsSeparatedByString:@" "];
+    
 		NSMutableString *additionnalData = [NSMutableString string];
-		if ([item customValueForKey:@"caption"])
-		{
-			[additionnalData appendFormat:@"\"caption\":\"%@\",", SHKEncode([item customValueForKey:@"caption"])];
-		}
-		if ([item customValueForKey:@"description"])
-		{
-			NSString *description = [[item customValueForKey:@"description"] stringByReplacingOccurrencesOfString:@"\n" withString:@"\\n"];
-			[additionnalData appendFormat:@"\"description\":\"%@\",", SHKEncode(description)];
-		}
+    for (NSString *key in keys) {
+      if([item customValueForKey:key]) {
+        NSString *text = [[item customValueForKey:key] stringByReplacingOccurrencesOfString:@"\n" withString:@"\\n"];
+        [additionnalData appendFormat:@"\"%@\":\"%@\",", key, SHKEncode(text)];
+      }
+    }
 
 		// Auto-detect Dailymotion links and generate an attached embed player
 		if ([item.URL.host hasSuffix:@"dailymotion.com"])
@@ -191,7 +191,7 @@
 		dialog.attachment = [NSString stringWithFormat:
 							 @"{%@\
 							 \"name\":\"%@\",\
-							 \"href\":\"%@\"\
+							 \"link\":\"%@\"\
 							 }",
 							 additionnalData,
 							 item.title == nil ? SHKEncodeURL(item.URL) : SHKEncode(item.title),
