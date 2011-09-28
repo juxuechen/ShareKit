@@ -7,7 +7,8 @@
 // http://getsharekit.com/install
 
 
-
+#define kSHKEmailShouldShortenURLs NO
+#define kSHKCopyShouldShortenURLs  NO
 
 
 
@@ -36,17 +37,16 @@
  leaving that decision up to the user.
  */
 
-
 // Evernote - http://www.evernote.com/about/developer/api/
 
-#define SHKEvernoteUserStoreURL     @"https://sandbox.evernote.com/edam/user"
-#define SHKEvernoteNetStoreURLBase  @"http://sandbox.evernote.com/edam/note/"
-#define SHKEvernoteConsumerKey      @""
-#define SHKEvernoteSecretKey        @""
+#define kEvernoteUserStoreURL    @"https://sandbox.evernote.com/edam/user"
+#define kEvernoteNetStoreURLBase @"http://sandbox.evernote.com/edam/note/"
+#define SHKEvernoteConsumerKey   @""
+#define SHKEvernoteSecretKey     @""
 // If your Consumer Key is activated by Evernote support,
-// change these constants to the following.
-//#define SHKEvernoteUserStoreURL    @"https://www.evernote.com/edam/user"
-//#define SHKEvernoteNetStoreURLBase @"http://www.evernote.com/edam/note/"
+// change these constants following.
+//#define kEvernoteUserStoreURL    @"https://www.evernote.com/edam/user"
+//#define kEvernoteNetStoreURLBase @"http://www.evernote.com/edam/note/"
 
 // Delicious - https://developer.apps.yahoo.com/projects
 #define SHKDeliciousConsumerKey		@""
@@ -113,7 +113,8 @@
 // Append 'Shared With 'Signature to Email (and related forms)
 #define SHKSharedWithSignature		0
 
-
+// TwitPic http://dev.twitpic.com/
+#define SHKTwitPicAPIKey            @""
 
 /*
  UI Configuration : Basic
@@ -140,12 +141,6 @@
 #define SHKModalPresentationStyle	@"UIModalPresentationFormSheet" // See: http://developer.apple.com/iphone/library/documentation/UIKit/Reference/UIViewController_Class/Reference/Reference.html#//apple_ref/occ/instp/UIViewController/modalPresentationStyle
 #define SHKModalTransitionStyle		@"UIModalTransitionStyleCoverVertical" // See: http://developer.apple.com/iphone/library/documentation/UIKit/Reference/UIViewController_Class/Reference/Reference.html#//apple_ref/occ/instp/UIViewController/modalTransitionStyle
 
-// ShareMenu Ordering
-#define SHKShareMenuAlphabeticalOrder 1 // Setting this to 1 will show list in Alphabetical Order, setting to 0 will follow the order in SHKShares.plist
-
-// Append 'Shared With 'Signature to Email (and related forms)
-#define SHKSharedWithSignature		0
-
 /*
  UI Configuration : Advanced
  ------
@@ -158,23 +153,16 @@
 /*
  Debugging
  ------
- To show debug output in the console:
- 1. uncomment section A below
- 2. comment out section B below
- 
- To hide debug output in the console:
- 1. uncomment section B below
- 2. comment out section A below
+ To show debug output in the console, define _SHKDebugShowLogs somewhere.
  */
 
-// A : show debug output
-#define SHKDebugShowLogs			1
-#define SHKLog( s, ... ) NSLog( @"<%p %@:(%d)> %@", self, [[NSString stringWithUTF8String:__FILE__] lastPathComponent], __LINE__, [NSString stringWithFormat:(s), ##__VA_ARGS__] )
-
-// B : hide debug output
-//#define SHKDebugShowLogs			0
-//#define SHKLog( s, ... ) 
-
+#ifdef _SHKDebugShowLogs
+	#define SHKDebugShowLogs			1
+	#define SHKLog( s, ... ) NSLog( @"<%p %@:(%d)> %@", self, [[NSString stringWithUTF8String:__FILE__] lastPathComponent], __LINE__, [NSString stringWithFormat:(s), ##__VA_ARGS__] )
+#else
+	#define SHKDebugShowLogs			0
+	#define SHKLog( s, ... )
+#endif
 
 
 /*

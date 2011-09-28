@@ -43,6 +43,11 @@ static FBSession* sharedSession = nil;
   return sharedSession;
 }
 
++ (void)logout {
+  [[FBSession session] logout];
+  [FBSession deleteFacebookCookies];
+}
+
 + (void)setSession:(FBSession*)session {
   sharedSession = session;
 }
@@ -51,7 +56,7 @@ static FBSession* sharedSession = nil;
     delegate:(id<FBSessionDelegate>)delegate {
   FBSession* session = [[[FBSession alloc] initWithKey:key secret:secret
     getSessionProxy:nil] autorelease];
-  [session.delegates addObject:delegate];
+  if (delegate) [session.delegates addObject:delegate];
   return session;
 }
 
@@ -59,7 +64,7 @@ static FBSession* sharedSession = nil;
     delegate:(id<FBSessionDelegate>)delegate {
   FBSession* session = [[[FBSession alloc] initWithKey:key secret:nil
     getSessionProxy:getSessionProxy] autorelease];
-  [session.delegates addObject:delegate];
+  if (delegate) [session.delegates addObject:delegate];
   return session;
 }
 
@@ -214,6 +219,23 @@ static FBSession* sharedSession = nil;
   return !!_sessionKey;
 }
 
+/////////////////////////////////////////////////////////////
+// gcorrales: Added support to remove and add delegates in 
+// order to support distributed notification of events.
+/////////////////////////////////////////////////////////////
+- (void)addDelegate:(id<FBSessionDelegate>)delegate {
+	if (_delegates != nil) {
+		[_delegates addObject:delegate];
+	}
+}
+
+- (void)removeDelegate:(id<FBSessionDelegate>)delegate {
+	if (_delegates != nil) {
+		[_delegates removeObject:delegate];
+	}
+}
+/////////////////////////////////////////////////////////////
+
 - (void)begin:(FBUID)uid sessionKey:(NSString*)sessionKey
     sessionSecret:(NSString*)sessionSecret expires:(NSDate*)expires {
   _uid = uid;
@@ -262,7 +284,7 @@ static FBSession* sharedSession = nil;
       }
     }
 
-    [self deleteFacebookCookies];
+    [FBSession deleteFacebookCookies];
     
 
     _uid = 0;
@@ -280,7 +302,7 @@ static FBSession* sharedSession = nil;
       }
     }
   } else {
-    [self deleteFacebookCookies];
+    [FBSession deleteFacebookCookies];
     [self unsave];
   }
 }
@@ -289,7 +311,7 @@ static FBSession* sharedSession = nil;
   [self performRequest:request enqueue:YES];
 }
 
-- (void)deleteFacebookCookies {
++ (void)deleteFacebookCookies {
 		NSHTTPCookieStorage* cookies = [NSHTTPCookieStorage sharedHTTPCookieStorage];
     NSArray* facebookCookies = [cookies cookiesForURL:
       [NSURL URLWithString:@"http://login.facebook.com"]];

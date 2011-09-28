@@ -72,11 +72,7 @@
 		UIImageWriteToSavedPhotosAlbum(item.image, nil, nil, nil);
 	
 	// Notify user
-	[[SHKActivityIndicator currentIndicator] displayCompleted:SHKLocalizedString(@"Copied!")];
-	
-	// Notify delegate, but quietly
-	self.quiet = YES;
-	[self sendDidFinish];
+	[[SHKActivityIndicator currentIndicator] displayCompleted:SHKLocalizedString(@"Saved!")];
 	
 	return YES;
 }

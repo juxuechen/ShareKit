@@ -16,15 +16,15 @@
 "Notes" = "Notes";
 "Note" = "Note";
 "Share" = "Partage";
-"Shared" = "Partag√©";
+"Shared" = "Partagé";
 "Edit" = "Modifier";
 "Actions" = "Actions";
 "Services" = "Services";
-"Send to %@" = "Envoyer √† %@";
+"Send to %@" = "Envoyer à %@";
 "Copy" = "Copier";
-"Copied!" = "Copi√©!";
+"Copied!" = "Copié!";
 "Saving to %@" = "Sauvegarde en cours sous %@";
-"Saved!" = "Enregistr√©!";
+"Saved!" = "Enregistré!";
 "Offline" = "Hors ligne";
 "Error" = "Erreur";
 "Login" = "Connexion";
@@ -32,66 +32,65 @@
 "Login Error" = "Erreur de connexion";
 "Connecting..." = "En cours de connexion...";
 
-"Shortening URL..." = "URL acourt√©e...";
-"Shorten URL Error" = "Erreur d'URL accourt√©e";
-"We could not shorten the URL." = "L'URL n'a pu √™tre accourt√©e.";
+"Shortening URL..." = "URL écourtée...";
+"Shorten URL Error" = "Erreur d'URL écourtée";
+"We could not shorten the URL." = "L'URL n'a pu être écourtée.";
 
-"Create a free account at %@" = "Cr√©er un compte gratuitement sur %@";
-"Create an account at %@" = "Cr√©er un compte sur %@";
+"Create a free account at %@" = "Créer un compte gratuitement sur %@";
+"Create an account at %@" = "Créer un compte sur %@";
 
 "Send to Twitter" = "Envoyer sur Twitter";
 
 "Message is too long" = "Message trop long";
-"Twitter posts can only be 140 characters in length." = "Les messages Twitter ne peuvent d√©passer 140 caract√®res.";
+"Twitter posts can only be 140 characters in length." = "Les messages Twitter ne peuvent dépasser 140 caractères.";
 "Message is empty" = "Message is empty";
 "You must enter a message in order to post." = "Veuillez taper un message afin de l'envoyer.";
 
 "Enter your message:" = "Tapez votre message:";
 
 "Invalid email or password." = "E-mail ou mot de passe incorrect";
-"The service encountered an error. Please try again later." = "Ce service n'est pas disponible actuellement. Veuillez r√©essayer ult√©rieurement.";
-"There was a sending your post to Tumblr." = "Votre message n'a pas pu √™tre envoyer sur Tumblr.";
+"The service encountered an error. Please try again later." = "Ce service n'est pas disponible actuellement. Veuillez réessayer ultérieurement.";
+"There was a sending your post to Tumblr." = "Votre message n'a pas pu être envoyer sur Tumblr.";
 
-"There was an error saving to Pinboard" = "Une erreur a emp√™cher la sauvegarde sur Pinboard";
+"There was an error saving to Pinboard" = "Une erreur a empêché la sauvegarde sur Pinboard";
 
-"Sorry, Instapaper did not accept your credentials. Please try again." = "D√©sol√©, Instapaper n'a pas accept√© vos informations de connexion. Veuillez r√©essayer .";
-"Sorry, Instapaper encountered an error. Please try again." = "D√©sol√©, une erreur est survenue sur Instapaper.  Veuillez r√©essayer ult√©rieurement.";
-"There was a problem saving to Instapaper." = "Une erreur a emp√™cher la sauvegarde sur Instapaper.";
+"Sorry, Instapaper did not accept your credentials. Please try again." = "Désolé, Instapaper n'a pas accepté vos informations de connexion. Veuillez réessayer .";
+"Sorry, Instapaper encountered an error. Please try again." = "Désolé, une erreur est survenue sur Instapaper.  Veuillez réessayer ultérieurement.";
+"There was a problem saving to Instapaper." = "Une erreur a empêché la sauvegarde sur Instapaper.";
 
 "Incorrect username and password" = "Nom d'utilisateur ou mot de passe incorrect";
-"There was an error logging into Google Reader" = "Une erreur est survenue lors de la connexion √† votre compte Google Reader";
-"There was a problem authenticating your account." = "Votre compte n'a pas pu √™tre identifi√©.";
-"There was a problem saving your note." = "Votre note n'a pas pu √™tre sauvegard√©e.";
+"There was an error logging into Google Reader" = "Une erreur est survenue lors de la connexion à votre compte Google Reader";
+"There was a problem authenticating your account." = "Votre compte n'a pas pu être identifié.";
+"There was a problem saving your note." = "Votre note n'a pas pu être sauvegardée.";
 
-"There was a problem saving to Delicious." = "Une erreur a emp√™cher la sauvegarde sur Delicious.";
+"There was a problem saving to Delicious." = "Une erreur a empêché la sauvegarde sur Delicious.";
 
-"Open in Safari" = "Ouvrir sous Safari";
-"Attached: %@" = "Pi√®ce jointe: %@";
+"Open in Safari" = "Ouvrir dans Safari";
+"Attached: %@" = "Pièce jointe: %@";
 
-"You must be online to login to %@" = "Vous devez √™tre connecter √† internet pour vous connecter sur %@";
+"You must be online to login to %@" = "Vous devez être connecté à Internet pour vous connecter sur %@";
 
 "Auto Share" = "Partage Auto";
-"Enable auto share to skip this step in the future." = "Habiliter le Partage Auto afin de sauter cette √©tape la prochaine fois.";
+"Enable auto share to skip this step in the future." = "Activer le Partage Auto afin de sauter cette étape la prochaine fois.";
 
-"You must be online in order to share with %@" = "Vous devez √™tre connecter √† internet pour partager with %@";
-"There was an error while sharing" = "There was an error while sharing";
+"You must be online in order to share with %@" = "Vous devez être connecté à Internet pour partager with %@";
 
-"Could not authenticate you. Please relogin." = "Votre compte n'a pas pu √™tre identifi√©.";
-"There was a problem requesting authorization from %@" = "Un probl√®me a surgi lors de la demande d'autorisation sur %@";
-"Request Error" = "Request Error";
+"Could not authenticate you. Please relogin." = "Votre compte n'a pas pu être identifié.";
+"There was a problem requesting authorization from %@" = "Un problème a surgi lors de la demande d'autorisation sur %@";
+"Request Error" = "Erreur de requête";
 "There was an error while sharing" = "Une erreur est survenue lors du partage";
 
 "Authorize Error" = "Erreur d'autorisation";
 "There was an error while authorizing" = "Une erreur est survenue lors de l'autorisation.";
 
 "Authenticating..." = "Authenticating...";
-"There was a problem requesting access from %@" = "Une erreur est survenue lors de la demande d'acc√®s sur %@";
+"There was a problem requesting access from %@" = "Une erreur est survenue lors de la demande d'accès sur %@";
 
-"Access Error" = "Erreur d'acc√®s";
+"Access Error" = "Erreur d'accès";
 "There was an error while sharing" = "Une erreur est survenue lors du partage";
 
 "Sharing a Link" = "Partager un lien";
 "Sharing an Image" = "Partager une image";
 "Sharing Text" = "Partager un texte";
 "Sharing a File" = "Partager un fichier";
-"Logout of All Services" = "D√©connexion de tous les services";
+"Logout of All Services" = "Déconnexion de tous les services";

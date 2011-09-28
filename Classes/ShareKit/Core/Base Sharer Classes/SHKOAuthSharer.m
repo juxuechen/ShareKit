@@ -104,10 +104,9 @@
 
 - (void)tokenRequestTicket:(OAServiceTicket *)ticket didFinishWithData:(NSData *)data 
 {
-	if (SHKDebugShowLogs) {
-        // check so we don't have to alloc the string with the data if we aren't logging
-        SHKLog(@"tokenRequestTicket Response Body: %@", [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease]);
-    }
+#if SHKDebugShowLogs // check so we don't have to alloc the string with the data if we aren't logging
+		SHKLog(@"tokenRequestTicket Response Body: %@", [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease]);
+#endif
 	
 	[[SHKActivityIndicator currentIndicator] hide];
 	
@@ -220,11 +219,10 @@
 
 - (void)tokenAccessTicket:(OAServiceTicket *)ticket didFinishWithData:(NSData *)data 
 {
-	if (SHKDebugShowLogs) {
-        // check so we don't have to alloc the string with the data if we aren't logging
+#if SHKDebugShowLogs // check so we don't have to alloc the string with the data if we aren't logging
 		SHKLog(@"tokenAccessTicket Response Body: %@", [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease]);
-	}
-    
+#endif
+	
 	[[SHKActivityIndicator currentIndicator] hide];
 	
 	if (ticket.didSucceed) 

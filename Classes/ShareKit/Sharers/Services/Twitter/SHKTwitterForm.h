@@ -42,7 +42,5 @@
 @property BOOL hasAttachment;
 
 - (void)layoutCounter;
-- (void)save;
-- (void)keyboardWillShow:(NSNotification *)notification;
 
 @end

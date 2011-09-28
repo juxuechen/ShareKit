@@ -32,10 +32,9 @@
 #import "SHKOfflineSharer.h"
 #import "SFHFKeychainUtils.h"
 #import "Reachability.h"
+#import <MessageUI/MessageUI.h>
 #import <objc/runtime.h>
 #import <objc/message.h>
-#import <MessageUI/MessageUI.h>
-
 
 @implementation SHK
 
@@ -61,11 +60,7 @@ BOOL SHKinit;
 	
 	if (!SHKinit)
 	{
-		SHKSwizzle([MFMailComposeViewController class], @selector(viewDidDisappear:), @selector(SHKviewDidDisappear:));			
-		
-		if (NSClassFromString(@"MFMessageComposeViewController") != nil)
-			SHKSwizzle([MFMessageComposeViewController class], @selector(viewDidDisappear:), @selector(SHKviewDidDisappear:));	
-		
+		SHKSwizzle([MFMailComposeViewController class], @selector(viewDidDisappear:), @selector(SHKviewDidDisappear:));	
 		SHKinit = YES;
 	}
 }
@@ -137,7 +132,7 @@ BOOL SHKinit;
 		UINavigationController *nav = [[[UINavigationController alloc] initWithRootViewController:vc] autorelease];
 		
 		if ([nav respondsToSelector:@selector(modalPresentationStyle)])
-			nav.modalPresentationStyle = [SHK modalPresentationStyle];
+			[nav setModalTransitionStyle:[SHK modalPresentationStyle]];
 		
 		if ([nav respondsToSelector:@selector(modalTransitionStyle)])
 			nav.modalTransitionStyle = [SHK modalTransitionStyle];
@@ -152,7 +147,7 @@ BOOL SHKinit;
 	else
 	{		
 		if ([vc respondsToSelector:@selector(modalPresentationStyle)])
-			vc.modalPresentationStyle = [SHK modalPresentationStyle];
+			[vc setModalTransitionStyle:[SHK modalPresentationStyle]];
 		
 		if ([vc respondsToSelector:@selector(modalTransitionStyle)])
 			vc.modalTransitionStyle = [SHK modalTransitionStyle];
@@ -202,11 +197,8 @@ BOOL SHKinit;
 	self.isDismissingView = NO;
 	
 	if (currentView != nil)
-		currentView = nil;
+		self.currentView = nil;
 	
-    if (rootViewController != nil)
-        rootViewController = nil;
-
 	if (pendingView)
 	{
 		// This is an ugly way to do it, but it works.
@@ -239,6 +231,8 @@ BOOL SHKinit;
 	return UIBarStyleDefault;
 }
 
+#ifdef __IPHONE_3_2
+
 + (UIModalPresentationStyle)modalPresentationStyle
 {
 	if ([SHKModalPresentationStyle isEqualToString:@"UIModalPresentationFullScreen"])		
@@ -267,6 +261,13 @@ BOOL SHKinit;
 	return UIModalTransitionStyleCoverVertical;
 }
 
+#else
+
++ (int)modalPresentationStyle { return 0; }
++ (int)modalTransitionStyle   { return 0; }
+
+#endif
+
 
 #pragma mark -
 #pragma mark Favorites
@@ -290,16 +291,17 @@ BOOL SHKinit;
 				break;
 				
 			case SHKShareTypeText:
-				favoriteSharers = [NSArray arrayWithObjects:@"SHKMail",@"SHKTwitter",@"SHKFacebook",nil];
+				favoriteSharers = [NSArray arrayWithObjects:@"SHKMail",@"SHKTwitter",@"SHKFacebook", nil];
 				break;
 				
 			case SHKShareTypeFile:
-				favoriteSharers = [NSArray arrayWithObjects:@"SHKMail",@"SHKEvernote",nil];
+				favoriteSharers = [NSArray arrayWithObjects:@"SHKMail", nil];
 				break;
-			
-			default:
-				favoriteSharers = [NSArray array];
-		}
+
+      case SHKShareTypeUndefined:
+        SHKLog(@"Received call to favoriteSharersForType for type SHKShareTypeUndefined!");
+        break;
+    }
 		
 		// Save defaults to prefs
 		[self setFavorites:favoriteSharers forType:type];

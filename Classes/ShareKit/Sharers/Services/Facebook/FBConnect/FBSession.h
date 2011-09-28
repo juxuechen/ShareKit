@@ -109,6 +109,11 @@
 + (FBSession*)session;
 
 /**
+ * Calls logout on session and clears cookies
+ */
++ (void)logout;
+
+/**
  * Sets the globally shared session instance.
  *
  * This session is not retained, so you are still responsible for retaining it yourself.  The
@@ -141,6 +146,18 @@
 - (FBSession*)initWithKey:(NSString*)key secret:(NSString*)secret
   getSessionProxy:(NSString*)getSessionProxy;
 
+ /**
+* Adds a new delegate to the session delegates.
+*/
+- (void)addDelegate:(id<FBSessionDelegate>)delegate;
+
+/**
+* Removes a delegate from the list of delegates.
+*/
+- (void)removeDelegate:(id<FBSessionDelegate>)delegate;
+  
+  
+  
 /**
  * Begins a session for a user with a given key and secret.
  */
@@ -170,9 +187,7 @@
 /**
  * Deletes all cookies belonging to facebook
  */
-- (void)deleteFacebookCookies;
-
-- (void)requestTimerReady;
++ (void)deleteFacebookCookies;
 
 @end
 

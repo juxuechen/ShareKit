@@ -75,6 +75,8 @@
 	if (settings.type == SHKFormFieldTypeText || settings.type == SHKFormFieldTypePassword)
 	{
 		self.textField.secureTextEntry = settings.type == SHKFormFieldTypePassword;
+		self.textField.autocorrectionType = UITextAutocorrectionTypeNo;
+		self.textField.autocapitalizationType = UITextAutocapitalizationTypeNone;
 		
 		textField.frame = CGRectMake(labelWidth + SHK_FORM_CELL_PAD_LEFT, 
 									 2 + round(self.contentView.bounds.size.height/2 - textField.bounds.size.height/2),
@@ -148,14 +150,21 @@
 
 - (NSString *)getValue
 {
-	switch (settings.type) 
+  NSString *returnValue = nil;
+	
+  switch (settings.type) 
 	{
 		case SHKFormFieldTypeSwitch:
-			return toggle.on ? SHKFormFieldSwitchOn : SHKFormFieldSwitchOff;
+			returnValue = toggle.on ? SHKFormFieldSwitchOn : SHKFormFieldSwitchOff;
 			break;
+    
+    case SHKFormFieldTypeText:
+    case SHKFormFieldTypePassword:
+      returnValue = textField.text;
+      break;
 	}
 	
-	return textField.text;
+	return returnValue;
 }
 
 @end

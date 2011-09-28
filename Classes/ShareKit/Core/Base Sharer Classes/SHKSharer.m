@@ -127,9 +127,10 @@
 		case SHKShareTypeFile:
 			return [self canShareFile];
 			break;
-			
-		default: 
-			return NO;
+    
+    case SHKShareTypeUndefined:
+      return NO;
+      break;
 	}
 	return NO;
 }
@@ -166,10 +167,11 @@
 	{
 		self.shareDelegate = self;
 		self.item = [[[SHKItem alloc] init] autorelease];
-				
+		
+#ifdef __IPHONE_3_2
 		if ([self respondsToSelector:@selector(modalPresentationStyle)])
 			self.modalPresentationStyle = [SHK modalPresentationStyle];
-		
+#endif
 		if ([self respondsToSelector:@selector(modalTransitionStyle)])
 			self.modalTransitionStyle = [SHK modalTransitionStyle];
 	}
@@ -256,6 +258,56 @@
 	return [controller autorelease];
 }
 
+
+#pragma mark -
+#pragma mark shorten with bitly
+
+
+
+- (void)shortenURL {		
+	if (!quiet)
+		[[SHKActivityIndicator currentIndicator] displayActivity:SHKLocalizedString(@"Shortening URL...")];
+	
+	self.request = [[[SHKRequest alloc] initWithURL:[NSURL URLWithString:[NSMutableString stringWithFormat:@"http://api.bit.ly/v3/shorten?login=%@&apikey=%@&longUrl=%@&format=txt",
+																																				SHKBitLyLogin,
+																																				SHKBitLyKey,																		  
+																																				SHKEncodeURL(item.URL)
+																																				]]
+																					 params:nil
+																				 delegate:self
+															 isFinishedSelector:@selector(shortenURLFinished:)
+																					 method:@"GET"
+																				autostart:YES] autorelease];
+}
+
+
+- (void)shortenURLFinished:(SHKRequest *)aRequest
+{
+	[[SHKActivityIndicator currentIndicator] hide];
+	
+	NSString *result = [[aRequest getResult] stringByTrimmingCharactersInSet:[NSCharacterSet newlineCharacterSet]];
+	
+	if (result == nil || [NSURL URLWithString:result] == nil)
+	{
+		// TODO - better error message
+		[[[[UIAlertView alloc] initWithTitle:SHKLocalizedString(@"Shorten URL Error")
+																 message:SHKLocalizedString(@"We could not shorten the URL.")
+																delegate:nil
+											 cancelButtonTitle:SHKLocalizedString(@"Continue")
+											 otherButtonTitles:nil] autorelease] show];
+		
+		[item setCustomValue:[NSString stringWithFormat:@"%@ %@", item.text ? item.text : item.title, [item.URL.absoluteString stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]] forKey:@"status"];
+	}
+	
+	else
+	{		
+		///if already a bitly login, use url instead
+		if ([result isEqualToString:@"ALREADY_A_BITLY_LINK"])
+			result = [item.URL.absoluteString stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+		else
+			[item setCustomValue:result forKey:@"shortenURL"];
+	}
+}
 
 #pragma mark -
 #pragma mark Commit Share
@@ -570,6 +622,10 @@
 		case SHKShareTypeFile:
 			return (item.data != nil);
 			break;
+    
+    case SHKShareTypeUndefined:
+      return NO;
+      break;
 	}
 	
 	return NO;
@@ -658,10 +714,13 @@
 		case SHKPendingShare:
 			[self share];
 			break;
-		default:
-			break;
 
-	}
+    case SHKPendingNone:
+      break;
+
+    case SHKPendingRefreshToken:
+      break;
+  }
 }
 
 

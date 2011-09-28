@@ -77,7 +77,11 @@
 - (UIViewController *)getTopViewController;
 
 + (UIBarStyle)barStyle;
+#ifdef __IPHONE_3_2
 + (UIModalPresentationStyle)modalPresentationStyle;
+#else
++ (int)modalPresentationStyle;
+#endif
 + (UIModalTransitionStyle)modalTransitionStyle;
 
 #pragma mark -

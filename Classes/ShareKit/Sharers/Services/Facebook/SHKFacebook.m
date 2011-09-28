@@ -124,12 +124,12 @@
 	if(!SHKFacebookUseSessionProxy){
 		fbSession = [FBSession sessionForApplication:SHKFacebookKey
 												 secret:SHKFacebookSecret
-											   delegate:self];
+											   delegate:nil];
 		
 	}else {
 		fbSession = [FBSession sessionForApplication:SHKFacebookKey
 										getSessionProxy:SHKFacebookSessionProxyURL
-											   delegate:self];
+											   delegate:nil];
 	}
 
 	[fbSession logout];
@@ -147,11 +147,53 @@
 		SHKFBStreamDialog* dialog = [[[SHKFBStreamDialog alloc] init] autorelease];
 		dialog.delegate = self;
 		dialog.userMessagePrompt = SHKLocalizedString(@"Enter your message:");
+
+    // http://developers.facebook.com/docs/reference/dialogs/feed/
+    NSArray *keys = [@"message picture source caption description properties actions" componentsSeparatedByString:@" "];
+    
+		NSMutableString *additionnalData = [NSMutableString string];
+    for (NSString *key in keys) {
+      if([item customValueForKey:key]) {
+        NSString *text = [[item customValueForKey:key] stringByReplacingOccurrencesOfString:@"\n" withString:@"\\n"];
+        [additionnalData appendFormat:@"\"%@\":\"%@\",", key, SHKEncode(text)];
+      }
+    }
+
+		// Auto-detect Dailymotion links and generate an attached embed player
+		if ([item.URL.host hasSuffix:@"dailymotion.com"])
+		{
+			BOOL idIsNextComponent = NO;
+			NSString *videoId = nil;
+			for (NSString *component in [item.URL.path componentsSeparatedByString:@"/"])
+			{
+				if (idIsNextComponent)
+				{
+					videoId = component;
+					break;
+				}
+				else if ([component isEqualToString:@"video"])
+				{
+					idIsNextComponent = YES;
+				}
+			}
+
+			if (videoId)
+			{
+				[additionnalData appendFormat:
+				 @"\"media\":[{"
+				 "\"type\":\"flash\","
+				 "\"imgsrc\":\"http://www.dailymotion.com/thumbnail/160x120/video/%@\","
+				 "\"swfsrc\":\"http://www.dailymotion.com/swf/%@?autoPlay=1\""
+				 "}],", videoId, videoId];
+			}
+		}
+
 		dialog.attachment = [NSString stringWithFormat:
-							 @"{\
+							 @"{%@\
 							 \"name\":\"%@\",\
-							 \"href\":\"%@\"\
+							 \"link\":\"%@\"\
 							 }",
+							 additionnalData,
 							 item.title == nil ? SHKEncodeURL(item.URL) : SHKEncode(item.title),
 							 SHKEncodeURL(item.URL)
 							 ];
@@ -169,7 +211,7 @@
 		
 		SHKFBStreamDialog* dialog = [[[SHKFBStreamDialog alloc] init] autorelease];
 		dialog.delegate = self;
-		dialog.userMessagePrompt = SHKLocalizedString(@"Enter your message:");
+		dialog.userMessagePrompt = @"Enter your message:";
 		dialog.defaultStatus = item.text;
 		dialog.actionLinks = [NSString stringWithFormat:@"[{\"text\":\"Get %@\",\"href\":\"%@\"}]",
 							  SHKEncode(SHKMyAppName),
