@@ -26,6 +26,8 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <Twitter/TWTweetComposeViewController.h>
+
 #import "SHKOAuthSharer.h"
 #import "SHKTwitterForm.h"
 

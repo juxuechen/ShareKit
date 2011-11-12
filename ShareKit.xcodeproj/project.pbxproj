@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 45;
+	objectVersion = 46;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -90,6 +90,7 @@
 		8563E284125C8512002D729F /* SHKEvernote.m in Sources */ = {isa = PBXBuildFile; fileRef = 8563E283125C8512002D729F /* SHKEvernote.m */; };
 		8563E342125C884A002D729F /* NSData+md5.m in Sources */ = {isa = PBXBuildFile; fileRef = 8563E341125C884A002D729F /* NSData+md5.m */; };
 		8563E43A125C8D1E002D729F /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8563E436125C8D1E002D729F /* Localizable.strings */; };
+		AC9069CE146E5AD2000F8A51 /* Twitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC9069CD146E5AD2000F8A51 /* Twitter.framework */; };
 		ACA1C41514330B27005F5B21 /* EDAMLimits.m in Sources */ = {isa = PBXBuildFile; fileRef = ACA1C3F214330B27005F5B21 /* EDAMLimits.m */; };
 		ACA1C41614330B27005F5B21 /* Errors.m in Sources */ = {isa = PBXBuildFile; fileRef = ACA1C3F414330B27005F5B21 /* Errors.m */; };
 		ACA1C41714330B27005F5B21 /* NoteStore.m in Sources */ = {isa = PBXBuildFile; fileRef = ACA1C3F614330B27005F5B21 /* NoteStore.m */; };
@@ -273,6 +274,7 @@
 		8563E438125C8D1E002D729F /* en */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = en; path = Classes/ShareKit/Localization/en.lproj/Localizable.strings; sourceTree = SOURCE_ROOT; };
 		8563E439125C8D1E002D729F /* ja */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = ja; path = Classes/ShareKit/Localization/ja.lproj/Localizable.strings; sourceTree = SOURCE_ROOT; };
 		8D1107310486CEB800E47090 /* ShareKit-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "ShareKit-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
+		AC9069CD146E5AD2000F8A51 /* Twitter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Twitter.framework; path = System/Library/Frameworks/Twitter.framework; sourceTree = SDKROOT; };
 		ACA1C3F114330B27005F5B21 /* EDAMLimits.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDAMLimits.h; sourceTree = "<group>"; };
 		ACA1C3F214330B27005F5B21 /* EDAMLimits.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EDAMLimits.m; sourceTree = "<group>"; };
 		ACA1C3F314330B27005F5B21 /* Errors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Errors.h; sourceTree = "<group>"; };
@@ -325,6 +327,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AC9069CE146E5AD2000F8A51 /* Twitter.framework in Frameworks */,
 				1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */,
 				1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */,
 				2892E4100DC94CBA00A64D0F /* CoreGraphics.framework in Frameworks */,
@@ -391,6 +394,7 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				AC9069CD146E5AD2000F8A51 /* Twitter.framework */,
 				1DF5F4DF0D08C38300B7A737 /* UIKit.framework */,
 				1D30AB110D05D00D00671497 /* Foundation.framework */,
 				2892E40F0DC94CBA00A64D0F /* CoreGraphics.framework */,
@@ -948,8 +952,11 @@
 /* Begin PBXProject section */
 		29B97313FDCFA39411CA2CEA /* Project object */ = {
 			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0420;
+			};
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "ShareKit" */;
-			compatibilityVersion = "Xcode 3.1";
+			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 1;
 			knownRegions = (

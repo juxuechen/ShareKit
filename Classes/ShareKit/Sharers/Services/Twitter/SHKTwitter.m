@@ -98,6 +98,10 @@
 
 - (BOOL)isAuthorized
 {		
+    if(NSClassFromString(@"TWTweetComposeViewController")) {
+        if ([TWTweetComposeViewController canSendTweet]) return TRUE;
+    }
+    
 	return [self restoreAccessToken];
 }
 
@@ -185,22 +189,60 @@
 
 - (void)show
 {
-	if (item.shareType == SHKShareTypeURL)
-	{
-		[self shortenURL];
-	}
-	
-	else if (item.shareType == SHKShareTypeImage)
-	{
-		[item setCustomValue:item.title forKey:@"status"];
-		[self showTwitterForm];
-	}
-	
-	else if (item.shareType == SHKShareTypeText)
-	{
-		[item setCustomValue:item.text forKey:@"status"];
-		[self showTwitterForm];
-	}
+    if(NSClassFromString(@"TWTweetComposeViewController")) {
+        if ([TWTweetComposeViewController canSendTweet]) {
+            
+            TWTweetComposeViewController *tweetViewController = [[TWTweetComposeViewController alloc] init];
+            
+            if (item.text.length>139) [tweetViewController setInitialText:[NSString stringWithFormat:@"%@...",[item.text substringToIndex:137]]];
+            else [tweetViewController setInitialText:item.text];
+            if (item.shareType == SHKShareTypeURL) [tweetViewController addURL:item.URL];
+            if (item.shareType == SHKShareTypeImage)  [tweetViewController addImage:[item image]];
+            
+            tweetViewController.completionHandler = ^(TWTweetComposeViewControllerResult res) {
+                [tweetViewController dismissModalViewControllerAnimated:YES];
+                [tweetViewController release];
+                [[SHK currentHelper] viewWasDismissed];
+            };
+            
+            [[SHK currentHelper] showViewController:tweetViewController];
+        } else {
+            if (item.shareType == SHKShareTypeURL)
+            {
+                [self shortenURL];
+            }
+            
+            else if (item.shareType == SHKShareTypeImage)
+            {
+                [item setCustomValue:item.title forKey:@"status"];
+                [self showTwitterForm];
+            }
+            
+            else if (item.shareType == SHKShareTypeText)
+            {
+                [item setCustomValue:item.text forKey:@"status"];
+                [self showTwitterForm];
+            }
+        }
+    } else {
+        
+        if (item.shareType == SHKShareTypeURL)
+        {
+            [self shortenURL];
+        }
+        
+        else if (item.shareType == SHKShareTypeImage)
+        {
+            [item setCustomValue:item.title forKey:@"status"];
+            [self showTwitterForm];
+        }
+        
+        else if (item.shareType == SHKShareTypeText)
+        {
+            [item setCustomValue:item.text forKey:@"status"];
+            [self showTwitterForm];
+        }
+    }
 }
 
 - (void)showTwitterForm

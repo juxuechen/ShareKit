@@ -28,6 +28,8 @@
 #define SHK_VERSION @"0.2.1"
 
 #import <Foundation/Foundation.h>
+#import <Twitter/TWTweetComposeViewController.h>
+
 #import "SHKConfig.h"
 #import "SHKItem.h"
 #import "SHKActionSheet.h"

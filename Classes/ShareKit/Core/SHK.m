@@ -125,6 +125,11 @@ BOOL SHKinit;
 		[[currentView parentViewController] dismissModalViewControllerAnimated:YES];
 		return;
 	}
+    
+    // Special treatment for the twitter view of IOS 5
+    if ([vc isKindOfClass: [TWTweetComposeViewController class]]) {
+        [self.rootViewController presentModalViewController:vc animated:YES];
+    }
 		
 	// Wrap the view in a nav controller if not already
 	if (![vc respondsToSelector:@selector(pushViewController:animated:)])
@@ -580,6 +585,7 @@ NSString * SHKEncode(NSString * value)
 	string = [string stringByReplacingOccurrencesOfString:@"&amp;" withString:@"&"];
 	string = [string stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 	string = [string stringByReplacingOccurrencesOfString:@"&" withString:@"%26"];
+    string = [string stringByReplacingOccurrencesOfString:@"\"" withString:@"'"];
 	
 	return string;	
 }
