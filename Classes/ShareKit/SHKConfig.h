@@ -37,6 +37,38 @@
  leaving that decision up to the user.
  */
 
+//////////////////////////
+// Chinese Service 
+//////////////////////////
+
+// Sina Weibo 
+#define SHKSinaWeiboConsumerKey     @""	// The consumer key
+#define SHKSinaWeiboConsumerSecret  @""	// The secret key
+#define SHKSinaWeiboCallbackUrl     @""	// The user defined callback url
+#define SHKSinaWeiboUseXAuth		1   // To use xAuth, set to 1
+#define SHKSinaWeiboScreenName      @"" // Enter your sina weibo screen name
+#define SHKSinaWeiboUserID          @"" // Enter your app's sina weibo account if you'd like to ask the user to follow it when logging in. (Only for xAuth)
+
+// Douban
+#define SHKDoubanConsumerKey        @""	// The consumer key
+#define SHKDoubanConsumerSecret     @""	// The secret key
+#define SHKDoubanCallbackUrl        @""	// The user defined callback url
+
+// Tencent Weibo 
+#define SHKTencentWeiboConsumerKey      @""	// The consumer key
+#define SHKTencentWeiboConsumerSecret   @""	// The secret key
+#define SHKTencentWeiboCallbackUrl      @""	// The user defined callback url
+
+// RenRen 
+#define SHKRenRenAppId              @""	// The App Id
+#define SHKRenRenConsumerKey        @""	// The consumer key
+#define SHKRenRenConsumerSecret     @""	// The secret key
+
+
+//////////////////////////
+// External Service 
+//////////////////////////
+
 // Evernote - http://www.evernote.com/about/developer/api/
 
 #define kEvernoteUserStoreURL    @"https://sandbox.evernote.com/edam/user"
@@ -84,24 +116,6 @@
 #define SHKTwitterCallbackUrl		@"" // You need to set this if using OAuth, see note above (xAuth users can skip it)
 #define SHKTwitterUseXAuth			0 // To use xAuth, set to 1
 #define SHKTwitterUsername			@"" // Enter your app's twitter account if you'd like to ask the user to follow it when logging in. (Only for xAuth)
-
-// Sina Weibo 
-#define SHKSinaWeiboConsumerKey     @""	// The consumer key
-#define SHKSinaWeiboConsumerSecret  @""	// The secret key
-#define SHKSinaWeiboCallbackUrl     @""	// The user defined callback url
-#define SHKSinaWeiboUseXAuth		1   // To use xAuth, set to 1
-#define SHKSinaWeiboScreenName      @"" // Enter your sina weibo screen name
-#define SHKSinaWeiboUserID          @"" // Enter your app's sina weibo account if you'd like to ask the user to follow it when logging in. (Only for xAuth)
-
-// Douban
-#define SHKDoubanConsumerKey        @""	// The consumer key
-#define SHKDoubanConsumerSecret     @""	// The secret key
-#define SHKDoubanCallbackUrl        @""	// The user defined callback url
-
-// Tencent Weibo 
-#define SHKTencentWeiboConsumerKey      @""	// The consumer key
-#define SHKTencentWeiboConsumerSecret   @""	// The secret key
-#define SHKTencentWeiboCallbackUrl      @""	// The user defined callback url
 
 // Bit.ly (for shortening URLs on Twitter) - http://bit.ly/account/register - after signup: http://bit.ly/a/your_api_key
 #define SHKBitLyLogin				@""
