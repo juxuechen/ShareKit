@@ -136,39 +136,6 @@
 		AC8D84CD1472B55B00699D99 /* ROCloseButton.m in Sources */ = {isa = PBXBuildFile; fileRef = AC8D84621472B55A00699D99 /* ROCloseButton.m */; };
 		AC8D84CE1472B55B00699D99 /* ROGlobalStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = AC8D84641472B55A00699D99 /* ROGlobalStyle.m */; };
 		AC8D84CF1472B55B00699D99 /* ROImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = AC8D84661472B55A00699D99 /* ROImageView.m */; };
-		AC8D84D01472B55B00699D99 /* AlbumInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AC8D846A1472B55A00699D99 /* AlbumInfoViewController.m */; };
-		AC8D84D11472B55B00699D99 /* AlbumInfoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AC8D846B1472B55A00699D99 /* AlbumInfoViewController.xib */; };
-		AC8D84D21472B55B00699D99 /* CheckLogViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AC8D846D1472B55A00699D99 /* CheckLogViewController.m */; };
-		AC8D84D31472B55B00699D99 /* CheckLogViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AC8D846E1472B55A00699D99 /* CheckLogViewController.xib */; };
-		AC8D84D41472B55B00699D99 /* CreateAlbumViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AC8D84701472B55A00699D99 /* CreateAlbumViewController.m */; };
-		AC8D84D51472B55B00699D99 /* CreateAlbumViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AC8D84711472B55A00699D99 /* CreateAlbumViewController.xib */; };
-		AC8D84D61472B55B00699D99 /* CurrentUserInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AC8D84731472B55A00699D99 /* CurrentUserInfoViewController.m */; };
-		AC8D84D71472B55B00699D99 /* CurrentUserInfoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AC8D84741472B55A00699D99 /* CurrentUserInfoViewController.xib */; };
-		AC8D84D81472B55B00699D99 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = AC8D84751472B55A00699D99 /* InfoPlist.strings */; };
-		AC8D84D91472B55B00699D99 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = AC8D84771472B55A00699D99 /* MainWindow.xib */; };
-		AC8D84DA1472B55B00699D99 /* GetFriendsInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AC8D847A1472B55B00699D99 /* GetFriendsInfoViewController.m */; };
-		AC8D84DB1472B55B00699D99 /* GetFriendsInfoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AC8D847B1472B55B00699D99 /* GetFriendsInfoViewController.xib */; };
-		AC8D84DC1472B55B00699D99 /* GetFriendsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AC8D847D1472B55B00699D99 /* GetFriendsViewController.m */; };
-		AC8D84DD1472B55B00699D99 /* GetFriendsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AC8D847E1472B55B00699D99 /* GetFriendsViewController.xib */; };
-		AC8D84DE1472B55B00699D99 /* MainWindow-iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = AC8D84801472B55B00699D99 /* MainWindow-iPad.xib */; };
-		AC8D84DF1472B55B00699D99 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AC8D84831472B55B00699D99 /* LoginViewController.m */; };
-		AC8D84E01472B55B00699D99 /* LogManager.m in Sources */ = {isa = PBXBuildFile; fileRef = AC8D84851472B55B00699D99 /* LogManager.m */; };
-		AC8D84E11472B55B00699D99 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = AC8D84861472B55B00699D99 /* main.m */; };
-		AC8D84E21472B55B00699D99 /* OtherUsersInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AC8D84881472B55B00699D99 /* OtherUsersInfoViewController.m */; };
-		AC8D84E31472B55B00699D99 /* OtherUsersInfoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AC8D84891472B55B00699D99 /* OtherUsersInfoViewController.xib */; };
-		AC8D84E41472B55B00699D99 /* PasswordFlowLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AC8D848B1472B55B00699D99 /* PasswordFlowLoginViewController.m */; };
-		AC8D84E51472B55B00699D99 /* PasswordFlowLoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AC8D848C1472B55B00699D99 /* PasswordFlowLoginViewController.xib */; };
-		AC8D84E61472B55B00699D99 /* PhotoUploadViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AC8D848E1472B55B00699D99 /* PhotoUploadViewController.m */; };
-		AC8D84E71472B55B00699D99 /* PhotoUploadViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AC8D848F1472B55B00699D99 /* PhotoUploadViewController.xib */; };
-		AC8D84E81472B55B00699D99 /* renren_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = AC8D84901472B55B00699D99 /* renren_logo.png */; };
-		AC8D84E91472B55B00699D99 /* RenrenSDKDemo-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = AC8D84911472B55B00699D99 /* RenrenSDKDemo-Info.plist */; };
-		AC8D84EA1472B55B00699D99 /* RenrenSDKDemoAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = AC8D84941472B55B00699D99 /* RenrenSDKDemoAppDelegate.m */; };
-		AC8D84EB1472B55B00699D99 /* RequestBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AC8D84961472B55B00699D99 /* RequestBaseViewController.m */; };
-		AC8D84EC1472B55B00699D99 /* RORequest+InitWithDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = AC8D84981472B55B00699D99 /* RORequest+InitWithDelegate.m */; };
-		AC8D84ED1472B55B00699D99 /* ServiceTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AC8D849A1472B55B00699D99 /* ServiceTableViewController.m */; };
-		AC8D84EE1472B55B00699D99 /* ServiceTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AC8D849B1472B55B00699D99 /* ServiceTableViewController.xib */; };
-		AC8D84EF1472B55B00699D99 /* StatusPostViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AC8D849D1472B55B00699D99 /* StatusPostViewController.m */; };
-		AC8D84F01472B55B00699D99 /* StatusPostViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AC8D849E1472B55B00699D99 /* StatusPostViewController.xib */; };
 		AC8D84F61472B59800699D99 /* SHKRenRen.m in Sources */ = {isa = PBXBuildFile; fileRef = AC8D84F51472B59800699D99 /* SHKRenRen.m */; };
 		AC9069CE146E5AD2000F8A51 /* Twitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC9069CD146E5AD2000F8A51 /* Twitter.framework */; };
 		ACA1C41514330B27005F5B21 /* EDAMLimits.m in Sources */ = {isa = PBXBuildFile; fileRef = ACA1C3F214330B27005F5B21 /* EDAMLimits.m */; };
@@ -192,16 +159,6 @@
 		ACA8F53D1347087D0058C93D /* SHKTencentWeibo.m in Sources */ = {isa = PBXBuildFile; fileRef = ACA8F53A1347087D0058C93D /* SHKTencentWeibo.m */; };
 		ACA8F53E1347087D0058C93D /* SHKTencentWeiboForm.m in Sources */ = {isa = PBXBuildFile; fileRef = ACA8F53C1347087D0058C93D /* SHKTencentWeiboForm.m */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		AC8D84F21472B55B00699D99 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = AC8D849F1472B55B00699D99 /* RenrenSDKDemo.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = BDD0826F13FE35DA00024EE6;
-			remoteInfo = RenrenSDKDemo;
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -445,57 +402,6 @@
 		AC8D84641472B55A00699D99 /* ROGlobalStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ROGlobalStyle.m; sourceTree = "<group>"; };
 		AC8D84651472B55A00699D99 /* ROImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ROImageView.h; sourceTree = "<group>"; };
 		AC8D84661472B55A00699D99 /* ROImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ROImageView.m; sourceTree = "<group>"; };
-		AC8D84691472B55A00699D99 /* AlbumInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlbumInfoViewController.h; sourceTree = "<group>"; };
-		AC8D846A1472B55A00699D99 /* AlbumInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlbumInfoViewController.m; sourceTree = "<group>"; };
-		AC8D846B1472B55A00699D99 /* AlbumInfoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AlbumInfoViewController.xib; sourceTree = "<group>"; };
-		AC8D846C1472B55A00699D99 /* CheckLogViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CheckLogViewController.h; sourceTree = "<group>"; };
-		AC8D846D1472B55A00699D99 /* CheckLogViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CheckLogViewController.m; sourceTree = "<group>"; };
-		AC8D846E1472B55A00699D99 /* CheckLogViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CheckLogViewController.xib; sourceTree = "<group>"; };
-		AC8D846F1472B55A00699D99 /* CreateAlbumViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreateAlbumViewController.h; sourceTree = "<group>"; };
-		AC8D84701472B55A00699D99 /* CreateAlbumViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreateAlbumViewController.m; sourceTree = "<group>"; };
-		AC8D84711472B55A00699D99 /* CreateAlbumViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CreateAlbumViewController.xib; sourceTree = "<group>"; };
-		AC8D84721472B55A00699D99 /* CurrentUserInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CurrentUserInfoViewController.h; sourceTree = "<group>"; };
-		AC8D84731472B55A00699D99 /* CurrentUserInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CurrentUserInfoViewController.m; sourceTree = "<group>"; };
-		AC8D84741472B55A00699D99 /* CurrentUserInfoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CurrentUserInfoViewController.xib; sourceTree = "<group>"; };
-		AC8D84761472B55A00699D99 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		AC8D84781472B55B00699D99 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainWindow.xib; sourceTree = "<group>"; };
-		AC8D84791472B55B00699D99 /* GetFriendsInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetFriendsInfoViewController.h; sourceTree = "<group>"; };
-		AC8D847A1472B55B00699D99 /* GetFriendsInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetFriendsInfoViewController.m; sourceTree = "<group>"; };
-		AC8D847B1472B55B00699D99 /* GetFriendsInfoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GetFriendsInfoViewController.xib; sourceTree = "<group>"; };
-		AC8D847C1472B55B00699D99 /* GetFriendsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GetFriendsViewController.h; sourceTree = "<group>"; };
-		AC8D847D1472B55B00699D99 /* GetFriendsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GetFriendsViewController.m; sourceTree = "<group>"; };
-		AC8D847E1472B55B00699D99 /* GetFriendsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GetFriendsViewController.xib; sourceTree = "<group>"; };
-		AC8D84811472B55B00699D99 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = "en.lproj/MainWindow-iPad.xib"; sourceTree = "<group>"; };
-		AC8D84821472B55B00699D99 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
-		AC8D84831472B55B00699D99 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
-		AC8D84841472B55B00699D99 /* LogManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogManager.h; sourceTree = "<group>"; };
-		AC8D84851472B55B00699D99 /* LogManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LogManager.m; sourceTree = "<group>"; };
-		AC8D84861472B55B00699D99 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		AC8D84871472B55B00699D99 /* OtherUsersInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OtherUsersInfoViewController.h; sourceTree = "<group>"; };
-		AC8D84881472B55B00699D99 /* OtherUsersInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OtherUsersInfoViewController.m; sourceTree = "<group>"; };
-		AC8D84891472B55B00699D99 /* OtherUsersInfoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OtherUsersInfoViewController.xib; sourceTree = "<group>"; };
-		AC8D848A1472B55B00699D99 /* PasswordFlowLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PasswordFlowLoginViewController.h; sourceTree = "<group>"; };
-		AC8D848B1472B55B00699D99 /* PasswordFlowLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PasswordFlowLoginViewController.m; sourceTree = "<group>"; };
-		AC8D848C1472B55B00699D99 /* PasswordFlowLoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PasswordFlowLoginViewController.xib; sourceTree = "<group>"; };
-		AC8D848D1472B55B00699D99 /* PhotoUploadViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotoUploadViewController.h; sourceTree = "<group>"; };
-		AC8D848E1472B55B00699D99 /* PhotoUploadViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoUploadViewController.m; sourceTree = "<group>"; };
-		AC8D848F1472B55B00699D99 /* PhotoUploadViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PhotoUploadViewController.xib; sourceTree = "<group>"; };
-		AC8D84901472B55B00699D99 /* renren_logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = renren_logo.png; sourceTree = "<group>"; };
-		AC8D84911472B55B00699D99 /* RenrenSDKDemo-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "RenrenSDKDemo-Info.plist"; sourceTree = "<group>"; };
-		AC8D84921472B55B00699D99 /* RenrenSDKDemo-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "RenrenSDKDemo-Prefix.pch"; sourceTree = "<group>"; };
-		AC8D84931472B55B00699D99 /* RenrenSDKDemoAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RenrenSDKDemoAppDelegate.h; sourceTree = "<group>"; };
-		AC8D84941472B55B00699D99 /* RenrenSDKDemoAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RenrenSDKDemoAppDelegate.m; sourceTree = "<group>"; };
-		AC8D84951472B55B00699D99 /* RequestBaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RequestBaseViewController.h; sourceTree = "<group>"; };
-		AC8D84961472B55B00699D99 /* RequestBaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RequestBaseViewController.m; sourceTree = "<group>"; };
-		AC8D84971472B55B00699D99 /* RORequest+InitWithDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "RORequest+InitWithDelegate.h"; sourceTree = "<group>"; };
-		AC8D84981472B55B00699D99 /* RORequest+InitWithDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "RORequest+InitWithDelegate.m"; sourceTree = "<group>"; };
-		AC8D84991472B55B00699D99 /* ServiceTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServiceTableViewController.h; sourceTree = "<group>"; };
-		AC8D849A1472B55B00699D99 /* ServiceTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServiceTableViewController.m; sourceTree = "<group>"; };
-		AC8D849B1472B55B00699D99 /* ServiceTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ServiceTableViewController.xib; sourceTree = "<group>"; };
-		AC8D849C1472B55B00699D99 /* StatusPostViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StatusPostViewController.h; sourceTree = "<group>"; };
-		AC8D849D1472B55B00699D99 /* StatusPostViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StatusPostViewController.m; sourceTree = "<group>"; };
-		AC8D849E1472B55B00699D99 /* StatusPostViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StatusPostViewController.xib; sourceTree = "<group>"; };
-		AC8D849F1472B55B00699D99 /* RenrenSDKDemo.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = RenrenSDKDemo.xcodeproj; sourceTree = "<group>"; };
 		AC8D84F41472B59800699D99 /* SHKRenRen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SHKRenRen.h; path = Classes/ShareKit/Sharers/Services/Renren/SHKRenRen.h; sourceTree = SOURCE_ROOT; };
 		AC8D84F51472B59800699D99 /* SHKRenRen.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SHKRenRen.m; path = Classes/ShareKit/Sharers/Services/Renren/SHKRenRen.m; sourceTree = SOURCE_ROOT; };
 		AC9069CD146E5AD2000F8A51 /* Twitter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Twitter.framework; path = System/Library/Frameworks/Twitter.framework; sourceTree = SDKROOT; };
@@ -1061,7 +967,6 @@
 				AC8D840B1472B55A00699D99 /* Doc */,
 				AC8D840D1472B55A00699D99 /* JSON */,
 				AC8D841B1472B55A00699D99 /* Renren */,
-				AC8D84671472B55A00699D99 /* RenrenSDKDemo */,
 				AC8D84F41472B59800699D99 /* SHKRenRen.h */,
 				AC8D84F51472B59800699D99 /* SHKRenRen.m */,
 			);
@@ -1234,88 +1139,6 @@
 			path = UI;
 			sourceTree = "<group>";
 		};
-		AC8D84671472B55A00699D99 /* RenrenSDKDemo */ = {
-			isa = PBXGroup;
-			children = (
-				AC8D84681472B55A00699D99 /* RenrenSDKDemo */,
-				AC8D849F1472B55B00699D99 /* RenrenSDKDemo.xcodeproj */,
-			);
-			path = RenrenSDKDemo;
-			sourceTree = "<group>";
-		};
-		AC8D84681472B55A00699D99 /* RenrenSDKDemo */ = {
-			isa = PBXGroup;
-			children = (
-				AC8D84691472B55A00699D99 /* AlbumInfoViewController.h */,
-				AC8D846A1472B55A00699D99 /* AlbumInfoViewController.m */,
-				AC8D846B1472B55A00699D99 /* AlbumInfoViewController.xib */,
-				AC8D846C1472B55A00699D99 /* CheckLogViewController.h */,
-				AC8D846D1472B55A00699D99 /* CheckLogViewController.m */,
-				AC8D846E1472B55A00699D99 /* CheckLogViewController.xib */,
-				AC8D846F1472B55A00699D99 /* CreateAlbumViewController.h */,
-				AC8D84701472B55A00699D99 /* CreateAlbumViewController.m */,
-				AC8D84711472B55A00699D99 /* CreateAlbumViewController.xib */,
-				AC8D84721472B55A00699D99 /* CurrentUserInfoViewController.h */,
-				AC8D84731472B55A00699D99 /* CurrentUserInfoViewController.m */,
-				AC8D84741472B55A00699D99 /* CurrentUserInfoViewController.xib */,
-				AC8D84751472B55A00699D99 /* InfoPlist.strings */,
-				AC8D84771472B55A00699D99 /* MainWindow.xib */,
-				AC8D84791472B55B00699D99 /* GetFriendsInfoViewController.h */,
-				AC8D847A1472B55B00699D99 /* GetFriendsInfoViewController.m */,
-				AC8D847B1472B55B00699D99 /* GetFriendsInfoViewController.xib */,
-				AC8D847C1472B55B00699D99 /* GetFriendsViewController.h */,
-				AC8D847D1472B55B00699D99 /* GetFriendsViewController.m */,
-				AC8D847E1472B55B00699D99 /* GetFriendsViewController.xib */,
-				AC8D847F1472B55B00699D99 /* iPad */,
-				AC8D84821472B55B00699D99 /* LoginViewController.h */,
-				AC8D84831472B55B00699D99 /* LoginViewController.m */,
-				AC8D84841472B55B00699D99 /* LogManager.h */,
-				AC8D84851472B55B00699D99 /* LogManager.m */,
-				AC8D84861472B55B00699D99 /* main.m */,
-				AC8D84871472B55B00699D99 /* OtherUsersInfoViewController.h */,
-				AC8D84881472B55B00699D99 /* OtherUsersInfoViewController.m */,
-				AC8D84891472B55B00699D99 /* OtherUsersInfoViewController.xib */,
-				AC8D848A1472B55B00699D99 /* PasswordFlowLoginViewController.h */,
-				AC8D848B1472B55B00699D99 /* PasswordFlowLoginViewController.m */,
-				AC8D848C1472B55B00699D99 /* PasswordFlowLoginViewController.xib */,
-				AC8D848D1472B55B00699D99 /* PhotoUploadViewController.h */,
-				AC8D848E1472B55B00699D99 /* PhotoUploadViewController.m */,
-				AC8D848F1472B55B00699D99 /* PhotoUploadViewController.xib */,
-				AC8D84901472B55B00699D99 /* renren_logo.png */,
-				AC8D84911472B55B00699D99 /* RenrenSDKDemo-Info.plist */,
-				AC8D84921472B55B00699D99 /* RenrenSDKDemo-Prefix.pch */,
-				AC8D84931472B55B00699D99 /* RenrenSDKDemoAppDelegate.h */,
-				AC8D84941472B55B00699D99 /* RenrenSDKDemoAppDelegate.m */,
-				AC8D84951472B55B00699D99 /* RequestBaseViewController.h */,
-				AC8D84961472B55B00699D99 /* RequestBaseViewController.m */,
-				AC8D84971472B55B00699D99 /* RORequest+InitWithDelegate.h */,
-				AC8D84981472B55B00699D99 /* RORequest+InitWithDelegate.m */,
-				AC8D84991472B55B00699D99 /* ServiceTableViewController.h */,
-				AC8D849A1472B55B00699D99 /* ServiceTableViewController.m */,
-				AC8D849B1472B55B00699D99 /* ServiceTableViewController.xib */,
-				AC8D849C1472B55B00699D99 /* StatusPostViewController.h */,
-				AC8D849D1472B55B00699D99 /* StatusPostViewController.m */,
-				AC8D849E1472B55B00699D99 /* StatusPostViewController.xib */,
-			);
-			path = RenrenSDKDemo;
-			sourceTree = "<group>";
-		};
-		AC8D847F1472B55B00699D99 /* iPad */ = {
-			isa = PBXGroup;
-			children = (
-				AC8D84801472B55B00699D99 /* MainWindow-iPad.xib */,
-			);
-			path = iPad;
-			sourceTree = "<group>";
-		};
-		AC8D84A01472B55B00699D99 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				AC8D84F31472B55B00699D99 /* RenrenSDKDemo.app */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		ACA1C3EF14330B27005F5B21 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
@@ -1465,28 +1288,12 @@
 			);
 			mainGroup = 29B97314FDCFA39411CA2CEA /* CustomTemplate */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = AC8D84A01472B55B00699D99 /* Products */;
-					ProjectRef = AC8D849F1472B55B00699D99 /* RenrenSDKDemo.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
 				1D6058900D05DD3D006BFB54 /* ShareKit */,
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXReferenceProxy section */
-		AC8D84F31472B55B00699D99 /* RenrenSDKDemo.app */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.application;
-			path = RenrenSDKDemo.app;
-			remoteRef = AC8D84F21472B55B00699D99 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		1D60588D0D05DD3D006BFB54 /* Resources */ = {
@@ -1514,22 +1321,6 @@
 				AC8D84B31472B55B00699D99 /* renren-logo-top-bar@2x.png in Resources */,
 				AC8D84B41472B55B00699D99 /* small-button-normal.png in Resources */,
 				AC8D84B51472B55B00699D99 /* small-button-normal@2x.png in Resources */,
-				AC8D84D11472B55B00699D99 /* AlbumInfoViewController.xib in Resources */,
-				AC8D84D31472B55B00699D99 /* CheckLogViewController.xib in Resources */,
-				AC8D84D51472B55B00699D99 /* CreateAlbumViewController.xib in Resources */,
-				AC8D84D71472B55B00699D99 /* CurrentUserInfoViewController.xib in Resources */,
-				AC8D84D81472B55B00699D99 /* InfoPlist.strings in Resources */,
-				AC8D84D91472B55B00699D99 /* MainWindow.xib in Resources */,
-				AC8D84DB1472B55B00699D99 /* GetFriendsInfoViewController.xib in Resources */,
-				AC8D84DD1472B55B00699D99 /* GetFriendsViewController.xib in Resources */,
-				AC8D84DE1472B55B00699D99 /* MainWindow-iPad.xib in Resources */,
-				AC8D84E31472B55B00699D99 /* OtherUsersInfoViewController.xib in Resources */,
-				AC8D84E51472B55B00699D99 /* PasswordFlowLoginViewController.xib in Resources */,
-				AC8D84E71472B55B00699D99 /* PhotoUploadViewController.xib in Resources */,
-				AC8D84E81472B55B00699D99 /* renren_logo.png in Resources */,
-				AC8D84E91472B55B00699D99 /* RenrenSDKDemo-Info.plist in Resources */,
-				AC8D84EE1472B55B00699D99 /* ServiceTableViewController.xib in Resources */,
-				AC8D84F01472B55B00699D99 /* StatusPostViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1662,23 +1453,6 @@
 				AC8D84CD1472B55B00699D99 /* ROCloseButton.m in Sources */,
 				AC8D84CE1472B55B00699D99 /* ROGlobalStyle.m in Sources */,
 				AC8D84CF1472B55B00699D99 /* ROImageView.m in Sources */,
-				AC8D84D01472B55B00699D99 /* AlbumInfoViewController.m in Sources */,
-				AC8D84D21472B55B00699D99 /* CheckLogViewController.m in Sources */,
-				AC8D84D41472B55B00699D99 /* CreateAlbumViewController.m in Sources */,
-				AC8D84D61472B55B00699D99 /* CurrentUserInfoViewController.m in Sources */,
-				AC8D84DA1472B55B00699D99 /* GetFriendsInfoViewController.m in Sources */,
-				AC8D84DC1472B55B00699D99 /* GetFriendsViewController.m in Sources */,
-				AC8D84DF1472B55B00699D99 /* LoginViewController.m in Sources */,
-				AC8D84E01472B55B00699D99 /* LogManager.m in Sources */,
-				AC8D84E11472B55B00699D99 /* main.m in Sources */,
-				AC8D84E21472B55B00699D99 /* OtherUsersInfoViewController.m in Sources */,
-				AC8D84E41472B55B00699D99 /* PasswordFlowLoginViewController.m in Sources */,
-				AC8D84E61472B55B00699D99 /* PhotoUploadViewController.m in Sources */,
-				AC8D84EA1472B55B00699D99 /* RenrenSDKDemoAppDelegate.m in Sources */,
-				AC8D84EB1472B55B00699D99 /* RequestBaseViewController.m in Sources */,
-				AC8D84EC1472B55B00699D99 /* RORequest+InitWithDelegate.m in Sources */,
-				AC8D84ED1472B55B00699D99 /* ServiceTableViewController.m in Sources */,
-				AC8D84EF1472B55B00699D99 /* StatusPostViewController.m in Sources */,
 				AC8D84F61472B59800699D99 /* SHKRenRen.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1694,30 +1468,6 @@
 				8563E439125C8D1E002D729F /* ja */,
 			);
 			name = Localizable.strings;
-			sourceTree = "<group>";
-		};
-		AC8D84751472B55A00699D99 /* InfoPlist.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				AC8D84761472B55A00699D99 /* en */,
-			);
-			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-		AC8D84771472B55A00699D99 /* MainWindow.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				AC8D84781472B55B00699D99 /* en */,
-			);
-			name = MainWindow.xib;
-			sourceTree = "<group>";
-		};
-		AC8D84801472B55B00699D99 /* MainWindow-iPad.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				AC8D84811472B55B00699D99 /* en */,
-			);
-			name = "MainWindow-iPad.xib";
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

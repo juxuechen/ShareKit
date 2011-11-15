@@ -7,7 +7,14 @@
 //
 
 #import "SHKSharer.h"
+#import "Renren.h"
 
-@interface SHKRenRen : SHKSharer
+
+@interface SHKRenRen : SHKSharer <RenrenDelegate>
+{
+    Renren *renren;
+}
+
+@property (retain) Renren *renren;
 
 @end

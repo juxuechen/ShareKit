@@ -11,6 +11,7 @@
 #import "ROGetFriendsRequestParam.h"
 #import "ROPublishPhotoRequestParam.h"
 #import "ROGetFriendsInfoRequestParam.h"
+#import "SHKConfig.h"
 
 #define kAuthBaseURL @"http://graph.renren.com/oauth/authorize"
 #define kDialogBaseURL @"http://widget.renren.com/dialog/"
@@ -19,17 +20,6 @@
 #define kRRSuccessURL @"http://widget.renren.com/callback.html"
 #define kSDKversion @"2.0"
 #define kPasswordFlowBaseURL @"https://graph.renren.com/oauth/token"
-
-
-/**
- * For 3rd-party developers:
- * Please replace following strings with app id, api key and secret 
- * of your own application registeried on http://app.renren.com/developers
- * before any using of API methods.
- */
-#define SHKRenRenAppId     @""  SHK
-#define SHKRenRenConsumerKey    @""
-#define SHKRenRenConsumerSecret     @""
 
 
 @protocol RenrenDelegate;
