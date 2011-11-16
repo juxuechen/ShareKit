@@ -293,7 +293,7 @@ BOOL SHKinit;
 	for (NSString *sharerId in sharers)
     {
         // Add support sharer type and less than 3 items
-        if ([NSClassFromString(sharerId) canShareType:type] && [canShareTypes count] < SHKDefaultItems)
+        if ([NSClassFromString(sharerId) canShareType:type] && [canShareTypes count] < SHK_MAX_FAV_COUNT)
         {
             [canShareTypes addObject:sharerId];
         }

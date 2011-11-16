@@ -14,12 +14,6 @@
 #define SHKMyAppURL				@"http://example.com"
 
 
-// ShareMenu Ordering
-#define SHKShareMenuAlphabeticalOrder 1 // Setting this to 1 will show list in Alphabetical Order, setting to 0 will follow the order in SHKShares.plist
-// ShareMenu show items count in the default
-#define SHKDefaultItems         3
-
-
 /*
  API Keys
  --------
