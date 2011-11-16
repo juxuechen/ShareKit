@@ -1,8 +1,3 @@
-
-
-
-
-
 // PLEASE SEE INSTALL/CONFIG INSTRUCTIONS:
 // http://getsharekit.com/install
 
@@ -18,6 +13,11 @@
 #define SHKMyAppName			@"My App Name"
 #define SHKMyAppURL				@"http://example.com"
 
+
+// ShareMenu Ordering
+#define SHKShareMenuAlphabeticalOrder 1 // Setting this to 1 will show list in Alphabetical Order, setting to 0 will follow the order in SHKShares.plist
+// ShareMenu show items count in the default
+#define SHKDefaultItems         3
 
 
 /*
@@ -60,9 +60,9 @@
 #define SHKTencentWeiboCallbackUrl      @""	// The user defined callback url
 
 // RenRen 
-#define SHKRenRenAppId              @""	// The App Id
-#define SHKRenRenConsumerKey        @""	// The consumer key
-#define SHKRenRenConsumerSecret     @""	// The secret key
+#define SHKRenRenAppId              @"134180"	// The App Id
+#define SHKRenRenConsumerKey        @"ff5fe131651842c7adbdc061f676dc88"	// The consumer key
+#define SHKRenRenConsumerSecret     @"41d17695626d4c43b3572ce7f923b8a3"	// The secret key
 
 
 //////////////////////////
@@ -121,14 +121,9 @@
 #define SHKBitLyLogin				@""
 #define SHKBitLyKey					@""
 
-// ShareMenu Ordering
-#define SHKShareMenuAlphabeticalOrder 1 // Setting this to 1 will show list in Alphabetical Order, setting to 0 will follow the order in SHKShares.plist
-
-// Append 'Shared With 'Signature to Email (and related forms)
-#define SHKSharedWithSignature		0
-
 // TwitPic http://dev.twitpic.com/
 #define SHKTwitPicAPIKey            @""
+
 
 /*
  UI Configuration : Basic

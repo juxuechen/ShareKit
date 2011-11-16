@@ -89,6 +89,7 @@
 #pragma mark -
 #pragma mark Favorites
 
++ (NSArray *)sharersForType:(SHKShareType)type;
 + (NSArray *)favoriteSharersForType:(SHKShareType)type;
 + (void)pushOnFavorites:(NSString *)className forType:(SHKShareType)type;
 + (void)setFavorites:(NSArray *)favs forType:(SHKShareType)type;

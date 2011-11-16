@@ -285,9 +285,26 @@ BOOL SHKinit;
 #pragma mark -
 #pragma mark Favorites
 
++ (NSArray *)sharersForType:(SHKShareType)type
+{
+    NSArray *sharers = [[SHK sharersDictionary] objectForKey:@"services"];
+    NSMutableArray *canShareTypes = [NSMutableArray array];
+    
+	for (NSString *sharerId in sharers)
+    {
+        // Add support sharer type and less than 3 items
+        if ([NSClassFromString(sharerId) canShareType:type] && [canShareTypes count] < SHKDefaultItems)
+        {
+            [canShareTypes addObject:sharerId];
+        }
+    }
+    NSLog(@"class: %@", canShareTypes);
+    
+    return canShareTypes;
+}
 
 + (NSArray *)favoriteSharersForType:(SHKShareType)type
-{	
+{
 	NSArray *favoriteSharers = [[NSUserDefaults standardUserDefaults] objectForKey:[NSString stringWithFormat:@"%@%i", SHK_FAVS_PREFIX_KEY, type]];
 		
 	// set defaults
@@ -296,24 +313,15 @@ BOOL SHKinit;
 		switch (type) 
 		{
 			case SHKShareTypeURL:
-				favoriteSharers = [NSArray arrayWithObjects:@"SHKTwitter",@"SHKFacebook",@"SHKReadItLater",nil];
-				break;
-				
 			case SHKShareTypeImage:
-				favoriteSharers = [NSArray arrayWithObjects:@"SHKMail",@"SHKFacebook",@"SHKCopy",nil];
-				break;
-				
 			case SHKShareTypeText:
-				favoriteSharers = [NSArray arrayWithObjects:@"SHKMail",@"SHKTwitter",@"SHKFacebook", nil];
-				break;
-				
 			case SHKShareTypeFile:
-				favoriteSharers = [NSArray arrayWithObjects:@"SHKMail", nil];
+                favoriteSharers = [self sharersForType:type];
 				break;
 
-      case SHKShareTypeUndefined:
-        SHKLog(@"Received call to favoriteSharersForType for type SHKShareTypeUndefined!");
-        break;
+            case SHKShareTypeUndefined:
+                SHKLog(@"Received call to favoriteSharersForType for type SHKShareTypeUndefined!");
+                break;
     }
 		
 		// Save defaults to prefs
