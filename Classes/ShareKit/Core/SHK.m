@@ -298,7 +298,6 @@ BOOL SHKinit;
             [canShareTypes addObject:sharerId];
         }
     }
-    NSLog(@"class: %@", canShareTypes);
     
     return canShareTypes;
 }
