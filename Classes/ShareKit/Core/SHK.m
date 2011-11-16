@@ -137,7 +137,7 @@ BOOL SHKinit;
 		UINavigationController *nav = [[[UINavigationController alloc] initWithRootViewController:vc] autorelease];
 		
 		if ([nav respondsToSelector:@selector(modalPresentationStyle)])
-			[nav setModalTransitionStyle:[SHK modalPresentationStyle]];
+			[nav setModalPresentationStyle:[SHK modalPresentationStyle]];
 		
 		if ([nav respondsToSelector:@selector(modalTransitionStyle)])
 			nav.modalTransitionStyle = [SHK modalTransitionStyle];
@@ -152,7 +152,7 @@ BOOL SHKinit;
 	else
 	{		
 		if ([vc respondsToSelector:@selector(modalPresentationStyle)])
-			[vc setModalTransitionStyle:[SHK modalPresentationStyle]];
+			[vc setProvidesPresentationContextTransitionStyle:[SHK modalPresentationStyle]];
 		
 		if ([vc respondsToSelector:@selector(modalTransitionStyle)])
 			vc.modalTransitionStyle = [SHK modalTransitionStyle];
