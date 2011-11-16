@@ -13,6 +13,17 @@
 @synthesize renren;
 
 
+- (id)init
+{
+	if ((self = [super init]))
+	{		
+        self.renren = [Renren sharedRenren];
+	}
+    
+	return self;
+}
+
+
 #pragma mark -
 #pragma mark Configuration : Service Defination
 
@@ -50,41 +61,48 @@
 
 - (BOOL)isAuthorized
 {	
-    self.renren = [Renren sharedRenren];
-	if ( ! [self.renren isSessionValid])
-	{
-		NSArray *permissions = [NSArray arrayWithObjects:@"status_update", @"photo_upload", nil];
-		[self.renren authorizationWithPermisson:permissions andDelegate:self];
-        
-//		if(!SHKFacebookUseSessionProxy){
-//			self.session = [FBSession sessionForApplication:SHKFacebookKey
-//													 secret:SHKFacebookSecret
-//												   delegate:self];
-//			
-//		}else {
-//			self.session = [FBSession sessionForApplication:SHKFacebookKey
-//											getSessionProxy:SHKFacebookSessionProxyURL
-//												   delegate:self];
-//		}
-//        
-//		
-//		return [self.renren  resume];
-	}
-	
 	return [self.renren isSessionValid];
 }
 
 - (void)promptAuthorization
 {
-//	self.pendingFacebookAction = SHKFacebookPendingLogin;
-//	self.login = [[[FBLoginDialog alloc] initWithSession:[self session]] autorelease];
-//	[login show];
+    NSArray *permissions = [NSArray arrayWithObjects:@"status_update", @"photo_upload", nil];
+    [self.renren authorizationWithPermisson:permissions andDelegate:self];
 }
 
-- (void)authFinished:(SHKRequest *)request
-{		
+#pragma mark -
+#pragma mark UI Implementation
+
+- (void)show
+{
+    if (item.shareType == SHKShareTypeURL)
+	{
+		[self shortenURL];
+	}
 	
+    else if (item.shareType == SHKShareTypeImage)
+	{
+		[self showRenRenPublishPhotoDialog];
+	}
+	
+	else if (item.shareType == SHKShareTypeText)
+	{
+		[item setCustomValue:item.text forKey:@"status"];
+		[self showRenRenForm];
+	}
 }
+
+- (void)showRenRenForm
+{
+    
+}
+
+- (void)showRenRenPublishPhotoDialog
+{
+    [self.renren publishPhotoSimplyWithImage:item.image  
+                                     caption:item.title];
+}
+
 
 #pragma mark - RenrenDelegate methods
 

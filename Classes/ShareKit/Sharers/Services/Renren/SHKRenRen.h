@@ -17,4 +17,10 @@
 
 @property (retain) Renren *renren;
 
+#pragma mark -
+#pragma mark UI Implementation
+
+- (void)showRenRenForm;
+- (void)showRenRenPublishPhotoDialog;
+
 @end

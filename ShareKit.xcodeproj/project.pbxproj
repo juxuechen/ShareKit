@@ -957,6 +957,8 @@
 			isa = PBXGroup;
 			children = (
 				AC8D840A1472B55A00699D99 /* RRConnect */,
+				AC8D84F41472B59800699D99 /* SHKRenRen.h */,
+				AC8D84F51472B59800699D99 /* SHKRenRen.m */,
 			);
 			path = Renren;
 			sourceTree = "<group>";
@@ -967,8 +969,6 @@
 				AC8D840B1472B55A00699D99 /* Doc */,
 				AC8D840D1472B55A00699D99 /* JSON */,
 				AC8D841B1472B55A00699D99 /* Renren */,
-				AC8D84F41472B59800699D99 /* SHKRenRen.h */,
-				AC8D84F51472B59800699D99 /* SHKRenRen.m */,
 			);
 			path = RRConnect;
 			sourceTree = "<group>";
@@ -1520,7 +1520,6 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
-				PREBINDING = NO;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1536,7 +1535,6 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
-				PREBINDING = NO;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
