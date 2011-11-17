@@ -36,17 +36,17 @@
 //////////////////////////
 
 // Sina Weibo 
-#define SHKSinaWeiboConsumerKey     @""	// The consumer key
-#define SHKSinaWeiboConsumerSecret  @""	// The secret key
-#define SHKSinaWeiboCallbackUrl     @""	// The user defined callback url
-#define SHKSinaWeiboUseXAuth		1   // To use xAuth, set to 1
-#define SHKSinaWeiboScreenName      @"" // Enter your sina weibo screen name
-#define SHKSinaWeiboUserID          @"" // Enter your app's sina weibo account if you'd like to ask the user to follow it when logging in. (Only for xAuth)
+#define SHKSinaWeiboConsumerKey         @""	// The consumer key
+#define SHKSinaWeiboConsumerSecret      @""	// The secret key
+#define SHKSinaWeiboCallbackUrl         @""	// The user defined callback url
+#define SHKSinaWeiboUseXAuth            1   // To use xAuth, set to 1
+#define SHKSinaWeiboScreenName          @"" // Enter your sina weibo screen name
+#define SHKSinaWeiboUserID              @"" // Enter your app's sina weibo account if you'd like to ask the user to follow it when logging in. (Only for xAuth)
 
 // Douban
-#define SHKDoubanConsumerKey        @""	// The consumer key
-#define SHKDoubanConsumerSecret     @""	// The secret key
-#define SHKDoubanCallbackUrl        @""	// The user defined callback url
+#define SHKDoubanConsumerKey            @""	// The consumer key
+#define SHKDoubanConsumerSecret         @""	// The secret key
+#define SHKDoubanCallbackUrl            @""	// The user defined callback url
 
 // Tencent Weibo 
 #define SHKTencentWeiboConsumerKey      @""	// The consumer key
@@ -54,9 +54,9 @@
 #define SHKTencentWeiboCallbackUrl      @""	// The user defined callback url
 
 // RenRen 
-#define SHKRenRenAppId              @""	// The App Id
-#define SHKRenRenConsumerKey        @""	// The consumer key
-#define SHKRenRenConsumerSecret     @""	// The secret key
+#define SHKRenRenAppId                  @""	// The App Id
+#define SHKRenRenConsumerKey            @""	// The consumer key
+#define SHKRenRenConsumerSecret         @""	// The secret key
 
 
 //////////////////////////
@@ -65,29 +65,29 @@
 
 // Evernote - http://www.evernote.com/about/developer/api/
 
-#define kEvernoteUserStoreURL    @"https://sandbox.evernote.com/edam/user"
-#define kEvernoteNetStoreURLBase @"http://sandbox.evernote.com/edam/note/"
-#define SHKEvernoteConsumerKey   @""
-#define SHKEvernoteSecretKey     @""
+#define kEvernoteUserStoreURL           @"https://sandbox.evernote.com/edam/user"
+#define kEvernoteNetStoreURLBase        @"http://sandbox.evernote.com/edam/note/"
+#define SHKEvernoteConsumerKey          @""
+#define SHKEvernoteSecretKey            @""
 // If your Consumer Key is activated by Evernote support,
 // change these constants following.
-//#define kEvernoteUserStoreURL    @"https://www.evernote.com/edam/user"
-//#define kEvernoteNetStoreURLBase @"http://www.evernote.com/edam/note/"
+//#define kEvernoteUserStoreURL         @"https://www.evernote.com/edam/user"
+//#define kEvernoteNetStoreURLBase      @"http://www.evernote.com/edam/note/"
 
 // Delicious - https://developer.apps.yahoo.com/projects
-#define SHKDeliciousConsumerKey		@""
-#define SHKDeliciousSecretKey		@""
+#define SHKDeliciousConsumerKey         @""
+#define SHKDeliciousSecretKey           @""
 
 // Facebook - http://www.facebook.com/developers
 // If SHKFacebookUseSessionProxy is enabled then SHKFacebookSecret is ignored and should be left blank
 
-#define SHKFacebookUseSessionProxy  NO 
-#define SHKFacebookKey				@""
-#define SHKFacebookSecret			@""
-#define SHKFacebookSessionProxyURL  @""
+#define SHKFacebookUseSessionProxy      NO 
+#define SHKFacebookKey                  @""
+#define SHKFacebookSecret               @""
+#define SHKFacebookSessionProxyURL      @""
 
 // Read It Later - http://readitlaterlist.com/api/?shk
-#define SHKReadItLaterKey			@""
+#define SHKReadItLaterKey               @""
 
 // Twitter - http://dev.twitter.com/apps/new
 /*
@@ -105,18 +105,18 @@
  2. 'Application Type' should be set to BROWSER (not client)
  3. 'Callback URL' should match whatever you enter in SHKTwitterCallbackUrl.  The callback url doesn't have to be an actual existing url.  The user will never get to it because ShareKit intercepts it before the user is redirected.  It just needs to match.
  */
-#define SHKTwitterConsumerKey		@""
-#define SHKTwitterSecret			@""
-#define SHKTwitterCallbackUrl		@"" // You need to set this if using OAuth, see note above (xAuth users can skip it)
-#define SHKTwitterUseXAuth			0 // To use xAuth, set to 1
-#define SHKTwitterUsername			@"" // Enter your app's twitter account if you'd like to ask the user to follow it when logging in. (Only for xAuth)
+#define SHKTwitterConsumerKey           @""
+#define SHKTwitterSecret                @""
+#define SHKTwitterCallbackUrl           @"" // You need to set this if using OAuth, see note above (xAuth users can skip it)
+#define SHKTwitterUseXAuth              0 // To use xAuth, set to 1
+#define SHKTwitterUsername              @"" // Enter your app's twitter account if you'd like to ask the user to follow it when logging in. (Only for xAuth)
 
 // Bit.ly (for shortening URLs on Twitter) - http://bit.ly/account/register - after signup: http://bit.ly/a/your_api_key
-#define SHKBitLyLogin				@""
-#define SHKBitLyKey					@""
+#define SHKBitLyLogin                   @""
+#define SHKBitLyKey                     @""
 
 // TwitPic http://dev.twitpic.com/
-#define SHKTwitPicAPIKey            @""
+#define SHKTwitPicAPIKey                @""
 
 
 /*
@@ -126,23 +126,23 @@
  */
 
 // Toolbars
-#define SHKBarStyle					@"UIBarStyleDefault" // See: http://developer.apple.com/iphone/library/documentation/UIKit/Reference/UIKitDataTypesReference/Reference/reference.html#//apple_ref/c/econst/UIBarStyleDefault
-#define SHKBarTintColorRed			-1 // Value between 0-255, set all to -1 for default
-#define SHKBarTintColorGreen		-1 // Value between 0-255, set all to -1 for default
-#define SHKBarTintColorBlue			-1 // Value between 0-255, set all to -1 for default
+#define SHKBarStyle                     @"UIBarStyleDefault" // See: http://developer.apple.com/iphone/library/documentation/UIKit/Reference/UIKitDataTypesReference/Reference/reference.html#//apple_ref/c/econst/UIBarStyleDefault
+#define SHKBarTintColorRed              -1 // Value between 0-255, set all to -1 for default
+#define SHKBarTintColorGreen            -1 // Value between 0-255, set all to -1 for default
+#define SHKBarTintColorBlue             -1 // Value between 0-255, set all to -1 for default
 
 // Forms
-#define SHKFormFontColorRed			-1 // Value between 0-255, set all to -1 for default
-#define SHKFormFontColorGreen		-1 // Value between 0-255, set all to -1 for default
-#define SHKFormFontColorBlue		-1 // Value between 0-255, set all to -1 for default
+#define SHKFormFontColorRed             -1 // Value between 0-255, set all to -1 for default
+#define SHKFormFontColorGreen           -1 // Value between 0-255, set all to -1 for default
+#define SHKFormFontColorBlue            -1 // Value between 0-255, set all to -1 for default
 
-#define SHKFormBgColorRed			-1 // Value between 0-255, set all to -1 for default
-#define SHKFormBgColorGreen			-1 // Value between 0-255, set all to -1 for default
-#define SHKFormBgColorBlue			-1 // Value between 0-255, set all to -1 for default
+#define SHKFormBgColorRed               -1 // Value between 0-255, set all to -1 for default
+#define SHKFormBgColorGreen             -1 // Value between 0-255, set all to -1 for default
+#define SHKFormBgColorBlue              -1 // Value between 0-255, set all to -1 for default
 
 // iPad views
-#define SHKModalPresentationStyle	@"UIModalPresentationFormSheet" // See: http://developer.apple.com/iphone/library/documentation/UIKit/Reference/UIViewController_Class/Reference/Reference.html#//apple_ref/occ/instp/UIViewController/modalPresentationStyle
-#define SHKModalTransitionStyle		@"UIModalTransitionStyleCoverVertical" // See: http://developer.apple.com/iphone/library/documentation/UIKit/Reference/UIViewController_Class/Reference/Reference.html#//apple_ref/occ/instp/UIViewController/modalTransitionStyle
+#define SHKModalPresentationStyle       @"UIModalPresentationFormSheet" // See: http://developer.apple.com/iphone/library/documentation/UIKit/Reference/UIViewController_Class/Reference/Reference.html#//apple_ref/occ/instp/UIViewController/modalPresentationStyle
+#define SHKModalTransitionStyle         @"UIModalTransitionStyleCoverVertical" // See: http://developer.apple.com/iphone/library/documentation/UIKit/Reference/UIViewController_Class/Reference/Reference.html#//apple_ref/occ/instp/UIViewController/modalTransitionStyle
 
 /*
  UI Configuration : Advanced
@@ -174,6 +174,6 @@
  These settings can be left as is.  This only need to be changed for uber custom installs.
  */
 
-#define SHK_MAX_FAV_COUNT			3
-#define SHK_FAVS_PREFIX_KEY			@"SHK_FAVS_"
-#define SHK_AUTH_PREFIX				@"SHK_AUTH_"
+#define SHK_MAX_FAV_COUNT               3
+#define SHK_FAVS_PREFIX_KEY             @"SHK_FAVS_"
+#define SHK_AUTH_PREFIX                 @"SHK_AUTH_"
