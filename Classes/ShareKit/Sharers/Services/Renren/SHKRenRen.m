@@ -7,6 +7,7 @@
 //
 
 #import "SHKRenRen.h"
+#import "SHKRenRenForm.h"
 
 @implementation SHKRenRen
 
@@ -87,14 +88,25 @@
 	
 	else if (item.shareType == SHKShareTypeText)
 	{
-		[item setCustomValue:item.text forKey:@"status"];
+        [item setCustomValue:item.text forKey:@"status"];
 		[self showRenRenForm];
 	}
 }
 
 - (void)showRenRenForm
 {
-    
+    SHKRenRenForm *rootView = [[SHKRenRenForm alloc] initWithNibName:nil bundle:nil];	
+	rootView.delegate = self;
+	
+	// force view to load so we can set textView text
+	[rootView view];
+	
+	rootView.textView.text = [item customValueForKey:@"status"];
+	rootView.hasAttachment = item.image != nil;
+	
+	[self pushViewController:rootView animated:NO];
+	
+	[[SHK currentHelper] showViewController:self];	
 }
 
 - (void)showRenRenPublishPhotoDialog
@@ -103,6 +115,46 @@
                                      caption:item.title];
 }
 
+- (void)sendForm:(SHKRenRenForm *)form
+{	
+	[item setCustomValue:form.textView.text forKey:@"status"];
+	[self send];
+}
+
+
+#pragma mark -
+#pragma mark Share API Methods
+
+- (BOOL)validate
+{
+	NSString *status = [item customValueForKey:@"status"];
+	return status != nil && status.length > 0 && status.length <= 140;
+}
+
+- (BOOL)send
+{	
+	if ( ! [self validate])
+		[self show];
+	
+	else
+	{	
+		if (item.shareType == SHKShareTypeImage) {
+			[self showRenRenPublishPhotoDialog];
+		} else {
+			NSMutableDictionary *params = [NSMutableDictionary dictionaryWithCapacity:10];
+            [params setObject:@"status.set" forKey:@"method"];
+            [params setObject:[item customValueForKey:@"status"] forKey:@"status"];
+            [self.renren requestWithParams:params andDelegate:self];
+		}
+		
+		// Notify delegate
+		[self sendDidStart];	
+		
+		return YES;
+	}
+	
+	return NO;
+}
 
 #pragma mark - RenrenDelegate methods
 

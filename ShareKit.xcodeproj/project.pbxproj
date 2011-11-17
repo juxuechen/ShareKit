@@ -158,6 +158,7 @@
 		ACA8F4791345E3E80058C93D /* SHKDoubanForm.m in Sources */ = {isa = PBXBuildFile; fileRef = ACA8F4771345E3E80058C93D /* SHKDoubanForm.m */; };
 		ACA8F53D1347087D0058C93D /* SHKTencentWeibo.m in Sources */ = {isa = PBXBuildFile; fileRef = ACA8F53A1347087D0058C93D /* SHKTencentWeibo.m */; };
 		ACA8F53E1347087D0058C93D /* SHKTencentWeiboForm.m in Sources */ = {isa = PBXBuildFile; fileRef = ACA8F53C1347087D0058C93D /* SHKTencentWeiboForm.m */; };
+		ACDE01EE1474AAF700FF360C /* SHKRenRenForm.m in Sources */ = {isa = PBXBuildFile; fileRef = ACDE01ED1474AAF700FF360C /* SHKRenRenForm.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -450,6 +451,8 @@
 		ACA8F53A1347087D0058C93D /* SHKTencentWeibo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKTencentWeibo.m; sourceTree = "<group>"; };
 		ACA8F53B1347087D0058C93D /* SHKTencentWeiboForm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKTencentWeiboForm.h; sourceTree = "<group>"; };
 		ACA8F53C1347087D0058C93D /* SHKTencentWeiboForm.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKTencentWeiboForm.m; sourceTree = "<group>"; };
+		ACDE01EC1474AAF700FF360C /* SHKRenRenForm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKRenRenForm.h; sourceTree = "<group>"; };
+		ACDE01ED1474AAF700FF360C /* SHKRenRenForm.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKRenRenForm.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -959,6 +962,8 @@
 				AC8D840A1472B55A00699D99 /* RRConnect */,
 				AC8D84F41472B59800699D99 /* SHKRenRen.h */,
 				AC8D84F51472B59800699D99 /* SHKRenRen.m */,
+				ACDE01EC1474AAF700FF360C /* SHKRenRenForm.h */,
+				ACDE01ED1474AAF700FF360C /* SHKRenRenForm.m */,
 			);
 			path = Renren;
 			sourceTree = "<group>";
@@ -1454,6 +1459,7 @@
 				AC8D84CE1472B55B00699D99 /* ROGlobalStyle.m in Sources */,
 				AC8D84CF1472B55B00699D99 /* ROImageView.m in Sources */,
 				AC8D84F61472B59800699D99 /* SHKRenRen.m in Sources */,
+				ACDE01EE1474AAF700FF360C /* SHKRenRenForm.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
