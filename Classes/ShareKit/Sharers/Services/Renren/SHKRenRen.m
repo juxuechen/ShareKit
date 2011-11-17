@@ -10,9 +10,20 @@
 #import "SHKRenRenForm.h"
 
 @implementation SHKRenRen
-
 @synthesize renren;
 
+
+static SHKRenRen *sharedRenRen = nil;
+
++ (SHKRenRen *)sharedSHKRenren 
+{
+    if ( ! sharedRenRen) 
+    {
+        sharedRenRen = [[SHKRenRen alloc] init];
+    }
+    
+    return sharedRenRen;
+}
 
 - (id)init
 {
@@ -53,7 +64,7 @@
 
 - (BOOL)shouldAutoShare
 {
-	return YES; // RRConnect presents its own dialog
+	return NO;
 }
 
 
@@ -71,6 +82,11 @@
     [self.renren authorizationWithPermisson:permissions andDelegate:self];
 }
 
++ (void)logout
+{
+    [[Renren sharedRenren] logout:[SHKRenRen sharedSHKRenren]];
+}
+
 #pragma mark -
 #pragma mark UI Implementation
 
@@ -78,9 +94,9 @@
 {
     if (item.shareType == SHKShareTypeURL)
 	{
-		[self shortenURL];
+        [item setCustomValue:[item.URL.absoluteString stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]  forKey:@"status"];
+		[self showRenRenForm];
 	}
-	
     else if (item.shareType == SHKShareTypeImage)
 	{
 		[self showRenRenPublishPhotoDialog];
@@ -118,7 +134,7 @@
 - (void)sendForm:(SHKRenRenForm *)form
 {	
 	[item setCustomValue:form.textView.text forKey:@"status"];
-	[self send];
+	[self tryToSend];
 }
 
 
@@ -138,9 +154,12 @@
 	
 	else
 	{	
-		if (item.shareType == SHKShareTypeImage) {
+		if (item.shareType == SHKShareTypeImage) 
+        {
 			[self showRenRenPublishPhotoDialog];
-		} else {
+		} 
+        else 
+        {
 			NSMutableDictionary *params = [NSMutableDictionary dictionaryWithCapacity:10];
             [params setObject:@"status.set" forKey:@"method"];
             [params setObject:[item customValueForKey:@"status"] forKey:@"status"];
@@ -158,54 +177,33 @@
 
 #pragma mark - RenrenDelegate methods
 
--(void)showAlert:(NSString*)message{
-	UIAlertView *alert =[[UIAlertView alloc] initWithTitle:@"Widget Dialog" 
-                                                   message:message delegate:nil
-                                         cancelButtonTitle:@"ok" otherButtonTitles:nil];
-	[alert show];
-    [alert release];
+
+-(void)renrenDidLogin:(Renren *)renren
+{
+    [self show];
 }
 
--(void)renrenDidLogin:(Renren *)renren{
-    NSLog(@"renrenDidLogin");
-//	ServiceTableViewController *serviceTableViewController = [[ServiceTableViewController alloc] initWithNibName:nil bundle:[NSBundle mainBundle]];
-//    serviceTableViewController.renren = self.renren;
-//	[self.navigationController pushViewController:serviceTableViewController animated:YES];
-//	[serviceTableViewController release];
+- (void)renren:(Renren *)renren loginFailWithError:(ROError*)error
+{
+	[self sendDidFailWithError:error];
 }
 
-- (void)renren:(Renren *)renren loginFailWithError:(ROError*)error{
-	NSString *title = [NSString stringWithFormat:@"Error code:%d", [error code]];
-	NSString *description = [NSString stringWithFormat:@"%@", [error localizedDescription]];
-	UIAlertView *alertView =[[[UIAlertView alloc] initWithTitle:title message:description delegate:nil cancelButtonTitle:@"ok" otherButtonTitles:nil] autorelease];
-	[alertView show];
-}
-
-- (void)renren:(Renren *)renren requestDidReturnResponse:(ROResponse*)response{
+- (void)renren:(Renren *)renren requestDidReturnResponse:(ROResponse*)response
+{
 	NSDictionary* params = (NSDictionary *)response.rootObject;
-    if (params!=nil) {
-        NSString *msg=nil;
-        NSMutableString *result = [[NSMutableString alloc] initWithString:@""];
-        for (id key in params)
-		{
-			msg = [NSString stringWithFormat:@"key: %@ value: %@    ",key,[params objectForKey:key]];
-		    [result appendString:msg];
-		}
-		[self showAlert:result];
-        [result release];
+    if (params != nil && [params objectForKey:@"result"] != nil && [[params objectForKey:@"result"] intValue] == 1) 
+    {
+        [self sendDidFinish];
 	}
-    
-    
+    else
+    {  
+        [self sendDidFailWithError:[SHK error:SHKLocalizedString([params objectForKey:@"error_msg"])]];
+    }
 }
 
-- (void)renren:(Renren *)renren requestFailWithError:(ROError*)error{
-	//Demo Test
-    NSString* errorCode = [NSString stringWithFormat:@"Error:%d", error];
-    NSString* errorMsg = [error localizedDescription];
-    
-    UIAlertView * alert = [[UIAlertView alloc] initWithTitle:errorCode message:errorMsg delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];
-    [alert show];
-    [alert release];
+- (void)renren:(Renren *)renren requestFailWithError:(ROError*)error
+{ 
+    [self sendDidFailWithError:[SHK error:SHKLocalizedString([error localizedDescription])]];
 }
 
 @end

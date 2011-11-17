@@ -32,6 +32,4 @@
 
 - (void)sendForm:(SHKRenRenForm *)form;
 
-- (void)sendStatus;
-
 @end
