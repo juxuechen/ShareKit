@@ -13,8 +13,8 @@
 	<key>services</key>
 	<array>
 		<string>SHKSinaWeibo</string>
-		<string>SHKRenRen</string>
 		<string>SHKDouban</string>
+		<string>SHKRenRen</string>
 		<string>SHKEvernote</string>
 		<string>SHKTwitter</string>
 		<string>SHKPinboard</string>
