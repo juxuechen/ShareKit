@@ -306,4 +306,21 @@
 	[self sendDidFailWithError:error];
 }
 
+#pragma mark - Overrewrite parent method
+- (void)tokenAuthorize
+{	
+	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@?oauth_token=%@&p=1", authorizeURL.absoluteString, requestToken.key]];
+    if ( ! [[authorizeCallbackURL absoluteString] isEqualToString:@""]) {
+        url = [NSURL URLWithString:[NSString stringWithFormat:@"%@?oauth_token=%@&oauth_callback=%@&p=1", 
+                                    authorizeURL.absoluteString, 
+                                    requestToken.key, 
+                                    [authorizeCallbackURL absoluteString]]];
+    }
+    
+	
+	SHKOAuthView *auth = [[SHKOAuthView alloc] initWithURL:url delegate:self];
+	[[SHK currentHelper] showViewController:auth];	
+	[auth release];
+}
+
 @end
