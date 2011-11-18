@@ -107,7 +107,7 @@
 
 + (NSString *)authorizationFormCaption
 {
-	return SHKLocalizedString(@"Create a free account at %@", @"T.CN");
+	return SHKLocalizedString(@"Create a free account at %@", @"weibo.com");
 }
 
 + (NSArray *)authorizationFormFields
