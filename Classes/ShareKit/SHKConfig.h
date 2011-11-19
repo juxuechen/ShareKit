@@ -39,7 +39,7 @@
 #define SHKSinaWeiboConsumerKey         @""	// The consumer key
 #define SHKSinaWeiboConsumerSecret      @""	// The secret key
 #define SHKSinaWeiboCallbackUrl         @""	// The user defined callback url
-#define SHKSinaWeiboUseXAuth            1   // To use xAuth, set to 1
+#define SHKSinaWeiboUseXAuth            0   // To use xAuth, set to 1
 #define SHKSinaWeiboScreenName          @"" // Enter your sina weibo screen name
 #define SHKSinaWeiboUserID              @"" // Enter your app's sina weibo account if you'd like to ask the user to follow it when logging in. (Only for xAuth)
 
