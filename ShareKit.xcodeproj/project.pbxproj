@@ -90,7 +90,6 @@
 		8563E284125C8512002D729F /* SHKEvernote.m in Sources */ = {isa = PBXBuildFile; fileRef = 8563E283125C8512002D729F /* SHKEvernote.m */; };
 		8563E342125C884A002D729F /* NSData+md5.m in Sources */ = {isa = PBXBuildFile; fileRef = 8563E341125C884A002D729F /* NSData+md5.m */; };
 		8563E43A125C8D1E002D729F /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8563E436125C8D1E002D729F /* Localizable.strings */; };
-		AC8D84A21472B55B00699D99 /* iOS SDK使用说明.pdf in Resources */ = {isa = PBXBuildFile; fileRef = AC8D840C1472B55A00699D99 /* iOS SDK使用说明.pdf */; };
 		AC8D84A31472B55B00699D99 /* NSObject+SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = AC8D84101472B55A00699D99 /* NSObject+SBJSON.m */; };
 		AC8D84A41472B55B00699D99 /* NSString+SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = AC8D84121472B55A00699D99 /* NSString+SBJSON.m */; };
 		AC8D84A51472B55B00699D99 /* SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = AC8D84141472B55A00699D99 /* SBJSON.m */; };
@@ -137,7 +136,7 @@
 		AC8D84CE1472B55B00699D99 /* ROGlobalStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = AC8D84641472B55A00699D99 /* ROGlobalStyle.m */; };
 		AC8D84CF1472B55B00699D99 /* ROImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = AC8D84661472B55A00699D99 /* ROImageView.m */; };
 		AC8D84F61472B59800699D99 /* SHKRenRen.m in Sources */ = {isa = PBXBuildFile; fileRef = AC8D84F51472B59800699D99 /* SHKRenRen.m */; };
-		AC9069CE146E5AD2000F8A51 /* Twitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC9069CD146E5AD2000F8A51 /* Twitter.framework */; };
+		AC9069CE146E5AD2000F8A51 /* Twitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC9069CD146E5AD2000F8A51 /* Twitter.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		ACA1C41514330B27005F5B21 /* EDAMLimits.m in Sources */ = {isa = PBXBuildFile; fileRef = ACA1C3F214330B27005F5B21 /* EDAMLimits.m */; };
 		ACA1C41614330B27005F5B21 /* Errors.m in Sources */ = {isa = PBXBuildFile; fileRef = ACA1C3F414330B27005F5B21 /* Errors.m */; };
 		ACA1C41714330B27005F5B21 /* NoteStore.m in Sources */ = {isa = PBXBuildFile; fileRef = ACA1C3F614330B27005F5B21 /* NoteStore.m */; };
@@ -320,7 +319,6 @@
 		8563E438125C8D1E002D729F /* en */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = en; path = Classes/ShareKit/Localization/en.lproj/Localizable.strings; sourceTree = SOURCE_ROOT; };
 		8563E439125C8D1E002D729F /* ja */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = ja; path = Classes/ShareKit/Localization/ja.lproj/Localizable.strings; sourceTree = SOURCE_ROOT; };
 		8D1107310486CEB800E47090 /* ShareKit-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "ShareKit-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
-		AC8D840C1472B55A00699D99 /* iOS SDK使用说明.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "iOS SDK使用说明.pdf"; sourceTree = "<group>"; };
 		AC8D840E1472B55A00699D99 /* JSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSON.h; sourceTree = "<group>"; };
 		AC8D840F1472B55A00699D99 /* NSObject+SBJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+SBJSON.h"; sourceTree = "<group>"; };
 		AC8D84101472B55A00699D99 /* NSObject+SBJSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+SBJSON.m"; sourceTree = "<group>"; };
@@ -964,19 +962,10 @@
 		AC8D840A1472B55A00699D99 /* RRConnect */ = {
 			isa = PBXGroup;
 			children = (
-				AC8D840B1472B55A00699D99 /* Doc */,
 				AC8D840D1472B55A00699D99 /* JSON */,
 				AC8D841B1472B55A00699D99 /* Renren */,
 			);
 			path = RRConnect;
-			sourceTree = "<group>";
-		};
-		AC8D840B1472B55A00699D99 /* Doc */ = {
-			isa = PBXGroup;
-			children = (
-				AC8D840C1472B55A00699D99 /* iOS SDK使用说明.pdf */,
-			);
-			path = Doc;
 			sourceTree = "<group>";
 		};
 		AC8D840D1472B55A00699D99 /* JSON */ = {
@@ -1295,7 +1284,6 @@
 				43A5382911DBE480004A1712 /* sanFran.jpg in Resources */,
 				43C91D1D11EB963600F31FAE /* MainWindow-iPad.xib in Resources */,
 				8563E43A125C8D1E002D729F /* Localizable.strings in Resources */,
-				AC8D84A21472B55B00699D99 /* iOS SDK使用说明.pdf in Resources */,
 				AC8D84AA1472B55B00699D99 /* bottom-bar.png in Resources */,
 				AC8D84AB1472B55B00699D99 /* bottom-bar@2x.png in Resources */,
 				AC8D84AC1472B55B00699D99 /* head-frame.png in Resources */,
