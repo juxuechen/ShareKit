@@ -150,13 +150,12 @@
 		[self showDoubanForm];		
 		return;
 	}
-
+    
 	if (!quiet)
 		[[SHKActivityIndicator currentIndicator] displayActivity:SHKLocalizedString(@"Shortening URL...")];
 	
-	self.request = [[[SHKRequest alloc] initWithURL:[NSURL URLWithString:[NSMutableString stringWithFormat:@"http://api.bit.ly/v3/shorten?login=%@&apikey=%@&longUrl=%@&format=txt",
-																		  SHKBitLyLogin,
-																		  SHKBitLyKey,																		  
+	self.request = [[[SHKRequest alloc] initWithURL:[NSURL URLWithString:[NSMutableString stringWithFormat:@"http://api.t.sina.com.cn/short_url/shorten.json?source=%@&url_long=%@",
+																		  SHKSinaWeiboConsumerKey,						  
 																		  SHKEncodeURL(item.URL)
 																		  ]]
 											 params:nil
@@ -164,14 +163,30 @@
 								 isFinishedSelector:@selector(shortenURLFinished:)
 											 method:@"GET"
 										  autostart:YES] autorelease];
+    
+    NSLog(@"short url: %@", self.request.url);
+    
 }
 
 - (void)shortenURLFinished:(SHKRequest *)aRequest
 {
 	[[SHKActivityIndicator currentIndicator] hide];
-	
-	NSString *result = [[aRequest getResult] stringByTrimmingCharactersInSet:[NSCharacterSet newlineCharacterSet]];
-	
+    
+    NSRegularExpression *regex = [[NSRegularExpression alloc] initWithPattern:@"(http://t.cn/(\\w+))"
+                                                                      options:NSRegularExpressionCaseInsensitive 
+                                                                        error:nil];
+    
+    NSArray *matches = [regex matchesInString:[aRequest getResult]
+                                      options:0
+                                        range:NSMakeRange(0, [[aRequest getResult] length])];
+    
+    NSString *result;
+    for (NSTextCheckingResult *match in matches) 
+    {
+        NSRange range = [match rangeAtIndex:0];
+        result = [[aRequest getResult] substringWithRange:range]; 
+    }
+    
 	if (result == nil || [NSURL URLWithString:result] == nil)
 	{
 		// TODO - better error message
@@ -181,16 +196,12 @@
 						   cancelButtonTitle:SHKLocalizedString(@"Continue")
 						   otherButtonTitles:nil] autorelease] show];
 		
-		[item setCustomValue:[NSString stringWithFormat:@"%@ %@", item.text ? item.text : item.title, [item.URL.absoluteString stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]] forKey:@"status"];
+		[item setCustomValue:[NSString stringWithFormat:@"%@: %@", item.text ? item.text : item.title, [item.URL.absoluteString stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]] forKey:@"status"];
 	}
 	
 	else
 	{		
-		///if already a bitly login, use url instead
-		if ([result isEqualToString:@"ALREADY_A_BITLY_LINK"])
-			result = [item.URL.absoluteString stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-		
-		[item setCustomValue:[NSString stringWithFormat:@"%@ %@", item.text ? item.text : item.title, result] forKey:@"status"];
+		[item setCustomValue:[NSString stringWithFormat:@"%@: %@", item.text ? item.text : item.title, result] forKey:@"status"];
 	}
 	
 	[self showDoubanForm];
