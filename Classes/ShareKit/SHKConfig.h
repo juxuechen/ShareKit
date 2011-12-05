@@ -36,8 +36,8 @@
 //////////////////////////
 
 // Sina Weibo 
-#define SHKSinaWeiboConsumerKey         @"1631351849"	// The consumer key
-#define SHKSinaWeiboConsumerSecret      @"9164c304b4e547b8cdbf024fc4534720"	// The secret key
+#define SHKSinaWeiboConsumerKey         @""	// The consumer key
+#define SHKSinaWeiboConsumerSecret      @""	// The secret key
 #define SHKSinaWeiboCallbackUrl         @""	// The user defined callback url
 #define SHKSinaWeiboUseXAuth            0   // To use xAuth, set to 1
 #define SHKSinaWeiboScreenName          @"" // Enter your sina weibo screen name
