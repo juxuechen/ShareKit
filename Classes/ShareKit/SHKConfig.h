@@ -36,8 +36,8 @@
 //////////////////////////
 
 // Sina Weibo 
-#define SHKSinaWeiboConsumerKey         @""	// The consumer key
-#define SHKSinaWeiboConsumerSecret      @""	// The secret key
+#define SHKSinaWeiboConsumerKey         @"1631351849"	// The consumer key
+#define SHKSinaWeiboConsumerSecret      @"9164c304b4e547b8cdbf024fc4534720"	// The secret key
 #define SHKSinaWeiboCallbackUrl         @""	// The user defined callback url
 #define SHKSinaWeiboUseXAuth            0   // To use xAuth, set to 1
 #define SHKSinaWeiboScreenName          @"" // Enter your sina weibo screen name
@@ -52,6 +52,14 @@
 #define SHKTencentWeiboConsumerKey      @""	// The consumer key
 #define SHKTencentWeiboConsumerSecret   @""	// The secret key
 #define SHKTencentWeiboCallbackUrl      @""	// The user defined callback url
+
+// NetEase(163) Weibo 
+#define SHKNetEaseWeiboConsumerKey         @""	// The consumer key
+#define SHKNetEaseWeiboConsumerSecret      @""	// The secret key
+#define SHKNetEaseWeiboCallbackUrl         @"null"	// The user defined callback url
+#define SHKNetEaseWeiboUseXAuth            0   // To use xAuth, set to 1
+#define SHKNetEaseWeiboScreenName          @"" // Enter your NetEase weibo screen name
+#define SHKNetEaseWeiboUserID              @"" // Enter your app's NetEase weibo account if you'd like to ask the user to follow it when logging in. (Only for xAuth)
 
 // RenRen 
 #define SHKRenRenAppId                  @""	// The App Id
@@ -158,7 +166,7 @@
  ------
  To show debug output in the console, define _SHKDebugShowLogs somewhere.
  */
-
+#define _SHKDebugShowLogs			1
 #ifdef _SHKDebugShowLogs
 	#define SHKDebugShowLogs			1
 	#define SHKLog( s, ... ) NSLog( @"<%p %@:(%d)> %@", self, [[NSString stringWithUTF8String:__FILE__] lastPathComponent], __LINE__, [NSString stringWithFormat:(s), ##__VA_ARGS__] )

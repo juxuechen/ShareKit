@@ -90,6 +90,8 @@
 		8563E284125C8512002D729F /* SHKEvernote.m in Sources */ = {isa = PBXBuildFile; fileRef = 8563E283125C8512002D729F /* SHKEvernote.m */; };
 		8563E342125C884A002D729F /* NSData+md5.m in Sources */ = {isa = PBXBuildFile; fileRef = 8563E341125C884A002D729F /* NSData+md5.m */; };
 		8563E43A125C8D1E002D729F /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8563E436125C8D1E002D729F /* Localizable.strings */; };
+		AC3DC96C148BCE5300E9AD3C /* SHKNetEaseWeibo.m in Sources */ = {isa = PBXBuildFile; fileRef = AC3DC969148BCE5300E9AD3C /* SHKNetEaseWeibo.m */; };
+		AC3DC96D148BCE5300E9AD3C /* SHKNetEaseWeiboForm.m in Sources */ = {isa = PBXBuildFile; fileRef = AC3DC96B148BCE5300E9AD3C /* SHKNetEaseWeiboForm.m */; };
 		AC8D84A31472B55B00699D99 /* NSObject+SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = AC8D84101472B55A00699D99 /* NSObject+SBJSON.m */; };
 		AC8D84A41472B55B00699D99 /* NSString+SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = AC8D84121472B55A00699D99 /* NSString+SBJSON.m */; };
 		AC8D84A51472B55B00699D99 /* SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = AC8D84141472B55A00699D99 /* SBJSON.m */; };
@@ -319,6 +321,10 @@
 		8563E438125C8D1E002D729F /* en */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = en; path = Classes/ShareKit/Localization/en.lproj/Localizable.strings; sourceTree = SOURCE_ROOT; };
 		8563E439125C8D1E002D729F /* ja */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = ja; path = Classes/ShareKit/Localization/ja.lproj/Localizable.strings; sourceTree = SOURCE_ROOT; };
 		8D1107310486CEB800E47090 /* ShareKit-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "ShareKit-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
+		AC3DC968148BCE5300E9AD3C /* SHKNetEaseWeibo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKNetEaseWeibo.h; sourceTree = "<group>"; };
+		AC3DC969148BCE5300E9AD3C /* SHKNetEaseWeibo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKNetEaseWeibo.m; sourceTree = "<group>"; };
+		AC3DC96A148BCE5300E9AD3C /* SHKNetEaseWeiboForm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKNetEaseWeiboForm.h; sourceTree = "<group>"; };
+		AC3DC96B148BCE5300E9AD3C /* SHKNetEaseWeiboForm.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKNetEaseWeiboForm.m; sourceTree = "<group>"; };
 		AC8D840E1472B55A00699D99 /* JSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSON.h; sourceTree = "<group>"; };
 		AC8D840F1472B55A00699D99 /* NSObject+SBJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+SBJSON.h"; sourceTree = "<group>"; };
 		AC8D84101472B55A00699D99 /* NSObject+SBJSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+SBJSON.m"; sourceTree = "<group>"; };
@@ -766,6 +772,7 @@
 				ACA4833D1343679900A03B1F /* Sina Weibo */,
 				ACA8F4731345E3E80058C93D /* Douban */,
 				AC8D84091472B55A00699D99 /* Renren */,
+				AC3DC967148BCE5300E9AD3C /* NetEase Weibo */,
 				43A536C111DBE3B9004A1712 /* Delicious */,
 				8563E281125C8512002D729F /* Evernote */,
 				43A536C411DBE3B9004A1712 /* Facebook */,
@@ -945,6 +952,17 @@
 				8563E283125C8512002D729F /* SHKEvernote.m */,
 			);
 			path = Evernote;
+			sourceTree = "<group>";
+		};
+		AC3DC967148BCE5300E9AD3C /* NetEase Weibo */ = {
+			isa = PBXGroup;
+			children = (
+				AC3DC968148BCE5300E9AD3C /* SHKNetEaseWeibo.h */,
+				AC3DC969148BCE5300E9AD3C /* SHKNetEaseWeibo.m */,
+				AC3DC96A148BCE5300E9AD3C /* SHKNetEaseWeiboForm.h */,
+				AC3DC96B148BCE5300E9AD3C /* SHKNetEaseWeiboForm.m */,
+			);
+			path = "NetEase Weibo";
 			sourceTree = "<group>";
 		};
 		AC8D84091472B55A00699D99 /* Renren */ = {
@@ -1428,6 +1446,8 @@
 				AC8D84CF1472B55B00699D99 /* ROImageView.m in Sources */,
 				AC8D84F61472B59800699D99 /* SHKRenRen.m in Sources */,
 				ACDE01EE1474AAF700FF360C /* SHKRenRenForm.m in Sources */,
+				AC3DC96C148BCE5300E9AD3C /* SHKNetEaseWeibo.m in Sources */,
+				AC3DC96D148BCE5300E9AD3C /* SHKNetEaseWeiboForm.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
