@@ -8,6 +8,7 @@
 //
 #import "ROGetFriendsInfoRequestParam.h"
 #import "ROFriendResponseItem.h"
+#import "ROError.h"
 
 @implementation ROGetFriendsInfoRequestParam
 @synthesize page = _page;
