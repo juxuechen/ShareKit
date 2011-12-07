@@ -152,7 +152,7 @@ BOOL SHKinit;
 	else
 	{		
 		if ([vc respondsToSelector:@selector(modalPresentationStyle)])
-			[vc setProvidesPresentationContextTransitionStyle:[SHK modalPresentationStyle]];
+			[vc setModalPresentationStyle:[SHK modalPresentationStyle]];
 		
 		if ([vc respondsToSelector:@selector(modalTransitionStyle)])
 			vc.modalTransitionStyle = [SHK modalTransitionStyle];
