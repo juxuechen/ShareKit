@@ -31,6 +31,7 @@
 "Logging In..." = "En cours de connexion...";
 "Login Error" = "Erreur de connexion";
 "Connecting..." = "En cours de connexion...";
+"Account" = "Compte";
 
 "Shortening URL..." = "URL acourtée...";
 "Shorten URL Error" = "Erreur d'URL accourtée";

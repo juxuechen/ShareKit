@@ -32,6 +32,8 @@
 "Logging In..." = "登录中…";
 "Login Error" = "登录出错";
 "Connecting..." = "连接中…";
+"Account" = "账号";
+"Logout of All Services" = "注销所有服务";
 
 
 "Shortening URL..." = "缩短网址…";

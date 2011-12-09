@@ -31,6 +31,7 @@
 "Logging In..." = "Sartzen...";
 "Login Error" = "Sarrera errorea";
 "Connecting..." = "Konektatzen...";
+"Account" = "Kontua";
 
 "Shortening URL..." = "URLa laburtzen...";
 "Shorten URL Error" = "URL laburtzearen Error";

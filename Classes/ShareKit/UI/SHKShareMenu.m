@@ -90,6 +90,10 @@
 	self.tableData = [NSMutableArray arrayWithCapacity:0];
 	[tableData addObject:[self section:@"actions"]];
 	[tableData addObject:[self section:@"services"]];
+    
+    [tableData addObject:[NSArray arrayWithObject:[NSDictionary dictionaryWithObject:SHKLocalizedString(@"Logout of All Services")
+                                                                              forKey:@"name"]]];
+                                                   
 		
 	// Handling Excluded items
 	// If in editing mode, show them
@@ -201,24 +205,35 @@
 {    
     static NSString *CellIdentifier = @"Cell";
     
+    NSLog(@"tableData section: %d, count: %d", indexPath.section, tableData.count);
+
+    NSUInteger count = [tableData count];
+    
     SHKCustomShareMenuCell *cell = (SHKCustomShareMenuCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil)
 	{
         cell = [[[SHKCustomShareMenuCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
-		cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 	}
+    
+    if (indexPath.section != (count - 1))
+    {
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        
+        UISwitch *toggle = [[UISwitch alloc] initWithFrame:CGRectZero];
+        toggle.userInteractionEnabled = NO;
+        cell.editingAccessoryView = toggle;
+        [toggle release];
+    }
+    else
+    {
+        cell.accessoryType = UITableViewCellAccessoryNone;
+        cell.editingAccessoryView = nil;
+    }
     
 	NSDictionary *rowData = [self rowDataAtIndexPath:indexPath];
 	cell.textLabel.text = [rowData objectForKey:@"name"];
 	cell.imageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"%@.%@",[rowData objectForKey:@"className"],@"png"]];
-    
-	if (cell.editingAccessoryView == nil)
-	{
-		UISwitch *toggle = [[UISwitch alloc] initWithFrame:CGRectZero];
-		toggle.userInteractionEnabled = NO;
-		cell.editingAccessoryView = toggle;
-		[toggle release];
-	}
+
 	
 	[(UISwitch *)cell.editingAccessoryView setOn:[exclusions objectForKey:[rowData objectForKey:@"className"]] == nil];
 	
@@ -262,9 +277,19 @@
 	
 	else 
 	{
-		[NSClassFromString([rowData objectForKey:@"className"]) shareItem:item];
-		
-		[[SHK currentHelper] hideCurrentViewControllerAnimated:YES];
+        if (indexPath.section != ([tableData count] - 1))
+        {
+            [NSClassFromString([rowData objectForKey:@"className"]) shareItem:item];
+            
+            [[SHK currentHelper] hideCurrentViewControllerAnimated:YES];
+        }
+        else
+        {
+            [SHK logoutOfAll];
+            
+            [[SHKActivityIndicator currentIndicator] displayCompleted:SHKLocalizedString(@"Saved!")];
+            [self.tableView deselectRowAtIndexPath:indexPath animated:NO];
+        }
 	}
 }
 
@@ -279,9 +304,10 @@
 	{
 		if (section == 0)
 			return SHKLocalizedString(@"Actions");
-		
 		else if (section == 1)
 			return SHKLocalizedString(@"Services");
+        else if (section == 2)
+            return SHKLocalizedString(@"Account");
 	}
 	
 	return nil;

@@ -31,6 +31,7 @@
 "Logging In..." = "로그인 중...";
 "Login Error" = "로그인 오류";
 "Connecting..." = "접속 중...";
+"Account" = "계정";
 
 "Shortening URL..." = "URL 줄이는 중...";
 "Shorten URL Error" = "단축 URL 오류";

@@ -32,6 +32,8 @@
 "Logging In..." = "Logging In...";
 "Login Error" = "Login Error";
 "Connecting..." = "Connecting...";
+"Account" = "Account";
+"Logout of All Services" = "Logout of All Services";
 
 "Shortening URL..." = "Shortening URL...";
 "Shorten URL Error" = "Shorten URL Error";

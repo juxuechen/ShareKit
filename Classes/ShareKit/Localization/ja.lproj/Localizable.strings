@@ -31,6 +31,7 @@
 "Logging In..." = "ログイン中";
 "Login Error" = "ログイン失敗";
 "Connecting..." = "接続中";
+"Account" = "アカウント";
 
 "Shortening URL..." = "URLを短縮中";
 "Shorten URL Error" = "URLの短縮に失敗しました";
