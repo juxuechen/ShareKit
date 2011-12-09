@@ -2,14 +2,11 @@
 // http://getsharekit.com/install
 
 
-#define kSHKEmailShouldShortenURLs NO
-#define kSHKCopyShouldShortenURLs  NO
-
-
-
-// App Description
-// These values are used by any service that shows 'shared from XYZ'
-
+/*
+ App Description
+ ------
+ These values are used by any service that shows 'shared from XYZ'
+ */
 #define SHKMyAppName			@"My App Name"
 #define SHKMyAppURL				@"http://example.com"
 
@@ -38,7 +35,7 @@
 // Sina Weibo 
 #define SHKSinaWeiboConsumerKey         @""	// The consumer key
 #define SHKSinaWeiboConsumerSecret      @""	// The secret key
-#define SHKSinaWeiboCallbackUrl         @""	// The user defined callback url
+#define SHKSinaWeiboCallbackUrl         @""	// You need to set this if using OAuth (MUST be set, it could be any words)
 #define SHKSinaWeiboUseXAuth            0   // To use xAuth, set to 1
 #define SHKSinaWeiboScreenName          @"" // Enter your sina weibo screen name
 #define SHKSinaWeiboUserID              @"" // Enter your app's sina weibo account if you'd like to ask the user to follow it when logging in. (Only for xAuth)
@@ -46,18 +43,13 @@
 // Douban
 #define SHKDoubanConsumerKey            @""	// The consumer key
 #define SHKDoubanConsumerSecret         @""	// The secret key
-#define SHKDoubanCallbackUrl            @""	// The user defined callback url
-
-// Tencent Weibo 
-#define SHKTencentWeiboConsumerKey      @""	// The consumer key
-#define SHKTencentWeiboConsumerSecret   @""	// The secret key
-#define SHKTencentWeiboCallbackUrl      @""	// The user defined callback url
+#define SHKDoubanCallbackUrl            @""	// You need to set this if using OAuth (MUST be set, it could be any words)
 
 // NetEase(163) Weibo 
 #define SHKNetEaseWeiboConsumerKey         @""	// The consumer key
 #define SHKNetEaseWeiboConsumerSecret      @""	// The secret key
-#define SHKNetEaseWeiboCallbackUrl         @"null"	// The user defined callback url
-#define SHKNetEaseWeiboUseXAuth            0   // To use xAuth, set to 1
+#define SHKNetEaseWeiboCallbackUrl         @"null"	// The user defined callback url (MUST be set "null")
+#define SHKNetEaseWeiboUseXAuth            0   // TODO: To use xAuth, set to 1(It is not work for xAuth)
 #define SHKNetEaseWeiboScreenName          @"" // Enter your NetEase weibo screen name
 #define SHKNetEaseWeiboUserID              @"" // Enter your app's NetEase weibo account if you'd like to ask the user to follow it when logging in. (Only for xAuth)
 
@@ -65,7 +57,6 @@
 #define SHKRenRenAppId                  @""	// The App Id
 #define SHKRenRenConsumerKey            @""	// The consumer key
 #define SHKRenRenConsumerSecret         @""	// The secret key
-
 
 //////////////////////////
 // External Service 
@@ -123,8 +114,7 @@
 #define SHKBitLyLogin                   @""
 #define SHKBitLyKey                     @""
 
-// TwitPic http://dev.twitpic.com/
-#define SHKTwitPicAPIKey                @""
+
 
 
 /*
@@ -161,20 +151,6 @@
 
 
 
-/*
- Debugging
- ------
- To show debug output in the console, define _SHKDebugShowLogs somewhere.
- */
-#define _SHKDebugShowLogs			1
-#ifdef _SHKDebugShowLogs
-	#define SHKDebugShowLogs			1
-	#define SHKLog( s, ... ) NSLog( @"<%p %@:(%d)> %@", self, [[NSString stringWithUTF8String:__FILE__] lastPathComponent], __LINE__, [NSString stringWithFormat:(s), ##__VA_ARGS__] )
-#else
-	#define SHKDebugShowLogs			0
-	#define SHKLog( s, ... )
-#endif
-
 
 /*
  Advanced Configuration
@@ -185,3 +161,20 @@
 #define SHK_MAX_FAV_COUNT               3
 #define SHK_FAVS_PREFIX_KEY             @"SHK_FAVS_"
 #define SHK_AUTH_PREFIX                 @"SHK_AUTH_"
+
+#define kSHKEmailShouldShortenURLs      NO
+#define kSHKCopyShouldShortenURLs       NO
+
+
+/*
+ Debugging
+ ------
+ To show debug output in the console, define _SHKDebugShowLogs somewhere.
+ */
+#ifdef _SHKDebugShowLogs
+	#define SHKDebugShowLogs			1
+	#define SHKLog( s, ... ) NSLog( @"<%p %@:(%d)> %@", self, [[NSString stringWithUTF8String:__FILE__] lastPathComponent], __LINE__, [NSString stringWithFormat:(s), ##__VA_ARGS__] )
+#else
+	#define SHKDebugShowLogs			0
+	#define SHKLog( s, ... )
+#endif
