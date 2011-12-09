@@ -90,6 +90,13 @@
 		8563E284125C8512002D729F /* SHKEvernote.m in Sources */ = {isa = PBXBuildFile; fileRef = 8563E283125C8512002D729F /* SHKEvernote.m */; };
 		8563E342125C884A002D729F /* NSData+md5.m in Sources */ = {isa = PBXBuildFile; fileRef = 8563E341125C884A002D729F /* NSData+md5.m */; };
 		8563E43A125C8D1E002D729F /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8563E436125C8D1E002D729F /* Localizable.strings */; };
+		AC419F951491C1E1009AECE3 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8563E436125C8D1E002D729F /* Localizable.strings */; };
+		AC419F971491C1E9009AECE3 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8563E436125C8D1E002D729F /* Localizable.strings */; };
+		AC503B751491D0F100088283 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8563E436125C8D1E002D729F /* Localizable.strings */; };
+		AC503B781491D0F800088283 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8563E436125C8D1E002D729F /* Localizable.strings */; };
+		AC503B7A1491D0FF00088283 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8563E436125C8D1E002D729F /* Localizable.strings */; };
+		AC503B7C1491D10400088283 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8563E436125C8D1E002D729F /* Localizable.strings */; };
+		AC503B7E1491D12B00088283 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8563E436125C8D1E002D729F /* Localizable.strings */; };
 		AC8D84A31472B55B00699D99 /* NSObject+SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = AC8D84101472B55A00699D99 /* NSObject+SBJSON.m */; };
 		AC8D84A41472B55B00699D99 /* NSString+SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = AC8D84121472B55A00699D99 /* NSString+SBJSON.m */; };
 		AC8D84A51472B55B00699D99 /* SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = AC8D84141472B55A00699D99 /* SBJSON.m */; };
@@ -319,6 +326,13 @@
 		8563E438125C8D1E002D729F /* en */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = en; path = Classes/ShareKit/Localization/en.lproj/Localizable.strings; sourceTree = SOURCE_ROOT; };
 		8563E439125C8D1E002D729F /* ja */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = ja; path = Classes/ShareKit/Localization/ja.lproj/Localizable.strings; sourceTree = SOURCE_ROOT; };
 		8D1107310486CEB800E47090 /* ShareKit-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "ShareKit-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
+		AC419F941491C1E1009AECE3 /* eu */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = eu; path = Classes/ShareKit/Localization/eu.lproj/Localizable.strings; sourceTree = SOURCE_ROOT; };
+		AC419F961491C1E9009AECE3 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = Classes/ShareKit/Localization/fr.lproj/Localizable.strings; sourceTree = SOURCE_ROOT; };
+		AC503B741491D0F100088283 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = Classes/ShareKit/Localization/ko.lproj/Localizable.strings; sourceTree = SOURCE_ROOT; };
+		AC503B771491D0F800088283 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = Classes/ShareKit/Localization/nl.lproj/Localizable.strings; sourceTree = SOURCE_ROOT; };
+		AC503B791491D0FF00088283 /* zh_CN */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = zh_CN; path = Classes/ShareKit/Localization/zh_CN.lproj/Localizable.strings; sourceTree = SOURCE_ROOT; };
+		AC503B7B1491D10400088283 /* vi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = vi; path = Classes/ShareKit/Localization/vi.lproj/Localizable.strings; sourceTree = SOURCE_ROOT; };
+		AC503B7D1491D12B00088283 /* no */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = no; path = Classes/ShareKit/Localization/no.lproj/Localizable.strings; sourceTree = SOURCE_ROOT; };
 		AC8D840E1472B55A00699D99 /* JSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSON.h; sourceTree = "<group>"; };
 		AC8D840F1472B55A00699D99 /* NSObject+SBJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+SBJSON.h"; sourceTree = "<group>"; };
 		AC8D84101472B55A00699D99 /* NSObject+SBJSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+SBJSON.m"; sourceTree = "<group>"; };
@@ -1261,6 +1275,13 @@
 				en,
 				de,
 				ja,
+				eu,
+				fr,
+				ko,
+				nl,
+				zh_CN,
+				vi,
+				no,
 			);
 			mainGroup = 29B97314FDCFA39411CA2CEA /* CustomTemplate */;
 			projectDirPath = "";
@@ -1296,6 +1317,13 @@
 				AC8D84B31472B55B00699D99 /* renren-logo-top-bar@2x.png in Resources */,
 				AC8D84B41472B55B00699D99 /* small-button-normal.png in Resources */,
 				AC8D84B51472B55B00699D99 /* small-button-normal@2x.png in Resources */,
+				AC419F951491C1E1009AECE3 /* Localizable.strings in Resources */,
+				AC419F971491C1E9009AECE3 /* Localizable.strings in Resources */,
+				AC503B751491D0F100088283 /* Localizable.strings in Resources */,
+				AC503B781491D0F800088283 /* Localizable.strings in Resources */,
+				AC503B7A1491D0FF00088283 /* Localizable.strings in Resources */,
+				AC503B7C1491D10400088283 /* Localizable.strings in Resources */,
+				AC503B7E1491D12B00088283 /* Localizable.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1440,6 +1468,13 @@
 				8563E437125C8D1E002D729F /* de */,
 				8563E438125C8D1E002D729F /* en */,
 				8563E439125C8D1E002D729F /* ja */,
+				AC419F941491C1E1009AECE3 /* eu */,
+				AC419F961491C1E9009AECE3 /* fr */,
+				AC503B741491D0F100088283 /* ko */,
+				AC503B771491D0F800088283 /* nl */,
+				AC503B791491D0FF00088283 /* zh_CN */,
+				AC503B7B1491D10400088283 /* vi */,
+				AC503B7D1491D12B00088283 /* no */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
