@@ -46,12 +46,12 @@
 #define SHKDoubanCallbackUrl            @""	// You need to set this if using OAuth (MUST be set, it could be any words)
 
 // NetEase(163) Weibo 
-#define SHKNetEaseWeiboConsumerKey         @""	// The consumer key
-#define SHKNetEaseWeiboConsumerSecret      @""	// The secret key
-#define SHKNetEaseWeiboCallbackUrl         @"null"	// The user defined callback url (MUST be set "null")
-#define SHKNetEaseWeiboUseXAuth            0   // TODO: To use xAuth, set to 1(It is not work for xAuth)
-#define SHKNetEaseWeiboScreenName          @"" // Enter your NetEase weibo screen name
-#define SHKNetEaseWeiboUserID              @"" // Enter your app's NetEase weibo account if you'd like to ask the user to follow it when logging in. (Only for xAuth)
+#define SHKNetEaseWeiboConsumerKey      @""	// The consumer key
+#define SHKNetEaseWeiboConsumerSecret   @""	// The secret key
+#define SHKNetEaseWeiboCallbackUrl      @"null"	// The user defined callback url (MUST be set "null")
+#define SHKNetEaseWeiboUseXAuth         0   // TODO: To use xAuth, set to 1(It is not work for xAuth)
+#define SHKNetEaseWeiboScreenName       @"" // Enter your NetEase weibo screen name
+#define SHKNetEaseWeiboUserID           @"" // Enter your app's NetEase weibo account if you'd like to ask the user to follow it when logging in. (Only for xAuth)
 
 // RenRen 
 #define SHKRenRenAppId                  @""	// The App Id
