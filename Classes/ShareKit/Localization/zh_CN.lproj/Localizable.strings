@@ -95,3 +95,5 @@
 "There was an error while sharing" = "在分享的过程中出错";
 
 "Save to Photo Album" = "保存到相簿";
+
+"There was an error while follow NetEase Weibo account, May be user is not exist." = "关注失败，用户ID或昵称可能不存在";
