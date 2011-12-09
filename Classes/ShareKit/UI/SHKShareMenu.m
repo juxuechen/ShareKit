@@ -204,18 +204,14 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath 
 {    
     static NSString *CellIdentifier = @"Cell";
-    
-    NSLog(@"tableData section: %d, count: %d", indexPath.section, tableData.count);
 
-    NSUInteger count = [tableData count];
-    
     SHKCustomShareMenuCell *cell = (SHKCustomShareMenuCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil)
 	{
         cell = [[[SHKCustomShareMenuCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
 	}
     
-    if (indexPath.section != (count - 1))
+    if (indexPath.section != ([tableData count] - 1))
     {
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         
