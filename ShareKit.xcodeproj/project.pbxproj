@@ -167,6 +167,7 @@
 		ACDE01EE1474AAF700FF360C /* SHKRenRenForm.m in Sources */ = {isa = PBXBuildFile; fileRef = ACDE01ED1474AAF700FF360C /* SHKRenRenForm.m */; };
 		ACE55A36149228D60091748B /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8563E436125C8D1E002D729F /* Localizable.strings */; };
 		ACE55A38149228DD0091748B /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8563E436125C8D1E002D729F /* Localizable.strings */; };
+		ACE55A5D149230390091748B /* SHKTextMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = ACE55A5C149230390091748B /* SHKTextMessage.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -468,6 +469,8 @@
 		ACDE01ED1474AAF700FF360C /* SHKRenRenForm.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKRenRenForm.m; sourceTree = "<group>"; };
 		ACE55A35149228D60091748B /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "Classes/ShareKit/Localization/zh-Hans.lproj/Localizable.strings"; sourceTree = SOURCE_ROOT; };
 		ACE55A37149228DD0091748B /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "Classes/ShareKit/Localization/zh-Hant.lproj/Localizable.strings"; sourceTree = SOURCE_ROOT; };
+		ACE55A5B149230390091748B /* SHKTextMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKTextMessage.h; sourceTree = "<group>"; };
+		ACE55A5C149230390091748B /* SHKTextMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKTextMessage.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -748,6 +751,7 @@
 		43A536B611DBE3B9004A1712 /* Actions */ = {
 			isa = PBXGroup;
 			children = (
+				ACE55A5A149230390091748B /* Text Message */,
 				43A536B711DBE3B9004A1712 /* Copy */,
 				43A536BA11DBE3B9004A1712 /* Email */,
 				43A536BD11DBE3B9004A1712 /* Open in Safari */,
@@ -1255,6 +1259,15 @@
 			path = Douban;
 			sourceTree = "<group>";
 		};
+		ACE55A5A149230390091748B /* Text Message */ = {
+			isa = PBXGroup;
+			children = (
+				ACE55A5B149230390091748B /* SHKTextMessage.h */,
+				ACE55A5C149230390091748B /* SHKTextMessage.m */,
+			);
+			path = "Text Message";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1483,6 +1496,7 @@
 				ACDE01EE1474AAF700FF360C /* SHKRenRenForm.m in Sources */,
 				AC3DC96C148BCE5300E9AD3C /* SHKNetEaseWeibo.m in Sources */,
 				AC3DC96D148BCE5300E9AD3C /* SHKNetEaseWeiboForm.m in Sources */,
+				ACE55A5D149230390091748B /* SHKTextMessage.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1499,7 +1513,6 @@
 				AC419F961491C1E9009AECE3 /* fr */,
 				AC503B741491D0F100088283 /* ko */,
 				AC503B771491D0F800088283 /* nl */,
-				AC503B791491D0FF00088283 /* zh_CN */,
 				AC503B7B1491D10400088283 /* vi */,
 				AC503B7D1491D12B00088283 /* no */,
 				ACE55A35149228D60091748B /* zh-Hans */,

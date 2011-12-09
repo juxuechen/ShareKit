@@ -4,11 +4,11 @@
 <dict>
 	<key>actions</key>
 	<array>
-		<string>SHKSMS</string>
 		<string>SHKPhotoAlbum</string>
 		<string>SHKCopy</string>
 		<string>SHKMail</string>
 		<string>SHKSafari</string>
+		<string>SHKTextMessage</string>
 	</array>
 	<key>services</key>
 	<array>
