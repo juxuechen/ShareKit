@@ -307,6 +307,8 @@
 		else
 			[item setCustomValue:result forKey:@"shortenURL"];
 	}
+    
+    SHKLog(@"shortenURLFinished response: %@", result);
 }
 
 #pragma mark -

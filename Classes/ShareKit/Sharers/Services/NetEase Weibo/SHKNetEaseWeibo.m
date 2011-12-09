@@ -276,7 +276,7 @@
                                       options:0
                                         range:NSMakeRange(0, [[aRequest getResult] length])];
     
-    NSString *result;
+    NSString *result = nil;
     for (NSTextCheckingResult *match in matches) 
     {
         NSRange range = [match rangeAtIndex:0];
@@ -301,6 +301,7 @@
 	}
 	
 	[self showNetEaseWeiboForm];
+    [regex release];
 }
 
 #pragma mark -
@@ -404,8 +405,7 @@
 		}
 		else 
 		{
-			NSError *error = [NSError errorWithDomain:@"Sina Weibo" code:2 userInfo:[NSDictionary dictionaryWithObject:errorMessage forKey:NSLocalizedDescriptionKey]];
-			[self sendDidFailWithError:error];
+			[self sendDidFailWithError:[SHK error:SHKLocalizedString(errorMessage)]];
 		}
 	}
 }
@@ -517,7 +517,7 @@
                                           options:0
                                             range:NSMakeRange(0, [dataString length])];
         
-        NSString *urlString;
+        NSString *urlString = nil;
         for (NSTextCheckingResult *match in matches) 
         {
             NSRange range = [match rangeAtIndex:0];
@@ -530,8 +530,9 @@
                           forKey:@"status"];
 			[self sendStatus];
 		}
+        [regex release];
 	} else {
-		[self sendDidFailWithError:nil];
+		[self sendDidFailWithError:[SHK error:SHKLocalizedString(@"There was a problem saving to Delicious.")]];
 	}
 }
 
@@ -545,21 +546,39 @@
 	// remove it so in case of other failures this doesn't get hit again
 	[item setCustomValue:nil forKey:@"followMe"];
     
-	OAMutableURLRequest *oRequest = [[OAMutableURLRequest alloc] initWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/friendships/create/%@.json", API_DOMAIN, SHKSinaWeiboUserID]]
+	OAMutableURLRequest *oRequest = [[OAMutableURLRequest alloc] initWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/friendships/create.json", API_DOMAIN]]
 																	consumer:consumer
 																	   token:accessToken
 																	   realm:nil
 														   signatureProvider:nil];
 	
 	[oRequest setHTTPMethod:@"POST"];
+    OARequestParameter *statusParam = [[OARequestParameter alloc] initWithName:@"id"
+																		 value:SHKNetEaseWeiboUserID];
+	NSArray *params = [NSArray arrayWithObjects:statusParam, nil];
+	[oRequest setParameters:params];
+	[statusParam release];
     
 	OAAsynchronousDataFetcher *fetcher = [OAAsynchronousDataFetcher asynchronousFetcherWithRequest:oRequest
-                                                                                          delegate:nil // Currently not doing any error handling here.  If it fails, it's probably best not to bug the user to follow you again.
-                                                                                 didFinishSelector:nil
-                                                                                   didFailSelector:nil];	
+                                                                                          delegate:self // Currently not doing any error handling here.  If it fails, it's probably best not to bug the user to follow you again.
+                                                                                 didFinishSelector:@selector(followMeTicket:didFinishWithData:)
+                                                                                   didFailSelector:@selector(followMeTicket:didFailWithError:)];	
 	
 	[fetcher start];
 	[oRequest release];
+}
+
+
+- (void)followMeTicket:(OAServiceTicket *)ticket didFinishWithData:(NSData *)data {
+    SHKLog(@"followMeTicket response: %@", [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease]);
+	
+	if ( ! ticket.didSucceed) {
+		[self sendDidFailWithError:[SHK error:SHKLocalizedString(@"There was an error while follow NetEase Weibo account, May be user is not exist.")]];
+	}
+}
+
+- (void)followMeTicket:(OAServiceTicket *)ticket didFailWithError:(NSError*)error {
+	[self sendDidFailWithError:error];
 }
 
 @end
