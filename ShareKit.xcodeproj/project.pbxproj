@@ -165,6 +165,8 @@
 		ACA8F4781345E3E80058C93D /* SHKDouban.m in Sources */ = {isa = PBXBuildFile; fileRef = ACA8F4751345E3E80058C93D /* SHKDouban.m */; };
 		ACA8F4791345E3E80058C93D /* SHKDoubanForm.m in Sources */ = {isa = PBXBuildFile; fileRef = ACA8F4771345E3E80058C93D /* SHKDoubanForm.m */; };
 		ACDE01EE1474AAF700FF360C /* SHKRenRenForm.m in Sources */ = {isa = PBXBuildFile; fileRef = ACDE01ED1474AAF700FF360C /* SHKRenRenForm.m */; };
+		ACE55A36149228D60091748B /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8563E436125C8D1E002D729F /* Localizable.strings */; };
+		ACE55A38149228DD0091748B /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8563E436125C8D1E002D729F /* Localizable.strings */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -336,7 +338,6 @@
 		AC419F961491C1E9009AECE3 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = Classes/ShareKit/Localization/fr.lproj/Localizable.strings; sourceTree = SOURCE_ROOT; };
 		AC503B741491D0F100088283 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = Classes/ShareKit/Localization/ko.lproj/Localizable.strings; sourceTree = SOURCE_ROOT; };
 		AC503B771491D0F800088283 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = Classes/ShareKit/Localization/nl.lproj/Localizable.strings; sourceTree = SOURCE_ROOT; };
-		AC503B791491D0FF00088283 /* zh_CN */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = zh_CN; path = Classes/ShareKit/Localization/zh_CN.lproj/Localizable.strings; sourceTree = SOURCE_ROOT; };
 		AC503B7B1491D10400088283 /* vi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = vi; path = Classes/ShareKit/Localization/vi.lproj/Localizable.strings; sourceTree = SOURCE_ROOT; };
 		AC503B7D1491D12B00088283 /* no */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = no; path = Classes/ShareKit/Localization/no.lproj/Localizable.strings; sourceTree = SOURCE_ROOT; };
 		AC8D840E1472B55A00699D99 /* JSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSON.h; sourceTree = "<group>"; };
@@ -465,6 +466,8 @@
 		ACA8F4771345E3E80058C93D /* SHKDoubanForm.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKDoubanForm.m; sourceTree = "<group>"; };
 		ACDE01EC1474AAF700FF360C /* SHKRenRenForm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKRenRenForm.h; sourceTree = "<group>"; };
 		ACDE01ED1474AAF700FF360C /* SHKRenRenForm.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKRenRenForm.m; sourceTree = "<group>"; };
+		ACE55A35149228D60091748B /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "Classes/ShareKit/Localization/zh-Hans.lproj/Localizable.strings"; sourceTree = SOURCE_ROOT; };
+		ACE55A37149228DD0091748B /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "Classes/ShareKit/Localization/zh-Hant.lproj/Localizable.strings"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1300,6 +1303,8 @@
 				zh_CN,
 				vi,
 				no,
+				"zh-Hans",
+				"zh-Hant",
 			);
 			mainGroup = 29B97314FDCFA39411CA2CEA /* CustomTemplate */;
 			projectDirPath = "";
@@ -1342,6 +1347,8 @@
 				AC503B7A1491D0FF00088283 /* Localizable.strings in Resources */,
 				AC503B7C1491D10400088283 /* Localizable.strings in Resources */,
 				AC503B7E1491D12B00088283 /* Localizable.strings in Resources */,
+				ACE55A36149228D60091748B /* Localizable.strings in Resources */,
+				ACE55A38149228DD0091748B /* Localizable.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1495,6 +1502,8 @@
 				AC503B791491D0FF00088283 /* zh_CN */,
 				AC503B7B1491D10400088283 /* vi */,
 				AC503B7D1491D12B00088283 /* no */,
+				ACE55A35149228D60091748B /* zh-Hans */,
+				ACE55A37149228DD0091748B /* zh-Hant */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
