@@ -8,6 +8,8 @@
 
 # 联系方式
 
+> 仅用于持续改进项目代码沟通（疑难杂症概不回复）
+
 * Email: icyleaf.cn@gmail.com
 * Twitter: @icyleaf
 * 新浪微博: @icyleaf
