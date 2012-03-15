@@ -1,3 +1,21 @@
+# 中文说明
+
+[Sharekit](https://github.com/ShareKit/ShareKit) 在社区的驱动下迎来了重生（原开发者已不再维护）。
+我也打算把原有的功能迁移过来，毕竟要关注下它的未来。
+
+假如你不小心更新了当前版本导致无法使用，请切换到 master 分支（之前维护的版本已转移至 master 分支）。
+
+> 迁移有风险，操作需谨慎。
+
+# 技术支持
+
+> 仅用于持续改进项目代码沟通（疑难杂症概不回复）
+
+* Email: icyleaf.cn@gmail.com
+* Twitter: @icyleaf
+* 新浪微博: @icyleaf
+
+
 ShareKit 2.0
 ============
 
