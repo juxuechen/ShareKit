@@ -29,6 +29,11 @@
 static NSString * const kInstapaperAuthenticationURL = @"https://www.instapaper.com/api/authenticate";
 static NSString * const kInstapaperSharingURL = @"https://www.instapaper.com/api/add";
 
+@interface SHKInstapaper ()
+- (void)authFinished:(SHKRequest *)aRequest;
+- (void)sendFinished:(SHKRequest *)aRequest;
+@end
+
 @implementation SHKInstapaper
 
 #pragma mark -
@@ -105,6 +110,7 @@ static NSString * const kInstapaperSharingURL = @"https://www.instapaper.com/api
                        cancelButtonTitle:SHKLocalizedString(@"Close")
                        otherButtonTitles:nil] autorelease] show];
 	}
+	[self authDidFinish:aRequest.success];
 }
 
 #pragma mark -
@@ -148,7 +154,7 @@ static NSString * const kInstapaperSharingURL = @"https://www.instapaper.com/api
 {
 	if (!aRequest.success) {
 		if (aRequest.response.statusCode == 403) {
-			[self sendDidFailWithError:[SHK error:SHKLocalizedString(@"Sorry, Instapaper did not accept your credentials. Please try again.")] shouldRelogin:YES];
+            [self shouldReloginWithPendingAction:SHKPendingSend];
 			return;
 		}
     else if (aRequest.response.statusCode == 500) {		

@@ -28,9 +28,7 @@
 #define SHK_VERSION @"0.2.1"
 
 #import <Foundation/Foundation.h>
-#import <Twitter/TWTweetComposeViewController.h>
-
-#import "SHKConfig.h"
+#import "DefaultSHKConfigurator.h"
 #import "SHKItem.h"
 #import "SHKActionSheet.h"
 #import "SHKRequest.h"
@@ -38,6 +36,7 @@
 #import "SHKFormFieldSettings.h"
 #import "UIWebView+SHK.h"
 
+extern NSString * const SHKHideCurrentViewFinishedNotification;
 
 @class SHKActionSheet;
 @class SHKViewControllerWrapper;
@@ -45,7 +44,6 @@
 
 @interface SHK : NSObject 
 {
-	UIViewController *rootViewController;
 	UIViewController *currentView;
 	UIViewController *pendingView;
 	BOOL isDismissingView;
@@ -53,7 +51,6 @@
 	NSOperationQueue *offlineQueue;
 }
 
-@property (nonatomic, assign) UIViewController *rootViewController;
 @property (nonatomic, retain) UIViewController *currentView;
 @property (nonatomic, retain) UIViewController *pendingView;
 @property BOOL isDismissingView;
@@ -73,23 +70,20 @@
 #pragma mark View Management
 
 + (void)setRootViewController:(UIViewController *)vc;
+
+//returns current topViewController for classes, which do not use SHK to present their UI
+- (UIViewController *)rootViewForCustomUIDisplay;
 - (void)showViewController:(UIViewController *)vc;
 - (void)hideCurrentViewControllerAnimated:(BOOL)animated;
 - (void)viewWasDismissed;
-- (UIViewController *)getTopViewController;
 
 + (UIBarStyle)barStyle;
-#ifdef __IPHONE_3_2
 + (UIModalPresentationStyle)modalPresentationStyle;
-#else
-+ (int)modalPresentationStyle;
-#endif
 + (UIModalTransitionStyle)modalTransitionStyle;
 
 #pragma mark -
 #pragma mark Favorites
 
-+ (NSArray *)sharersForType:(SHKShareType)type;
 + (NSArray *)favoriteSharersForType:(SHKShareType)type;
 + (void)pushOnFavorites:(NSString *)className forType:(SHKShareType)type;
 + (void)setFavorites:(NSArray *)favs forType:(SHKShareType)type;
@@ -129,9 +123,8 @@
 
 @end
 
-
 NSString * SHKStringOrBlank(NSString * value);
 NSString * SHKEncode(NSString * value);
 NSString * SHKEncodeURL(NSURL * value);
-NSString* SHKLocalizedString(NSString* key, ...);
+NSString * SHKLocalizedString(NSString* key, ...);
 void SHKSwizzle(Class c, SEL orig, SEL newClassName);

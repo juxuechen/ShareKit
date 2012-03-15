@@ -160,7 +160,6 @@ else if (theRemainingBytes == 2)
 		outOutputData[theOutIndex++] = '\n';
 		}
 	}
-// yeah,analyzer was happy,but I'm angry.    theOutIndex; // make static analyzer happy
 return(true);
 }
 

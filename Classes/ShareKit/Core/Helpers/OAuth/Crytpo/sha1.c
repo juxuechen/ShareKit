@@ -96,6 +96,10 @@ static unsigned char workspace[64];
     state[2] += c;
     state[3] += d;
     state[4] += e;
+    /* Wipe variables */
+    a = b = c = d = e = 0;
+    
+    (void)a; (void)b; (void)c; (void)d; (void)e;
 }
 
 
@@ -139,7 +143,7 @@ unsigned int i, j;
 
 void SHA1Final(unsigned char digest[20], SHA1_CTX* context)
 {
-unsigned long i;
+unsigned long i, j;
 unsigned char finalcount[8];
 
     for (i = 0; i < 8; i++) {
@@ -155,6 +159,11 @@ unsigned char finalcount[8];
         digest[i] = (unsigned char)
          ((context->state[i>>2] >> ((3-(i & 3)) * 8) ) & 255);
     }
+    /* Wipe variables */
+    i = j = 0;
+    
+    (void)i; (void)j;
+    
     memset(context->buffer, 0, 64);
     memset(context->state, 0, 20);
     memset(context->count, 0, 8);

@@ -30,7 +30,11 @@
 
 
 @interface SHKItem()
-@property (nonatomic, retain)	NSMutableDictionary *custom;
+
+@property (nonatomic, retain) NSMutableDictionary *custom;
+
+- (NSString *)shareTypeToString:(SHKShareType)shareType;
+
 @end
 
 
@@ -60,14 +64,14 @@
 }
 
 
-+ (SHKItem *)URL:(NSURL *)url
++ (id)URL:(NSURL *)url
 {
 	return [self URL:url title:nil];
 }
 
-+ (SHKItem *)URL:(NSURL *)url title:(NSString *)title
++ (id)URL:(NSURL *)url title:(NSString *)title
 {
-	SHKItem *item = [[SHKItem alloc] init];
+	SHKItem *item = [[self alloc] init];
 	item.shareType = SHKShareTypeURL;
 	item.URL = url;
 	item.title = title;
@@ -75,14 +79,14 @@
 	return [item autorelease];
 }
 
-+ (SHKItem *)image:(UIImage *)image
++ (id)image:(UIImage *)image
 {
 	return [SHKItem image:image title:nil];
 }
 
-+ (SHKItem *)image:(UIImage *)image title:(NSString *)title
++ (id)image:(UIImage *)image title:(NSString *)title
 {
-	SHKItem *item = [[SHKItem alloc] init];
+	SHKItem *item = [[self alloc] init];
 	item.shareType = SHKShareTypeImage;
 	item.image = image;
 	item.title = title;
@@ -90,18 +94,18 @@
 	return [item autorelease];
 }
 
-+ (SHKItem *)text:(NSString *)text
++ (id)text:(NSString *)text
 {
-	SHKItem *item = [[SHKItem alloc] init];
+	SHKItem *item = [[self alloc] init];
 	item.shareType = SHKShareTypeText;
 	item.text = text;
 	
 	return [item autorelease];
 }
 
-+ (SHKItem *)file:(NSData *)data filename:(NSString *)filename mimeType:(NSString *)mimeType title:(NSString *)title
++ (id)file:(NSData *)data filename:(NSString *)filename mimeType:(NSString *)mimeType title:(NSString *)title
 {
-	SHKItem *item = [[SHKItem alloc] init];
+	SHKItem *item = [[self alloc] init];
 	item.shareType = SHKShareTypeFile;
 	item.data = data;
 	item.filename = filename;
@@ -138,9 +142,9 @@
 
 #pragma mark -
 
-+ (SHKItem *)itemFromDictionary:(NSDictionary *)dictionary
++ (id)itemFromDictionary:(NSDictionary *)dictionary
 {
-	SHKItem *item = [[SHKItem alloc] init];
+	SHKItem *item = [[self alloc] init];
 	item.shareType = [[dictionary objectForKey:@"shareType"] intValue];	
 	
 	if ([dictionary objectForKey:@"URL"] != nil)
@@ -149,10 +153,19 @@
 	item.title = [dictionary objectForKey:@"title"];
 	item.text = [dictionary objectForKey:@"text"];
 	item.tags = [dictionary objectForKey:@"tags"];	
-		
+	
 	if ([dictionary objectForKey:@"custom"] != nil)
 		item.custom = [[[dictionary objectForKey:@"custom"] mutableCopy] autorelease];
 	
+	if ([dictionary objectForKey:@"mimeType"] != nil)
+		item.mimeType = [dictionary objectForKey:@"mimeType"];
+
+	if ([dictionary objectForKey:@"filename"] != nil)
+		item.filename = [dictionary objectForKey:@"filename"];
+
+	if ([dictionary objectForKey:@"image"] != nil)
+		item.image = [UIImage imageWithData:[dictionary objectForKey:@"image"]];
+
 	return [item autorelease];
 }
 
@@ -177,9 +190,56 @@
 	if (tags != nil)
 		[dictionary setObject:tags forKey:@"tags"];
 	
+	if (mimeType != nil)
+		[dictionary setObject:mimeType forKey:@"mimeType"];
+	
+	if (filename != nil)
+		[dictionary setObject:filename forKey:@"filename"];
+	
+	if (data != nil)
+		[dictionary setObject:data forKey:@"data"];
+	
+	if (image != nil)
+		[dictionary setObject:UIImagePNGRepresentation(image) forKey:@"image"];
+	
 	// If you add anymore, make sure to add a method for retrieving them to the itemWithDictionary function too
 	
 	return dictionary;
+}
+
+- (NSString *)description {
+    
+    NSString *result = [NSString stringWithFormat:@"Share type: %@\nURL:%@\nImage:%@\nTitle: %@\nText: %@\nTags:%@\nCustom fields:%@", [self shareTypeToString:self.shareType], [self.URL absoluteString], [self.image description], self.title, self.text, self.tags, [self.custom description]];
+    
+    return result;
+}
+
+- (NSString *)shareTypeToString:(SHKShareType)type {
+    
+    NSString *result = nil;
+    
+    switch(type) {
+            
+        case SHKShareTypeUndefined:
+            result = @"SHKShareTypeUndefined";
+            break;
+        case SHKShareTypeURL:
+            result = @"SHKShareTypeURL";
+            break;
+        case SHKShareTypeText:
+            result = @"SHKShareTypeText";
+            break;
+        case SHKShareTypeImage:
+            result = @"SHKShareTypeImage";
+            break;
+        case SHKShareTypeFile:
+            result = @"SHKShareTypeFile";
+            break;
+        default:
+            [NSException raise:NSGenericException format:@"Unexpected FormatType."];
+    }
+    
+    return result;
 }
 
 @end

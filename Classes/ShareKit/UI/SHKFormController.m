@@ -26,13 +26,14 @@
 //
 
 #import "SHK.h"
+#import "SHKConfiguration.h"
 #import "SHKCustomFormController.h"
 #import "SHKCustomFormFieldCell.h"
 
 
 @implementation SHKFormController
 
-@synthesize delegate, validateSelector, saveSelector; 
+@synthesize delegate, validateSelector, saveSelector, cancelSelector; 
 @synthesize sections, values;
 @synthesize labelWidth;
 @synthesize activeField;
@@ -41,7 +42,7 @@
 
 - (void)dealloc 
 {
-	[delegate release];
+	delegate = nil;
 	[sections release];
 	[values release];
 	[activeField release];
@@ -59,16 +60,18 @@
 	{
 		self.title = barTitle;
 		
-		self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel
+		self.navigationItem.leftBarButtonItem = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel
 																							  target:self
-																							  action:@selector(cancel)];
+																							  action:@selector(cancel)] autorelease];
 		
-		self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:rightButtonTitle
+		self.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithTitle:rightButtonTitle
 																				  style:UIBarButtonItemStyleDone
 																				 target:self
-																				 action:@selector(validateForm)];
+																				 action:@selector(validateForm)] autorelease];
 		
 		self.values = [NSMutableDictionary dictionaryWithCapacity:0];
+        
+        self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
 	}
 	return self;
 }
@@ -90,25 +93,29 @@
 	
 	[sections addObject:dict];
 	
-	// Find the max length of the labels so we can use this value to align the left side of all form fields
-	// TODO - should probably save this per section for flexibility
-	if (sections.count == 1)
-	{
-		CGFloat newWidth = 0;
-		CGSize size;
-		
-		for (SHKFormFieldSettings *field in fields)
+	if (!SHKCONFIG(usePlaceholders)) {
+		// Find the max length of the labels so we can use this value to align the left side of all form fields
+		// TODO - should probably save this per section for flexibility
+		if (sections.count == 1)
 		{
-			// only use text field rows
-			if (field.type != SHKFormFieldTypeText && field.type != SHKFormFieldTypePassword)
-				continue;
+			CGFloat newWidth = 0;
+			CGSize size;
 			
-			size = [field.label sizeWithFont:[UIFont boldSystemFontOfSize:17]];
-			if (size.width > newWidth)
-				newWidth = size.width;
+			for (SHKFormFieldSettings *field in fields)
+			{
+				// only use text field rows
+				if (field.type != SHKFormFieldTypeText && 
+					field.type != SHKFormFieldTypeTextNoCorrect &&
+					field.type != SHKFormFieldTypePassword)
+					continue;
+				
+				size = [field.label sizeWithFont:[UIFont boldSystemFontOfSize:17]];
+				if (size.width > newWidth)
+					newWidth = size.width;
+			}
+			
+			self.labelWidth = newWidth;
 		}
-		
-		self.labelWidth = newWidth;
 	}
 }
 
@@ -126,18 +133,30 @@
 {
 	[super viewDidDisappear:animated];
 	
-	// Remove the SHK view wrapper from the window
-	[[SHK currentHelper] viewWasDismissed];
+	// Remove the SHK view wrapper from the window (but only if the view doesn't have another modal over it)
+	// this happens when we have an options picker.
+	if (self.navigationController.topViewController == nil)
+		[[SHK currentHelper] viewWasDismissed];
 }
 
 - (void)viewDidLoad
 {
 	[super viewDidLoad];
 	
-	if (SHKFormBgColorRed != -1)		
-		self.tableView.backgroundColor = [UIColor colorWithRed:SHKFormBgColorRed/255 green:SHKFormBgColorGreen/255 blue:SHKFormBgColorBlue/255 alpha:1];
+	if (SHKCONFIG(formBackgroundColor) != nil)
+         self.tableView.backgroundColor = SHKCONFIG(formBackgroundColor);
 }
 
+
+#pragma mark -
+#pragma mark Table view
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+	SHKFormFieldSettings* settingsForCell = [self rowSettingsForIndexPath:indexPath];
+	if(settingsForCell.type == SHKFormFieldTypeOptionPicker){
+		SHKFormOptionController* optionsPicker = [[[SHKFormOptionController alloc] initWithOptionsInfo:settingsForCell client:self] autorelease];
+		[self.navigationController pushViewController:optionsPicker animated:YES];
+	}
+}
 
 #pragma mark -
 #pragma mark Table view data source
@@ -154,30 +173,52 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath 
 {
-    static NSString *CellIdentifier = @"Cell";
-    
-    SHKCustomFormFieldCell *cell = (SHKCustomFormFieldCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+	SHKFormFieldSettings* settingsForCell = [self rowSettingsForIndexPath:indexPath];
+    NSString *CellIdentifier = settingsForCell.type == SHKFormFieldTypeOptionPicker ? @"OptionCell" : @"Cell";
+	
+    SHKCustomFormFieldCell* cell = (SHKCustomFormFieldCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil)
 	{
-        cell = [[[SHKCustomFormFieldCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+		cell = [[[SHKCustomFormFieldCell alloc] initWithStyle:(SHKFormFieldTypeOptionPicker ? UITableViewCellStyleValue1 : UITableViewCellStyleDefault) 
+											  reuseIdentifier:CellIdentifier] autorelease];
 		cell.form = self;
 		
-		if (SHKFormFontColorRed != -1)		
-			cell.textLabel.textColor = [UIColor colorWithRed:SHKFormFontColorRed/255 green:SHKFormFontColorGreen/255 blue:SHKFormFontColorBlue/255 alpha:1];
+		if (SHKCONFIG(formFontColor) != nil)
+			cell.textLabel.textColor = SHKCONFIG(formFontColor);
 	}
 	
 	// Since we are reusing table cells, make sure to save any existing values before overwriting
 	if (cell.settings.key != nil && [cell getValue])
 		[values setObject:[cell getValue] forKey:cell.settings.key];
     
-	cell.settings = [self rowSettingsForIndexPath:indexPath];
-	cell.labelWidth = labelWidth;
-	cell.textLabel.text = cell.settings.label;
+	cell.settings = settingsForCell;
+	if(SHKCONFIG(usePlaceholders) && settingsForCell.type != SHKFormFieldTypeOptionPicker)
+	{
+		cell.textField.placeholder = cell.settings.label;
+		if(cell.settings.type != SHKFormFieldTypeText &&
+		   cell.settings.type != SHKFormFieldTypePassword &&
+		   cell.settings.type != SHKFormFieldTypeTextNoCorrect)
+		{
+			cell.textLabel.text = cell.settings.label;
+		}
+	}else{
+		cell.labelWidth = labelWidth;
+		cell.textLabel.text = cell.settings.label;
+	}
 	
 	NSString *value = [values objectForKey:cell.settings.key];
-	if (value == nil && cell.settings.start != nil)
-		value = cell.settings.start;
-	
+	if (value == nil && cell.settings.start != nil){
+		if(settingsForCell.type == SHKFormFieldTypeOptionPicker){
+			NSString* curIndexes = [settingsForCell.optionPickerInfo objectForKey:@"curIndexes"];
+			if (![curIndexes isEqualToString:@"-1"]) {
+				value = [settingsForCell  optionPickerValueForIndexes:curIndexes];
+			}else{
+				value = cell.settings.start;
+			}
+		}else{
+			value = cell.settings.start;
+		}
+	}	
 	[cell setValue:value];
 	
     return cell;
@@ -223,6 +264,29 @@
 
 
 #pragma mark -
+#pragma mark OptionPicking
+-(void) SHKFormOptionController:(SHKFormOptionController*) optionController pickedOption:(NSString*)pickedOption
+{
+	if(pickedOption != nil){
+		BOOL pickedNone = [pickedOption isEqualToString:@"-1"];
+		if(pickedNone)
+			[values removeObjectForKey:optionController.settings.key];
+		else
+			[values setObject:pickedOption forKey:optionController.settings.key];
+		
+		NSArray *fields = [[sections objectAtIndex:0] objectForKey:@"rows"];
+		NSUInteger index = [fields indexOfObject:optionController.settings];
+		SHKCustomFormFieldCell* cell = (SHKCustomFormFieldCell *)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0]];
+		if (cell != nil) {
+			[cell setValue:pickedNone ? cell.settings.start : pickedOption];
+		}
+		[self.tableView reloadData];
+	}
+	[self.navigationController popViewControllerAnimated:YES];
+}
+
+
+#pragma mark -
 #pragma mark Completion
 
 - (void)close
@@ -233,6 +297,7 @@
 - (void)cancel
 {
 	[self close];
+	[delegate performSelector:cancelSelector withObject:self];
 }
 
 - (void)validateForm
@@ -251,7 +316,7 @@
 
 - (NSMutableDictionary *)formValues
 {
-	return [self formValuesForSection:0];
+	return [self formValuesForSection:0];	// if this supports more than one section, option picking would have to be fixed, see SHKFormOptionController:pickedOption
 }
 			
 - (NSMutableDictionary *)formValuesForSection:(int)section
@@ -268,8 +333,17 @@
 		cell = (SHKCustomFormFieldCell *)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:row inSection:section]];
 		
 		// Use text field if visible first		
-		if ([cell.settings.key isEqualToString:field.key] && [cell getValue] != nil)
-			[formValues setObject:[cell getValue] forKey:field.key];
+		if ([cell.settings.key isEqualToString:field.key] && [cell getValue] != nil){
+			if (cell.settings.type == SHKFormFieldTypeOptionPicker) {	// for option pickers, the start val is likely a label that doesn't mean anything like, 'select album'
+				NSString* curVal = [cell getValue];
+				if (![curVal isEqualToString:cell.settings.start]) {
+					[formValues setObject:curVal forKey:field.key];
+				}
+			}else{
+				[formValues setObject:[cell getValue] forKey:field.key];
+			}
+			
+		}
 		
 		// If field is not visible, use cached value
 		else if ([values objectForKey:field.key] != nil)

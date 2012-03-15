@@ -29,3 +29,4 @@
 - (NSString *)enMediaTagWithResource:(EDAMResource *)src width:(CGFloat)width height:(CGFloat)height;
 
 @end
+

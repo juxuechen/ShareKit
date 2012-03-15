@@ -77,7 +77,9 @@
 - (void)share
 {	
 	// create sharer
-	self.sharer = [[NSClassFromString(sharerId) alloc] init];
+	SHKSharer *aSharer = [[NSClassFromString(sharerId) alloc] init];
+    self.sharer = aSharer;
+    [aSharer release];
 	sharer.item = item;
 	sharer.quiet = YES;
 	sharer.shareDelegate = self;
@@ -108,7 +110,6 @@
 	}
 	
 	[sharer tryToSend];	
-	[sharer release];
 }
 
 - (BOOL)shouldRun
@@ -151,6 +152,11 @@
 {
 	sharer.shareDelegate = nil;
 	[self finish];
+}
+
+- (void)sharerAuthDidFinish:(SHKSharer *)sharer success:(BOOL)success
+{
+
 }
 
 @end

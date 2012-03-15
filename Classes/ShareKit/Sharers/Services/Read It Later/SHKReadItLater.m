@@ -27,8 +27,17 @@
 
 // SHOULD FUNCS - can these be implemented like dataSource and delegate on tableview?
 
+#import "SHKConfiguration.h"
 #import "SHKReadItLater.h"
 
+
+/**
+ Private helper methods
+ */
+@interface SHKReadItLater ()
+- (void)authFinished:(SHKRequest *)aRequest;
+- (void)sendFinished:(SHKRequest *)aRequest;
+@end
 
 @implementation SHKReadItLater
 
@@ -77,7 +86,7 @@
 	NSDictionary *formValues = [form formValues];
 	
 	NSString *params = [NSMutableString stringWithFormat:@"apikey=%@&username=%@&password=%@",
-						SHKReadItLaterKey,
+						SHKCONFIG(readItLaterKey),
 						SHKEncode([formValues objectForKey:@"username"]),
 						SHKEncode([formValues objectForKey:@"password"])
 						];
@@ -108,6 +117,7 @@
 						   cancelButtonTitle:SHKLocalizedString(@"Close")
 						   otherButtonTitles:nil] autorelease] show];
 	}
+	[self authDidFinish:aRequest.success];
 }
 
 
@@ -143,7 +153,7 @@
 						  SHKEncodeURL(item.URL), SHKEncode(item.tags)];
 		
 		NSString *params = [NSMutableString stringWithFormat:@"apikey=%@&username=%@&password=%@%@%@",
-									SHKReadItLaterKey,
+									SHKCONFIG(readItLaterKey),
 							SHKEncode([self getAuthValueForKey:@"username"]),
 							SHKEncode([self getAuthValueForKey:@"password"]),
 							new,
@@ -172,7 +182,7 @@
 	{
 		if (aRequest.response.statusCode == 401)
 		{
-			[self sendDidFailShouldRelogin];
+			[self shouldReloginWithPendingAction:SHKPendingSend];
 			return;
 		}
 		

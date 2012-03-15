@@ -69,12 +69,21 @@
 - (BOOL)send
 {	
 	if (item.shareType == SHKShareTypeImage)
-		UIImageWriteToSavedPhotosAlbum(item.image, nil, nil, nil);
-	
+		[self writeImageToAlbum];
 	// Notify user
 	[[SHKActivityIndicator currentIndicator] displayCompleted:SHKLocalizedString(@"Saved!")];
 	
+	// Notify delegate, but quietly
+	self.quiet = YES;
+	[self sendDidFinish];
+	
 	return YES;
 }
+
+- (void) writeImageToAlbum
+{
+	UIImageWriteToSavedPhotosAlbum(item.image, nil, nil, nil);
+}
+
 
 @end

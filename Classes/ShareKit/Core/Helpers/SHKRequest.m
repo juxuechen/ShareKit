@@ -26,7 +26,7 @@
 //
 
 #import "SHKRequest.h"
-#import "SHKConfig.h"
+#import "DefaultSHKConfigurator.h"
 
 #define SHK_TIMEOUT 90
 
@@ -39,7 +39,8 @@
 
 - (void)dealloc
 {
-	[url release];
+	[delegate release];
+    [url release];
 	[params release];
 	[method release];
 	[headerFields release];
@@ -47,12 +48,13 @@
 	[data release];
 	[result release];
 	[response release];
+    [headers release];
 	[super dealloc];
 }
 
 - (id)initWithURL:(NSURL *)u params:(NSString *)p delegate:(id)d isFinishedSelector:(SEL)s method:(NSString *)m autostart:(BOOL)autostart
 {
-	if ((self = [super init]))
+	if (self = [super init])
 	{
 		self.url = u;
 		self.params = p;
@@ -68,13 +70,13 @@
 	return self;
 }
 
-
 #pragma mark -
 
 - (void)start
 {
-	self.data = [[NSMutableData alloc] initWithLength:0];
-	[data release];
+	NSMutableData *aData = [[NSMutableData alloc] initWithLength:0];
+    self.data = aData;
+	[aData release];
 	
 	NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url
 																  cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData
@@ -96,9 +98,10 @@
 	
 	// Start Connection
 	SHKLog(@"Start SHKRequest:\nURL: %@\nparams: %@", url, params);
-	self.connection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately:YES];
-	[request release];
-	[connection release];
+	NSURLConnection *aConnection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately:YES];
+    [request release];
+    self.connection = aConnection;	
+	[aConnection release];
 }
 
 
@@ -107,8 +110,9 @@
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSHTTPURLResponse *)theResponse 
 {
 	self.response = theResponse;
-	self.headers = [[response allHeaderFields] mutableCopy];
-	[headers release];
+	NSDictionary *aHeaders = [[response allHeaderFields] mutableCopy];
+	self.headers = aHeaders;
+	[aHeaders release];
 	
 	[data setLength:0];
 }
@@ -134,8 +138,9 @@
 {
 	self.success = (response.statusCode == 200 || response.statusCode == 201);
 	
-	if ([delegate respondsToSelector:isFinishedSelector])
-		[delegate performSelector:isFinishedSelector withObject:self];
+	if ([self.delegate respondsToSelector:isFinishedSelector])
+		[self.delegate performSelector:isFinishedSelector withObject:self];
+    self.delegate = nil;
 }
 
 - (NSString *)getResult
@@ -145,5 +150,13 @@
 	return result;
 }
 
+#pragma mark -
+
+- (NSString *)description {
+    
+    NSString *functionResult = [NSString stringWithFormat:@"method: %@\nurl: %@\nparams: %@\nresponse: %i (%@)\ndata: %@", self.method, [self.url absoluteString], self.params, [self.response statusCode], [NSHTTPURLResponse localizedStringForStatusCode:[self.response statusCode]], [[[NSString alloc] initWithData:self.data encoding:NSUTF8StringEncoding] autorelease]];
+    
+    return functionResult;    
+}
 
 @end

@@ -32,12 +32,14 @@
 
 @class SHKSharer;
 
-@protocol SHKSharerDelegate
+@protocol SHKSharerDelegate <NSObject>
 
 - (void)sharerStartedSending:(SHKSharer *)sharer;
 - (void)sharerFinishedSending:(SHKSharer *)sharer;
 - (void)sharer:(SHKSharer *)sharer failedWithError:(NSError *)error shouldRelogin:(BOOL)shouldRelogin;
 - (void)sharerCancelledSending:(SHKSharer *)sharer;
+@optional
+- (void)sharerAuthDidFinish:(SHKSharer *)sharer success:(BOOL)success;	
 
 @end
 
@@ -45,17 +47,19 @@
 typedef enum 
 {
 	SHKPendingNone,
-	SHKPendingShare,
-	SHKPendingRefreshToken
+	SHKPendingShare, //when ShareKit detects invalid credentials BEFORE user sends. User continues editing share content after login.
+	SHKPendingRefreshToken, //when OAuth token expires
+    SHKPendingSend, //when ShareKit detects invalid credentials AFTER user sends. Item is resent without showing edit dialogue (user edited already). 
 } SHKSharerPendingAction;
 
 
-@interface SHKSharer : UINavigationController <SHKSharerDelegate>
+@interface SHKSharer : UINavigationController
 {	
 	id shareDelegate;
 	
 	SHKItem *item;
 	SHKFormController *pendingForm;
+    SHKFormOptionController* curOptionController;
 	SHKRequest *request;
 		
 	NSError *lastError;
@@ -64,7 +68,7 @@ typedef enum
 	SHKSharerPendingAction pendingAction;
 }
 
-@property (nonatomic, retain)	id<SHKSharerDelegate> shareDelegate;
+@property (nonatomic, retain) id <SHKSharerDelegate> shareDelegate;
 
 @property (retain) SHKItem *item;
 @property (retain) SHKFormController *pendingForm;
@@ -80,9 +84,6 @@ typedef enum
 #pragma mark -
 #pragma mark Configuration : Service Defination
 
-- (void)shortenURL;
-- (void)shortenURLFinished:(SHKRequest *)aRequest;
-
 + (NSString *)sharerTitle;
 - (NSString *)sharerTitle;
 + (NSString *)sharerId;
@@ -91,6 +92,7 @@ typedef enum
 + (BOOL)canShareURL;
 + (BOOL)canShareImage;
 + (BOOL)canShareFile;
++ (BOOL)canGetUserInfo;
 + (BOOL)shareRequiresInternetConnection;
 + (BOOL)canShareOffline;
 + (BOOL)requiresAuthentication;
@@ -115,6 +117,8 @@ typedef enum
 
 + (id)shareItem:(SHKItem *)i;
 
+- (void)loadItem:(SHKItem *)i;
+
 + (id)shareURL:(NSURL *)url;
 + (id)shareURL:(NSURL *)url title:(NSString *)title;
 
@@ -124,6 +128,8 @@ typedef enum
 
 + (id)shareFile:(NSData *)file filename:(NSString *)filename mimeType:(NSString *)mimeType title:(NSString *)title;
 
+//only for services, which do not save credentials to the keychain, such as Twitter or Facebook. The result is complete user information (e.g. username) fetched from the service, saved to user defaults under the key kSHK<Service>UserInfo. When user does logout, it is meant to be deleted too. Useful, when you want to present some kind of logged user information (e.g. username) somewhere in your app.
++ (id)getUserInfo;
 
 #pragma mark -
 #pragma mark Commit Share
@@ -143,6 +149,7 @@ typedef enum
 - (void)authorizationFormShow;
 - (void)authorizationFormValidate:(SHKFormController *)form;
 - (void)authorizationFormSave:(SHKFormController *)form;
+- (void)authorizationFormCancel:(SHKFormController *)form;
 - (NSArray *)authorizationFormFields;
 - (NSString *)authorizationFormCaption;
 + (NSArray *)authorizationFormFields;
@@ -168,6 +175,7 @@ typedef enum
 - (NSArray *)shareFormFieldsForType:(SHKShareType)type;
 - (void)shareFormValidate:(SHKFormController *)form;
 - (void)shareFormSave:(SHKFormController *)form;
+- (void)shareFormCancel:(SHKFormController *)form;
 
 #pragma mark -
 #pragma mark Pending Actions
@@ -179,10 +187,14 @@ typedef enum
 
 - (void)sendDidStart;
 - (void)sendDidFinish;
-- (void)sendDidFailShouldRelogin;
+- (void)shouldReloginWithPendingAction:(SHKSharerPendingAction)action;
 - (void)sendDidFailWithError:(NSError *)error;
 - (void)sendDidFailWithError:(NSError *)error shouldRelogin:(BOOL)shouldRelogin;
 - (void)sendDidCancel;
+/*	called when an auth request returns. This is helpful if you need to use a service somewhere else in your
+	application other than sharing. It lets you use the same stored auth creds and login screens.
+ */
+- (void)authDidFinish:(BOOL)success;	
 
 @end
 

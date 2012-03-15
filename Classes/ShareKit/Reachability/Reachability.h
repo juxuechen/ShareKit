@@ -3,7 +3,7 @@
  File: Reachability.h
  Abstract: Basic demonstration of how to use the SystemConfiguration Reachablity APIs.
  
- Version: 2.2
+ Version: 2.1
  
  Disclaimer: IMPORTANT:  This Apple software is supplied to you by Apple Inc.
  ("Apple") in consideration of your agreement to the following terms, and your
@@ -43,12 +43,12 @@
  
  Copyright (C) 2010 Apple Inc. All Rights Reserved.
  
- */
+*/
 
 
 #import <Foundation/Foundation.h>
 #import <SystemConfiguration/SystemConfiguration.h>
-#include <netinet/in.h>
+#import <netinet/in.h>
 
 typedef enum {
 	NotReachable = 0,

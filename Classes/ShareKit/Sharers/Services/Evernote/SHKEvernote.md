@@ -13,7 +13,7 @@ When you received an API Key, define them to `SHKEvernoteConsumerKey` and `SHKEv
 
 
 ## Sending custom EDAM content
-By using SHKEvernoteItem, you can fully control the HTML content of the resulting Evernote note, add attachements such as images and audio files, include location information, and more.
+If you want to send custom EDAM content, use `SHKEvernoteItem` instead of `SHKItem`.
 
 This is a subclass of SHKItem, extended for support `(EDAMNote *)note` property.
 
@@ -47,7 +47,8 @@ This is a subclass of SHKItem, extended for support `(EDAMNote *)note` property.
 	imgResource.attributes = imgAttr;
 	
 	[resources addObject:imgResource];
-	// You can attach multiple images, but this may slow down the sharing process
+	// Plural embed images are supported,
+	// but this makes slow sharing process
 	[content appendFormat:@"<p><img src=\"%@\" /></p>",myImageURL];
 	// img element will be replaced with en-media element automatically.
 	
@@ -58,7 +59,7 @@ This is a subclass of SHKItem, extended for support `(EDAMNote *)note` property.
 	[note setContent:content];
 	[note setResources:resources];
 
-	SHKEvernoteItem *item = [[[SHKEvernoteItem alloc] init] autorelease];
+	SHKEvernoteItem *item = [[SHKEvernoteItem alloc] init] autorelease];
 	item.title = noteTitle;
 	item.shareType = SHKShareTypeURL;
 	item.note = note;

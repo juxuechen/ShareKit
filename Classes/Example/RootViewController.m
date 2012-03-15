@@ -125,6 +125,7 @@
 								delegate:self
 					   cancelButtonTitle:SHKLocalizedString(@"Cancel")
 					   otherButtonTitles:SHKLocalizedString(@"Logout"),nil] autorelease] show];
+	
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex

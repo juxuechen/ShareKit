@@ -11,6 +11,8 @@
 
 #import "SHKReadItLater.h"
 #import "SHKFacebook.h"
+#import "SHKConfiguration.h"
+#import "ShareKitDemoConfigurator.h"
 
 @implementation ShareKitAppDelegate
 
@@ -24,6 +26,11 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {    
     // Override point for customization after app launch    
 	
+    //Here you load ShareKit submodule with app specific configuration
+    DefaultSHKConfigurator *configurator = [[ShareKitDemoConfigurator alloc] init];
+    [SHKConfiguration sharedInstanceWithConfigurator:configurator];
+    [configurator release];
+    
 	[window addSubview:[navigationController view]];
     [window makeKeyAndVisible];
 	
@@ -45,6 +52,27 @@
 	// Save data if appropriate
 }
 
+- (BOOL)handleOpenURL:(NSURL*)url
+{
+	NSString* scheme = [url scheme];
+  if ([scheme hasPrefix:[NSString stringWithFormat:@"fb%@", SHKCONFIG(facebookAppId)]])
+    return [SHKFacebook handleOpenURL:url];
+  return YES;
+}
+
+- (BOOL)application:(UIApplication *)application 
+            openURL:(NSURL *)url 
+  sourceApplication:(NSString *)sourceApplication 
+         annotation:(id)annotation 
+{
+  return [self handleOpenURL:url];
+}
+
+- (BOOL)application:(UIApplication *)application 
+      handleOpenURL:(NSURL *)url 
+{
+  return [self handleOpenURL:url];  
+}
 
 #pragma mark -
 #pragma mark Memory management

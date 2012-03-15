@@ -46,19 +46,21 @@
                                                      error:&error];
 	
     if (response == nil || responseData == nil || error != nil) {
-        OAServiceTicket *ticket= [[[OAServiceTicket alloc] initWithRequest:request
+        OAServiceTicket *ticket= [[OAServiceTicket alloc] initWithRequest:request
                                                                  response:response
-                                                               didSucceed:NO] autorelease];
+                                                               didSucceed:NO];
         [delegate performSelector:didFailSelector
                        withObject:ticket
                        withObject:error];
+		[ticket release];
     } else {
-        OAServiceTicket *ticket = [[[OAServiceTicket alloc] initWithRequest:request
+        OAServiceTicket *ticket = [[OAServiceTicket alloc] initWithRequest:request
                                                                   response:response
-                                                                didSucceed:[(NSHTTPURLResponse *)response statusCode] < 400] autorelease];
+                                                                didSucceed:[(NSHTTPURLResponse *)response statusCode] < 400];
         [delegate performSelector:didFinishSelector
                        withObject:ticket
                        withObject:responseData];
+		[ticket release];
     }   
 }
 

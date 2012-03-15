@@ -27,31 +27,45 @@
 
 #import "SHK.h"
 #import "SHKActivityIndicator.h"
+#import "SHKConfiguration.h"
 #import "SHKViewControllerWrapper.h"
 #import "SHKActionSheet.h"
 #import "SHKOfflineSharer.h"
-#import "SFHFKeychainUtils.h"
+#import "SSKeychain.h"
 #import "Reachability.h"
-#import <MessageUI/MessageUI.h>
+#import "SHKMail.h"
 #import <objc/runtime.h>
 #import <objc/message.h>
+#import <MessageUI/MessageUI.h>
+
+NSString * SHKLocalizedStringFormat(NSString* key);
+NSString * const SHKHideCurrentViewFinishedNotification = @"SHKHideCurrentViewFinished";
+
+@interface SHK ()
+
+@property (nonatomic, assign) UIViewController *rootViewController, *currentRootViewController;
+
+- (UIViewController *)getCurrentRootViewController;
+- (UIViewController *)getTopViewController:(UIViewController *)aRootViewController;
+
+@end
 
 @implementation SHK
 
 @synthesize currentView, pendingView, isDismissingView;
-@synthesize rootViewController;
+@synthesize rootViewController, currentRootViewController;
 @synthesize offlineQueue;
 
-static SHK *currentHelper = nil;
+static SHK *_currentHelper = nil;
 BOOL SHKinit;
 
 
 + (SHK *)currentHelper
 {
-	if (currentHelper == nil)
-		currentHelper = [[SHK alloc] init];
+	if (_currentHelper == nil)
+		_currentHelper = [[super allocWithZone:NULL] init];
 	
-	return currentHelper;
+	return _currentHelper;
 }
 
 + (void)initialize
@@ -60,7 +74,11 @@ BOOL SHKinit;
 	
 	if (!SHKinit)
 	{
-		SHKSwizzle([MFMailComposeViewController class], @selector(viewDidDisappear:), @selector(SHKviewDidDisappear:));	
+		SHKSwizzle([MFMailComposeViewController class], @selector(viewDidDisappear:), @selector(SHKviewDidDisappear:));			
+		
+		if (NSClassFromString(@"MFMessageComposeViewController") != nil)
+			SHKSwizzle([MFMessageComposeViewController class], @selector(viewDidDisappear:), @selector(SHKviewDidDisappear:));	
+		
 		SHKinit = YES;
 	}
 }
@@ -84,9 +102,78 @@ BOOL SHKinit;
 	[helper setRootViewController:vc];	
 }
 
+- (UIViewController *)rootViewForCustomUIDisplay {
+    
+    UIViewController *result = [self getCurrentRootViewController];
+    result = [self getTopViewController:result];
+    return result;    
+}
+
 - (void)showViewController:(UIViewController *)vc
 {	
-	if (rootViewController == nil)
+	self.currentRootViewController = [self getCurrentRootViewController];
+	
+	// Find the top most view controller being displayed (so we can add the modal view to it and not one that is hidden)
+	UIViewController *topViewController = [self getTopViewController:self.currentRootViewController];	
+	if (topViewController == nil)
+		NSAssert(NO, @"ShareKit: There is no view controller to display from");
+	
+		
+	// If a view is already being shown, hide it, and then try again
+	if (currentView != nil)
+	{
+		self.pendingView = vc;
+		[[currentView parentViewController] dismissModalViewControllerAnimated:YES];
+		return;
+	}
+		
+	// Wrap the view in a nav controller if not already
+	if (![vc respondsToSelector:@selector(pushViewController:animated:)])
+	{
+		UINavigationController *nav = [[[UINavigationController alloc] initWithRootViewController:vc] autorelease];
+		
+		if ([nav respondsToSelector:@selector(modalPresentationStyle)])
+			nav.modalPresentationStyle = [SHK modalPresentationStyle];
+		
+		if ([nav respondsToSelector:@selector(modalTransitionStyle)])
+			nav.modalTransitionStyle = [SHK modalTransitionStyle];
+		
+		nav.navigationBar.barStyle = nav.toolbar.barStyle = [SHK barStyle];
+        nav.navigationBar.tintColor = SHKCONFIG_WITH_ARGUMENT(barTintForView:,vc);
+		
+		[topViewController presentModalViewController:nav animated:YES];			
+		self.currentView = nav;
+	}
+	
+	// Show the nav controller
+	else
+	{		
+		if ([vc respondsToSelector:@selector(modalPresentationStyle)])
+			vc.modalPresentationStyle = [SHK modalPresentationStyle];
+		
+		if ([vc respondsToSelector:@selector(modalTransitionStyle)])
+			vc.modalTransitionStyle = [SHK modalTransitionStyle];
+		
+		[topViewController presentModalViewController:vc animated:YES];
+		[(UINavigationController *)vc navigationBar].barStyle = 
+		[(UINavigationController *)vc toolbar].barStyle = [SHK barStyle];
+		[(UINavigationController *)vc navigationBar].tintColor = SHKCONFIG_WITH_ARGUMENT(barTintForView:,vc);
+		self.currentView = vc;
+	}
+		
+	self.pendingView = nil;		
+}
+
+- (UIViewController *)getCurrentRootViewController {
+    
+    UIViewController *result;
+    
+    if (rootViewController)
+    {
+        // If developer provieded a root view controler, use it
+        result = rootViewController;
+    }
+    else
 	{
 		// Try to find the root view controller programmically
 		
@@ -106,64 +193,12 @@ BOOL SHKinit;
 		id nextResponder = [rootView nextResponder];
 		
 		if ([nextResponder isKindOfClass:[UIViewController class]])
-			self.rootViewController = nextResponder;
+			result = nextResponder;
 		
 		else
 			NSAssert(NO, @"ShareKit: Could not find a root view controller.  You can assign one manually by calling [[SHK currentHelper] setRootViewController:YOURROOTVIEWCONTROLLER].");
 	}
-	
-	// Find the top most view controller being displayed (so we can add the modal view to it and not one that is hidden)
-	UIViewController *topViewController = [self getTopViewController];	
-	if (topViewController == nil)
-		NSAssert(NO, @"ShareKit: There is no view controller to display from");
-	
-		
-	// If a view is already being shown, hide it, and then try again
-	if (currentView != nil)
-	{
-		self.pendingView = vc;
-		[[currentView parentViewController] dismissModalViewControllerAnimated:YES];
-		return;
-	}
-    
-    // Special treatment for the twitter view of IOS 5
-    if ([vc isKindOfClass: [TWTweetComposeViewController class]]) {
-        [self.rootViewController presentModalViewController:vc animated:YES];
-    }
-		
-	// Wrap the view in a nav controller if not already
-	if (![vc respondsToSelector:@selector(pushViewController:animated:)])
-	{
-		UINavigationController *nav = [[[UINavigationController alloc] initWithRootViewController:vc] autorelease];
-		
-		if ([nav respondsToSelector:@selector(modalPresentationStyle)])
-			[nav setModalPresentationStyle:[SHK modalPresentationStyle]];
-		
-		if ([nav respondsToSelector:@selector(modalTransitionStyle)])
-			nav.modalTransitionStyle = [SHK modalTransitionStyle];
-		
-		nav.navigationBar.barStyle = nav.toolbar.barStyle = [SHK barStyle];
-		
-		[topViewController presentModalViewController:nav animated:YES];			
-		self.currentView = nav;
-	}
-	
-	// Show the nav controller
-	else
-	{		
-		if ([vc respondsToSelector:@selector(modalPresentationStyle)])
-			[vc setModalPresentationStyle:[SHK modalPresentationStyle]];
-		
-		if ([vc respondsToSelector:@selector(modalTransitionStyle)])
-			vc.modalTransitionStyle = [SHK modalTransitionStyle];
-		
-		[topViewController presentModalViewController:vc animated:YES];
-		[(UINavigationController *)vc navigationBar].barStyle = 
-		[(UINavigationController *)vc toolbar].barStyle = [SHK barStyle];
-		self.currentView = vc;
-	}
-		
-	self.pendingView = nil;		
+    return result;    
 }
 
 - (void)hideCurrentViewController
@@ -179,22 +214,25 @@ BOOL SHKinit;
 	if (currentView != nil)
 	{
 		// Dismiss the modal view
-        if ([currentView parentViewController] != nil)
-        {
-            self.isDismissingView = YES;
-            [[currentView parentViewController] dismissModalViewControllerAnimated:animated];
+		if ([currentView parentViewController] != nil)
+		{
+			self.isDismissingView = YES;
+			[[currentView parentViewController] dismissModalViewControllerAnimated:animated];
+		}
+		// for iOS5
+		else if([currentView respondsToSelector:@selector(presentingViewController)] &&
+		        [currentView presentingViewController])
+		{
+			self.isDismissingView = YES;            
+            [[currentView presentingViewController] dismissViewControllerAnimated:animated completion:^{                                                                           
+                [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                    [[NSNotificationCenter defaultCenter] postNotificationName:SHKHideCurrentViewFinishedNotification object:nil];
+                }];
+            }];
         }
-        // works in iOS 5
-        else if( [ currentView respondsToSelector: @selector( presentingViewController )] &&
-                [ currentView presentingViewController ] != nil ) 
-        {
-            self.isDismissingView = YES;
-            [[currentView presentingViewController ] dismissModalViewControllerAnimated:animated];            
-        }
+		
 		else
-        {
-            self.currentView = nil;
-        }
+			self.currentView = nil;
 	}
 }
 
@@ -212,6 +250,9 @@ BOOL SHKinit;
 	if (currentView != nil)
 		self.currentView = nil;
 	
+    if (currentRootViewController != nil)
+        self.currentRootViewController = nil;
+
 	if (pendingView)
 	{
 		// This is an ugly way to do it, but it works.
@@ -222,39 +263,37 @@ BOOL SHKinit;
 	}
 }
 										   
-- (UIViewController *)getTopViewController
+- (UIViewController *)getTopViewController:(UIViewController *)aRootViewController
 {
-	UIViewController *topViewController = rootViewController;
-	while (topViewController.modalViewController != nil)
-		topViewController = topViewController.modalViewController;
-	return topViewController;
+	UIViewController *result = aRootViewController;
+	while (result.modalViewController != nil)
+		result = result.modalViewController;
+	return result;
 }
 			
 + (UIBarStyle)barStyle
 {
-	if ([SHKBarStyle isEqualToString:@"UIBarStyleBlack"])		
+	if ([SHKCONFIG(barStyle) isEqualToString:@"UIBarStyleBlack"])
 		return UIBarStyleBlack;
 	
-	else if ([SHKBarStyle isEqualToString:@"UIBarStyleBlackOpaque"])		
+	else if ([SHKCONFIG(barStyle) isEqualToString:@"UIBarStyleBlackOpaque"])
 		return UIBarStyleBlackOpaque;
 	
-	else if ([SHKBarStyle isEqualToString:@"UIBarStyleBlackTranslucent"])		
+	else if ([SHKCONFIG(barStyle) isEqualToString:@"UIBarStyleBlackTranslucent"])
 		return UIBarStyleBlackTranslucent;
 	
 	return UIBarStyleDefault;
 }
 
-#ifdef __IPHONE_3_2
-
 + (UIModalPresentationStyle)modalPresentationStyle
 {
-	if ([SHKModalPresentationStyle isEqualToString:@"UIModalPresentationFullScreen"])		
+	if ([SHKCONFIG(modalPresentationStyle) isEqualToString:@"UIModalPresentationFullScreen"])
 		return UIModalPresentationFullScreen;
 	
-	else if ([SHKModalPresentationStyle isEqualToString:@"UIModalPresentationPageSheet"])		
+	else if ([SHKCONFIG(modalPresentationStyle) isEqualToString:@"UIModalPresentationPageSheet"])
 		return UIModalPresentationPageSheet;
 	
-	else if ([SHKModalPresentationStyle isEqualToString:@"UIModalPresentationFormSheet"])		
+	else if ([SHKCONFIG(modalPresentationStyle) isEqualToString:@"UIModalPresentationFormSheet"])
 		return UIModalPresentationFormSheet;
 	
 	return UIModalPresentationCurrentContext;
@@ -262,49 +301,26 @@ BOOL SHKinit;
 
 + (UIModalTransitionStyle)modalTransitionStyle
 {
-	if ([SHKModalTransitionStyle isEqualToString:@"UIModalTransitionStyleFlipHorizontal"])		
+	if ([SHKCONFIG(modalTransitionStyle) isEqualToString:@"UIModalTransitionStyleFlipHorizontal"])
 		return UIModalTransitionStyleFlipHorizontal;
 	
-	else if ([SHKModalTransitionStyle isEqualToString:@"UIModalTransitionStyleCrossDissolve"])		
+	else if ([SHKCONFIG(modalTransitionStyle) isEqualToString:@"UIModalTransitionStyleCrossDissolve"])
 		return UIModalTransitionStyleCrossDissolve;
 	
-	else if ([SHKModalTransitionStyle isEqualToString:@"UIModalTransitionStylePartialCurl"])		
+	else if ([SHKCONFIG(modalTransitionStyle) isEqualToString:@"UIModalTransitionStylePartialCurl"])
 		return UIModalTransitionStylePartialCurl;
 	
 	return UIModalTransitionStyleCoverVertical;
 }
 
-#else
-
-+ (int)modalPresentationStyle { return 0; }
-+ (int)modalTransitionStyle   { return 0; }
-
-#endif
-
 
 #pragma mark -
 #pragma mark Favorites
 
-+ (NSArray *)sharersForType:(SHKShareType)type
-{
-    NSArray *sharers = [[SHK sharersDictionary] objectForKey:@"services"];
-    NSMutableArray *canShareTypes = [NSMutableArray array];
-    
-	for (NSString *sharerId in sharers)
-    {
-        // Add support sharer type and less than max fav count setted in config 
-        if ([NSClassFromString(sharerId) canShareType:type] && [canShareTypes count] < SHK_MAX_FAV_COUNT)
-        {
-            [canShareTypes addObject:sharerId];
-        }
-    }
-    
-    return canShareTypes;
-}
 
 + (NSArray *)favoriteSharersForType:(SHKShareType)type
-{
-	NSArray *favoriteSharers = [[NSUserDefaults standardUserDefaults] objectForKey:[NSString stringWithFormat:@"%@%i", SHK_FAVS_PREFIX_KEY, type]];
+{	
+	NSArray *favoriteSharers = [[NSUserDefaults standardUserDefaults] objectForKey:[NSString stringWithFormat:@"%@%i", SHKCONFIG(favsPrefixKey), type]];
 		
 	// set defaults
 	if (favoriteSharers == nil)
@@ -312,16 +328,24 @@ BOOL SHKinit;
 		switch (type) 
 		{
 			case SHKShareTypeURL:
-			case SHKShareTypeImage:
-			case SHKShareTypeText:
-			case SHKShareTypeFile:
-                favoriteSharers = [self sharersForType:type];
+				favoriteSharers = SHKCONFIG(defaultFavoriteURLSharers);
 				break;
-
-            case SHKShareTypeUndefined:
-                SHKLog(@"Received call to favoriteSharersForType for type SHKShareTypeUndefined!");
-                break;
-    }
+				
+			case SHKShareTypeImage:
+				favoriteSharers = SHKCONFIG(defaultFavoriteImageSharers);
+				break;
+				
+			case SHKShareTypeText:
+				favoriteSharers = SHKCONFIG(defaultFavoriteTextSharers);
+				break;
+				
+			case SHKShareTypeFile:
+				favoriteSharers = SHKCONFIG(defaultFavoriteFileSharers);
+				break;
+			
+			default:
+				favoriteSharers = [NSArray array];
+		}
 		
 		// Save defaults to prefs
 		[self setFavorites:favoriteSharers forType:type];
@@ -349,12 +373,21 @@ BOOL SHKinit;
 
 + (void)pushOnFavorites:(NSString *)className forType:(SHKShareType)type
 {
+    NSArray *exclusions = [[NSUserDefaults standardUserDefaults] objectForKey:@"SHKExcluded"];
+    if (exclusions != nil)
+	{
+		for(NSString *sharerId in exclusions)
+		{
+			if([className isEqualToString:sharerId]) return;
+		}
+	}
+    
 	NSMutableArray *favs = [[self favoriteSharersForType:type] mutableCopy];
 	
 	[favs removeObject:className];
 	[favs insertObject:className atIndex:0];
 	
-	while (favs.count > SHK_MAX_FAV_COUNT)
+	while (favs.count > [SHKCONFIG(maxFavCount) unsignedIntegerValue])
 		[favs removeLastObject];
 	
 	[self setFavorites:favs forType:type];
@@ -364,19 +397,19 @@ BOOL SHKinit;
 
 + (void)setFavorites:(NSArray *)favs forType:(SHKShareType)type
 {
-	[[NSUserDefaults standardUserDefaults] setObject:favs forKey:[NSString stringWithFormat:@"%@%i", SHK_FAVS_PREFIX_KEY, type]];
+	[[NSUserDefaults standardUserDefaults] setObject:favs forKey:[NSString stringWithFormat:@"%@%i", SHKCONFIG(favsPrefixKey), type]];
 }
 
 #pragma mark -
 
 + (NSDictionary *)getUserExclusions
 {
-	return [[NSUserDefaults standardUserDefaults] objectForKey:[NSString stringWithFormat:@"%@Exclusions", SHK_FAVS_PREFIX_KEY]];
+	return [[NSUserDefaults standardUserDefaults] objectForKey:[NSString stringWithFormat:@"%@Exclusions", SHKCONFIG(favsPrefixKey)]];
 }
 
 + (void)setUserExclusions:(NSDictionary *)exclusions
 {
-	return [[NSUserDefaults standardUserDefaults] setObject:exclusions forKey:[NSString stringWithFormat:@"%@Exclusions", SHK_FAVS_PREFIX_KEY]];	
+	return [[NSUserDefaults standardUserDefaults] setObject:exclusions forKey:[NSString stringWithFormat:@"%@Exclusions", SHKCONFIG(favsPrefixKey)]];
 }
 
 
@@ -392,9 +425,11 @@ BOOL SHKinit;
 	// Using NSUserDefaults for storage is very insecure, but because Keychain only exists on a device
 	// we use NSUserDefaults when running on the simulator to store objects.  This allows you to still test
 	// in the simulator.  You should NOT modify in a way that does not use keychain when actually deployed to a device.
-	return [[NSUserDefaults standardUserDefaults] objectForKey:[NSString stringWithFormat:@"%@%@%@",SHK_AUTH_PREFIX,sharerId,key]];
+	return [[NSUserDefaults standardUserDefaults] objectForKey:[NSString stringWithFormat:@"%@%@%@",SHKCONFIG(authPrefix),sharerId,key]];
 #else
-	return [SFHFKeychainUtils getPasswordForUsername:key andServiceName:[NSString stringWithFormat:@"%@%@",SHK_AUTH_PREFIX,sharerId] error:nil];
+	return [SSKeychain passwordForService:[NSString stringWithFormat:@"%@%@",SHKCONFIG(authPrefix),sharerId] 
+								  account:key 
+									error:nil ];
 #endif
 }
 
@@ -404,9 +439,12 @@ BOOL SHKinit;
 	// Using NSUserDefaults for storage is very insecure, but because Keychain only exists on a device
 	// we use NSUserDefaults when running on the simulator to store objects.  This allows you to still test
 	// in the simulator.  You should NOT modify in a way that does not use keychain when actually deployed to a device.
-	[[NSUserDefaults standardUserDefaults] setObject:value forKey:[NSString stringWithFormat:@"%@%@%@",SHK_AUTH_PREFIX,sharerId,key]];
+	[[NSUserDefaults standardUserDefaults] setObject:value forKey:[NSString stringWithFormat:@"%@%@%@",SHKCONFIG(authPrefix),sharerId,key]];
 #else
-	[SFHFKeychainUtils storeUsername:key andPassword:value forServiceName:[NSString stringWithFormat:@"%@%@",SHK_AUTH_PREFIX,sharerId] updateExisting:YES error:nil];
+	[SSKeychain setPassword:value 
+				 forService:[NSString stringWithFormat:@"%@%@",SHKCONFIG(authPrefix),sharerId] 
+					account:key 
+					  error:nil];
 #endif
 }
 
@@ -416,9 +454,11 @@ BOOL SHKinit;
 	// Using NSUserDefaults for storage is very insecure, but because Keychain only exists on a device
 	// we use NSUserDefaults when running on the simulator to store objects.  This allows you to still test
 	// in the simulator.  You should NOT modify in a way that does not use keychain when actually deployed to a device.
-	[[NSUserDefaults standardUserDefaults] removeObjectForKey:[NSString stringWithFormat:@"%@%@%@",SHK_AUTH_PREFIX,sharerId,key]];
+	[[NSUserDefaults standardUserDefaults] removeObjectForKey:[NSString stringWithFormat:@"%@%@%@",SHKCONFIG(authPrefix),sharerId,key]];
 #else
-	[SFHFKeychainUtils deleteItemForUsername:key andServiceName:[NSString stringWithFormat:@"%@%@",SHK_AUTH_PREFIX,sharerId] error:nil];
+	[SSKeychain deletePasswordForService:[NSString stringWithFormat:@"%@%@",SHKCONFIG(authPrefix),sharerId] 
+								 account:key 
+								   error:nil];
 #endif
 }
 
@@ -442,7 +482,7 @@ static NSDictionary *sharersDictionary = nil;
 + (NSDictionary *)sharersDictionary
 {
 	if (sharersDictionary == nil)
-		sharersDictionary = [[NSDictionary dictionaryWithContentsOfFile:[[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"SHKSharers.plist"]] retain];
+		sharersDictionary = [[NSDictionary dictionaryWithContentsOfFile:[[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:SHKCONFIG(sharersPlistName)]] retain];
 	
 	return sharersDictionary;
 }
@@ -482,6 +522,10 @@ static NSDictionary *sharersDictionary = nil;
 
 + (BOOL)addToOfflineQueue:(SHKItem *)item forSharer:(NSString *)sharerId
 {
+	if([SHKCONFIG(allowOffline) boolValue] == FALSE){
+		return NO;
+	}
+	
 	// Generate a unique id for the share to use when saving associated files
 	NSString *uid = [NSString stringWithFormat:@"%@-%i-%i-%i", sharerId, item.shareType, [[NSDate date] timeIntervalSince1970], arc4random()];
 	
@@ -529,8 +573,11 @@ static NSDictionary *sharersDictionary = nil;
 	{
 		SHK *helper = [self currentHelper];
 		
-		if (helper.offlineQueue == nil)
-			helper.offlineQueue = [[NSOperationQueue alloc] init];		
+		if (helper.offlineQueue == nil) {
+            NSOperationQueue *aQueue = [[NSOperationQueue alloc] init];
+			helper.offlineQueue = aQueue;	
+            [aQueue release];
+        }
 	
 		SHKItem *item;
 		NSString *sharerId, *uid;
@@ -574,6 +621,39 @@ static NSDictionary *sharersDictionary = nil;
 	return !(netStatus == NotReachable);
 }
 
+#pragma mark -
+#pragma mark Singleton System Overrides
+
++ (id)allocWithZone:(NSZone *)zone
+{	
+    return [[self currentHelper] retain];	
+}
+
+- (id)copyWithZone:(NSZone *)zone
+{	
+    return self;	
+}
+
+- (id)retain
+{	
+    return self;	
+}
+
+- (NSUInteger)retainCount
+{	
+    return NSUIntegerMax;  //denotes an object that cannot be released	
+}
+
+- (oneway void)release
+{	
+    //do nothing	
+}
+
+- (id)autorelease
+{	
+    return self;	
+}
+
 @end
 
 
@@ -592,7 +672,10 @@ NSString * SHKEncode(NSString * value)
 	string = [string stringByReplacingOccurrencesOfString:@"&amp;" withString:@"&"];
 	string = [string stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 	string = [string stringByReplacingOccurrencesOfString:@"&" withString:@"%26"];
-    string = [string stringByReplacingOccurrencesOfString:@"\"" withString:@"'"];
+    string = [string stringByReplacingOccurrencesOfString:@"+" withString:@"%2B"];
+    string = [string stringByReplacingOccurrencesOfString:@"#" withString:@"%23"];
+    string = [string stringByReplacingOccurrencesOfString:@"!" withString:@"%21"];
+    string = [string stringByReplacingOccurrencesOfString:@"@" withString:@"%40"];
 	
 	return string;	
 }
@@ -621,10 +704,21 @@ void SHKSwizzle(Class c, SEL orig, SEL newClassName)
 		method_exchangeImplementations(origMethod, newMethod);
 }
 
+NSString* SHKLocalizedStringFormat(NSString* key)
+{
+  static NSBundle* bundle = nil;
+  if (nil == bundle) {
+    NSString* path = [[[NSBundle mainBundle] resourcePath]
+                      stringByAppendingPathComponent:@"ShareKit.bundle"];
+    bundle = [[NSBundle bundleWithPath:path] retain];
+  }
+  return [bundle localizedStringForKey:key value:key table:nil];
+}
+
 NSString* SHKLocalizedString(NSString* key, ...) 
 {
 	// Localize the format
-	NSString *localizedStringFormat = NSLocalizedString(key, key);
+	NSString *localizedStringFormat = SHKLocalizedStringFormat(key);
 	
 	va_list args;
     va_start(args, key);

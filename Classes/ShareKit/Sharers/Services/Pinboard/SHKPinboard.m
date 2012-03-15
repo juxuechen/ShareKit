@@ -27,6 +27,13 @@
 
 #import "SHKPinboard.h"
 
+/**
+ Private helper methods
+ */
+@interface SHKPinboard ()
+- (void)authFinished:(SHKRequest *)aRequest;
+- (void)sendFinished:(SHKRequest *)aRequest;
+@end
 
 @implementation SHKPinboard
 
@@ -79,28 +86,31 @@
 	self.pendingForm = form;
 }
 
-- (BOOL)handleResponse:(SHKRequest *)aRequest
-{
-	NSString *response = [aRequest getResult];
-	
-	if ([response isEqualToString:SHKLocalizedString(@"401 Forbidden")])
-	{
-		[self sendDidFailShouldRelogin];		
-		return NO;		
-	} 
-	
-	return YES;
-}
-
 - (void)authFinished:(SHKRequest *)aRequest
 {	
 	// Hide the activity indicator
 	[[SHKActivityIndicator currentIndicator] hide];
 	
-	if ([self handleResponse:aRequest])
+    if (aRequest.success) 
 	{
 		[pendingForm saveForm];
 	}
+    else
+    {
+        NSString *errorMessage = nil;
+        
+        if (aRequest.response.statusCode == 401)
+            errorMessage = SHKLocalizedString(@"Invalid email or password.");
+        else
+            errorMessage = SHKLocalizedString(@"The service encountered an error. Please try again later.");
+        
+		[[[[UIAlertView alloc] initWithTitle:SHKLocalizedString(@"Login Error")
+                                     message:errorMessage
+                                    delegate:nil
+                           cancelButtonTitle:SHKLocalizedString(@"Close")
+                           otherButtonTitles:nil] autorelease] show];
+	}
+	[self authDidFinish:aRequest.success];
 }
 
 
@@ -158,18 +168,22 @@
 
 - (void)sendFinished:(SHKRequest *)aRequest
 {	
-	if ([self handleResponse:aRequest])
-	{
-		// TODO parse <result code="MESSAGE" to get response from api for better error message
-		
-		if ([[aRequest getResult] rangeOfString:@"\"done\""].location != NSNotFound)
+	
+    if (!aRequest.success) 
+    {
+        if (aRequest.response.statusCode == 401)
 		{
-			[self sendDidFinish];
+			[self shouldReloginWithPendingAction:SHKPendingSend];
 			return;
 		}
-	}
-	
-	[self sendDidFailWithError:[SHK error:SHKLocalizedString(@"There was an error saving to Pinboard")]];		
+		
+		// TODO parse <result code="MESSAGE" to get response from api for better error message
+        [self sendDidFailWithError:[SHK error:SHKLocalizedString(@"There was an error saving to Pinboard")]];
+		return;
+
+    }    
+    
+    [self sendDidFinish];
 }
 
 @end

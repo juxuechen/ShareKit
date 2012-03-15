@@ -25,17 +25,19 @@
 //
 //
 
+#import "SHKConfiguration.h"
 #import "SHKMail.h"
 
 
 @implementation MFMailComposeViewController (SHK)
 
 - (void)SHKviewDidDisappear:(BOOL)animated
-{
+{	
 	[super viewDidDisappear:animated];
 	
-	// Remove the SHK view wrapper from the window
-	[[SHK currentHelper] viewWasDismissed];
+	// Remove the SHK view wrapper from the window (but only if the view doesn't have another modal over it)
+	if (self.modalViewController == nil)
+		[[SHK currentHelper] viewWasDismissed];
 }
 
 @end
@@ -103,20 +105,13 @@
 
 - (BOOL)send
 {
+	self.quiet = YES;
+	
 	if (![self validateItem])
 		return NO;
-	if(kSHKEmailShouldShortenURLs)
-		[self shortenURL];
-	else
-		[self sendMail];
-	return YES; // Put the actual sending action in another method to make subclassing SHKMail easier
+	
+	return [self sendMail]; // Put the actual sending action in another method to make subclassing SHKMail easier
 }
-
-- (void)shortenURLFinished:(SHKRequest *)aRequest {
-	[super shortenURLFinished:aRequest];
-	[self sendMail];
-}
-
 
 - (BOOL)sendMail
 {	
@@ -127,10 +122,11 @@
 		return YES;
 	}
 	
+    [self retain]; //must retain, because mailController does not retain its delegates. Released in callback.
 	mailController.mailComposeDelegate = self;
+	mailController.navigationBar.tintColor = SHKCONFIG_WITH_ARGUMENT(barTintForView:,mailController);
 	
 	NSString *body = [item customValueForKey:@"body"];
-	NSString *subject = [item customValueForKey:@"subject"];
 	
 	if (body == nil)
 	{
@@ -139,12 +135,11 @@
 		
 		if (item.URL != nil)
 		{	
-			NSString *urlStr = [item customValueForKey:@"shortenURL"]; 
-			if(urlStr==nil||urlStr.length==0) 
-				urlStr = [item.URL.absoluteString stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+			NSString *urlStr = [item.URL.absoluteString stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 			
 			if (body != nil)
 				body = [body stringByAppendingFormat:@"<br/><br/>%@", urlStr];
+			
 			else
 				body = urlStr;
 		}
@@ -158,25 +153,35 @@
 			
 			else
 				body = attachedStr;
-			
-			[mailController addAttachmentData:item.data mimeType:item.mimeType fileName:item.filename];
 		}
-		
-		if (item.image)
-			[mailController addAttachmentData:UIImageJPEGRepresentation(item.image, 1) mimeType:@"image/jpeg" fileName:@"Image.jpg"];		
 		
 		// fallback
 		if (body == nil)
 			body = @"";
 		
 		// sig
-		body = [body stringByAppendingFormat:@"<br/><br/>Sent from %@", SHKMyAppName];
+		if ([SHKCONFIG(sharedWithSignature) boolValue])
+		{
+			body = [body stringByAppendingString:@"<br/><br/>"];
+			body = [body stringByAppendingString:SHKLocalizedString(@"Sent from %@", SHKCONFIG(appName))];
+		}
 		
 		// save changes to body
 		[item setCustomValue:body forKey:@"body"];
 	}
 	
-	[mailController setSubject:(subject != nil ? subject : item.title)];
+	if (item.data)		
+		[mailController addAttachmentData:item.data mimeType:item.mimeType fileName:item.filename];
+	
+	if (item.image){
+		float jpgQuality = 1;
+		if ([item customValueForKey:@"jpgQuality"] != nil) {
+			jpgQuality = [[item customValueForKey:@"jpgQuality"] floatValue];
+		}
+		[mailController addAttachmentData:UIImageJPEGRepresentation(item.image, jpgQuality) mimeType:@"image/jpeg" fileName:@"Image.jpg"];
+	}
+	
+	[mailController setSubject:item.title];
 	[mailController setMessageBody:body isHTML:YES];
 			
 	[[SHK currentHelper] showViewController:mailController];
@@ -187,6 +192,23 @@
 - (void)mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error
 {
 	[[SHK currentHelper] hideCurrentViewControllerAnimated:YES];
+	
+	switch (result) 
+	{
+		case MFMailComposeResultSent:
+			[self sendDidFinish];
+			break;
+		case MFMailComposeResultSaved:
+			[self sendDidFinish];
+			break;
+		case MFMailComposeResultCancelled:
+			[self sendDidCancel];
+			break;
+		case MFMailComposeResultFailed:
+			[self sendDidFailWithError:nil];
+			break;
+	}
+	[self autorelease];
 }
 
 

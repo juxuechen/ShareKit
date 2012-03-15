@@ -7,12 +7,18 @@
 //
 
 #import "SHKTumblr.h"
+#import "SHKConfiguration.h"
 
 static NSString * const kTumblrAuthenticationURL = @"https://www.tumblr.com/api/authenticate";
 static NSString * const kTumblrWriteURL = @"https://www.tumblr.com/api/write";
 
+static NSString * const kStoredAuthEmailKeyName = @"email";
+static NSString * const kStoredAuthPasswordKeyName = @"password";
+
 @interface SHKTumblr()
 - (void)finish;
+- (void)authFinished:(SHKRequest *)aRequest;
+- (void)sendFinished:(SHKRequest *)aRequest;
 @end
 
 @implementation SHKTumblr
@@ -72,8 +78,8 @@ static NSString * const kTumblrWriteURL = @"https://www.tumblr.com/api/write";
 	NSDictionary *formValues = [form formValues];
 	
 	NSString *params = [NSMutableString stringWithFormat:@"email=%@&password=%@",
-                        SHKEncode([formValues objectForKey:@"email"]),
-                        SHKEncode([formValues objectForKey:@"password"])
+                        SHKEncode([formValues objectForKey:kStoredAuthEmailKeyName]),
+                        SHKEncode([formValues objectForKey:kStoredAuthPasswordKeyName])
                         ];
 	
 	self.request = [[[SHKRequest alloc] initWithURL:[NSURL URLWithString:kTumblrAuthenticationURL]
@@ -104,18 +110,19 @@ static NSString * const kTumblrWriteURL = @"https://www.tumblr.com/api/write";
                            cancelButtonTitle:SHKLocalizedString(@"Close")
                            otherButtonTitles:nil] autorelease] show];
 	}
+	[self authDidFinish:aRequest.success];
 }
 
 #pragma mark -
 #pragma mark Authorize form
-- (NSArray *)authorizationFormFields{
++ (NSArray *)authorizationFormFields{
 	return [NSArray arrayWithObjects:
 			[SHKFormFieldSettings label:SHKLocalizedString(@"Email")
-                                    key:@"email"
-                                   type:SHKFormFieldTypeText
+                                    key:kStoredAuthEmailKeyName
+                                   type:SHKFormFieldTypeTextNoCorrect
                                   start:nil],
 			[SHKFormFieldSettings label:SHKLocalizedString(@"Password")
-                                    key:@"password"
+                                    key:kStoredAuthPasswordKeyName
                                    type:SHKFormFieldTypePassword
                                   start:nil],			
 			nil];
@@ -126,7 +133,7 @@ static NSString * const kTumblrWriteURL = @"https://www.tumblr.com/api/write";
 
 - (NSArray *)shareFormFieldsForType:(SHKShareType)type{
     NSMutableArray *baseArray = [NSMutableArray arrayWithObjects:
-            [SHKFormFieldSettings label:SHKLocalizedString(@"Tags")
+            [SHKFormFieldSettings label:SHKLocalizedString(@"Tag,Tag")
                                     key:@"tags"
                                    type:SHKFormFieldTypeText
                                   start:item.tags],
@@ -157,32 +164,6 @@ static NSString * const kTumblrWriteURL = @"https://www.tumblr.com/api/write";
                                                       start:item.title]
                         atIndex:0];
     }
-
-    if([item shareType] == SHKShareTypeURL){
-        // Auto-detect Dailymotion links and generate an attached embed player
-        if ([item.URL.host hasSuffix:@"dailymotion.com"]){
-            NSString *videoId = nil;
-            BOOL idIsNextComponent = NO;
-            for (NSString *component in [item.URL.path componentsSeparatedByString:@"/"]){
-                if (idIsNextComponent){
-                    videoId = [[component componentsSeparatedByString:@"_"] objectAtIndex:0];
-                    break;
-                }else if ([component isEqualToString:@"video"]){
-                    idIsNextComponent = YES;
-                }
-            }
-
-            if (videoId){
-                [item setCustomValue:[NSString stringWithFormat:@"<iframe frameborder=\"0\" width=\"450\" height=\"330\" src=\"http://www.dailymotion.com/embed/video/%@\"></iframe>", videoId] forKey:@"iframe"];
-            }
-        }
-    }
-
-    if ([item customValueForKey:@"iframe"])
-    {
-        [baseArray insertObject:[SHKFormFieldSettings label:SHKLocalizedString(@"Text") key:@"text" type:SHKFormFieldTypeText start:item.text] atIndex:1];
-    }
-
     return baseArray;
 }
 
@@ -193,8 +174,14 @@ static NSString * const kTumblrWriteURL = @"https://www.tumblr.com/api/write";
 	if ([self validateItem]) {
         if([item shareType] == SHKShareTypeText || [item shareType] == SHKShareTypeURL){
             NSMutableString *params = [NSMutableString stringWithFormat:@"email=%@&password=%@", 
-                                       SHKEncode([self getAuthValueForKey:@"email"]),
-                                       SHKEncode([self getAuthValueForKey:@"password"])];
+                                       SHKEncode([self getAuthValueForKey:kStoredAuthEmailKeyName]),
+                                       SHKEncode([self getAuthValueForKey:kStoredAuthPasswordKeyName])];
+            
+            //set generator param
+            NSString *generator = SHKCONFIG(appName);
+            if(generator){
+                [params appendFormat:@"&generator=%@", generator];
+            }
             
             //set send to twitter param
             if([item customBoolForSwitchKey:@"twitter"]){
@@ -224,18 +211,10 @@ static NSString * const kTumblrWriteURL = @"https://www.tumblr.com/api/write";
             
             //set type param
             if ([item shareType] == SHKShareTypeURL){
-                if ([item customValueForKey:@"iframe"]){
-                    [params appendString:@"&type=regular"];
-                    if([item title]){
-                        [params appendFormat:@"&title=%@", SHKEncode([item title])];
-                    }
-                    [params appendFormat:@"&body=%@", SHKEncode([NSString stringWithFormat:@"%@<p>%@</p>", [item customValueForKey:@"iframe"], [item text]])];
-                }else{
-                    [params appendString:@"&type=link"];
-                    [params appendFormat:@"&url=%@",SHKEncodeURL([item URL])];
-                    if([item title]){
-                        [params appendFormat:@"&name=%@", SHKEncode([item title])];
-                    }
+                [params appendString:@"&type=link"];
+                [params appendFormat:@"&url=%@",SHKEncodeURL([item URL])];
+                if([item title]){
+                    [params appendFormat:@"&name=%@", SHKEncode([item title])];   
                 }
             }else{
                 [params appendString:@"&type=regular"];
@@ -253,7 +232,7 @@ static NSString * const kTumblrWriteURL = @"https://www.tumblr.com/api/write";
         }
         else if([item shareType] == SHKShareTypeImage){
             
-            NSData *imageData = UIImageJPEGRepresentation([item image], 0.9);
+			NSData *imageData = [self generateImageData];
             NSMutableURLRequest *aRequest = [[[NSMutableURLRequest alloc] init] autorelease];
             [aRequest setURL:[NSURL URLWithString:kTumblrWriteURL]];
             [aRequest setHTTPMethod:@"POST"];
@@ -269,17 +248,26 @@ static NSString * const kTumblrWriteURL = @"https://www.tumblr.com/api/write";
             [body appendData:[[NSString stringWithFormat:@"\r\n--%@\r\n",boundary] 
                               dataUsingEncoding:NSUTF8StringEncoding]];
             [body appendData:[@"Content-Disposition: form-data; name=\"email\"\r\n\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
-            [body appendData:[[self getAuthValueForKey:@"email"] dataUsingEncoding:NSUTF8StringEncoding]];
+            [body appendData:[[self getAuthValueForKey:kStoredAuthEmailKeyName] dataUsingEncoding:NSUTF8StringEncoding]];
             
             [body appendData:[[NSString stringWithFormat:@"\r\n--%@\r\n",boundary] 
                               dataUsingEncoding:NSUTF8StringEncoding]];
             [body appendData:[@"Content-Disposition: form-data; name=\"password\"\r\n\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
-            [body appendData:[[self getAuthValueForKey:@"password"] dataUsingEncoding:NSUTF8StringEncoding]];
+            [body appendData:[[self getAuthValueForKey:kStoredAuthPasswordKeyName] dataUsingEncoding:NSUTF8StringEncoding]];
             
             [body appendData:[[NSString stringWithFormat:@"\r\n--%@\r\n",boundary] 
                               dataUsingEncoding:NSUTF8StringEncoding]];
             [body appendData:[@"Content-Disposition: form-data; name=\"type\"\r\n\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
             [body appendData:[@"photo" dataUsingEncoding:NSUTF8StringEncoding]];
+
+			//set generator param
+            NSString *generator = SHKCONFIG(appName);
+            if(generator){
+                [body appendData:[[NSString stringWithFormat:@"\r\n--%@\r\n",boundary] 
+                                  dataUsingEncoding:NSUTF8StringEncoding]];
+                [body appendData:[@"Content-Disposition: form-data; name=\"generator\"\r\n\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
+                [body appendData:[generator dataUsingEncoding:NSUTF8StringEncoding]];
+            }
 
             if([item tags]){
                 [body appendData:[[NSString stringWithFormat:@"\r\n--%@\r\n",boundary] 
@@ -344,7 +332,7 @@ static NSString * const kTumblrWriteURL = @"https://www.tumblr.com/api/write";
 - (void)sendFinished:(SHKRequest *)aRequest{
 	if (!aRequest.success) {
 		if (aRequest.response.statusCode == 403) {
-			[self sendDidFailWithError:[SHK error:SHKLocalizedString(@"Invalid email or password.")] shouldRelogin:YES];
+            [self shouldReloginWithPendingAction:SHKPendingSend];
 			return;
 		}
         else if (aRequest.response.statusCode == 500) {
@@ -357,6 +345,11 @@ static NSString * const kTumblrWriteURL = @"https://www.tumblr.com/api/write";
 	}
     
 	[self sendDidFinish];
+}
+
+- (NSData*) generateImageData
+{
+	return UIImageJPEGRepresentation(item.image, .9);
 }
 
 #pragma mark -
@@ -393,7 +386,7 @@ static NSString * const kTumblrWriteURL = @"https://www.tumblr.com/api/write";
             [self sendDidFailWithError:[SHK error:SHKLocalizedString(@"The service encountered an error. Please try again later.")]];
             return;
         }
-        [self sendDidFailWithError:[SHK error:SHKLocalizedString(@"There was a sending your post to Tumblr.")]];
+        [self sendDidFailWithError:[SHK error:SHKLocalizedString(@"There was an error sending your post to Tumblr.")]];
     }
     
 }

@@ -2774,9 +2774,11 @@ static int16_t EDAMEDAM_VERSION_MINOR = 16;
 
 - (id) initWithInProtocol: (id <TProtocol>) anInProtocol outProtocol: (id <TProtocol>) anOutProtocol
 {
-  [super init];
-  inProtocol = [anInProtocol retain];
-  outProtocol = [anOutProtocol retain];
+  self = [super init];
+  if (self) {
+      inProtocol = [anInProtocol retain];
+      outProtocol = [anOutProtocol retain];
+  }
   return self;
 }
 
@@ -3035,6 +3037,17 @@ static int16_t EDAMEDAM_VERSION_MINOR = 16;
   return [self recv_getPublicUserInfo];
 }
 
+@end
+
+/**
+ Private helper methods
+ */
+@interface EDAMUserStoreProcessor ()
+- (void) process_checkVersion_withSequenceID: (int32_t) seqID inProtocol: (id<TProtocol>) inProtocol outProtocol: (id<TProtocol>) outProtocol;
+- (void) process_authenticate_withSequenceID: (int32_t) seqID inProtocol: (id<TProtocol>) inProtocol outProtocol: (id<TProtocol>) outProtocol;
+- (void) process_refreshAuthentication_withSequenceID: (int32_t) seqID inProtocol: (id<TProtocol>) inProtocol outProtocol: (id<TProtocol>) outProtocol;
+- (void) process_getUser_withSequenceID: (int32_t) seqID inProtocol: (id<TProtocol>) inProtocol outProtocol: (id<TProtocol>) outProtocol;
+- (void) process_getPublicUserInfo_withSequenceID: (int32_t) seqID inProtocol: (id<TProtocol>) inProtocol outProtocol: (id<TProtocol>) outProtocol;
 @end
 
 @implementation EDAMUserStoreProcessor

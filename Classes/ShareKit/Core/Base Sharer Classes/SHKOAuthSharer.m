@@ -28,6 +28,7 @@
 #import "SHKOAuthSharer.h"
 #import "SHKOAuthView.h"
 #import "OAuthConsumer.h"
+#import "NSHTTPCookieStorage+DeleteForURL.h"
 
 
 @implementation SHKOAuthSharer
@@ -104,9 +105,8 @@
 
 - (void)tokenRequestTicket:(OAServiceTicket *)ticket didFinishWithData:(NSData *)data 
 {
-#if SHKDebugShowLogs // check so we don't have to alloc the string with the data if we aren't logging
+	if (SHKDebugShowLogs) // check so we don't have to alloc the string with the data if we aren't logging
 		SHKLog(@"tokenRequestTicket Response Body: %@", [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease]);
-#endif
 	
 	[[SHKActivityIndicator currentIndicator] hide];
 	
@@ -114,8 +114,10 @@
 	{
 		NSString *responseBody = [[NSString alloc] initWithData:data
 													   encoding:NSUTF8StringEncoding];
-		self.requestToken = [[OAToken alloc] initWithHTTPResponseBody:responseBody];
-		[responseBody release];
+		OAToken *aToken = [[OAToken alloc] initWithHTTPResponseBody:responseBody];
+        [responseBody release];
+        self.requestToken =  aToken;
+        [aToken release];		
 		
 		[self tokenAuthorize];
 	}
@@ -142,13 +144,6 @@
 - (void)tokenAuthorize
 {	
 	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@?oauth_token=%@", authorizeURL.absoluteString, requestToken.key]];
-    if ( ! [[authorizeCallbackURL absoluteString] isEqualToString:@""]) {
-        url = [NSURL URLWithString:[NSString stringWithFormat:@"%@?oauth_token=%@&oauth_callback=%@", 
-                                    authorizeURL.absoluteString, 
-                                    requestToken.key, 
-                                    [authorizeCallbackURL absoluteString]]];
-    }
-    
 	
 	SHKOAuthView *auth = [[SHKOAuthView alloc] initWithURL:url delegate:self];
 	[[SHK currentHelper] showViewController:auth];	
@@ -168,17 +163,31 @@
 						   otherButtonTitles:nil] autorelease] show];
 	}	
 	
+	else if ([queryParams objectForKey:@"oauth_problem"])
+	{
+		SHKLog(@"oauth_problem reported: %@", [queryParams objectForKey:@"oauth_problem"]);
+
+		[[[[UIAlertView alloc] initWithTitle:SHKLocalizedString(@"Authorize Error")
+									 message:error!=nil?[error localizedDescription]:SHKLocalizedString(@"There was an error while authorizing")
+									delegate:nil
+						   cancelButtonTitle:SHKLocalizedString(@"Close")
+						   otherButtonTitles:nil] autorelease] show];
+		success = NO;
+	}
+
 	else 
 	{
 		self.authorizeResponseQueryVars = queryParams;
 		
 		[self tokenAccess];
 	}
+    [self authDidFinish:success];
 }
 
 - (void)tokenAuthorizeCancelledView:(SHKOAuthView *)authView
 {
-	[[SHK currentHelper] hideCurrentViewControllerAnimated:YES];	
+	[[SHK currentHelper] hideCurrentViewControllerAnimated:YES];
+	[self authDidFinish:NO];
 }
 
 
@@ -219,9 +228,8 @@
 
 - (void)tokenAccessTicket:(OAServiceTicket *)ticket didFinishWithData:(NSData *)data 
 {
-#if SHKDebugShowLogs // check so we don't have to alloc the string with the data if we aren't logging
+	if (SHKDebugShowLogs) // check so we don't have to alloc the string with the data if we aren't logging
 		SHKLog(@"tokenAccessTicket Response Body: %@", [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease]);
-#endif
 	
 	[[SHKActivityIndicator currentIndicator] hide];
 	
@@ -229,9 +237,11 @@
 	{
 		NSString *responseBody = [[NSString alloc] initWithData:data
 													   encoding:NSUTF8StringEncoding];
-		self.accessToken = [[OAToken alloc] initWithHTTPResponseBody:responseBody];
-		[responseBody release];
-		
+		OAToken *aAccesToken = [[OAToken alloc] initWithHTTPResponseBody:responseBody];
+        [responseBody release];
+        self.accessToken = aAccesToken;
+        [aAccesToken release];	
+        
 		[self storeAccessToken];
 		
 		[self tryPendingAction];
@@ -241,6 +251,8 @@
 	else
 		// TODO - better error handling here
 		[self tokenAccessTicket:ticket didFailWithError:[SHK error:SHKLocalizedString(@"There was a problem requesting access from %@", [self sharerTitle])]];
+
+	[self authDidFinish:ticket.didSucceed];
 }
 
 - (void)tokenAccessTicket:(OAServiceTicket *)ticket didFailWithError:(NSError*)error
@@ -287,13 +299,8 @@
 	SHKOAuthSharer *sharer = [[self alloc] init];
 	if (sharer.authorizeURL)
 	{
-		NSHTTPCookieStorage *storage = [NSHTTPCookieStorage sharedHTTPCookieStorage];
-		NSArray *cookies = [storage cookiesForURL:sharer.authorizeURL];
-		for (NSHTTPCookie *each in cookies) 
-		{
-			[storage deleteCookie:each];
-		}
-	}
+		[NSHTTPCookieStorage deleteCookiesForURL:sharer.authorizeURL];
+    }
 	[sharer release];
 }
 
@@ -334,24 +341,5 @@
 	self.pendingAction = SHKPendingRefreshToken;
 	[self tokenAccess:YES];
 }
-
-#pragma mark -
-#pragma mark Pending Actions
-#pragma mark -
-#pragma mark Pending Actions
-
-- (void)tryPendingAction
-{
-	switch (pendingAction) 
-	{
-		case SHKPendingRefreshToken:
-			[self tryToSend]; // try to resend
-			break;
-			
-		default:			
-			[super tryPendingAction];			
-	}
-}
-
 
 @end

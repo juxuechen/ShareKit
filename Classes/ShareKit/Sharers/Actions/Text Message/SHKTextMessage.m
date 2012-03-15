@@ -50,7 +50,7 @@
 
 + (NSString *)sharerTitle
 {
-	return SHKLocalizedString(@"SMS");
+	return @"SMS";
 }
 
 + (BOOL)canShareText
@@ -144,6 +144,7 @@
 	
 	[composeView setBody:body];
 	[[SHK currentHelper] showViewController:composeView];
+    [self retain]; //release is in callback, MFMessageComposeViewController does not retain its delegate
 	
 	return YES;
 }
@@ -151,10 +152,7 @@
 - (void)messageComposeViewController:(MFMessageComposeViewController *)controller 
 				 didFinishWithResult:(MessageComposeResult)result 
 {
-	
-	[[SHK currentHelper] hideCurrentViewControllerAnimated:YES];
-	
-	switch (result)
+    switch (result)
 	{
 		case MessageComposeResultCancelled:
 			[self sendDidCancel];
@@ -168,6 +166,9 @@
 		default:
 			break;
 	}
+    [[SHK currentHelper] hideCurrentViewControllerAnimated:YES];
+    [self autorelease]; //retained in [self sendText] method
 }
+
 
 @end

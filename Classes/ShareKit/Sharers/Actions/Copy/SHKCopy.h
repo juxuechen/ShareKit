@@ -32,7 +32,5 @@
 {
 
 }
-
-- (void)copyToPasteboard:(NSString *)urlStr;
-
+- (void) placeImageOnPasteboard;
 @end

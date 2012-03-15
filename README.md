@@ -1,42 +1,22 @@
-# 说明文档
+ShareKit 2.0
+============
 
-为了补充国内 SNS 服务支持的空白以及开源精神，特再此 fork 了原始代码，由于官方基本上不在更新，因此本项目主要完成以下目的：
+In order to make it easier for new users to choose a canonical fork of ShareKit, the ShareKit community has decided to band together and take responsibility for collecting useful commits into what we're calling "ShareKit 2.0". It is now ready for you. It is the first officially stable version of ShareKit since February, with more frequent updates expected.
 
-* 陆续支持国内的 SNS 服务：新浪微博，腾讯微博，网易微博，豆瓣网，人人网等
-* 更新原始的国外 SNS 服务：主要以 merge 其他贡献者的 commit
-* 优化和改良代码
+Highlights:
 
-# 联系方式
+* new sharers (FourSquare, LinkedIn, VKontakte)
+* Twitter on iOS 5 uses system dialogue
+* many other improvements, mostly stability and memory issues
+* optimized for adding as git submodule to your project for easy updating
 
-> 仅用于持续改进项目代码沟通（疑难杂症概不回复）
+You can follow the initial planning at https://github.com/ideashower/ShareKit/issues/283.
 
-* Email: icyleaf.cn@gmail.com
-* Twitter: @icyleaf
-* 新浪微博: @icyleaf
+As ShareKit is now community driven, you are welcome to help, to judge new features, review pull requests etc.. There are many ways you can help, see [FAQ](https://github.com/ShareKit/ShareKit/wiki/FAQ)
 
+Documentation
+-------------
 
-# Original README
+The latest documentation and installation instructions can be found on the [ShareKit Wiki](https://github.com/ShareKit/ShareKit/wiki).
 
-The code hosted here on github is for ongoing development and contributions and may contain untested code.  
-Please use a stable release from http://getsharekit.com for use in your own app.
-
-***
-
-To download a stable release visit:
-http://getsharekit.com/install
-
-Installation instructions:
-http://getsharekit.com/install
-
-How to add new services:
-http://getsharekit.com/add
-
-How to customize the look of ShareKit:
-http://getsharekit.com/customize
-
-Full documentation:
-http://getsharekit.com/docs
-
-***
-
-Follow @IdeaShower or http://getsharekit.com/blog for updates
+!!! Updated new service creation guidelines for contributors are [here](https://github.com/ShareKit/ShareKit/wiki/New-service-creator's-guidelines) !!!
