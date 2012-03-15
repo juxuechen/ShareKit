@@ -90,15 +90,9 @@
 		8563E284125C8512002D729F /* SHKEvernote.m in Sources */ = {isa = PBXBuildFile; fileRef = 8563E283125C8512002D729F /* SHKEvernote.m */; };
 		8563E342125C884A002D729F /* NSData+md5.m in Sources */ = {isa = PBXBuildFile; fileRef = 8563E341125C884A002D729F /* NSData+md5.m */; };
 		8563E43A125C8D1E002D729F /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8563E436125C8D1E002D729F /* Localizable.strings */; };
+		AC1D82C315108044002A263A /* SHKSinaWeibo.png in Resources */ = {isa = PBXBuildFile; fileRef = AC1D82C215108044002A263A /* SHKSinaWeibo.png */; };
 		AC3DC96C148BCE5300E9AD3C /* SHKNetEaseWeibo.m in Sources */ = {isa = PBXBuildFile; fileRef = AC3DC969148BCE5300E9AD3C /* SHKNetEaseWeibo.m */; };
 		AC3DC96D148BCE5300E9AD3C /* SHKNetEaseWeiboForm.m in Sources */ = {isa = PBXBuildFile; fileRef = AC3DC96B148BCE5300E9AD3C /* SHKNetEaseWeiboForm.m */; };
-		AC419F951491C1E1009AECE3 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8563E436125C8D1E002D729F /* Localizable.strings */; };
-		AC419F971491C1E9009AECE3 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8563E436125C8D1E002D729F /* Localizable.strings */; };
-		AC503B751491D0F100088283 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8563E436125C8D1E002D729F /* Localizable.strings */; };
-		AC503B781491D0F800088283 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8563E436125C8D1E002D729F /* Localizable.strings */; };
-		AC503B7A1491D0FF00088283 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8563E436125C8D1E002D729F /* Localizable.strings */; };
-		AC503B7C1491D10400088283 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8563E436125C8D1E002D729F /* Localizable.strings */; };
-		AC503B7E1491D12B00088283 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8563E436125C8D1E002D729F /* Localizable.strings */; };
 		AC8D84A31472B55B00699D99 /* NSObject+SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = AC8D84101472B55A00699D99 /* NSObject+SBJSON.m */; };
 		AC8D84A41472B55B00699D99 /* NSString+SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = AC8D84121472B55A00699D99 /* NSString+SBJSON.m */; };
 		AC8D84A51472B55B00699D99 /* SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = AC8D84141472B55A00699D99 /* SBJSON.m */; };
@@ -165,8 +159,6 @@
 		ACA8F4781345E3E80058C93D /* SHKDouban.m in Sources */ = {isa = PBXBuildFile; fileRef = ACA8F4751345E3E80058C93D /* SHKDouban.m */; };
 		ACA8F4791345E3E80058C93D /* SHKDoubanForm.m in Sources */ = {isa = PBXBuildFile; fileRef = ACA8F4771345E3E80058C93D /* SHKDoubanForm.m */; };
 		ACDE01EE1474AAF700FF360C /* SHKRenRenForm.m in Sources */ = {isa = PBXBuildFile; fileRef = ACDE01ED1474AAF700FF360C /* SHKRenRenForm.m */; };
-		ACE55A36149228D60091748B /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8563E436125C8D1E002D729F /* Localizable.strings */; };
-		ACE55A38149228DD0091748B /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8563E436125C8D1E002D729F /* Localizable.strings */; };
 		ACE55A5D149230390091748B /* SHKTextMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = ACE55A5C149230390091748B /* SHKTextMessage.m */; };
 /* End PBXBuildFile section */
 
@@ -331,6 +323,7 @@
 		8563E438125C8D1E002D729F /* en */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = en; path = Classes/ShareKit/Localization/en.lproj/Localizable.strings; sourceTree = SOURCE_ROOT; };
 		8563E439125C8D1E002D729F /* ja */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = ja; path = Classes/ShareKit/Localization/ja.lproj/Localizable.strings; sourceTree = SOURCE_ROOT; };
 		8D1107310486CEB800E47090 /* ShareKit-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "ShareKit-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
+		AC1D82C215108044002A263A /* SHKSinaWeibo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SHKSinaWeibo.png; sourceTree = "<group>"; };
 		AC3DC968148BCE5300E9AD3C /* SHKNetEaseWeibo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKNetEaseWeibo.h; sourceTree = "<group>"; };
 		AC3DC969148BCE5300E9AD3C /* SHKNetEaseWeibo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKNetEaseWeibo.m; sourceTree = "<group>"; };
 		AC3DC96A148BCE5300E9AD3C /* SHKNetEaseWeiboForm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKNetEaseWeiboForm.h; sourceTree = "<group>"; };
@@ -1240,6 +1233,7 @@
 		ACA4833D1343679900A03B1F /* Sina Weibo */ = {
 			isa = PBXGroup;
 			children = (
+				AC1D82C215108044002A263A /* SHKSinaWeibo.png */,
 				ACA4833E1343679900A03B1F /* SHKSinaWeibo.h */,
 				ACA4833F1343679900A03B1F /* SHKSinaWeibo.m */,
 				ACA483401343679900A03B1F /* SHKSinaWeiboForm.h */,
@@ -1294,7 +1288,7 @@
 		29B97313FDCFA39411CA2CEA /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0420;
+				LastUpgradeCheck = 0430;
 				ORGANIZATIONNAME = icyleaf.com;
 			};
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "ShareKit" */;
@@ -1353,15 +1347,7 @@
 				AC8D84B31472B55B00699D99 /* renren-logo-top-bar@2x.png in Resources */,
 				AC8D84B41472B55B00699D99 /* small-button-normal.png in Resources */,
 				AC8D84B51472B55B00699D99 /* small-button-normal@2x.png in Resources */,
-				AC419F951491C1E1009AECE3 /* Localizable.strings in Resources */,
-				AC419F971491C1E9009AECE3 /* Localizable.strings in Resources */,
-				AC503B751491D0F100088283 /* Localizable.strings in Resources */,
-				AC503B781491D0F800088283 /* Localizable.strings in Resources */,
-				AC503B7A1491D0FF00088283 /* Localizable.strings in Resources */,
-				AC503B7C1491D10400088283 /* Localizable.strings in Resources */,
-				AC503B7E1491D12B00088283 /* Localizable.strings in Resources */,
-				ACE55A36149228D60091748B /* Localizable.strings in Resources */,
-				ACE55A38149228DD0091748B /* Localizable.strings in Resources */,
+				AC1D82C315108044002A263A /* SHKSinaWeibo.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

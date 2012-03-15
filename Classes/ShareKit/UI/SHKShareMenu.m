@@ -88,8 +88,9 @@
 {
 	self.tableView.allowsSelectionDuringEditing = YES;
 	self.tableData = [NSMutableArray arrayWithCapacity:0];
-	[tableData addObject:[self section:@"actions"]];
+	
 	[tableData addObject:[self section:@"services"]];
+    [tableData addObject:[self section:@"actions"]];
     
     [tableData addObject:[NSArray arrayWithObject:[NSDictionary dictionaryWithObject:SHKLocalizedString(@"Logout of All Services")
                                                                               forKey:@"name"]]];
@@ -299,9 +300,9 @@
 	if ([[tableData objectAtIndex:section] count])
 	{
 		if (section == 0)
-			return SHKLocalizedString(@"Actions");
+            return SHKLocalizedString(@"Services");
 		else if (section == 1)
-			return SHKLocalizedString(@"Services");
+			return SHKLocalizedString(@"Actions");
         else if (section == 2)
             return SHKLocalizedString(@"Account");
 	}
