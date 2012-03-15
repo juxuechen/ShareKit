@@ -59,7 +59,7 @@
 	self.textView = [[[UITextView alloc] initWithFrame:CGRectMake(0,0,self.view.bounds.size.width,self.view.bounds.size.height)] autorelease];
 	[self.view addSubview:textView];
 	
-	textView.text = @"This is a chunk of text.  If you highlight it, you'll be able to share the selection.  If you tap the share button below, it will share all of it.";
+	textView.text = SHKLocalizedString(@"This is a chunk of text.  If you highlight it, you'll be able to share the selection.  If you tap the share button below, it will share all of it.");
 	textView.editable = NO;
 }
 
