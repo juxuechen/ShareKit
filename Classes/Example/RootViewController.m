@@ -124,14 +124,12 @@
 								 message:SHKLocalizedString(@"Are you sure you want to logout of all share services?")
 								delegate:self
 					   cancelButtonTitle:SHKLocalizedString(@"Cancel")
-					   otherButtonTitles:@"Logout",nil] autorelease] show];
-	
-	[SHK logoutOfAll];
+					   otherButtonTitles:SHKLocalizedString(@"Logout"),nil] autorelease] show];
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-	if (buttonIndex == 0)
+	if (buttonIndex == alertView.firstOtherButtonIndex)
 		[SHK logoutOfAll];
 }
 

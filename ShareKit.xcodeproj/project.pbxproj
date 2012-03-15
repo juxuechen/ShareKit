@@ -90,7 +90,6 @@
 		8563E284125C8512002D729F /* SHKEvernote.m in Sources */ = {isa = PBXBuildFile; fileRef = 8563E283125C8512002D729F /* SHKEvernote.m */; };
 		8563E342125C884A002D729F /* NSData+md5.m in Sources */ = {isa = PBXBuildFile; fileRef = 8563E341125C884A002D729F /* NSData+md5.m */; };
 		8563E43A125C8D1E002D729F /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8563E436125C8D1E002D729F /* Localizable.strings */; };
-		AC1D82C315108044002A263A /* SHKSinaWeibo.png in Resources */ = {isa = PBXBuildFile; fileRef = AC1D82C215108044002A263A /* SHKSinaWeibo.png */; };
 		AC3DC96C148BCE5300E9AD3C /* SHKNetEaseWeibo.m in Sources */ = {isa = PBXBuildFile; fileRef = AC3DC969148BCE5300E9AD3C /* SHKNetEaseWeibo.m */; };
 		AC3DC96D148BCE5300E9AD3C /* SHKNetEaseWeiboForm.m in Sources */ = {isa = PBXBuildFile; fileRef = AC3DC96B148BCE5300E9AD3C /* SHKNetEaseWeiboForm.m */; };
 		AC8D84A31472B55B00699D99 /* NSObject+SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = AC8D84101472B55A00699D99 /* NSObject+SBJSON.m */; };
@@ -323,7 +322,6 @@
 		8563E438125C8D1E002D729F /* en */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = en; path = Classes/ShareKit/Localization/en.lproj/Localizable.strings; sourceTree = SOURCE_ROOT; };
 		8563E439125C8D1E002D729F /* ja */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = ja; path = Classes/ShareKit/Localization/ja.lproj/Localizable.strings; sourceTree = SOURCE_ROOT; };
 		8D1107310486CEB800E47090 /* ShareKit-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "ShareKit-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
-		AC1D82C215108044002A263A /* SHKSinaWeibo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SHKSinaWeibo.png; sourceTree = "<group>"; };
 		AC3DC968148BCE5300E9AD3C /* SHKNetEaseWeibo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKNetEaseWeibo.h; sourceTree = "<group>"; };
 		AC3DC969148BCE5300E9AD3C /* SHKNetEaseWeibo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKNetEaseWeibo.m; sourceTree = "<group>"; };
 		AC3DC96A148BCE5300E9AD3C /* SHKNetEaseWeiboForm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKNetEaseWeiboForm.h; sourceTree = "<group>"; };
@@ -589,8 +587,8 @@
 		43A5367111DBE3B9004A1712 /* ShareKit */ = {
 			isa = PBXGroup;
 			children = (
-				43A536AC11DBE3B9004A1712 /* SHKSharers.plist */,
 				43A536EC11DBE3B9004A1712 /* SHKConfig.h */,
+				43A536AC11DBE3B9004A1712 /* SHKSharers.plist */,
 				43A536AD11DBE3B9004A1712 /* Customize UI */,
 				43A5367211DBE3B9004A1712 /* Core */,
 				43A536B511DBE3B9004A1712 /* Sharers */,
@@ -1233,7 +1231,6 @@
 		ACA4833D1343679900A03B1F /* Sina Weibo */ = {
 			isa = PBXGroup;
 			children = (
-				AC1D82C215108044002A263A /* SHKSinaWeibo.png */,
 				ACA4833E1343679900A03B1F /* SHKSinaWeibo.h */,
 				ACA4833F1343679900A03B1F /* SHKSinaWeibo.m */,
 				ACA483401343679900A03B1F /* SHKSinaWeiboForm.h */,
@@ -1347,7 +1344,6 @@
 				AC8D84B31472B55B00699D99 /* renren-logo-top-bar@2x.png in Resources */,
 				AC8D84B41472B55B00699D99 /* small-button-normal.png in Resources */,
 				AC8D84B51472B55B00699D99 /* small-button-normal@2x.png in Resources */,
-				AC1D82C315108044002A263A /* SHKSinaWeibo.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

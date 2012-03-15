@@ -57,18 +57,18 @@
 {
 	SHKItem *item = [SHKItem URL:webView.request.URL title:[webView pageTitle]];
 	SHKActionSheet *actionSheet = [SHKActionSheet actionSheetForItem:item];
+    [SHK setRootViewController:self];
 	[actionSheet showFromToolbar:self.navigationController.toolbar]; 
 }
 
 - (void)loadView 
 { 
-	self.webView = [[UIWebView alloc] initWithFrame:CGRectZero];
+	self.webView = [[[UIWebView alloc] initWithFrame:CGRectZero] autorelease];
 	webView.delegate = self;
 	webView.scalesPageToFit = YES;
 	[webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://apple.com"]]];
 		
 	self.view = webView;
-	[webView release];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation 
