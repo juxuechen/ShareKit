@@ -40,6 +40,18 @@
  leaving that decision up to the user.
  */
 
+- (NSString*)doubanConsumerKey {
+	return @"035c8265fdb968b10a158731f92c3a13";
+}
+
+- (NSString*)doubanConsumerSecret {
+	return @"bd44db472be8bf16";
+}
+
+// You need to set this if using OAuth (MUST be set, it could be any words)
+- (NSString*)doubanCallbackUrl {
+	return @"http://icyleaf.com";
+}
 
 // Vkontakte
 // SHKVkontakteAppID is the Application ID provided by Vkontakte

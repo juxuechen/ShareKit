@@ -36,6 +36,26 @@
  leaving that decision up to the user.
  */
 
+//////////////////////////
+// Chinese Service 
+//////////////////////////
+
+// Sina Weibo 
+#define SHKSinaWeiboConsumerKey         @""	// The consumer key
+#define SHKSinaWeiboConsumerSecret      @""	// The secret key
+#define SHKSinaWeiboCallbackUrl         @""	// You need to set this if using OAuth (MUST be set, it could be any words)
+#define SHKSinaWeiboUseXAuth            0   // To use xAuth, set to 1
+#define SHKSinaWeiboScreenName          @"" // Enter your sina weibo screen name (Only for xAuth)
+#define SHKSinaWeiboUserID              @"" // Enter your app's sina weibo account if you'd like to ask the user to follow it when logging in. (Only for xAuth)
+
+// Douban
+#define SHKDoubanConsumerKey            @""	// The consumer key
+#define SHKDoubanConsumerSecret         @""	// The secret key
+#define SHKDoubanCallbackUrl            @""	// You need to set this if using OAuth (MUST be set, it could be any words)
+
+//////////////////////////
+// External Service 
+//////////////////////////
 
 //Vkontakte
 #define SHKVkontakteAppID				@""

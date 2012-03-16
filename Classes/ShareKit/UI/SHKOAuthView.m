@@ -80,7 +80,9 @@
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
 {		
-	if ([request.URL.absoluteString rangeOfString:[delegate authorizeCallbackURL].absoluteString options:NSCaseInsensitiveSearch].location != NSNotFound)
+	if ([request.URL.absoluteString rangeOfString:@"authorize"].location == NSNotFound
+        && [request.URL.absoluteString rangeOfString:@"authenticate"].location == NSNotFound
+        && [request.URL.absoluteString rangeOfString:[delegate authorizeCallbackURL].absoluteString options:NSCaseInsensitiveSearch].location != NSNotFound)
 	{
 		// Get query
 		NSMutableDictionary *queryParams = nil;
