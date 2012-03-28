@@ -191,6 +191,7 @@
     } else {
         count = @"";
     }
+    // TODO: improve image style in sending dialog
     counter.text = [NSString stringWithFormat:@"%@%@", self.image ? [NSString stringWithFormat:@"Image %@ ",countNumber>0?@"+":@""]:@"", count];
  	
 	if (countNumber >= 0) {
