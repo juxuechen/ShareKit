@@ -40,15 +40,15 @@
 
 "Services" = "服务";
 
-"Send to %@" = "发送到%@";
+"Send to %@" = "分享到%@";
 
 "Copy" = "复制";
 
 "Copied!" = "已复制！";
 
-"Saving to %@" = "保存至%@";
+"Saving to %@" = "正在分享至%@";
 
-"Saved!" = "已保存！";
+"Saved!" = "分享成功！";
 
 "Offline" = "离线";
 
@@ -135,13 +135,13 @@
 
 "Logout" = "注销";
 
-"Sharing a Link" = "分享一个链接";
+"Sharing a Link" = "分享链接";
 
-"Sharing an Image" = "分享一张图片";
+"Sharing an Image" = "分享图片";
 
-"Sharing Text" = "分享一段文字";
+"Sharing Text" = "分享文字";
 
-"Sharing a File" = "分享一份文件";
+"Sharing a File" = "分享文件";
 
 "Are you sure you want to logout of all share services?" = "确认注销所有绑定的服务？";
 
