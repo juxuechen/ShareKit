@@ -124,6 +124,7 @@
 		AAACE06413CCBED400A2118F /* NSData_LFHTTPFormExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = AAACE05A13CCBED400A2118F /* NSData_LFHTTPFormExtensions.m */; };
 		AAACE06713CCBED400A2118F /* SHKFlickr.m in Sources */ = {isa = PBXBuildFile; fileRef = AAACE06113CCBED400A2118F /* SHKFlickr.m */; };
 		AC1A7B2A1522C15B009B9E6A /* SHKSinaWeibo.m in Sources */ = {isa = PBXBuildFile; fileRef = AC1A7B291522C15B009B9E6A /* SHKSinaWeibo.m */; };
+		AC1A7B32152312DF009B9E6A /* SHKNetEaseWeibo.m in Sources */ = {isa = PBXBuildFile; fileRef = AC1A7B31152312DF009B9E6A /* SHKNetEaseWeibo.m */; };
 		ACC433701512CD1C00B2953E /* SHKDouban.m in Sources */ = {isa = PBXBuildFile; fileRef = ACC4336D1512CD1C00B2953E /* SHKDouban.m */; };
 		BA465F1F14CC3C5A00B52394 /* SHKPrint.m in Sources */ = {isa = PBXBuildFile; fileRef = BA465F1E14CC3C5A00B52394 /* SHKPrint.m */; };
 		C0276D7C14336ACE00C93FAA /* NSError+SHKFoursquareV2.m in Sources */ = {isa = PBXBuildFile; fileRef = C0276D7514336ACC00C93FAA /* NSError+SHKFoursquareV2.m */; };
@@ -372,6 +373,8 @@
 		AAACE06113CCBED400A2118F /* SHKFlickr.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKFlickr.m; sourceTree = "<group>"; };
 		AC1A7B281522C15B009B9E6A /* SHKSinaWeibo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKSinaWeibo.h; sourceTree = "<group>"; };
 		AC1A7B291522C15B009B9E6A /* SHKSinaWeibo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKSinaWeibo.m; sourceTree = "<group>"; };
+		AC1A7B30152312DF009B9E6A /* SHKNetEaseWeibo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKNetEaseWeibo.h; sourceTree = "<group>"; };
+		AC1A7B31152312DF009B9E6A /* SHKNetEaseWeibo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKNetEaseWeibo.m; sourceTree = "<group>"; };
 		ACC4336C1512CD1C00B2953E /* SHKDouban.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKDouban.h; sourceTree = "<group>"; };
 		ACC4336D1512CD1C00B2953E /* SHKDouban.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKDouban.m; sourceTree = "<group>"; };
 		BA465F1D14CC3C5A00B52394 /* SHKPrint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKPrint.h; sourceTree = "<group>"; };
@@ -836,6 +839,7 @@
 			children = (
 				ACC4336B1512CD1C00B2953E /* Douban */,
 				AC1A7B271522C15B009B9E6A /* Sina Weibo */,
+				AC1A7B2F152312DE009B9E6A /* NetEase Weibo */,
 				FA5AA3B4149625010064DB24 /* Vkontakte */,
 				4379F2891291AC9700D2A41E /* Evernote */,
 				43A536C411DBE3B9004A1712 /* Facebook */,
@@ -1055,6 +1059,15 @@
 				AC1A7B291522C15B009B9E6A /* SHKSinaWeibo.m */,
 			);
 			path = "Sina Weibo";
+			sourceTree = "<group>";
+		};
+		AC1A7B2F152312DE009B9E6A /* NetEase Weibo */ = {
+			isa = PBXGroup;
+			children = (
+				AC1A7B30152312DF009B9E6A /* SHKNetEaseWeibo.h */,
+				AC1A7B31152312DF009B9E6A /* SHKNetEaseWeibo.m */,
+			);
+			path = "NetEase Weibo";
 			sourceTree = "<group>";
 		};
 		ACC4336B1512CD1C00B2953E /* Douban */ = {
@@ -1333,6 +1346,7 @@
 				7AF2523814F0499E00CE8709 /* JSONKit.m in Sources */,
 				ACC433701512CD1C00B2953E /* SHKDouban.m in Sources */,
 				AC1A7B2A1522C15B009B9E6A /* SHKSinaWeibo.m in Sources */,
+				AC1A7B32152312DF009B9E6A /* SHKNetEaseWeibo.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

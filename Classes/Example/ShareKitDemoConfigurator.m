@@ -69,6 +69,41 @@
 	return @"1708250715";
 }
 
+// NetEase Weibo
+- (NSString*)netEaseWeiboConsumerKey
+{
+    return @"FP4aD8G9cEFNZEBv";
+}
+
+- (NSString*)netEaseWeiboConsumerSecret
+{
+    return @"ZohrmWOBEnVC16jNWIEliXytq62f6xDh";
+}
+
+// You need to set this if using OAuth (MUST be set "null")
+- (NSString*)netEaseWeiboCallbackUrl
+{
+    return @"null";
+}
+
+// To use xAuth, set to 1
+- (NSNumber*)netEaseWeiboUseXAuth
+{
+    return [NSNumber numberWithInt:0];
+}
+
+// Enter your sina weibo screen name (Only for xAuth)
+- (NSString*)netEaseaWeiboScreenname
+{
+    return @"icyleaf";
+}
+
+//Enter your app's sina weibo account if you'd like to ask the user to follow it when logging in. (Only for xAuth)
+- (NSString*)netEaseWeiboUserID
+{
+    return @"";
+}
+
 // Douban
 - (NSString*)doubanConsumerKey {
 	return @"035c8265fdb968b10a158731f92c3a13";

@@ -56,6 +56,12 @@
 - (NSNumber*)sinaWeiboUseXAuth;
 - (NSString*)sinaWeiboScreenname;
 - (NSString*)sinaWeiboUserID;
+- (NSString*)netEaseWeiboConsumerKey;
+- (NSString*)netEaseWeiboConsumerSecret;
+- (NSString*)netEaseWeiboCallbackUrl;
+- (NSNumber*)netEaseWeiboUseXAuth;
+- (NSString*)netEaseaWeiboScreenname;
+- (NSString*)netEaseWeiboUserID;
 - (NSString*)doubanConsumerKey;
 - (NSString*)doubanConsumerSecret;
 - (NSString*)doubanCallbackUrl;
