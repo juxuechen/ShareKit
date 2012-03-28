@@ -190,8 +190,6 @@ static NSString *const kSHKDoubanUserInfo = @"kSHKDoubanUserInfo";
 											 method:@"GET"
 										  autostart:YES] autorelease];
     
-    NSLog(@"short url: %@", self.request.url);
-    
     return YES;
 }
 
@@ -199,24 +197,15 @@ static NSString *const kSHKDoubanUserInfo = @"kSHKDoubanUserInfo";
 {
 	[[SHKActivityIndicator currentIndicator] hide];
     
-    NSRegularExpression *regex = [[NSRegularExpression alloc] initWithPattern:@"(http://t.cn/(\\w+))"
-                                                                      options:NSRegularExpressionCaseInsensitive 
-                                                                        error:nil];
     
-    NSArray *matches = [regex matchesInString:[aRequest getResult]
-                                      options:0
-                                        range:NSMakeRange(0, [[aRequest getResult] length])];
+    NSArray *result = [[aRequest getResult] objectFromJSONString];
+    if ([result objectAtIndex:0] != nil && [[result objectAtIndex:0] objectForKey:@"url_short"] != nil)
+        [item setCustomValue:[NSString stringWithFormat:@"%@: %@", item.text ? item.text : item.title, [[result objectAtIndex:0] objectForKey:@"url_short"]] 
+                      forKey:@"status"];
     
-    NSString *result;
-    for (NSTextCheckingResult *match in matches) 
+    else 
     {
-        NSRange range = [match rangeAtIndex:0];
-        result = [[aRequest getResult] substringWithRange:range]; 
-    }
-    
-	if (result == nil || [NSURL URLWithString:result] == nil)
-	{
-		// TODO - better error message
+        // TODO - better error message
 		[[[[UIAlertView alloc] initWithTitle:SHKLocalizedString(@"Shorten URL Error")
 									 message:SHKLocalizedString(@"We could not shorten the URL.")
 									delegate:nil
@@ -224,14 +213,10 @@ static NSString *const kSHKDoubanUserInfo = @"kSHKDoubanUserInfo";
 						   otherButtonTitles:nil] autorelease] show];
 		
 		[item setCustomValue:[NSString stringWithFormat:@"%@: %@", item.text ? item.text : item.title, [item.URL.absoluteString stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]] forKey:@"status"];
-	}
-	
-	else
-	{		
-		[item setCustomValue:[NSString stringWithFormat:@"%@: %@", item.text ? item.text : item.title, result] forKey:@"status"];
-	}
-	
-	[self share];
+
+    }
+    
+	[self showDoubanForm];
 }
 
 
