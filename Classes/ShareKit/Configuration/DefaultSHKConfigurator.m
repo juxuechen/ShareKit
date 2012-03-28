@@ -103,6 +103,7 @@
 	return @"";
 }
 
+
 // Vkontakte
 // SHKVkontakteAppID is the Application ID provided by Vkontakte
 - (NSString*)vkontakteAppId {
@@ -126,10 +127,17 @@
 - (NSString*)facebookLocalAppId {
 	return @"";
 }
+
+//Change if your app needs some special Facebook permissions only. In most cases you can leave it as it is.
+- (NSArray*)facebookListOfPermissions {    
+    return [NSArray arrayWithObjects:@"publish_stream", @"offline_access", nil];
+}
+
 // Read It Later - http://readitlaterlist.com/api/signup/ 
 - (NSString*)readItLaterKey {
 	return @"";
 }
+
 // Twitter - http://dev.twitter.com/apps/new
 /*
  Important Twitter settings to get right:
@@ -305,6 +313,11 @@
 }
 - (NSArray*)defaultFavoriteFileSharers {
     return [NSArray arrayWithObjects:@"SHKMail",@"SHKEvernote", nil];
+}
+
+//by default, user can see last used sharer on top of the SHKActionSheet. You can switch this off here, so that user is always presented the same sharers for each SHKShareType.
+- (NSNumber*)autoOrderFavoriteSharers {
+    return [NSNumber numberWithBool:true];
 }
 
 /*

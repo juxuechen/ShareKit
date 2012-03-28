@@ -30,7 +30,7 @@
  ------
  To show ShareKit specific debug output in the console, define _SHKDebugShowLogs (uncomment next line).
  */
-#define _SHKDebugShowLogs
+//#define _SHKDebugShowLogs
 
 #ifdef _SHKDebugShowLogs
 #define SHKDebugShowLogs			1
@@ -56,6 +56,10 @@
 - (NSString*)vkontakteAppId;
 - (NSString*)facebookAppId;
 - (NSString*)facebookLocalAppId;
+- (NSString*)vkontakteAppId;
+- (NSString*)facebookAppId;
+- (NSString*)facebookLocalAppId;
+- (NSArray*)facebookListOfPermissions;
 - (NSString*)readItLaterKey;
 - (NSString*)twitterConsumerKey;
 - (NSString*)twitterSecret;
@@ -85,6 +89,7 @@
 - (NSString*)modalPresentationStyle;
 - (NSString*)modalTransitionStyle;
 - (NSNumber*)maxFavCount;
+- (NSNumber*)autoOrderFavoriteSharers;
 - (NSString*)favsPrefixKey;
 - (NSString*)authPrefix;
 - (NSString*)sharersPlistName;

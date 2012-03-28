@@ -166,7 +166,10 @@ static NSString *const kSHKDoubanUserInfo = @"kSHKDoubanUserInfo";
 #pragma mark -
 
 - (BOOL)shortenURL
-{	
+{
+    if ([SHKCONFIG(sinaWeiboConsumerKey) isEqualToString:@""] || SHKCONFIG(sinaWeiboConsumerKey) == nil)
+        NSAssert(NO, @"ShareKit: Could not shorting url with empty sina weibo consumer key.");
+    
 	if (![SHK connected])
 	{
 		[item setCustomValue:[NSString stringWithFormat:@"%@: %@", item.title, [item.URL.absoluteString stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]] forKey:@"status"];
