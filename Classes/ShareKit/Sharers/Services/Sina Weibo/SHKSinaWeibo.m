@@ -28,9 +28,8 @@
 
 
 #import "SHKSinaWeibo.h"
-#import "SHKConfiguration.h"
 #import "JSONKit.h"
-#import "SHKXMLResponseParser.h"
+#import "SHKConfiguration.h"
 #import "NSMutableDictionary+NSNullsToEmptyStrings.h"
 
 #define API_DOMAIN  @"http://api.t.sina.com.cn"
@@ -415,8 +414,6 @@ static NSString *const kSHKSinaWeiboUserInfo = @"kSHKSinaWeiboUserInfo";
 
 - (void)sendStatus
 {
-    NSLog(@"consumer: %@", consumer);
-    
 	OAMutableURLRequest *oRequest = [[OAMutableURLRequest alloc] initWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/statuses/update.json", API_DOMAIN]]
                                                                     consumer:consumer
                                                                        token:accessToken
@@ -472,12 +469,6 @@ static NSString *const kSHKSinaWeiboUserInfo = @"kSHKSinaWeiboUserInfo";
 																	   token:accessToken
 																	   realm:API_DOMAIN
 														   signatureProvider:signatureProvider];
-	
-    // FIXIT
-//	if( ! [item customValueForKey:@"profile_update"]){
-//        [oRequest setOAuthBaseStringParameterName:@"status" withValue:[item customValueForKey:@"status"]];
-//	}
-    
     [oRequest setHTTPMethod:@"POST"];
     [oRequest prepare];
     
