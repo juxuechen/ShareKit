@@ -100,11 +100,6 @@ static NSString *const kSHKDoubanUserInfo = @"kSHKDoubanUserInfo";
 #pragma mark -
 #pragma mark Authorization
 
-- (BOOL)isAuthorized
-{		
-	return [self restoreAccessToken];
-}
-
 + (void)logout 
 {
 	[[NSUserDefaults standardUserDefaults] removeObjectForKey:kSHKDoubanUserInfo];
@@ -197,13 +192,12 @@ static NSString *const kSHKDoubanUserInfo = @"kSHKDoubanUserInfo";
 {
 	[[SHKActivityIndicator currentIndicator] hide];
     
-    
-    NSArray *result = [[aRequest getResult] objectFromJSONString];
-    if ([result objectAtIndex:0] != nil && [[result objectAtIndex:0] objectForKey:@"url_short"] != nil)
-        [item setCustomValue:[NSString stringWithFormat:@"%@: %@", item.text ? item.text : item.title, [[result objectAtIndex:0] objectForKey:@"url_short"]] 
-                      forKey:@"status"];
-    
-    else 
+    @try 
+    {
+        NSArray *result = [[aRequest getResult] objectFromJSONString];
+        item.URL = [NSURL URLWithString:[[result objectAtIndex:0] objectForKey:@"url_short"]];
+    }
+    @catch (NSException *exception) 
     {
         // TODO - better error message
 		[[[[UIAlertView alloc] initWithTitle:SHKLocalizedString(@"Shorten URL Error")
@@ -211,10 +205,10 @@ static NSString *const kSHKDoubanUserInfo = @"kSHKDoubanUserInfo";
 									delegate:nil
 						   cancelButtonTitle:SHKLocalizedString(@"Continue")
 						   otherButtonTitles:nil] autorelease] show];
-		
-		[item setCustomValue:[NSString stringWithFormat:@"%@: %@", item.text ? item.text : item.title, [item.URL.absoluteString stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]] forKey:@"status"];
-
     }
+    
+    [item setCustomValue:[NSString stringWithFormat:@"%@: %@", item.title, item.URL.absoluteString] 
+                  forKey:@"status"];
     
 	[self showDoubanForm];
 }
