@@ -73,6 +73,7 @@
 - (NSString*)facebookLocalAppId;
 - (NSArray*)facebookListOfPermissions;
 - (NSString*)readItLaterKey;
+- (NSNumber*)forcePreIOS5TwitterAccess;
 - (NSString*)twitterConsumerKey;
 - (NSString*)twitterSecret;
 - (NSString*)twitterCallbackUrl;

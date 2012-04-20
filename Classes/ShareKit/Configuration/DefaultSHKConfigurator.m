@@ -190,6 +190,14 @@
  3. 'Callback URL' should match whatever you enter in SHKTwitterCallbackUrl.  The callback url doesn't have to be an actual existing url.  The user will never get to it because ShareKit intercepts it before the user is redirected.  It just needs to match.
  */
 
+/*
+ If you want to force use of old-style, pre-IOS5 twitter framework, for example to ensure
+ twitter accounts don't end up in the devices account store, set this to true.
+ */
+- (NSNumber*)forcePreIOS5TwitterAccess {
+	return [NSNumber numberWithBool:false];
+}
+
 - (NSString*)twitterConsumerKey {
 	return @"";
 }
@@ -251,7 +259,8 @@
 - (NSString*)flickrCallbackUrl{
     return @"app://flickr";
 }
-// Bit.ly (for shortening URLs on Twitter) - http://bit.ly/account/register - after signup: http://bit.ly/a/your_api_key
+
+// Bit.ly for shortening URLs in case you use original SHKTwitter sharer (pre iOS5). If you use iOS 5 builtin framework, the URL will be shortened anyway, these settings are not used in this case. http://bit.ly/account/register - after signup: http://bit.ly/a/your_api_key If you do not enter bit.ly credentials, URL will be shared unshortened.
 - (NSString*)bitLyLogin {
 	return @"";
 }
