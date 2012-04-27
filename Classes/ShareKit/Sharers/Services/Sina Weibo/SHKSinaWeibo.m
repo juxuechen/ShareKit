@@ -450,6 +450,11 @@ static NSString *const kSHKSinaWeiboUserInfo = @"kSHKSinaWeiboUserInfo";
 	}
 }
 
+- (void)handleUnsuccessfulTicket:(NSData *)data {
+    SHKLog(@"%@", [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease]);
+    [self sendDidFailWithError:nil];
+}
+
 - (void)sendStatusTicket:(OAServiceTicket *)ticket didFailWithError:(NSError*)error
 {
 	[self sendDidFailWithError:error];
