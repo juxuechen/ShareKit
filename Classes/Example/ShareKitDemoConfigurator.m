@@ -104,6 +104,39 @@
     return @"";
 }
 
+
+// Tencent Weibo
+- (NSString*)tencentWeiboConsumerKey
+{
+    return @"801065801";
+}
+
+- (NSString*)tencentWeiboConsumerSecret
+{
+    return @"f33650da32c7b1f335311d0c1bd9a6f2";
+}
+
+- (NSString*)tencentWeiboCallbackUrl
+{
+    return @"http://icyleaf.com";
+}
+
+- (NSNumber*)tencentWeiboUseXAuth
+{
+    return [NSNumber numberWithInt:0];
+}
+
+- (NSString*)tencentWeiboScreenname
+{
+    return @"icyleaf";
+}
+
+- (NSString*)tencentWeiboUserID
+{
+    return @"";
+}
+
+
 // Douban
 - (NSString*)doubanConsumerKey {
 	return @"035c8265fdb968b10a158731f92c3a13";

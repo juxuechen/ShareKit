@@ -30,7 +30,7 @@
  ------
  To show ShareKit specific debug output in the console, define _SHKDebugShowLogs (uncomment next line).
  */
-#define _SHKDebugShowLogs
+#define _SHKDebugShowLogs           1
 
 #ifdef _SHKDebugShowLogs
 #define SHKDebugShowLogs			1
@@ -62,6 +62,12 @@
 - (NSNumber*)netEaseWeiboUseXAuth;
 - (NSString*)netEaseaWeiboScreenname;
 - (NSString*)netEaseWeiboUserID;
+- (NSString*)tencentWeiboConsumerKey;
+- (NSString*)tencentWeiboConsumerSecret;
+- (NSString*)tencentWeiboCallbackUrl;
+- (NSNumber*)tencentWeiboUseXAuth;
+- (NSString*)tencentWeiboScreenname;
+- (NSString*)tencentWeiboUserID;
 - (NSString*)doubanConsumerKey;
 - (NSString*)doubanConsumerSecret;
 - (NSString*)doubanCallbackUrl;

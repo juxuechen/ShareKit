@@ -111,14 +111,46 @@
     return [NSNumber numberWithInt:0];
 }
 
-// Enter your sina weibo screen name (Only for xAuth)
+// Enter your netease weibo screen name (Only for xAuth)
 - (NSString*)netEaseaWeiboScreenname
 {
     return @"";
 }
 
-//Enter your app's sina weibo account if you'd like to ask the user to follow it when logging in. (Only for xAuth)
+//Enter your app's netease weibo account if you'd like to ask the user to follow it when logging in. (Only for xAuth)
 - (NSString*)netEaseWeiboUserID
+{
+    return @"";
+}
+
+
+// Tencent Weibo
+- (NSString*)tencentWeiboConsumerKey
+{
+    return @"";
+}
+
+- (NSString*)tencentWeiboConsumerSecret
+{
+    return @"";
+}
+
+- (NSString*)tencentWeiboCallbackUrl
+{
+    return @"";
+}
+
+- (NSNumber*)tencentWeiboUseXAuth
+{
+    return [NSNumber numberWithInt:0];
+}
+
+- (NSString*)tencentWeiboScreenname
+{
+    return @"";
+}
+
+- (NSString*)tencentWeiboUserID
 {
     return @"";
 }

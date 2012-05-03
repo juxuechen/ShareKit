@@ -126,9 +126,12 @@
 		AAACE06713CCBED400A2118F /* SHKFlickr.m in Sources */ = {isa = PBXBuildFile; fileRef = AAACE06113CCBED400A2118F /* SHKFlickr.m */; };
 		AC1A7B2A1522C15B009B9E6A /* SHKSinaWeibo.m in Sources */ = {isa = PBXBuildFile; fileRef = AC1A7B291522C15B009B9E6A /* SHKSinaWeibo.m */; };
 		AC1A7B32152312DF009B9E6A /* SHKNetEaseWeibo.m in Sources */ = {isa = PBXBuildFile; fileRef = AC1A7B31152312DF009B9E6A /* SHKNetEaseWeibo.m */; };
+		AC2A91AF15522BEA001F9418 /* SHKTencentWeibo.m in Sources */ = {isa = PBXBuildFile; fileRef = AC2A91AE15522BEA001F9418 /* SHKTencentWeibo.m */; };
+		AC2A91B315523084001F9418 /* TencentOAMutableURLRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = AC2A91B215523084001F9418 /* TencentOAMutableURLRequest.m */; };
+		AC2A91B9155232FE001F9418 /* TencentOAuthSharer.m in Sources */ = {isa = PBXBuildFile; fileRef = AC2A91B8155232FD001F9418 /* TencentOAuthSharer.m */; };
 		ACC433701512CD1C00B2953E /* SHKDouban.m in Sources */ = {isa = PBXBuildFile; fileRef = ACC4336D1512CD1C00B2953E /* SHKDouban.m */; };
-		BA465F1F14CC3C5A00B52394 /* SHKPrint.m in Sources */ = {isa = PBXBuildFile; fileRef = BA465F1E14CC3C5A00B52394 /* SHKPrint.m */; };
 		B7EFCD8C14C6B966004910F1 /* SHKDiigo.m in Sources */ = {isa = PBXBuildFile; fileRef = B7EFCD8B14C6B966004910F1 /* SHKDiigo.m */; };
+		BA465F1F14CC3C5A00B52394 /* SHKPrint.m in Sources */ = {isa = PBXBuildFile; fileRef = BA465F1E14CC3C5A00B52394 /* SHKPrint.m */; };
 		C0276D7C14336ACE00C93FAA /* NSError+SHKFoursquareV2.m in Sources */ = {isa = PBXBuildFile; fileRef = C0276D7514336ACC00C93FAA /* NSError+SHKFoursquareV2.m */; };
 		C0276D7D14336ACE00C93FAA /* SHKFoursquareV2CheckInForm.m in Sources */ = {isa = PBXBuildFile; fileRef = C0276D7714336ACD00C93FAA /* SHKFoursquareV2CheckInForm.m */; };
 		C0276D7E14336ACE00C93FAA /* SHKFoursquareV2Venue.m in Sources */ = {isa = PBXBuildFile; fileRef = C0276D7914336ACD00C93FAA /* SHKFoursquareV2Venue.m */; };
@@ -380,12 +383,18 @@
 		AC1A7B291522C15B009B9E6A /* SHKSinaWeibo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKSinaWeibo.m; sourceTree = "<group>"; };
 		AC1A7B30152312DF009B9E6A /* SHKNetEaseWeibo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKNetEaseWeibo.h; sourceTree = "<group>"; };
 		AC1A7B31152312DF009B9E6A /* SHKNetEaseWeibo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKNetEaseWeibo.m; sourceTree = "<group>"; };
+		AC2A91AD15522BEA001F9418 /* SHKTencentWeibo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKTencentWeibo.h; sourceTree = "<group>"; };
+		AC2A91AE15522BEA001F9418 /* SHKTencentWeibo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKTencentWeibo.m; sourceTree = "<group>"; };
+		AC2A91B115523084001F9418 /* TencentOAMutableURLRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TencentOAMutableURLRequest.h; sourceTree = "<group>"; };
+		AC2A91B215523084001F9418 /* TencentOAMutableURLRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TencentOAMutableURLRequest.m; sourceTree = "<group>"; };
+		AC2A91B7155232FC001F9418 /* TencentOAuthSharer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TencentOAuthSharer.h; sourceTree = "<group>"; };
+		AC2A91B8155232FD001F9418 /* TencentOAuthSharer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TencentOAuthSharer.m; sourceTree = "<group>"; };
 		ACC4336C1512CD1C00B2953E /* SHKDouban.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKDouban.h; sourceTree = "<group>"; };
 		ACC4336D1512CD1C00B2953E /* SHKDouban.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKDouban.m; sourceTree = "<group>"; };
-		BA465F1D14CC3C5A00B52394 /* SHKPrint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKPrint.h; sourceTree = "<group>"; };
-		BA465F1E14CC3C5A00B52394 /* SHKPrint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKPrint.m; sourceTree = "<group>"; };
 		B7EFCD8A14C6B966004910F1 /* SHKDiigo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKDiigo.h; sourceTree = "<group>"; };
 		B7EFCD8B14C6B966004910F1 /* SHKDiigo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKDiigo.m; sourceTree = "<group>"; };
+		BA465F1D14CC3C5A00B52394 /* SHKPrint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKPrint.h; sourceTree = "<group>"; };
+		BA465F1E14CC3C5A00B52394 /* SHKPrint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKPrint.m; sourceTree = "<group>"; };
 		C0276D7414336ACC00C93FAA /* NSError+SHKFoursquareV2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSError+SHKFoursquareV2.h"; sourceTree = "<group>"; };
 		C0276D7514336ACC00C93FAA /* NSError+SHKFoursquareV2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSError+SHKFoursquareV2.m"; sourceTree = "<group>"; };
 		C0276D7614336ACD00C93FAA /* SHKFoursquareV2CheckInForm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKFoursquareV2CheckInForm.h; sourceTree = "<group>"; };
@@ -849,6 +858,7 @@
 				ACC4336B1512CD1C00B2953E /* Douban */,
 				AC1A7B271522C15B009B9E6A /* Sina Weibo */,
 				AC1A7B2F152312DE009B9E6A /* NetEase Weibo */,
+				AC2A91AC15522BEA001F9418 /* Tencent Weibo */,
 				FDB495A11520349A00505A99 /* Readability */,
 				B7EFCD8914C6B966004910F1 /* Diigo */,
 				FA5AA3B4149625010064DB24 /* Vkontakte */,
@@ -1083,6 +1093,19 @@
 			path = "NetEase Weibo";
 			sourceTree = "<group>";
 		};
+		AC2A91AC15522BEA001F9418 /* Tencent Weibo */ = {
+			isa = PBXGroup;
+			children = (
+				AC2A91AD15522BEA001F9418 /* SHKTencentWeibo.h */,
+				AC2A91AE15522BEA001F9418 /* SHKTencentWeibo.m */,
+				AC2A91B7155232FC001F9418 /* TencentOAuthSharer.h */,
+				AC2A91B8155232FD001F9418 /* TencentOAuthSharer.m */,
+				AC2A91B115523084001F9418 /* TencentOAMutableURLRequest.h */,
+				AC2A91B215523084001F9418 /* TencentOAMutableURLRequest.m */,
+			);
+			path = "Tencent Weibo";
+			sourceTree = "<group>";
+		};
 		ACC4336B1512CD1C00B2953E /* Douban */ = {
 			isa = PBXGroup;
 			children = (
@@ -1092,15 +1115,6 @@
 			path = Douban;
 			sourceTree = "<group>";
 		};
-		BA465F1C14CC3C5000B52394 /* Print */ = {
-			isa = PBXGroup;
-			children = (
-				BA465F1D14CC3C5A00B52394 /* SHKPrint.h */,
-				BA465F1E14CC3C5A00B52394 /* SHKPrint.m */,
-			);
-			path = Print;
-			sourceTree = "<group>";
-		};
 		B7EFCD8914C6B966004910F1 /* Diigo */ = {
 			isa = PBXGroup;
 			children = (
@@ -1108,6 +1122,15 @@
 				B7EFCD8B14C6B966004910F1 /* SHKDiigo.m */,
 			);
 			path = Diigo;
+			sourceTree = "<group>";
+		};
+		BA465F1C14CC3C5000B52394 /* Print */ = {
+			isa = PBXGroup;
+			children = (
+				BA465F1D14CC3C5A00B52394 /* SHKPrint.h */,
+				BA465F1E14CC3C5A00B52394 /* SHKPrint.m */,
+			);
+			path = Print;
 			sourceTree = "<group>";
 		};
 		C042A61D1430AB4D00DF9AF6 /* FoursquareV2 */ = {
@@ -1209,6 +1232,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 0430;
+				ORGANIZATIONNAME = icyleaf.com;
 			};
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "ShareKit" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -1378,11 +1402,12 @@
 				ACC433701512CD1C00B2953E /* SHKDouban.m in Sources */,
 				AC1A7B2A1522C15B009B9E6A /* SHKSinaWeibo.m in Sources */,
 				AC1A7B32152312DF009B9E6A /* SHKNetEaseWeibo.m in Sources */,
-				3BD2BD54153431390042EB86 /* SHKCustomFormControllerLargeTextField.m in Sources */,
 				FDB495A41520349A00505A99 /* SHKReadability.m in Sources */,
 				7A5474E315455617000226FF /* SHKCustomFormControllerLargeTextField.m in Sources */,
-				7A0861D914A36E5A00FF509F /* SHKFormControllerLargeTextField.m in Sources */,
 				B7EFCD8C14C6B966004910F1 /* SHKDiigo.m in Sources */,
+				AC2A91AF15522BEA001F9418 /* SHKTencentWeibo.m in Sources */,
+				AC2A91B315523084001F9418 /* TencentOAMutableURLRequest.m in Sources */,
+				AC2A91B9155232FE001F9418 /* TencentOAuthSharer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
