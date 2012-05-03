@@ -1,9 +1,8 @@
 //
-//  SHKActivityIndicator.h
+//  SHKDiigo.h
 //  ShareKit
 //
-//  Created by Nathan Weiner on 6/16/10.
-
+//  Created by saturngod on 11 Jan 2012
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -26,36 +25,11 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "SHKSharer.h"
 
-
-@interface SHKActivityIndicator : UIView
+@interface SHKDiigo : SHKSharer 
 {
-	UILabel *centerMessageLabel;
-	UILabel *subMessageLabel;
-	
-	UIActivityIndicatorView *spinner;
+
 }
-
-@property (nonatomic, retain) UILabel *centerMessageLabel;
-@property (nonatomic, retain) UILabel *subMessageLabel;
-
-@property (nonatomic, retain) UIActivityIndicatorView *spinner;
-
-
-+ (SHKActivityIndicator *)currentIndicator;
-
-- (void)show;
-- (void)hideAfterDelay;
-- (void)hide;
-- (void)persist;
-- (void)hidden;
-- (void)displayActivity:(NSString *)m;
-- (void)displayCompleted:(NSString *)m;
-- (void)setCenterMessage:(NSString *)message;
-- (void)setSubMessage:(NSString *)message;
-- (void)showSpinner;
-- (void)hideSpinner;
-- (void)setProperRotation;
-- (void)setProperRotation:(BOOL)animated;
 
 @end

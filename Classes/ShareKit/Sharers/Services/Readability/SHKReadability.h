@@ -1,9 +1,7 @@
 //
-//  SHKActivityIndicator.h
+//  SHKReadability.h
 //  ShareKit
 //
-//  Created by Nathan Weiner on 6/16/10.
-
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -26,36 +24,21 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "SHKOAuthSharer.h"
+#import "SHKFormOptionController.h"
 
-
-@interface SHKActivityIndicator : UIView
-{
-	UILabel *centerMessageLabel;
-	UILabel *subMessageLabel;
-	
-	UIActivityIndicatorView *spinner;
+@interface SHKReadability : SHKOAuthSharer
+{	
+	BOOL xAuth;		
 }
 
-@property (nonatomic, retain) UILabel *centerMessageLabel;
-@property (nonatomic, retain) UILabel *subMessageLabel;
+@property BOOL xAuth;
 
-@property (nonatomic, retain) UIActivityIndicatorView *spinner;
+#pragma mark -
+#pragma mark Share API Methods
 
-
-+ (SHKActivityIndicator *)currentIndicator;
-
-- (void)show;
-- (void)hideAfterDelay;
-- (void)hide;
-- (void)persist;
-- (void)hidden;
-- (void)displayActivity:(NSString *)m;
-- (void)displayCompleted:(NSString *)m;
-- (void)setCenterMessage:(NSString *)message;
-- (void)setSubMessage:(NSString *)message;
-- (void)showSpinner;
-- (void)hideSpinner;
-- (void)setProperRotation;
-- (void)setProperRotation:(BOOL)animated;
+- (void)sendBookmark;
+- (void)sendBookmarkTicket:(OAServiceTicket *)ticket didFinishWithData:(NSData *)data;
+- (void)sendBookmarkTicket:(OAServiceTicket *)ticket didFailWithError:(NSError*)error;
 
 @end
