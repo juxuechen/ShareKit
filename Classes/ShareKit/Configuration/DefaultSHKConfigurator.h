@@ -65,9 +65,6 @@
 - (NSString*)tencentWeiboConsumerKey;
 - (NSString*)tencentWeiboConsumerSecret;
 - (NSString*)tencentWeiboCallbackUrl;
-- (NSNumber*)tencentWeiboUseXAuth;
-- (NSString*)tencentWeiboScreenname;
-- (NSString*)tencentWeiboUserID;
 - (NSString*)doubanConsumerKey;
 - (NSString*)doubanConsumerSecret;
 - (NSString*)doubanCallbackUrl;

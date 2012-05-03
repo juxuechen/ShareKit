@@ -3,8 +3,31 @@
 //  ShareKit
 //
 //  Created by icyleaf on 12-5-3.
-//  Copyright (c) 2012年 icyleaf,com. All rights reserved.
+//  Copyright (c) 2012年 icyleaf.com. All rights reserved.
 //
+
+//
+//  Permission is hereby granted, free of charge, to any person obtaining a copy
+//  of this software and associated documentation files (the "Software"), to deal
+//  in the Software without restriction, including without limitation the rights
+//  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+//  copies of the Software, and to permit persons to whom the Software is
+//  furnished to do so, subject to the following conditions:
+//
+//  The above copyright notice and this permission notice shall be included in
+//  all copies or substantial portions of the Software.
+//
+//  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+//  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+//  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+//  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+//  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+//  THE SOFTWARE.
+//
+//
+
+
 #import <Foundation/Foundation.h>
 #import "TencentOAMutableURLRequest.h"
 #import "OAConsumer.h"
@@ -13,6 +36,7 @@
 #import "OASignatureProviding.h"
 #import "NSMutableURLRequest+Parameters.h"
 #import "NSURL+Base.h"
+#import "SHKConfiguration.h"
 
 
 #define NONCE_LENGTH_FOR_TENCENT 32
@@ -20,98 +44,68 @@
 @interface OAMutableURLRequest (Private)
 - (void)_generateTimestamp;
 - (void)_generateNonce;
-- (NSString *)_signatureBaseString;
-- (NSString *)normalizeRequestParameters;
+- (NSString *)_signatureBaseString:(NSMutableDictionary *)params;
+- (NSString *)_generateQueryString;
 @end
 
 
 @implementation TencentOAMutableURLRequest
-@synthesize firstLoading;
 
-
-- (id)initWithURL:(NSURL *)aUrl
-		 consumer:(OAConsumer *)aConsumer
-			token:(OAToken *)aToken
-            realm:(NSString *)aRealm
-signatureProvider:(id<OASignatureProviding, NSObject>)aProvider 
-	  serviceFlag:(NSString *)flagStr
-	 loadingFirst:(BOOL)isFirst
+- (id)initWithURL:(NSURL *)aUrl 
+         consumer:(OAConsumer *)aConsumer 
+            token:(OAToken *)aToken 
+            realm:(NSString *)aRealm 
+signatureProvider:(id<OASignatureProviding,NSObject>)aProvider
+  extraParameters:(NSDictionary *)extraParameters
 {
-	if (self = [super initWithURL:aUrl
-					  cachePolicy:NSURLRequestReloadIgnoringCacheData
-				  timeoutInterval:10.0])
+    if ((self = [super initWithURL:aUrl
+                       cachePolicy:NSURLRequestReloadIgnoringCacheData
+                   timeoutInterval:10.0]))
 	{
-		consumer = [aConsumer retain];
-		
-		// empty token for Unauthorized Request Token transaction
-		if (aToken == nil)
-			token = [[OAToken alloc] init];
-		else
-			token = [aToken retain];
-		
-		if (aRealm == nil)
-			realm = [[NSString alloc] initWithString:@""];
-		else
-			realm = [aRealm retain];
-		
-		// default to HMAC-SHA1
-		if (aProvider == nil)
-			signatureProvider = [[OAHMAC_SHA1SignatureProvider alloc] init];
-		else
-			signatureProvider = [aProvider retain];
-		
-		[self _generateTimestamp];
-		[self _generateNonce];
-		
-		didPrepare = NO;
-//		firstLoading = isFirst;
-	}
-    return self;
-}
-
-- (id)initWithURL:(NSURL *)aUrl
-		 consumer:(OAConsumer *)aConsumer
-			token:(OAToken *)aToken
-            realm:(NSString *)aRealm
-signatureProvider:(id<OASignatureProviding, NSObject>)aProvider
-            nonce:(NSString *)aNonce
-        timestamp:(NSString *)aTimestamp
-	  serviceFlag:(NSString *)flagStr
-{
-	if (self = [super initWithURL:aUrl
-					  cachePolicy:NSURLRequestReloadIgnoringCacheData
-				  timeoutInterval:10.0])
-	{
-		consumer = [aConsumer retain];
-		
-		// empty token for Unauthorized Request Token transaction
-		if (aToken == nil)
-			token = [[OAToken alloc] init];
-		else
-			token = [aToken retain];
-		
-		if (aRealm == nil)
-			realm = [[NSString alloc] initWithString:@""];
-		else
-			realm = [aRealm retain];
-		
-		// default to HMAC-SHA1
-		if (aProvider == nil)
-			signatureProvider = [[OAHMAC_SHA1SignatureProvider alloc] init];
-		else
-			signatureProvider = [aProvider retain];
-		
-		//set service flag before generating nonce as special nonce length for tencent service
-//		serviceFlag = flagStr;
-		
-		timestamp = [aTimestamp retain];
-		nonce = [aNonce retain];
-		
+        consumer = [aConsumer retain];
+        
+        // empty token for Unauthorized Request Token transaction
+        if (aToken == nil)
+            token = [[OAToken alloc] init];
+        else
+            token = [aToken retain];
+        
+        if (aRealm == nil)
+            realm = [[NSString alloc] initWithString:@""];
+        else
+            realm = [aRealm retain];
+        
+        // default to HMAC-SHA1
+        if (aProvider == nil)
+            signatureProvider = [[OAHMAC_SHA1SignatureProvider alloc] init];
+        else
+            signatureProvider = [aProvider retain];
+        
+        [self _generateTimestamp];
+        [self _generateNonce];
+        
+        if (extraParameters != nil)
+            extraOAuthParameters = [NSMutableDictionary dictionaryWithDictionary:extraParameters];
+        
+        aUrl = [NSURL URLWithString:[NSString stringWithFormat:@"%@?%@", [aUrl absoluteString], [self _generateQueryString]]];
+        self = [super initWithURL:aUrl
+                      cachePolicy:NSURLRequestReloadIgnoringCacheData
+                  timeoutInterval:10.0];
+        
+        NSLog(@"Request url: %@", [aUrl absoluteString]);
+        
 		didPrepare = NO;
 	}
     return self;
 }
 
+- (void)prepare
+{
+	if (didPrepare) {
+		return;
+	}
+	didPrepare = YES;
+}
 
 #pragma mark -
 #pragma mark Private
@@ -123,19 +117,20 @@ signatureProvider:(id<OASignatureProviding, NSObject>)aProvider
 
 - (void)_generateNonce
 {
-    CFUUIDRef theUUID = CFUUIDCreate(NULL);
-    CFStringRef string = CFUUIDCreateString(NULL, theUUID);
-    NSMakeCollectable(theUUID);
-    NSString * random = (NSString *)string;
-	
-	nonce = [[random substringToIndex:NONCE_LENGTH_FOR_TENCENT] copy];
-
-	[random release];
+    nonce = [NSString stringWithFormat:@"%u", arc4random() % (9999999 - 123400) + 123400];
 }
 
-- (NSString *)_signatureBaseString
+- (NSString *)_signatureBaseString:(NSMutableDictionary *)params
 {
-    NSString *normalizedRequestParameters = [self normalizeRequestParameters];
+    NSMutableArray *sortedPairs = [[NSMutableArray alloc] init];
+    
+    NSArray *sortedKeys = [[params allKeys] sortedArrayUsingSelector:@selector(compare:)];
+    for (NSString *key in sortedKeys) {
+		NSString *value = [params valueForKey:key];
+		[sortedPairs addObject:[NSString stringWithFormat:@"%@=%@", key, [value URLEncodedString]]];
+	}
+    
+    NSString *normalizedRequestParameters = [sortedPairs componentsJoinedByString:@"&"];
     
     // OAuth Spec, Section 9.1.2 "Concatenate Request Elements"
     NSString *ret = [NSString stringWithFormat:@"%@&%@&%@",
@@ -143,50 +138,48 @@ signatureProvider:(id<OASignatureProviding, NSObject>)aProvider
 					 [[[self URL] URLStringWithoutQuery] URLEncodedString],
 					 [normalizedRequestParameters URLEncodedString]];
     
-	NSLog(@"OAMutableURLRequest parameters %@", normalizedRequestParameters);
-	
-	return ret;
+    return ret;
 }
 
-- (NSString *)normalizeRequestParameters {
-	// OAuth Spec, Section 9.1.1 "Normalize Request Parameters"
-    // build a sorted array of both request parameters and OAuth header parameters
-    NSMutableArray *parameterPairs = [NSMutableArray arrayWithCapacity:(6)]; // 6 being the number of OAuth params in the Signature Base String
+- (NSString *)_generateQueryString
+{
+    NSMutableDictionary *allParameters = [[NSMutableDictionary alloc] init];
+    [allParameters setObject:nonce forKey:@"oauth_nonce"];
+	[allParameters setObject:timestamp forKey:@"oauth_timestamp"];
+	[allParameters setObject:@"1.0" forKey:@"oauth_version"];
+	[allParameters setObject:[signatureProvider name] forKey:@"oauth_signature_method"];
+	[allParameters setObject:consumer.key forKey:@"oauth_consumer_key"];
     
-	[parameterPairs addObject:[[OARequestParameter requestParameterWithName:@"oauth_consumer_key" value:consumer.key] URLEncodedNameValuePair]];
-	[parameterPairs addObject:[[OARequestParameter requestParameterWithName:@"oauth_signature_method" value:[signatureProvider name]] URLEncodedNameValuePair]];
-	[parameterPairs addObject:[[OARequestParameter requestParameterWithName:@"oauth_timestamp" value:timestamp] URLEncodedNameValuePair]];
-	[parameterPairs addObject:[[OARequestParameter requestParameterWithName:@"oauth_nonce" value:nonce] URLEncodedNameValuePair]];
-	[parameterPairs addObject:[[OARequestParameter requestParameterWithName:@"oauth_version" value:@"1.0"] URLEncodedNameValuePair]];
-	
-	//新浪和腾讯 oauth特有
-//    if (!firstLoading) {
-//        [parameterPairs addObject:[[OARequestParameter requestParameterWithName:@"oauth_verifier" value:[[NSUserDefaults standardUserDefaults] valueForKey:@"oauth_verifier"]] URLEncodedNameValuePair]];
-//    }
-	
-//	if (firstLoading) {
-        [parameterPairs addObject:[[OARequestParameter requestParameterWithName:@"oauth_callback" value:@"http://www.qq.com"] URLEncodedNameValuePair]];
-//    }
-	
-    if (![token.key isEqualToString:@""]) {
-        [parameterPairs addObject:[[OARequestParameter requestParameterWithName:@"oauth_token" value:token.key] URLEncodedNameValuePair]];
+    if ( ! [token.key isEqualToString:@""]) 
+    {
+        [allParameters setObject:token.key forKey:@"oauth_token"];
     }
-	
-	for(NSString *parameterName in [[extraOAuthParameters allKeys] sortedArrayUsingSelector:@selector(compare:)]) {
-		[parameterPairs addObject:[[OARequestParameter requestParameterWithName:[parameterName URLEncodedString] value: [[extraOAuthParameters objectForKey:parameterName] URLEncodedString]] URLEncodedNameValuePair]];
-	}
-	
-	if (![[self valueForHTTPHeaderField:@"Content-Type"] hasPrefix:@"multipart/form-data"]) {
-		for (OARequestParameter *param in [self parameters]) {
-			[parameterPairs addObject:[param URLEncodedNameValuePair]];
-		}
-	}
     
-    NSArray *sortedPairs = [parameterPairs sortedArrayUsingSelector:@selector(compare:)];
-    NSString *normalizedRequestParameters = [sortedPairs componentsJoinedByString:@"&"];
-	
-	return normalizedRequestParameters;
+    if ([extraOAuthParameters objectForKey:@"v"] != nil) {
+        [allParameters setObject:[extraOAuthParameters objectForKey:@"v"] forKey:@"oauth_verifier"];
+    }
+    else
+    {
+        [allParameters setObject:SHKCONFIG(tencentWeiboCallbackUrl) forKey:@"oauth_callback"];
+    }
+    
+    signature = [signatureProvider signClearText:[self _signatureBaseString:allParameters]
+                                      withSecret:[NSString stringWithFormat:@"%@&%@",
+												  [consumer.secret URLEncodedString],
+                                                  [token.secret URLEncodedString]]];
+    
+    [allParameters setObject:[signature URLEncodedString] forKey:@"oauth_signature"];
+    
+    NSMutableArray *parametersArray = [[NSMutableArray alloc] init];
+    NSArray *sortedPairs = [[allParameters allKeys] sortedArrayUsingSelector:@selector(compare:)];
+    for (NSString *key in sortedPairs) {
+		NSString *value = [allParameters valueForKey:key];
+        if ( ! [key isEqualToString:@"oauth_signature"])
+            value = [value URLEncodedString];
+        
+		[parametersArray addObject:[NSString stringWithFormat:@"%@=%@", key, value]];
+	}    
+    
+    return [parametersArray componentsJoinedByString:@"&"];
 }
-
-
 @end

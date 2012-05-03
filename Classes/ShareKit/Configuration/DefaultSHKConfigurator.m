@@ -140,21 +140,6 @@
     return @"";
 }
 
-- (NSNumber*)tencentWeiboUseXAuth
-{
-    return [NSNumber numberWithInt:0];
-}
-
-- (NSString*)tencentWeiboScreenname
-{
-    return @"";
-}
-
-- (NSString*)tencentWeiboUserID
-{
-    return @"";
-}
-
 
 // Douban 
 - (NSString*)doubanConsumerKey {

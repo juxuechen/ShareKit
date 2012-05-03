@@ -37,7 +37,7 @@
 static NSString *const kSHKNetEaseWeiboUserInfo = @"kSHKNetEaseWeiboUserInfo";
 
 
-@interface SHKNetEaseWeibo ()
+@interface SHKNetEaseWeibo (Private)
 
 - (BOOL)prepareItem;
 - (BOOL)shortenURL;
@@ -350,7 +350,7 @@ static NSString *const kSHKNetEaseWeiboUserInfo = @"kSHKNetEaseWeiboUserInfo";
                   forKey:@"status"];
 		
 	[super share];
-	}
+}
 	
 
 #pragma mark -

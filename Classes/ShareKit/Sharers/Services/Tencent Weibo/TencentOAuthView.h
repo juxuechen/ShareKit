@@ -1,5 +1,5 @@
 //
-//  TencentOAMutableURLRequest.h
+//  TencentOAuthView.h
 //  ShareKit
 //
 //  Created by icyleaf on 12-5-3.
@@ -27,16 +27,8 @@
 //
 //
 
+#import "SHKOAuthView.h"
 
-#import "OAMutableURLRequest.h"
-
-@interface TencentOAMutableURLRequest : OAMutableURLRequest
-
-- (id)initWithURL:(NSURL *)aUrl 
-         consumer:(OAConsumer *)aConsumer 
-            token:(OAToken *)aToken 
-            realm:(NSString *)aRealm 
-signatureProvider:(id<OASignatureProviding,NSObject>)aProvider
-  extraParameters:(NSDictionary *)extraParameters;
+@interface TencentOAuthView : SHKOAuthView
 
 @end

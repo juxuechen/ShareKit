@@ -80,6 +80,8 @@
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
 {		
+    
+    NSLog(@"webView shouldStartLoadWithRequest url: %@", request.URL);
 	if ([request.URL.absoluteString rangeOfString:@"authorize"].location == NSNotFound
         && [request.URL.absoluteString rangeOfString:@"authenticate"].location == NSNotFound
         && [request.URL.absoluteString rangeOfString:[delegate authorizeCallbackURL].absoluteString options:NSCaseInsensitiveSearch].location != NSNotFound)
@@ -116,6 +118,8 @@
 - (void)webViewDidFinishLoad:(UIWebView *)aWebView
 {	
 	[self stopSpinner];
+    
+    NSLog(@"webView webViewDidFinishLoad url: %@", webView.request.URL);
 	
 	// Extra sanity check for Twitter OAuth users to make sure they are using BROWSER with a callback instead of pin based auth
 	if ([webView.request.URL.host isEqualToString:@"api.twitter.com"] && [webView stringByEvaluatingJavaScriptFromString:@"document.getElementById('oauth_pin').innerHTML"].length)

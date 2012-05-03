@@ -1,5 +1,5 @@
 //
-//  TencentOAMutableURLRequest.h
+//  TencentOAuthView.m
 //  ShareKit
 //
 //  Created by icyleaf on 12-5-3.
@@ -27,16 +27,37 @@
 //
 //
 
+#import "TencentOAuthView.h"
 
-#import "OAMutableURLRequest.h"
+@implementation TencentOAuthView
 
-@interface TencentOAMutableURLRequest : OAMutableURLRequest
-
-- (id)initWithURL:(NSURL *)aUrl 
-         consumer:(OAConsumer *)aConsumer 
-            token:(OAToken *)aToken 
-            realm:(NSString *)aRealm 
-signatureProvider:(id<OASignatureProviding,NSObject>)aProvider
-  extraParameters:(NSDictionary *)extraParameters;
+- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
+{		
+	if ([request.URL.absoluteString rangeOfString:@"authorize"].location != NSNotFound
+        && [request.URL.absoluteString rangeOfString:@"checkType=verifycode"].location != NSNotFound)
+	{
+		// Get query
+		NSMutableDictionary *queryParams = nil;
+		if (request.URL.query != nil)
+		{
+			queryParams = [NSMutableDictionary dictionaryWithCapacity:0];
+			NSArray *vars = [request.URL.query componentsSeparatedByString:@"&"];
+			NSArray *parts;
+			for(NSString *var in vars)
+			{
+				parts = [var componentsSeparatedByString:@"="];
+				if (parts.count == 2)
+					[queryParams setObject:[parts objectAtIndex:1] forKey:[parts objectAtIndex:0]];
+			}
+		}
+		
+		[delegate tokenAuthorizeView:self didFinishWithSuccess:YES queryParams:queryParams error:nil];
+		self.delegate = nil;
+		
+		return NO;
+	}
+	
+	return YES;
+}
 
 @end

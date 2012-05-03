@@ -118,22 +118,7 @@
 
 - (NSString*)tencentWeiboCallbackUrl
 {
-    return @"http://icyleaf.com";
-}
-
-- (NSNumber*)tencentWeiboUseXAuth
-{
-    return [NSNumber numberWithInt:0];
-}
-
-- (NSString*)tencentWeiboScreenname
-{
-    return @"icyleaf";
-}
-
-- (NSString*)tencentWeiboUserID
-{
-    return @"";
+    return @"null";
 }
 
 

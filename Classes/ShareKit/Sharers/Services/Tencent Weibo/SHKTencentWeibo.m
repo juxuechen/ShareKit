@@ -2,8 +2,29 @@
 //  SHKTencentWeibo.m
 //  ShareKit
 //
-//  Created by xiewenwei on 10-12-20.
-//  Copyright 2010 Taobao.inc. All rights reserved.
+//  Created by icyleaf on 12-5-3.
+//  Copyright (c) 2012年 icyleaf.com. All rights reserved.
+//
+
+//
+//  Permission is hereby granted, free of charge, to any person obtaining a copy
+//  of this software and associated documentation files (the "Software"), to deal
+//  in the Software without restriction, including without limitation the rights
+//  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+//  copies of the Software, and to permit persons to whom the Software is
+//  furnished to do so, subject to the following conditions:
+//
+//  The above copyright notice and this permission notice shall be included in
+//  all copies or substantial portions of the Software.
+//
+//  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+//  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+//  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+//  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+//  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+//  THE SOFTWARE.
+//
 //
 
 #include <ifaddrs.h>
@@ -12,19 +33,23 @@
 #import "SHKTencentWeibo.h"
 #import "SHKConfiguration.h"
 #import "NSMutableDictionary+NSNullsToEmptyStrings.h"
-
-#define RETURN_CODE_NO_ERROR 0
+#import "TencentOAMutableURLRequest.h"
+#import "TencentOAuthView.h"
+#import "JSONKit.h"
 
 #define API_DOMAIN  @"https://open.t.qq.com"
 
-static NSString *const kSHKSinaWeiboUserInfo = @"kSHKSinaWeiboUserInfo";
+static NSString *const kSHKTencentWeiboUserInfo = @"kSHKTencentWeiboUserInfo";
+
+
+@interface SHKTencentWeibo (Private)
+- (NSString *)getIPAddress;
+- (void)handleResponseData:(NSData *)data;
+- (void)handleUnsuccessfulTicket:(NSData *)data;
+@end
 
 
 @implementation SHKTencentWeibo
-
-@synthesize xAuth;
-
-#pragma mark api
 
 - (id)init 
 {    
@@ -35,12 +60,7 @@ static NSString *const kSHKSinaWeiboUserInfo = @"kSHKSinaWeiboUserInfo";
 		self.secretKey = SHKCONFIG(tencentWeiboConsumerSecret);
  		self.authorizeCallbackURL = [NSURL URLWithString:SHKCONFIG(tencentWeiboCallbackUrl)];
 		
-		// xAuth
-		self.xAuth = [SHKCONFIG(tencentWeiboUseXAuth) boolValue] ? YES : NO;
-		
-		
 		// -- //
-		
 		
 		// You do not need to edit these, they are the same for everyone
 		self.authorizeURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@/cgi-bin/authorize", API_DOMAIN]];
@@ -82,54 +102,257 @@ static NSString *const kSHKSinaWeiboUserInfo = @"kSHKSinaWeiboUserInfo";
 	return NO;
 }
 
+#pragma mark -
+#pragma mark Commit Share
+
+- (void)share 
+{
+	BOOL itemPrepared = [self prepareItem];
+	
+	//the only case item is not prepared is when we wait for URL to be shortened on background thread. In this case [super share] is called in callback method
+	if (itemPrepared) {
+		[super share];
+	}
+}
+
+
+#pragma mark -
+
+- (BOOL)prepareItem 
+{
+	BOOL result = YES;
+	
+	if (item.shareType == SHKShareTypeURL)
+	{
+		BOOL isURLAlreadyShortened = [self shortenURL];
+		result = isURLAlreadyShortened;
+	}
+	
+	else if (item.shareType == SHKShareTypeImage)
+	{
+		[item setCustomValue:item.title forKey:@"status"];
+	}
+	
+	else if (item.shareType == SHKShareTypeText)
+    {		
+		[item setCustomValue:item.text forKey:@"status"];
+	}
+	
+	return result;
+}
+
 
 #pragma mark -
 #pragma mark Authorization
 
-- (BOOL)isAuthorized 
-{
-	return[self restoreAccessToken];
++ (void)logout {
+	
+	[[NSUserDefaults standardUserDefaults] removeObjectForKey:kSHKTencentWeiboUserInfo];
+	[super logout];    
 }
 
-- (void)promptAuthorization 
-{
-	if (xAuth)
-		[super authorizationFormShow];
-	//xAuth process
+#pragma mark -
+#pragma mark UI Implementation
 
-    else
-		[super promptAuthorization];
-	//OAuth process
+- (void)show
+{
+    if (item.shareType == SHKShareTypeURL)
+	{
+		[self showTencentWeiboForm];
+	}
+	
+    else if (item.shareType == SHKShareTypeImage)
+	{
+		[self showTencentWeiboForm];
+	}
+	
+	else if (item.shareType == SHKShareTypeText)
+	{
+		[self showTencentWeiboForm];
+	}
+    
+    else if (item.shareType == SHKShareTypeUserInfo)
+	{
+		[self setQuiet:YES];
+		[self tryToSend];
+	}
 }
 
-- (BOOL)validate 
+- (void)showTencentWeiboForm
 {
-	[item setCustomValue: @"分享到腾讯微博" forKey:@"status"];
-	NSString * status =[item customValueForKey:@"status"];
-	return status != nil && status.length <= 140;
+	SHKFormControllerLargeTextField *rootView = [[SHKFormControllerLargeTextField alloc] initWithNibName:nil bundle:nil delegate:self];	
+	
+	rootView.text = [item customValueForKey:@"status"];
+	rootView.maxTextLength = 140;
+	rootView.image = item.image;
+	rootView.imageTextLength = 25;
+	
+	self.navigationBar.tintColor = SHKCONFIG_WITH_ARGUMENT(barTintForView:,self);
+	
+	[self pushViewController:rootView animated:NO];
+	[rootView release];
+	
+	[[SHK currentHelper] showViewController:self];	
 }
 
-- (BOOL)send 
+- (void)sendForm:(SHKFormControllerLargeTextField *)form
+{	
+	[item setCustomValue:form.textView.text forKey:@"status"];
+	[self tryToSend];
+}
+
+#pragma mark -
+
+- (BOOL)shortenURL
 {
-	//Check if we should send follow request too
-//// if (xAuth &&[item customBoolForSwitchKey:@"followMe"])
-//			//[self followMe];
-	if (![self validate])
-		[self show];
-
-	else {
-		if (item.shareType == SHKShareTypeImage) {
-			[self sendImage];
-		} else {
-			[self sendStatus];
-		}
-		//Notify delegate
-		[self sendDidStart];
-
+    if ([SHKCONFIG(sinaWeiboConsumerKey) isEqualToString:@""] || SHKCONFIG(sinaWeiboConsumerKey) == nil)
+        NSAssert(NO, @"ShareKit: Could not shorting url with empty sina weibo consumer key.");
+    
+	if (![SHK connected])
+	{
+		[item setCustomValue:[NSString stringWithFormat:@"%@ %@", item.title, [item.URL.absoluteString stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]] forKey:@"status"];
 		return YES;
 	}
+    
+	if (!quiet)
+		[[SHKActivityIndicator currentIndicator] displayActivity:SHKLocalizedString(@"Shortening URL...")];
+	
+	self.request = [[[SHKRequest alloc] initWithURL:[NSURL URLWithString:[NSMutableString stringWithFormat:@"http://api.t.sina.com.cn/short_url/shorten.json?source=%@&url_long=%@",
+																		  SHKCONFIG(sinaWeiboConsumerKey),						  
+																		  SHKEncodeURL(item.URL)
+																		  ]]
+											 params:nil
+										   delegate:self
+								 isFinishedSelector:@selector(shortenURLFinished:)
+											 method:@"GET"
+										  autostart:YES] autorelease];
+    
+    return NO;
+}
 
-	return NO;
+- (void)shortenURLFinished:(SHKRequest *)aRequest
+{
+	[[SHKActivityIndicator currentIndicator] hide];
+    
+    @try 
+    {
+        NSArray *result = [[aRequest getResult] objectFromJSONString];
+        item.URL = [NSURL URLWithString:[[result objectAtIndex:0] objectForKey:@"url_short"]];
+    }
+    @catch (NSException *exception) 
+	{
+		// TODO - better error message
+		[[[[UIAlertView alloc] initWithTitle:SHKLocalizedString(@"Shorten URL Error")
+									 message:SHKLocalizedString(@"We could not shorten the URL.")
+									delegate:nil
+						   cancelButtonTitle:SHKLocalizedString(@"Continue")
+						   otherButtonTitles:nil] autorelease] show];
+    }
+    
+    [item setCustomValue:[NSString stringWithFormat:@"%@: %@", item.title, item.URL.absoluteString] 
+                  forKey:@"status"];
+    
+	[super share];
+}
+
+
+#pragma mark -
+#pragma mark Share API Methods
+
+- (BOOL)validateItem
+{		
+	if (self.item.shareType == SHKShareTypeUserInfo) {
+		return YES;
+	}
+	
+	NSString *status = [item customValueForKey:@"status"];
+	return status != nil;
+}
+
+- (BOOL)validateItemAfterUserEdit 
+{
+	BOOL result = NO;
+    
+	BOOL isValid = [self validateItem];    
+	NSString *status = [item customValueForKey:@"status"];
+	
+	if (isValid && status.length <= 140) {
+		result = YES;
+	}
+	
+	return result;
+}
+
+- (BOOL)send
+{	
+	if (![self validateItemAfterUserEdit])
+		return NO;
+	
+	switch (item.shareType) {
+			
+		case SHKShareTypeImage:            
+			[self sendImage];
+			break;
+			
+		case SHKShareTypeUserInfo:            
+            //			[self sendUserInfo];
+			break;
+			
+		default:
+			[self sendStatus];
+			break;
+	}
+	
+	// Notify delegate
+	[self sendDidStart];	
+	
+	return YES;
+}
+
+- (void)sendStatus
+{
+    TencentOAMutableURLRequest *oRequest = [[TencentOAMutableURLRequest alloc] initWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/api/t/add", API_DOMAIN]] 
+                                                                                  consumer:consumer 
+                                                                                     token:accessToken 
+                                                                                     realm:nil 
+                                                                         signatureProvider:signatureProvider 
+                                                                           extraParameters:nil];
+	
+	[oRequest setHTTPMethod:@"POST"];
+    
+    NSArray *params =[NSArray arrayWithObjects:
+                      [[OARequestParameter alloc] initWithName:@"format" value:@"json"], 
+                      [[OARequestParameter alloc] initWithName:@"content" value:[item text]], 
+                      [[OARequestParameter alloc] initWithName:@"clientip" value:[self getIPAddress]],
+                      [[OARequestParameter alloc] initWithName:@"status" value:[item customValueForKey:@"status"]], nil];
+    
+	[oRequest setParameters:params];
+	
+	OAAsynchronousDataFetcher *fetcher = [OAAsynchronousDataFetcher asynchronousFetcherWithRequest:oRequest
+                                                                                          delegate:self
+                                                                                 didFinishSelector:@selector(sendStatusTicket:didFinishWithData:)
+                                                                                   didFailSelector:@selector(sendStatusTicket:didFailWithError:)];	
+    
+	[fetcher start];
+	[oRequest release];
+}
+
+- (void)sendStatusTicket:(OAServiceTicket *)ticket didFinishWithData:(NSData *)data 
+{	
+	// TODO better error handling here
+    
+	if (ticket.didSucceed) 
+		[self sendDidFinish];
+	
+	else
+	{		
+		[self handleUnsuccessfulTicket:data];
+	}
+}
+
+- (void)sendStatusTicket:(OAServiceTicket *)ticket didFailWithError:(NSError*)error
+{
+	[self sendDidFailWithError:error];
 }
 
 //- (void)sendStatus 
@@ -250,6 +473,80 @@ static NSString *const kSHKSinaWeiboUserInfo = @"kSHKSinaWeiboUserInfo";
 //{
 //	[self sendDidFailWithError:error];
 //}
+
+
+#pragma mark Request
+
+- (void)tokenRequest
+{
+	[[SHKActivityIndicator currentIndicator] displayActivity:SHKLocalizedString(@"Connecting...")];
+    
+    TencentOAMutableURLRequest *oRequest = [[TencentOAMutableURLRequest alloc] initWithURL:requestURL 
+                                                                                  consumer:consumer 
+                                                                                     token:nil 
+                                                                                     realm:nil 
+                                                                         signatureProvider:signatureProvider 
+                                                                           extraParameters:nil];
+	
+	[oRequest setHTTPMethod:@"GET"];
+	
+	[self tokenRequestModifyRequest:oRequest];
+	
+    OAAsynchronousDataFetcher *fetcher = [OAAsynchronousDataFetcher asynchronousFetcherWithRequest:oRequest
+                                                                                          delegate:self
+                                                                                 didFinishSelector:@selector(tokenRequestTicket:didFinishWithData:)
+                                                                                   didFailSelector:@selector(tokenRequestTicket:didFailWithError:)];
+	[fetcher start];	
+	[oRequest release];
+}
+
+- (void)tokenAuthorize
+{	
+	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@?oauth_token=%@", 
+                                       authorizeURL.absoluteString, 
+                                       requestToken.key, 
+                                       [authorizeCallbackURL absoluteString]]];
+	
+	TencentOAuthView *auth = [[TencentOAuthView alloc] initWithURL:url delegate:self];
+	[[SHK currentHelper] showViewController:auth];	
+	[auth release];
+}
+
+- (void)tokenAccess:(BOOL)refresh
+{
+	if (!refresh)
+		[[SHKActivityIndicator currentIndicator] displayActivity:SHKLocalizedString(@"Authenticating...")];
+	
+    TencentOAMutableURLRequest *oRequest = [[TencentOAMutableURLRequest alloc] initWithURL:accessURL
+                                                                                  consumer:consumer
+                                                                                     token:(refresh ? accessToken : requestToken)
+                                                                                     realm:nil   // our service provider doesn't specify a realm
+                                                                         signatureProvider:signatureProvider  // use the default method, HMAC-SHA1
+                                                                           extraParameters:authorizeResponseQueryVars]; 
+	
+    [oRequest setHTTPMethod:@"GET"];
+	
+    OAAsynchronousDataFetcher *fetcher = [OAAsynchronousDataFetcher asynchronousFetcherWithRequest:oRequest
+                                                                                          delegate:self
+                                                                                 didFinishSelector:@selector(tokenAccessTicket:didFinishWithData:)
+                                                                                   didFailSelector:@selector(tokenAccessTicket:didFailWithError:)];
+	[fetcher start];
+	[oRequest release];
+}
+
+- (void)tokenAccessTicket:(OAServiceTicket *)ticket didFinishWithData:(NSData *)data
+{
+    NSString *response = [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease];
+    
+    NSLog(@"tokenAccessTicket Response Body: %@", response);
+    
+    [super tokenAccessTicket:ticket didFinishWithData:data];
+}
+
+
+
+#pragma mark -
+#pragma mark Hepler Functions
 
 - (NSString *)getIPAddress 
 {
