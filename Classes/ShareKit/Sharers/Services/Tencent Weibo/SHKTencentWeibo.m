@@ -534,16 +534,6 @@ static NSString *const kSHKTencentWeiboUserInfo = @"kSHKTencentWeiboUserInfo";
 	[oRequest release];
 }
 
-- (void)tokenAccessTicket:(OAServiceTicket *)ticket didFinishWithData:(NSData *)data
-{
-    NSString *response = [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease];
-    
-    NSLog(@"tokenAccessTicket Response Body: %@", response);
-    
-    [super tokenAccessTicket:ticket didFinishWithData:data];
-}
-
-
 
 #pragma mark -
 #pragma mark Hepler Functions

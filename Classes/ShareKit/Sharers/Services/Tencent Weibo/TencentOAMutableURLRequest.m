@@ -39,8 +39,6 @@
 #import "SHKConfiguration.h"
 
 
-#define NONCE_LENGTH_FOR_TENCENT 32
-
 @interface OAMutableURLRequest (Private)
 - (void)_generateTimestamp;
 - (void)_generateNonce;
@@ -85,14 +83,15 @@ signatureProvider:(id<OASignatureProviding,NSObject>)aProvider
         [self _generateNonce];
         
         if (extraParameters != nil)
-            extraOAuthParameters = [NSMutableDictionary dictionaryWithDictionary:extraParameters];
+            extraOAuthParameters = [[NSMutableDictionary dictionaryWithDictionary:extraParameters] retain];
         
         aUrl = [NSURL URLWithString:[NSString stringWithFormat:@"%@?%@", [aUrl absoluteString], [self _generateQueryString]]];
         self = [super initWithURL:aUrl
                       cachePolicy:NSURLRequestReloadIgnoringCacheData
                   timeoutInterval:10.0];
         
-        NSLog(@"Request url: %@", [aUrl absoluteString]);
+        if (SHKDebugShowLogs) // check so we don't have to alloc the string with the data if we aren't logging
+            SHKLog(@"Request url: %@", [aUrl absoluteString]);
         
 		didPrepare = NO;
 	}
