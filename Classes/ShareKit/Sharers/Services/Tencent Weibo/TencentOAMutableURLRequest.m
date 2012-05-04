@@ -42,8 +42,8 @@
 @interface OAMutableURLRequest (Private)
 - (void)_generateTimestamp;
 - (void)_generateNonce;
-- (NSString *)_signatureBaseString:(NSMutableDictionary *)params;
 - (NSString *)_generateQueryString;
+- (NSString *)_signatureBaseString:(NSMutableDictionary *)params;
 @end
 
 
@@ -83,7 +83,7 @@ signatureProvider:(id<OASignatureProviding,NSObject>)aProvider
         [self _generateNonce];
         
         if (extraParameters != nil)
-            extraOAuthParameters = [[NSMutableDictionary dictionaryWithDictionary:extraParameters] retain];
+            extraOAuthParameters = [[NSMutableDictionary dictionaryWithDictionary:extraParameters] retain];  
         
         aUrl = [NSURL URLWithString:[NSString stringWithFormat:@"%@?%@", [aUrl absoluteString], [self _generateQueryString]]];
         self = [super initWithURL:aUrl
@@ -119,6 +119,46 @@ signatureProvider:(id<OASignatureProviding,NSObject>)aProvider
     nonce = [NSString stringWithFormat:@"%u", arc4random() % (9999999 - 123400) + 123400];
 }
 
+- (NSString *)_generateQueryString
+{
+    NSMutableDictionary *allParameters = [[NSMutableDictionary alloc] init];
+    [allParameters setObject:nonce forKey:@"oauth_nonce"];
+	[allParameters setObject:timestamp forKey:@"oauth_timestamp"];
+	[allParameters setObject:@"1.0" forKey:@"oauth_version"];
+	[allParameters setObject:[signatureProvider name] forKey:@"oauth_signature_method"];
+	[allParameters setObject:consumer.key forKey:@"oauth_consumer_key"];
+    
+    if ( ! [token.key isEqualToString:@""]) 
+        [allParameters setObject:token.key forKey:@"oauth_token"];
+    
+    for(NSString *parameterName in [[extraOAuthParameters allKeys] sortedArrayUsingSelector:@selector(compare:)]) 
+    {
+        if ([extraOAuthParameters objectForKey:@"v"] != nil)
+            [allParameters setObject:[extraOAuthParameters objectForKey:@"v"] forKey:@"oauth_verifier"];
+        else 
+            [allParameters setObject:[[extraOAuthParameters objectForKey:parameterName] URLEncodedString] forKey:[parameterName URLEncodedString]];
+	}
+    
+    signature = [signatureProvider signClearText:[self _signatureBaseString:allParameters]
+                                      withSecret:[NSString stringWithFormat:@"%@&%@",
+												  [consumer.secret URLEncodedString],
+                                                  [token.secret URLEncodedString]]];
+    
+    [allParameters setObject:[signature URLEncodedString] forKey:@"oauth_signature"];
+    
+    NSMutableArray *parametersArray = [[NSMutableArray alloc] init];
+    NSArray *sortedPairs = [[allParameters allKeys] sortedArrayUsingSelector:@selector(compare:)];
+    for (NSString *key in sortedPairs) {
+		NSString *value = [allParameters valueForKey:key];
+        if ( ! [key isEqualToString:@"oauth_signature"])
+            value = [value URLEncodedString];
+        
+		[parametersArray addObject:[NSString stringWithFormat:@"%@=%@", key, value]];
+	}    
+    
+    return [parametersArray componentsJoinedByString:@"&"];
+}
+
 - (NSString *)_signatureBaseString:(NSMutableDictionary *)params
 {
     NSMutableArray *sortedPairs = [[NSMutableArray alloc] init];
@@ -140,45 +180,4 @@ signatureProvider:(id<OASignatureProviding,NSObject>)aProvider
     return ret;
 }
 
-- (NSString *)_generateQueryString
-{
-    NSMutableDictionary *allParameters = [[NSMutableDictionary alloc] init];
-    [allParameters setObject:nonce forKey:@"oauth_nonce"];
-	[allParameters setObject:timestamp forKey:@"oauth_timestamp"];
-	[allParameters setObject:@"1.0" forKey:@"oauth_version"];
-	[allParameters setObject:[signatureProvider name] forKey:@"oauth_signature_method"];
-	[allParameters setObject:consumer.key forKey:@"oauth_consumer_key"];
-    
-    if ( ! [token.key isEqualToString:@""]) 
-    {
-        [allParameters setObject:token.key forKey:@"oauth_token"];
-    }
-    
-    if ([extraOAuthParameters objectForKey:@"v"] != nil) {
-        [allParameters setObject:[extraOAuthParameters objectForKey:@"v"] forKey:@"oauth_verifier"];
-    }
-    else
-    {
-        [allParameters setObject:SHKCONFIG(tencentWeiboCallbackUrl) forKey:@"oauth_callback"];
-    }
-    
-    signature = [signatureProvider signClearText:[self _signatureBaseString:allParameters]
-                                      withSecret:[NSString stringWithFormat:@"%@&%@",
-												  [consumer.secret URLEncodedString],
-                                                  [token.secret URLEncodedString]]];
-    
-    [allParameters setObject:[signature URLEncodedString] forKey:@"oauth_signature"];
-    
-    NSMutableArray *parametersArray = [[NSMutableArray alloc] init];
-    NSArray *sortedPairs = [[allParameters allKeys] sortedArrayUsingSelector:@selector(compare:)];
-    for (NSString *key in sortedPairs) {
-		NSString *value = [allParameters valueForKey:key];
-        if ( ! [key isEqualToString:@"oauth_signature"])
-            value = [value URLEncodedString];
-        
-		[parametersArray addObject:[NSString stringWithFormat:@"%@=%@", key, value]];
-	}    
-    
-    return [parametersArray componentsJoinedByString:@"&"];
-}
 @end
