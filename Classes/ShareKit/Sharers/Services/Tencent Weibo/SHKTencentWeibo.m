@@ -311,21 +311,27 @@ static NSString *const kSHKTencentWeiboUserInfo = @"kSHKTencentWeiboUserInfo";
 
 - (void)sendStatus
 {
+    NSMutableDictionary *queryParams = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+                                        @"json", @"format",
+                                        [self getIPAddress], @"clientip",
+                                        [item customValueForKey:@"status"], @"content", nil];
+    
+    
     TencentOAMutableURLRequest *oRequest = [[TencentOAMutableURLRequest alloc] initWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/api/t/add", API_DOMAIN]] 
                                                                                   consumer:consumer 
                                                                                      token:accessToken 
                                                                                      realm:nil 
                                                                          signatureProvider:signatureProvider 
-                                                                           extraParameters:nil];
+                                                                           extraParameters:queryParams];
 	
 	[oRequest setHTTPMethod:@"POST"];
     
-    NSArray *params =[NSArray arrayWithObjects:
-                      [[OARequestParameter alloc] initWithName:@"format" value:@"json"], 
-                      [[OARequestParameter alloc] initWithName:@"clientip" value:[self getIPAddress]],
-                      [[OARequestParameter alloc] initWithName:@"content" value:[item customValueForKey:@"status"]], nil];
-    
-	[oRequest setParameters:params];
+//    NSArray *params =[NSArray arrayWithObjects:
+//                      [[OARequestParameter alloc] initWithName:@"format" value:@"json"], 
+//                      [[OARequestParameter alloc] initWithName:@"clientip" value:[self getIPAddress]],
+//                      [[OARequestParameter alloc] initWithName:@"content" value:[item customValueForKey:@"status"]], nil];
+//    
+//	[oRequest setParameters:params];
 	
 	OAAsynchronousDataFetcher *fetcher = [OAAsynchronousDataFetcher asynchronousFetcherWithRequest:oRequest
                                                                                           delegate:self

@@ -136,22 +136,23 @@ signatureProvider:(id<OASignatureProviding,NSObject>)aProvider
         if ([extraOAuthParameters objectForKey:@"v"] != nil)
             [allParameters setObject:[extraOAuthParameters objectForKey:@"v"] forKey:@"oauth_verifier"];
         else 
-            [allParameters setObject:[[extraOAuthParameters objectForKey:parameterName] URLEncodedString] forKey:[parameterName URLEncodedString]];
+            [allParameters setObject:[extraOAuthParameters objectForKey:parameterName] forKey:parameterName];
 	}
+    
+    NSLog(@"allParameters: %@", allParameters);
     
     signature = [signatureProvider signClearText:[self _signatureBaseString:allParameters]
                                       withSecret:[NSString stringWithFormat:@"%@&%@",
 												  [consumer.secret URLEncodedString],
                                                   [token.secret URLEncodedString]]];
     
-    [allParameters setObject:[signature URLEncodedString] forKey:@"oauth_signature"];
+    [allParameters setObject:signature forKey:@"oauth_signature"];
     
     NSMutableArray *parametersArray = [[NSMutableArray alloc] init];
     NSArray *sortedPairs = [[allParameters allKeys] sortedArrayUsingSelector:@selector(compare:)];
     for (NSString *key in sortedPairs) {
 		NSString *value = [allParameters valueForKey:key];
-        if ( ! [key isEqualToString:@"oauth_signature"])
-            value = [value URLEncodedString];
+        value = [value URLEncodedString];
         
 		[parametersArray addObject:[NSString stringWithFormat:@"%@=%@", key, value]];
 	}    
@@ -170,6 +171,8 @@ signatureProvider:(id<OASignatureProviding,NSObject>)aProvider
 	}
     
     NSString *normalizedRequestParameters = [sortedPairs componentsJoinedByString:@"&"];
+    
+    NSLog(@"normalizedRequestParameters: %@", normalizedRequestParameters);
     
     // OAuth Spec, Section 9.1.2 "Concatenate Request Elements"
     NSString *ret = [NSString stringWithFormat:@"%@&%@&%@",

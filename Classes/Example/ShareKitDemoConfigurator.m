@@ -292,6 +292,24 @@
 
 
 /*
+ Favorite Sharers
+ ----------------
+ These values are used to define the default favorite sharers appearing on ShareKit's action sheet.
+ */
+- (NSArray*)defaultFavoriteURLSharers {
+    return [NSArray arrayWithObjects:@"SHKDouban",@"SHKSinaWeibo",@"SHKNetEaseWeibo", nil];
+}
+- (NSArray*)defaultFavoriteImageSharers {
+    return [NSArray arrayWithObjects:@"SHKSinaWeibo",@"SHKNetEaseWeibo", nil];
+}
+- (NSArray*)defaultFavoriteTextSharers {
+    return [NSArray arrayWithObjects:@"SHKMail",@"SHKDouban",@"SHKSinaWeibo",@"SHKNetEaseWeibo", nil];
+}
+- (NSArray*)defaultFavoriteFileSharers {
+    return [NSArray arrayWithObjects:@"SHKMail",@"SHKEvernote", nil];
+}
+
+/*
  UI Configuration : Basic
  ------------------------
  These provide controls for basic UI settings.  For more advanced configuration see below.
