@@ -121,14 +121,14 @@ BOOL RRIsDeviceIPad() {
     CGColorSpaceRelease(space);
 }
 
-- (BOOL)shouldRotateToOrientation:(UIInterfaceOrientation)orientation {
+- (BOOL)shouldRotateToOrientation:(UIDeviceOrientation)orientation {
     if (orientation == _orientation) {
         return NO;
     } else {
-        return orientation == UIInterfaceOrientationLandscapeLeft 
-        || orientation == UIInterfaceOrientationLandscapeRight
-        || orientation == UIInterfaceOrientationPortrait
-        || orientation == UIInterfaceOrientationPortraitUpsideDown;
+        return orientation == UIDeviceOrientationLandscapeLeft
+        || orientation == UIDeviceOrientationLandscapeRight
+        || orientation == UIDeviceOrientationPortrait
+        || orientation == UIDeviceOrientationPortraitUpsideDown;
     }
 }
 
@@ -252,7 +252,7 @@ BOOL RRIsDeviceIPad() {
     if (self) {
         _delegate = nil;
         _loadingURL = nil;
-        _orientation = UIInterfaceOrientationPortrait;
+        _orientation = UIDeviceOrientationUnknown;
         _showingKeyboard = NO;
         _webScaleEnlarge = NO;
         

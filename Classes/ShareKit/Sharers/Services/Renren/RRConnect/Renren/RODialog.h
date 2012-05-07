@@ -22,7 +22,7 @@ typedef NSUInteger RODialogOperateType;     //Dialog操作类型
     UIWebView* _webView;
     UIActivityIndicatorView* _spinner;
     UIImageView* _iconView;
-    UIInterfaceOrientation _orientation;
+    UIDeviceOrientation _orientation;
     BOOL _showingKeyboard;
     UIView* _modalBackgroundView;
     UIButton* _cancelButton;

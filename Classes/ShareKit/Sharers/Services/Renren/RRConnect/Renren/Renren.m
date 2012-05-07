@@ -146,24 +146,6 @@ static Renren *sharedRenren = nil;
 	[defaults synchronize];
 }
 
-- (void)requestWithParam:(RORequestParam *)param andDelegate:(id <RORequestDelegate>)delegate {
-    if (nil == param.method || [param.method length] <= 0) {
-        NSLog(@"API Method must be specified");
-        return;
-    }
-    
-    if (![self isSessionValid]) {
-        NSLog(@"Session is not valid! Request abort!!");
-        return;
-    }
-    
-    [self setGeneralRequestArgs:param];
-    
-    [self sendRequestWithUrl:kRestserverBaseURL param:param httpMethod:@"POST" delegate:delegate];
-	
-    return;
-}
-
 - (void)getLoggedInUserId{
   	NSUserDefaults *defaults=[NSUserDefaults standardUserDefaults];
     if ([defaults objectForKey:@"session_UserId"]) {
@@ -194,6 +176,23 @@ static Renren *sharedRenren = nil;
     return _request;
 }
 
+- (void)requestWithParam:(RORequestParam *)param andDelegate:(id <RORequestDelegate>)delegate {
+    if (nil == param.method || [param.method length] <= 0) {
+        NSLog(@"API Method must be specified");
+        return;
+    }
+    
+    if (![self isSessionValid]) {
+        NSLog(@"Session is not valid! Request abort!!");
+        return;
+    }
+    
+    [self setGeneralRequestArgs:param];
+    
+    [self sendRequestWithUrl:kRestserverBaseURL param:param httpMethod:@"POST" delegate:delegate];
+	
+    return;
+}
 
 #pragma mark - RODialogDelegate Methods -
 

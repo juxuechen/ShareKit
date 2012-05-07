@@ -8,7 +8,6 @@
 //
 #import "ROUtility.h"
 #import <CommonCrypto/CommonDigest.h>
-#import <QuartzCore/QuartzCore.h>
 #import "JSON.h"
 
 // 给上传图像加的水印文字常量

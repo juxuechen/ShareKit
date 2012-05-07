@@ -13,6 +13,7 @@
 #import "ROGetFriendsInfoRequestParam.h"
 #import "SHKConfiguration.h"
 
+
 #define kAuthBaseURL @"http://graph.renren.com/oauth/authorize"
 #define kDialogBaseURL @"http://widget.renren.com/dialog/"
 #define kRestserverBaseURL @"http://api.renren.com/restserver.do"
