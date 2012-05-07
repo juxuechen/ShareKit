@@ -37,7 +37,7 @@
 #import "TencentOAuthView.h"
 #import "JSONKit.h"
 
-#define API_DOMAIN  @"https://open.t.qq.com"
+#define API_DOMAIN  @"http://open.t.qq.com"
 
 static NSString *const kSHKTencentWeiboUserInfo = @"kSHKTencentWeiboUserInfo";
 
@@ -63,9 +63,9 @@ static NSString *const kSHKTencentWeiboUserInfo = @"kSHKTencentWeiboUserInfo";
 		// -- //
 		
 		// You do not need to edit these, they are the same for everyone
-		self.authorizeURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@/cgi-bin/authorize", API_DOMAIN]];
-		self.requestURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@/cgi-bin/request_token", API_DOMAIN]];
-		self.accessURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@/cgi-bin/access_token", API_DOMAIN]];
+		self.authorizeURL = [NSURL URLWithString:@"http://open.t.qq.com/cgi-bin/authorize"];
+		self.requestURL = [NSURL URLWithString:@"http://open.t.qq.com/cgi-bin/request_token"];
+		self.accessURL = [NSURL URLWithString:@"http://open.t.qq.com/cgi-bin/access_token"];
 	}	
 	return self;
 }
@@ -311,27 +311,22 @@ static NSString *const kSHKTencentWeiboUserInfo = @"kSHKTencentWeiboUserInfo";
 
 - (void)sendStatus
 {
-    NSMutableDictionary *queryParams = [NSMutableDictionary dictionaryWithObjectsAndKeys:
-                                        @"json", @"format",
-                                        [self getIPAddress], @"clientip",
-                                        [item customValueForKey:@"status"], @"content", nil];
-    
-    
     TencentOAMutableURLRequest *oRequest = [[TencentOAMutableURLRequest alloc] initWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/api/t/add", API_DOMAIN]] 
-                                                                                  consumer:consumer 
-                                                                                     token:accessToken 
-                                                                                     realm:nil 
-                                                                         signatureProvider:signatureProvider 
-                                                                           extraParameters:queryParams];
-	
+
+                                                                                  consumer:consumer
+                                                                                     token:accessToken
+                                                                                     realm:nil
+                                                                         signatureProvider:signatureProvider];
+    
+    
 	[oRequest setHTTPMethod:@"POST"];
     
-//    NSArray *params =[NSArray arrayWithObjects:
-//                      [[OARequestParameter alloc] initWithName:@"format" value:@"json"], 
-//                      [[OARequestParameter alloc] initWithName:@"clientip" value:[self getIPAddress]],
-//                      [[OARequestParameter alloc] initWithName:@"content" value:[item customValueForKey:@"status"]], nil];
-//    
-//	[oRequest setParameters:params];
+    NSArray *params =[NSArray arrayWithObjects:
+                      [[OARequestParameter alloc] initWithName:@"format" value:@"json"], 
+                      [[OARequestParameter alloc] initWithName:@"clientip" value:[self getIPAddress]],
+                      [[OARequestParameter alloc] initWithName:@"content" value:[item customValueForKey:@"status"]], nil];
+    
+	[oRequest setParameters:params];
 	
 	OAAsynchronousDataFetcher *fetcher = [OAAsynchronousDataFetcher asynchronousFetcherWithRequest:oRequest
                                                                                           delegate:self
@@ -348,8 +343,14 @@ static NSString *const kSHKTencentWeiboUserInfo = @"kSHKTencentWeiboUserInfo";
 		SHKLog(@"sendStatusTicket Response Body: %@", [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease]);
     
 	if (ticket.didSucceed) 
-		[self sendDidFinish];
-	
+    {
+        NSDictionary *result = [data objectFromJSONData];
+        
+        if ([[result valueForKey:@"ret"] intValue] == 0)
+            [self sendDidFinish];
+        else 
+            [self handleUnsuccessfulTicket:data];
+    }
 	else
 	{		
 		[self handleUnsuccessfulTicket:data];
@@ -361,45 +362,6 @@ static NSString *const kSHKTencentWeiboUserInfo = @"kSHKTencentWeiboUserInfo";
 	[self sendDidFailWithError:error];
 }
 
-//- (void)sendStatus 
-//{
-//	NSString *generatedNonce =[self _generateNonce];
-//	if ([generatedNonce length] > NONCE_LENGTH_FOR_TENCENT) {
-//		generatedNonce =[generatedNonce substringToIndex:NONCE_LENGTH_FOR_TENCENT];
-//	}
-//	OAMutableURLRequest *hmacSha1Request =[[OAMutableURLRequest alloc] initWithURL:[NSURL URLWithString:@"http://open.t.qq.com/api/t/add"]
-//					       consumer:consumer
-//					       token:accessToken
-//					       realm:nil
-//						   signatureProvider:signatureProvider
-//					       nonce:generatedNonce
-//						   timestamp:[self _generateTimestamp]
-//					       serviceFlag:serviceStr];
-//
-//
-//	[hmacSha1Request setHTTPMethod:@"POST"];
-//
-//	OARequestParameter *formatParam =[[OARequestParameter alloc] initWithName:@"format" value:@"json"];
-//	OARequestParameter *contentParam =[[OARequestParameter alloc] initWithName:@"content" value:[item text]];
-//	OARequestParameter *ipParam =[[OARequestParameter alloc] initWithName:@"clientip" value:[self getIPAddress]];
-//	NSArray *params =[NSArray arrayWithObjects:formatParam, contentParam, ipParam, nil];
-//	[hmacSha1Request setParameters:params];
-//	[formatParam release];
-//	[contentParam release];
-//	[ipParam release];
-//
-//	[hmacSha1Request prepare];
-//
-//	[self sendDidStart];
-//	OADataFetcher  *fetcher =[[OADataFetcher alloc] init];
-//	[fetcher fetchDataWithRequest:hmacSha1Request
-//				delegate:self
-//				didFinishSelector: @selector(sendStatusTicket: finishedWithData:)
-//				didFailSelector: @selector(sendStatusTicket: failedWithError:)];
-//
-//	[hmacSha1Request release];
-//	[fetcher release];
-//}
 //
 //- (void)sendStatusTicket:(OAServiceTicket *)ticket finishedWithData:(NSMutableData *) data 
 //{
@@ -481,23 +443,35 @@ static NSString *const kSHKTencentWeiboUserInfo = @"kSHKTencentWeiboUserInfo";
 //}
 
 
+#pragma mark -
+
+- (void)handleUnsuccessfulTicket:(NSData *)data 
+{
+    if (SHKDebugShowLogs)
+        SHKLog(@"%@", [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease]);
+    
+    [self sendDidFailWithError:nil];
+}
+
+
 #pragma mark Request
 
 - (void)tokenRequest
 {
 	[[SHKActivityIndicator currentIndicator] displayActivity:SHKLocalizedString(@"Connecting...")];
-    
-    NSMutableDictionary *queryParams = [NSMutableDictionary dictionaryWithObject:[authorizeCallbackURL absoluteString] forKey:@"oauth_callback"];
-
-    
-    TencentOAMutableURLRequest *oRequest = [[TencentOAMutableURLRequest alloc] initWithURL:requestURL 
-                                                                                  consumer:consumer 
-                                                                                     token:nil 
-                                                                                     realm:nil 
-                                                                         signatureProvider:signatureProvider 
-                                                                           extraParameters:queryParams];
+      
+    TencentOAMutableURLRequest *oRequest = [[TencentOAMutableURLRequest alloc] initWithURL:requestURL
+                                                                                  consumer:consumer
+                                                                                     token:nil
+                                                                                     realm:nil
+                                                                         signatureProvider:signatureProvider];
 	
+
 	[oRequest setHTTPMethod:@"GET"];
+    
+    [oRequest setParameters:[NSArray arrayWithObject:
+                             [[OARequestParameter alloc] initWithName:@"oauth_callback" 
+                                                                value:[authorizeCallbackURL absoluteString]]]];
 	
     OAAsynchronousDataFetcher *fetcher = [OAAsynchronousDataFetcher asynchronousFetcherWithRequest:oRequest
                                                                                           delegate:self
@@ -526,11 +500,13 @@ static NSString *const kSHKTencentWeiboUserInfo = @"kSHKTencentWeiboUserInfo";
     TencentOAMutableURLRequest *oRequest = [[TencentOAMutableURLRequest alloc] initWithURL:accessURL
                                                                                   consumer:consumer
                                                                                      token:(refresh ? accessToken : requestToken)
-                                                                                     realm:nil   // our service provider doesn't specify a realm
-                                                                         signatureProvider:signatureProvider  // use the default method, HMAC-SHA1
-                                                                           extraParameters:authorizeResponseQueryVars]; 
-	
+                                                                                     realm:nil
+                                                                         signatureProvider:signatureProvider];
+    
     [oRequest setHTTPMethod:@"GET"];
+    [oRequest setParameters:[NSArray arrayWithObject:
+                             [[OARequestParameter alloc] initWithName:@"oauth_verifier" 
+                                                                value:[authorizeResponseQueryVars valueForKey:@"v"]]]];
 	
     OAAsynchronousDataFetcher *fetcher = [OAAsynchronousDataFetcher asynchronousFetcherWithRequest:oRequest
                                                                                           delegate:self
@@ -592,5 +568,6 @@ static NSString *const kSHKTencentWeiboUserInfo = @"kSHKTencentWeiboUserInfo";
 //	}
 	[responseBody release];
 }
+
 
 @end

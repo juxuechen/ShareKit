@@ -32,11 +32,4 @@
 
 @interface TencentOAMutableURLRequest : OAMutableURLRequest
 
-- (id)initWithURL:(NSURL *)aUrl 
-         consumer:(OAConsumer *)aConsumer 
-            token:(OAToken *)aToken 
-            realm:(NSString *)aRealm 
-signatureProvider:(id<OASignatureProviding,NSObject>)aProvider
-  extraParameters:(NSDictionary *)extraParameters;
-
 @end
