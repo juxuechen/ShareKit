@@ -68,6 +68,9 @@
 - (NSString*)doubanConsumerKey;
 - (NSString*)doubanConsumerSecret;
 - (NSString*)doubanCallbackUrl;
+- (NSString*)renrenAppId;
+- (NSString*)renrenConsumerKey;
+- (NSString*)renrenConsumerSecret;
 - (NSString*)vkontakteAppId;
 - (NSString*)facebookAppId;
 - (NSString*)facebookLocalAppId;

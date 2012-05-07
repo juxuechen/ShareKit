@@ -156,6 +156,23 @@
 }
 
 
+// RenRen
+- (NSString*)renrenAppId
+{
+    return @"";
+}
+
+- (NSString*)renrenConsumerKey
+{
+    return @"";
+}
+
+- (NSString*)renrenConsumerSecret
+{
+    return @"";
+}
+
+
 // Vkontakte
 // SHKVkontakteAppID is the Application ID provided by Vkontakte
 - (NSString*)vkontakteAppId {

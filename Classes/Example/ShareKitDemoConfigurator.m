@@ -136,6 +136,24 @@
 	return @"http://icyleaf.com";
 }
 
+
+// RenRen
+- (NSString*)renrenAppId
+{
+    return @"134180";
+}
+
+- (NSString*)renrenConsumerKey
+{
+    return @"ff5fe131651842c7adbdc061f676dc88";
+}
+
+- (NSString*)renrenConsumerSecret
+{
+    return @"41d17695626d4c43b3572ce7f923b8a3";
+}
+
+
 // Vkontakte
 // SHKVkontakteAppID is the Application ID provided by Vkontakte
 - (NSString*)vkontakteAppId {

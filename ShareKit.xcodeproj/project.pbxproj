@@ -126,6 +126,46 @@
 		AAACE06713CCBED400A2118F /* SHKFlickr.m in Sources */ = {isa = PBXBuildFile; fileRef = AAACE06113CCBED400A2118F /* SHKFlickr.m */; };
 		AC1A7B2A1522C15B009B9E6A /* SHKSinaWeibo.m in Sources */ = {isa = PBXBuildFile; fileRef = AC1A7B291522C15B009B9E6A /* SHKSinaWeibo.m */; };
 		AC1A7B32152312DF009B9E6A /* SHKNetEaseWeibo.m in Sources */ = {isa = PBXBuildFile; fileRef = AC1A7B31152312DF009B9E6A /* SHKNetEaseWeibo.m */; };
+		AC2A835E1557FEDB005EF457 /* ROError.m in Sources */ = {isa = PBXBuildFile; fileRef = AC2A830B1557FEDB005EF457 /* ROError.m */; };
+		AC2A835F1557FEDB005EF457 /* bottom-bar.png in Resources */ = {isa = PBXBuildFile; fileRef = AC2A830D1557FEDB005EF457 /* bottom-bar.png */; };
+		AC2A83601557FEDB005EF457 /* bottom-bar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AC2A830E1557FEDB005EF457 /* bottom-bar@2x.png */; };
+		AC2A83611557FEDB005EF457 /* head-frame.png in Resources */ = {isa = PBXBuildFile; fileRef = AC2A830F1557FEDB005EF457 /* head-frame.png */; };
+		AC2A83621557FEDB005EF457 /* head-frame@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AC2A83101557FEDB005EF457 /* head-frame@2x.png */; };
+		AC2A83631557FEDB005EF457 /* input-frame.png in Resources */ = {isa = PBXBuildFile; fileRef = AC2A83111557FEDB005EF457 /* input-frame.png */; };
+		AC2A83641557FEDB005EF457 /* input-frame@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AC2A83121557FEDB005EF457 /* input-frame@2x.png */; };
+		AC2A83651557FEDB005EF457 /* photo-frame.png in Resources */ = {isa = PBXBuildFile; fileRef = AC2A83131557FEDB005EF457 /* photo-frame.png */; };
+		AC2A83661557FEDB005EF457 /* photo-frame@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AC2A83141557FEDB005EF457 /* photo-frame@2x.png */; };
+		AC2A83671557FEDB005EF457 /* renren-logo-top-bar.png in Resources */ = {isa = PBXBuildFile; fileRef = AC2A83151557FEDB005EF457 /* renren-logo-top-bar.png */; };
+		AC2A83681557FEDB005EF457 /* renren-logo-top-bar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AC2A83161557FEDB005EF457 /* renren-logo-top-bar@2x.png */; };
+		AC2A83691557FEDB005EF457 /* small-button-normal.png in Resources */ = {isa = PBXBuildFile; fileRef = AC2A83171557FEDB005EF457 /* small-button-normal.png */; };
+		AC2A836A1557FEDB005EF457 /* small-button-normal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AC2A83181557FEDB005EF457 /* small-button-normal@2x.png */; };
+		AC2A836B1557FEDB005EF457 /* Renren.m in Sources */ = {isa = PBXBuildFile; fileRef = AC2A831A1557FEDB005EF457 /* Renren.m */; };
+		AC2A836C1557FEDB005EF457 /* ROAlbumsInfoRequestParam.m in Sources */ = {isa = PBXBuildFile; fileRef = AC2A831D1557FEDB005EF457 /* ROAlbumsInfoRequestParam.m */; };
+		AC2A836D1557FEDB005EF457 /* ROCreateAlbumRequestParam.m in Sources */ = {isa = PBXBuildFile; fileRef = AC2A831F1557FEDB005EF457 /* ROCreateAlbumRequestParam.m */; };
+		AC2A836E1557FEDB005EF457 /* ROGetFriendsInfoRequestParam.m in Sources */ = {isa = PBXBuildFile; fileRef = AC2A83211557FEDB005EF457 /* ROGetFriendsInfoRequestParam.m */; };
+		AC2A836F1557FEDB005EF457 /* ROGetFriendsRequestParam.m in Sources */ = {isa = PBXBuildFile; fileRef = AC2A83231557FEDB005EF457 /* ROGetFriendsRequestParam.m */; };
+		AC2A83701557FEDB005EF457 /* ROPasswordFlowRequestParam.m in Sources */ = {isa = PBXBuildFile; fileRef = AC2A83251557FEDB005EF457 /* ROPasswordFlowRequestParam.m */; };
+		AC2A83711557FEDB005EF457 /* ROPublishPhotoRequestParam.m in Sources */ = {isa = PBXBuildFile; fileRef = AC2A83271557FEDB005EF457 /* ROPublishPhotoRequestParam.m */; };
+		AC2A83721557FEDB005EF457 /* RORequestParam.m in Sources */ = {isa = PBXBuildFile; fileRef = AC2A83291557FEDB005EF457 /* RORequestParam.m */; };
+		AC2A83731557FEDB005EF457 /* ROUserInfoRequestParam.m in Sources */ = {isa = PBXBuildFile; fileRef = AC2A832B1557FEDB005EF457 /* ROUserInfoRequestParam.m */; };
+		AC2A83741557FEDB005EF457 /* ROAlbumResponseltem.m in Sources */ = {isa = PBXBuildFile; fileRef = AC2A832E1557FEDB005EF457 /* ROAlbumResponseltem.m */; };
+		AC2A83751557FEDB005EF457 /* ROCreateAlbumResponseItem.m in Sources */ = {isa = PBXBuildFile; fileRef = AC2A83301557FEDB005EF457 /* ROCreateAlbumResponseItem.m */; };
+		AC2A83761557FEDB005EF457 /* ROFriendResponseItem.m in Sources */ = {isa = PBXBuildFile; fileRef = AC2A83321557FEDB005EF457 /* ROFriendResponseItem.m */; };
+		AC2A83771557FEDB005EF457 /* ROPublishPhotoResponseItem.m in Sources */ = {isa = PBXBuildFile; fileRef = AC2A83341557FEDB005EF457 /* ROPublishPhotoResponseItem.m */; };
+		AC2A83781557FEDB005EF457 /* ROResponseItem.m in Sources */ = {isa = PBXBuildFile; fileRef = AC2A83361557FEDB005EF457 /* ROResponseItem.m */; };
+		AC2A83791557FEDB005EF457 /* ROUserResponseItem.m in Sources */ = {isa = PBXBuildFile; fileRef = AC2A83381557FEDB005EF457 /* ROUserResponseItem.m */; };
+		AC2A837A1557FEDB005EF457 /* RODialog.m in Sources */ = {isa = PBXBuildFile; fileRef = AC2A833B1557FEDB005EF457 /* RODialog.m */; };
+		AC2A837B1557FEDB005EF457 /* RORequest.m in Sources */ = {isa = PBXBuildFile; fileRef = AC2A833D1557FEDB005EF457 /* RORequest.m */; };
+		AC2A837C1557FEDB005EF457 /* ROResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = AC2A833F1557FEDB005EF457 /* ROResponse.m */; };
+		AC2A837D1557FEDB005EF457 /* RODialogModel.m in Sources */ = {isa = PBXBuildFile; fileRef = AC2A83421557FEDB005EF457 /* RODialogModel.m */; };
+		AC2A837E1557FEDB005EF457 /* RODialogView.m in Sources */ = {isa = PBXBuildFile; fileRef = AC2A83441557FEDB005EF457 /* RODialogView.m */; };
+		AC2A837F1557FEDB005EF457 /* ROPublishPhotoDialogModel.m in Sources */ = {isa = PBXBuildFile; fileRef = AC2A83471557FEDB005EF457 /* ROPublishPhotoDialogModel.m */; };
+		AC2A83801557FEDB005EF457 /* ROPublishPhotoInternal.m in Sources */ = {isa = PBXBuildFile; fileRef = AC2A83491557FEDB005EF457 /* ROPublishPhotoInternal.m */; };
+		AC2A83811557FEDB005EF457 /* ROUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = AC2A834C1557FEDB005EF457 /* ROUtility.m */; };
+		AC2A83821557FEDB005EF457 /* ROCloseButton.m in Sources */ = {isa = PBXBuildFile; fileRef = AC2A834F1557FEDB005EF457 /* ROCloseButton.m */; };
+		AC2A83831557FEDB005EF457 /* ROGlobalStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = AC2A83511557FEDB005EF457 /* ROGlobalStyle.m */; };
+		AC2A83841557FEDB005EF457 /* ROImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = AC2A83531557FEDB005EF457 /* ROImageView.m */; };
+		AC2A83851557FEDB005EF457 /* SHKRenRen.m in Sources */ = {isa = PBXBuildFile; fileRef = AC2A83551557FEDB005EF457 /* SHKRenRen.m */; };
 		AC2A91AF15522BEA001F9418 /* SHKTencentWeibo.m in Sources */ = {isa = PBXBuildFile; fileRef = AC2A91AE15522BEA001F9418 /* SHKTencentWeibo.m */; };
 		AC2A91B315523084001F9418 /* TencentOAMutableURLRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = AC2A91B215523084001F9418 /* TencentOAMutableURLRequest.m */; };
 		AC9448FD15528E6B0011692C /* TencentOAuthView.m in Sources */ = {isa = PBXBuildFile; fileRef = AC9448FC15528E6B0011692C /* TencentOAuthView.m */; };
@@ -383,6 +423,75 @@
 		AC1A7B291522C15B009B9E6A /* SHKSinaWeibo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKSinaWeibo.m; sourceTree = "<group>"; };
 		AC1A7B30152312DF009B9E6A /* SHKNetEaseWeibo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKNetEaseWeibo.h; sourceTree = "<group>"; };
 		AC1A7B31152312DF009B9E6A /* SHKNetEaseWeibo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKNetEaseWeibo.m; sourceTree = "<group>"; };
+		AC2A830A1557FEDB005EF457 /* ROError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ROError.h; sourceTree = "<group>"; };
+		AC2A830B1557FEDB005EF457 /* ROError.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ROError.m; sourceTree = "<group>"; };
+		AC2A830D1557FEDB005EF457 /* bottom-bar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bottom-bar.png"; sourceTree = "<group>"; };
+		AC2A830E1557FEDB005EF457 /* bottom-bar@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bottom-bar@2x.png"; sourceTree = "<group>"; };
+		AC2A830F1557FEDB005EF457 /* head-frame.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "head-frame.png"; sourceTree = "<group>"; };
+		AC2A83101557FEDB005EF457 /* head-frame@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "head-frame@2x.png"; sourceTree = "<group>"; };
+		AC2A83111557FEDB005EF457 /* input-frame.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "input-frame.png"; sourceTree = "<group>"; };
+		AC2A83121557FEDB005EF457 /* input-frame@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "input-frame@2x.png"; sourceTree = "<group>"; };
+		AC2A83131557FEDB005EF457 /* photo-frame.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "photo-frame.png"; sourceTree = "<group>"; };
+		AC2A83141557FEDB005EF457 /* photo-frame@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "photo-frame@2x.png"; sourceTree = "<group>"; };
+		AC2A83151557FEDB005EF457 /* renren-logo-top-bar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "renren-logo-top-bar.png"; sourceTree = "<group>"; };
+		AC2A83161557FEDB005EF457 /* renren-logo-top-bar@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "renren-logo-top-bar@2x.png"; sourceTree = "<group>"; };
+		AC2A83171557FEDB005EF457 /* small-button-normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "small-button-normal.png"; sourceTree = "<group>"; };
+		AC2A83181557FEDB005EF457 /* small-button-normal@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "small-button-normal@2x.png"; sourceTree = "<group>"; };
+		AC2A83191557FEDB005EF457 /* Renren.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Renren.h; sourceTree = "<group>"; };
+		AC2A831A1557FEDB005EF457 /* Renren.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Renren.m; sourceTree = "<group>"; };
+		AC2A831C1557FEDB005EF457 /* ROAlbumsInfoRequestParam.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ROAlbumsInfoRequestParam.h; sourceTree = "<group>"; };
+		AC2A831D1557FEDB005EF457 /* ROAlbumsInfoRequestParam.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ROAlbumsInfoRequestParam.m; sourceTree = "<group>"; };
+		AC2A831E1557FEDB005EF457 /* ROCreateAlbumRequestParam.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ROCreateAlbumRequestParam.h; sourceTree = "<group>"; };
+		AC2A831F1557FEDB005EF457 /* ROCreateAlbumRequestParam.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ROCreateAlbumRequestParam.m; sourceTree = "<group>"; };
+		AC2A83201557FEDB005EF457 /* ROGetFriendsInfoRequestParam.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ROGetFriendsInfoRequestParam.h; sourceTree = "<group>"; };
+		AC2A83211557FEDB005EF457 /* ROGetFriendsInfoRequestParam.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ROGetFriendsInfoRequestParam.m; sourceTree = "<group>"; };
+		AC2A83221557FEDB005EF457 /* ROGetFriendsRequestParam.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ROGetFriendsRequestParam.h; sourceTree = "<group>"; };
+		AC2A83231557FEDB005EF457 /* ROGetFriendsRequestParam.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ROGetFriendsRequestParam.m; sourceTree = "<group>"; };
+		AC2A83241557FEDB005EF457 /* ROPasswordFlowRequestParam.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ROPasswordFlowRequestParam.h; sourceTree = "<group>"; };
+		AC2A83251557FEDB005EF457 /* ROPasswordFlowRequestParam.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ROPasswordFlowRequestParam.m; sourceTree = "<group>"; };
+		AC2A83261557FEDB005EF457 /* ROPublishPhotoRequestParam.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ROPublishPhotoRequestParam.h; sourceTree = "<group>"; };
+		AC2A83271557FEDB005EF457 /* ROPublishPhotoRequestParam.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ROPublishPhotoRequestParam.m; sourceTree = "<group>"; };
+		AC2A83281557FEDB005EF457 /* RORequestParam.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RORequestParam.h; sourceTree = "<group>"; };
+		AC2A83291557FEDB005EF457 /* RORequestParam.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RORequestParam.m; sourceTree = "<group>"; };
+		AC2A832A1557FEDB005EF457 /* ROUserInfoRequestParam.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ROUserInfoRequestParam.h; sourceTree = "<group>"; };
+		AC2A832B1557FEDB005EF457 /* ROUserInfoRequestParam.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ROUserInfoRequestParam.m; sourceTree = "<group>"; };
+		AC2A832D1557FEDB005EF457 /* ROAlbumResponseltem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ROAlbumResponseltem.h; sourceTree = "<group>"; };
+		AC2A832E1557FEDB005EF457 /* ROAlbumResponseltem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ROAlbumResponseltem.m; sourceTree = "<group>"; };
+		AC2A832F1557FEDB005EF457 /* ROCreateAlbumResponseItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ROCreateAlbumResponseItem.h; sourceTree = "<group>"; };
+		AC2A83301557FEDB005EF457 /* ROCreateAlbumResponseItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ROCreateAlbumResponseItem.m; sourceTree = "<group>"; };
+		AC2A83311557FEDB005EF457 /* ROFriendResponseItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ROFriendResponseItem.h; sourceTree = "<group>"; };
+		AC2A83321557FEDB005EF457 /* ROFriendResponseItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ROFriendResponseItem.m; sourceTree = "<group>"; };
+		AC2A83331557FEDB005EF457 /* ROPublishPhotoResponseItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ROPublishPhotoResponseItem.h; sourceTree = "<group>"; };
+		AC2A83341557FEDB005EF457 /* ROPublishPhotoResponseItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ROPublishPhotoResponseItem.m; sourceTree = "<group>"; };
+		AC2A83351557FEDB005EF457 /* ROResponseItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ROResponseItem.h; sourceTree = "<group>"; };
+		AC2A83361557FEDB005EF457 /* ROResponseItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ROResponseItem.m; sourceTree = "<group>"; };
+		AC2A83371557FEDB005EF457 /* ROUserResponseItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ROUserResponseItem.h; sourceTree = "<group>"; };
+		AC2A83381557FEDB005EF457 /* ROUserResponseItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ROUserResponseItem.m; sourceTree = "<group>"; };
+		AC2A83391557FEDB005EF457 /* ROConnect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ROConnect.h; sourceTree = "<group>"; };
+		AC2A833A1557FEDB005EF457 /* RODialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RODialog.h; sourceTree = "<group>"; };
+		AC2A833B1557FEDB005EF457 /* RODialog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RODialog.m; sourceTree = "<group>"; };
+		AC2A833C1557FEDB005EF457 /* RORequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RORequest.h; sourceTree = "<group>"; };
+		AC2A833D1557FEDB005EF457 /* RORequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RORequest.m; sourceTree = "<group>"; };
+		AC2A833E1557FEDB005EF457 /* ROResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ROResponse.h; sourceTree = "<group>"; };
+		AC2A833F1557FEDB005EF457 /* ROResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ROResponse.m; sourceTree = "<group>"; };
+		AC2A83411557FEDB005EF457 /* RODialogModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RODialogModel.h; sourceTree = "<group>"; };
+		AC2A83421557FEDB005EF457 /* RODialogModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RODialogModel.m; sourceTree = "<group>"; };
+		AC2A83431557FEDB005EF457 /* RODialogView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RODialogView.h; sourceTree = "<group>"; };
+		AC2A83441557FEDB005EF457 /* RODialogView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RODialogView.m; sourceTree = "<group>"; };
+		AC2A83461557FEDB005EF457 /* ROPublishPhotoDialogModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ROPublishPhotoDialogModel.h; sourceTree = "<group>"; };
+		AC2A83471557FEDB005EF457 /* ROPublishPhotoDialogModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ROPublishPhotoDialogModel.m; sourceTree = "<group>"; };
+		AC2A83481557FEDB005EF457 /* ROPublishPhotoInternal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ROPublishPhotoInternal.h; sourceTree = "<group>"; };
+		AC2A83491557FEDB005EF457 /* ROPublishPhotoInternal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ROPublishPhotoInternal.m; sourceTree = "<group>"; };
+		AC2A834B1557FEDB005EF457 /* ROUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ROUtility.h; sourceTree = "<group>"; };
+		AC2A834C1557FEDB005EF457 /* ROUtility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ROUtility.m; sourceTree = "<group>"; };
+		AC2A834E1557FEDB005EF457 /* ROCloseButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ROCloseButton.h; sourceTree = "<group>"; };
+		AC2A834F1557FEDB005EF457 /* ROCloseButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ROCloseButton.m; sourceTree = "<group>"; };
+		AC2A83501557FEDB005EF457 /* ROGlobalStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ROGlobalStyle.h; sourceTree = "<group>"; };
+		AC2A83511557FEDB005EF457 /* ROGlobalStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ROGlobalStyle.m; sourceTree = "<group>"; };
+		AC2A83521557FEDB005EF457 /* ROImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ROImageView.h; sourceTree = "<group>"; };
+		AC2A83531557FEDB005EF457 /* ROImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ROImageView.m; sourceTree = "<group>"; };
+		AC2A83541557FEDB005EF457 /* SHKRenRen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKRenRen.h; sourceTree = "<group>"; };
+		AC2A83551557FEDB005EF457 /* SHKRenRen.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKRenRen.m; sourceTree = "<group>"; };
 		AC2A91AD15522BEA001F9418 /* SHKTencentWeibo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKTencentWeibo.h; sourceTree = "<group>"; };
 		AC2A91AE15522BEA001F9418 /* SHKTencentWeibo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKTencentWeibo.m; sourceTree = "<group>"; };
 		AC2A91B115523084001F9418 /* TencentOAMutableURLRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TencentOAMutableURLRequest.h; sourceTree = "<group>"; };
@@ -859,6 +968,7 @@
 				AC1A7B271522C15B009B9E6A /* Sina Weibo */,
 				AC1A7B2F152312DE009B9E6A /* NetEase Weibo */,
 				AC2A91AC15522BEA001F9418 /* Tencent Weibo */,
+				AC2A82F81557FEDB005EF457 /* Renren */,
 				FDB495A11520349A00505A99 /* Readability */,
 				B7EFCD8914C6B966004910F1 /* Diigo */,
 				FA5AA3B4149625010064DB24 /* Vkontakte */,
@@ -1093,6 +1203,162 @@
 			path = "NetEase Weibo";
 			sourceTree = "<group>";
 		};
+		AC2A82F81557FEDB005EF457 /* Renren */ = {
+			isa = PBXGroup;
+			children = (
+				AC2A82F91557FEDB005EF457 /* RRConnect */,
+				AC2A83541557FEDB005EF457 /* SHKRenRen.h */,
+				AC2A83551557FEDB005EF457 /* SHKRenRen.m */,
+			);
+			path = Renren;
+			sourceTree = "<group>";
+		};
+		AC2A82F91557FEDB005EF457 /* RRConnect */ = {
+			isa = PBXGroup;
+			children = (
+				AC2A83081557FEDB005EF457 /* Renren */,
+			);
+			path = RRConnect;
+			sourceTree = "<group>";
+		};
+		AC2A83081557FEDB005EF457 /* Renren */ = {
+			isa = PBXGroup;
+			children = (
+				AC2A83091557FEDB005EF457 /* Error */,
+				AC2A830C1557FEDB005EF457 /* Images */,
+				AC2A83191557FEDB005EF457 /* Renren.h */,
+				AC2A831A1557FEDB005EF457 /* Renren.m */,
+				AC2A831B1557FEDB005EF457 /* RequestParam */,
+				AC2A832C1557FEDB005EF457 /* ResponseItem */,
+				AC2A83391557FEDB005EF457 /* ROConnect.h */,
+				AC2A833A1557FEDB005EF457 /* RODialog.h */,
+				AC2A833B1557FEDB005EF457 /* RODialog.m */,
+				AC2A833C1557FEDB005EF457 /* RORequest.h */,
+				AC2A833D1557FEDB005EF457 /* RORequest.m */,
+				AC2A833E1557FEDB005EF457 /* ROResponse.h */,
+				AC2A833F1557FEDB005EF457 /* ROResponse.m */,
+				AC2A83401557FEDB005EF457 /* Sample UI */,
+				AC2A834A1557FEDB005EF457 /* Tools */,
+			);
+			path = Renren;
+			sourceTree = "<group>";
+		};
+		AC2A83091557FEDB005EF457 /* Error */ = {
+			isa = PBXGroup;
+			children = (
+				AC2A830A1557FEDB005EF457 /* ROError.h */,
+				AC2A830B1557FEDB005EF457 /* ROError.m */,
+			);
+			path = Error;
+			sourceTree = "<group>";
+		};
+		AC2A830C1557FEDB005EF457 /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				AC2A830D1557FEDB005EF457 /* bottom-bar.png */,
+				AC2A830E1557FEDB005EF457 /* bottom-bar@2x.png */,
+				AC2A830F1557FEDB005EF457 /* head-frame.png */,
+				AC2A83101557FEDB005EF457 /* head-frame@2x.png */,
+				AC2A83111557FEDB005EF457 /* input-frame.png */,
+				AC2A83121557FEDB005EF457 /* input-frame@2x.png */,
+				AC2A83131557FEDB005EF457 /* photo-frame.png */,
+				AC2A83141557FEDB005EF457 /* photo-frame@2x.png */,
+				AC2A83151557FEDB005EF457 /* renren-logo-top-bar.png */,
+				AC2A83161557FEDB005EF457 /* renren-logo-top-bar@2x.png */,
+				AC2A83171557FEDB005EF457 /* small-button-normal.png */,
+				AC2A83181557FEDB005EF457 /* small-button-normal@2x.png */,
+			);
+			path = Images;
+			sourceTree = "<group>";
+		};
+		AC2A831B1557FEDB005EF457 /* RequestParam */ = {
+			isa = PBXGroup;
+			children = (
+				AC2A831C1557FEDB005EF457 /* ROAlbumsInfoRequestParam.h */,
+				AC2A831D1557FEDB005EF457 /* ROAlbumsInfoRequestParam.m */,
+				AC2A831E1557FEDB005EF457 /* ROCreateAlbumRequestParam.h */,
+				AC2A831F1557FEDB005EF457 /* ROCreateAlbumRequestParam.m */,
+				AC2A83201557FEDB005EF457 /* ROGetFriendsInfoRequestParam.h */,
+				AC2A83211557FEDB005EF457 /* ROGetFriendsInfoRequestParam.m */,
+				AC2A83221557FEDB005EF457 /* ROGetFriendsRequestParam.h */,
+				AC2A83231557FEDB005EF457 /* ROGetFriendsRequestParam.m */,
+				AC2A83241557FEDB005EF457 /* ROPasswordFlowRequestParam.h */,
+				AC2A83251557FEDB005EF457 /* ROPasswordFlowRequestParam.m */,
+				AC2A83261557FEDB005EF457 /* ROPublishPhotoRequestParam.h */,
+				AC2A83271557FEDB005EF457 /* ROPublishPhotoRequestParam.m */,
+				AC2A83281557FEDB005EF457 /* RORequestParam.h */,
+				AC2A83291557FEDB005EF457 /* RORequestParam.m */,
+				AC2A832A1557FEDB005EF457 /* ROUserInfoRequestParam.h */,
+				AC2A832B1557FEDB005EF457 /* ROUserInfoRequestParam.m */,
+			);
+			path = RequestParam;
+			sourceTree = "<group>";
+		};
+		AC2A832C1557FEDB005EF457 /* ResponseItem */ = {
+			isa = PBXGroup;
+			children = (
+				AC2A832D1557FEDB005EF457 /* ROAlbumResponseltem.h */,
+				AC2A832E1557FEDB005EF457 /* ROAlbumResponseltem.m */,
+				AC2A832F1557FEDB005EF457 /* ROCreateAlbumResponseItem.h */,
+				AC2A83301557FEDB005EF457 /* ROCreateAlbumResponseItem.m */,
+				AC2A83311557FEDB005EF457 /* ROFriendResponseItem.h */,
+				AC2A83321557FEDB005EF457 /* ROFriendResponseItem.m */,
+				AC2A83331557FEDB005EF457 /* ROPublishPhotoResponseItem.h */,
+				AC2A83341557FEDB005EF457 /* ROPublishPhotoResponseItem.m */,
+				AC2A83351557FEDB005EF457 /* ROResponseItem.h */,
+				AC2A83361557FEDB005EF457 /* ROResponseItem.m */,
+				AC2A83371557FEDB005EF457 /* ROUserResponseItem.h */,
+				AC2A83381557FEDB005EF457 /* ROUserResponseItem.m */,
+			);
+			path = ResponseItem;
+			sourceTree = "<group>";
+		};
+		AC2A83401557FEDB005EF457 /* Sample UI */ = {
+			isa = PBXGroup;
+			children = (
+				AC2A83411557FEDB005EF457 /* RODialogModel.h */,
+				AC2A83421557FEDB005EF457 /* RODialogModel.m */,
+				AC2A83431557FEDB005EF457 /* RODialogView.h */,
+				AC2A83441557FEDB005EF457 /* RODialogView.m */,
+				AC2A83451557FEDB005EF457 /* UploadPhotoDialog */,
+			);
+			path = "Sample UI";
+			sourceTree = "<group>";
+		};
+		AC2A83451557FEDB005EF457 /* UploadPhotoDialog */ = {
+			isa = PBXGroup;
+			children = (
+				AC2A83461557FEDB005EF457 /* ROPublishPhotoDialogModel.h */,
+				AC2A83471557FEDB005EF457 /* ROPublishPhotoDialogModel.m */,
+				AC2A83481557FEDB005EF457 /* ROPublishPhotoInternal.h */,
+				AC2A83491557FEDB005EF457 /* ROPublishPhotoInternal.m */,
+			);
+			path = UploadPhotoDialog;
+			sourceTree = "<group>";
+		};
+		AC2A834A1557FEDB005EF457 /* Tools */ = {
+			isa = PBXGroup;
+			children = (
+				AC2A834B1557FEDB005EF457 /* ROUtility.h */,
+				AC2A834C1557FEDB005EF457 /* ROUtility.m */,
+				AC2A834D1557FEDB005EF457 /* UI */,
+			);
+			path = Tools;
+			sourceTree = "<group>";
+		};
+		AC2A834D1557FEDB005EF457 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				AC2A834E1557FEDB005EF457 /* ROCloseButton.h */,
+				AC2A834F1557FEDB005EF457 /* ROCloseButton.m */,
+				AC2A83501557FEDB005EF457 /* ROGlobalStyle.h */,
+				AC2A83511557FEDB005EF457 /* ROGlobalStyle.m */,
+				AC2A83521557FEDB005EF457 /* ROImageView.h */,
+				AC2A83531557FEDB005EF457 /* ROImageView.m */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
 		AC2A91AC15522BEA001F9418 /* Tencent Weibo */ = {
 			isa = PBXGroup;
 			children = (
@@ -1276,6 +1542,18 @@
 				4379F2C21291AC9700D2A41E /* SHKEvernote.md in Resources */,
 				90E765A61418F2480026B656 /* ShareKit.bundle in Resources */,
 				7AC22D3314580A2000126878 /* FBDialog.bundle in Resources */,
+				AC2A835F1557FEDB005EF457 /* bottom-bar.png in Resources */,
+				AC2A83601557FEDB005EF457 /* bottom-bar@2x.png in Resources */,
+				AC2A83611557FEDB005EF457 /* head-frame.png in Resources */,
+				AC2A83621557FEDB005EF457 /* head-frame@2x.png in Resources */,
+				AC2A83631557FEDB005EF457 /* input-frame.png in Resources */,
+				AC2A83641557FEDB005EF457 /* input-frame@2x.png in Resources */,
+				AC2A83651557FEDB005EF457 /* photo-frame.png in Resources */,
+				AC2A83661557FEDB005EF457 /* photo-frame@2x.png in Resources */,
+				AC2A83671557FEDB005EF457 /* renren-logo-top-bar.png in Resources */,
+				AC2A83681557FEDB005EF457 /* renren-logo-top-bar@2x.png in Resources */,
+				AC2A83691557FEDB005EF457 /* small-button-normal.png in Resources */,
+				AC2A836A1557FEDB005EF457 /* small-button-normal@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1408,6 +1686,34 @@
 				AC2A91AF15522BEA001F9418 /* SHKTencentWeibo.m in Sources */,
 				AC2A91B315523084001F9418 /* TencentOAMutableURLRequest.m in Sources */,
 				AC9448FD15528E6B0011692C /* TencentOAuthView.m in Sources */,
+				AC2A835E1557FEDB005EF457 /* ROError.m in Sources */,
+				AC2A836B1557FEDB005EF457 /* Renren.m in Sources */,
+				AC2A836C1557FEDB005EF457 /* ROAlbumsInfoRequestParam.m in Sources */,
+				AC2A836D1557FEDB005EF457 /* ROCreateAlbumRequestParam.m in Sources */,
+				AC2A836E1557FEDB005EF457 /* ROGetFriendsInfoRequestParam.m in Sources */,
+				AC2A836F1557FEDB005EF457 /* ROGetFriendsRequestParam.m in Sources */,
+				AC2A83701557FEDB005EF457 /* ROPasswordFlowRequestParam.m in Sources */,
+				AC2A83711557FEDB005EF457 /* ROPublishPhotoRequestParam.m in Sources */,
+				AC2A83721557FEDB005EF457 /* RORequestParam.m in Sources */,
+				AC2A83731557FEDB005EF457 /* ROUserInfoRequestParam.m in Sources */,
+				AC2A83741557FEDB005EF457 /* ROAlbumResponseltem.m in Sources */,
+				AC2A83751557FEDB005EF457 /* ROCreateAlbumResponseItem.m in Sources */,
+				AC2A83761557FEDB005EF457 /* ROFriendResponseItem.m in Sources */,
+				AC2A83771557FEDB005EF457 /* ROPublishPhotoResponseItem.m in Sources */,
+				AC2A83781557FEDB005EF457 /* ROResponseItem.m in Sources */,
+				AC2A83791557FEDB005EF457 /* ROUserResponseItem.m in Sources */,
+				AC2A837A1557FEDB005EF457 /* RODialog.m in Sources */,
+				AC2A837B1557FEDB005EF457 /* RORequest.m in Sources */,
+				AC2A837C1557FEDB005EF457 /* ROResponse.m in Sources */,
+				AC2A837D1557FEDB005EF457 /* RODialogModel.m in Sources */,
+				AC2A837E1557FEDB005EF457 /* RODialogView.m in Sources */,
+				AC2A837F1557FEDB005EF457 /* ROPublishPhotoDialogModel.m in Sources */,
+				AC2A83801557FEDB005EF457 /* ROPublishPhotoInternal.m in Sources */,
+				AC2A83811557FEDB005EF457 /* ROUtility.m in Sources */,
+				AC2A83821557FEDB005EF457 /* ROCloseButton.m in Sources */,
+				AC2A83831557FEDB005EF457 /* ROGlobalStyle.m in Sources */,
+				AC2A83841557FEDB005EF457 /* ROImageView.m in Sources */,
+				AC2A83851557FEDB005EF457 /* SHKRenRen.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
