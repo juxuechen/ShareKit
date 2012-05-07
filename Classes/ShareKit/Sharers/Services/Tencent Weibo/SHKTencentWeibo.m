@@ -362,85 +362,91 @@ static NSString *const kSHKTencentWeiboUserInfo = @"kSHKTencentWeiboUserInfo";
 	[self sendDidFailWithError:error];
 }
 
-//
-//- (void)sendStatusTicket:(OAServiceTicket *)ticket finishedWithData:(NSMutableData *) data 
-//{
-//	if (ticket.didSucceed) {
-//		[self sendDidFinish];
-//		[self handleResponseData:data];
-//	} else {
-//		
-//	}
-//}
-//
-//- (void)sendStatusTicket:(OAServiceTicket *)ticket failedWithError:(NSError *) error 
-//{
-//	NSLog(@"%@", error);
-//	[self sendDidFailWithError:error];
-//}
 
-//- (void)sendImage 
-//{
-//	SHKLog(@"%s", __FUNCTION__);
-//
-//	NSString *generatedNonce =[self _generateNonce];
-//	if ([generatedNonce length] > NONCE_LENGTH_FOR_TENCENT) {
-//		generatedNonce =[generatedNonce substringToIndex:NONCE_LENGTH_FOR_TENCENT];
-//	}
-//	
-//	OAMutableURLRequest *oRequest =[[OAMutableURLRequest alloc] initWithURL:[NSURL URLWithString:@"http://open.t.qq.com/api/t/add_pic"]
-//																consumer:consumer
-//																token:accessToken
-//																realm:nil
-//																signatureProvider:signatureProvider
-//																nonce:generatedNonce
-//																timestamp:[self _generateTimestamp]
-//																serviceFlag:kTencentFlag];
-//	[oRequest setHTTPMethod:@"POST"];
-//
-//	OARequestParameter *formatParam =[[OARequestParameter alloc] initWithName:@"format" value:@"json"];
-//	OARequestParameter *descParam =[[OARequestParameter alloc] initWithName:@"content" value:item.text];
-//	OARequestParameter *ipParam =[[OARequestParameter alloc] initWithName:@"clientip" value:[self getIPAddress]];
-//	NSArray *params =[NSArray arrayWithObjects:formatParam, descParam, ipParam, nil];
-//	[oRequest setParameters:params];
-//	[formatParam release];
-//	[descParam release];
-//	[ipParam release];
-//
-//	[oRequest prepare];
-//
-//	NSData *imageData =[self compressJPEGImage:[item image] withCompression:0.9f];
-//	[self prepareRequest:oRequest withMultipartFormData:imageData andContentKey:@"content"];
-//	
-//	//Notify delegate
-//	[self sendDidStart];
-//
-//	//Start the request
-//	OADataFetcher *fetcher =[[OADataFetcher alloc] init];
-//	[fetcher fetchDataWithRequest:oRequest
-//				delegate:self
-//				didFinishSelector: @selector(sendImageTicket: finishedWithData:)
-//				didFailSelector: @selector(sendImageTicket: failedWithError:)];
-//
-//	[oRequest release];
-//	[fetcher release];
-//}
-//
-//- (void)sendImageTicket:(OAServiceTicket *)ticket finishedWithData:(NSMutableData *) data 
-//{
-//	if (ticket.didSucceed) {
-//		[self sendDidFinish];
-//		//Finished uploading Image, now need to posh the message and url in twitter
-//		[self handleResponseData:data];
-//	} else {
-//		[self sendDidFailWithError:nil];
-//	}
-//}
-//
-//- (void)sendImageTicket:(OAServiceTicket *)ticket failedWithError:(NSError *) error 
-//{
-//	[self sendDidFailWithError:error];
-//}
+- (void)sendImage
+{
+    TencentOAMutableURLRequest *oRequest = [[TencentOAMutableURLRequest alloc] initWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/api/t/add_pic", API_DOMAIN]] 
+                                            
+                                                                                  consumer:consumer
+                                                                                     token:accessToken
+                                                                                     realm:nil
+                                                                         signatureProvider:signatureProvider];
+    
+    
+	[oRequest setHTTPMethod:@"POST"];
+    
+    NSArray *params =[NSArray arrayWithObjects:
+                      [[OARequestParameter alloc] initWithName:@"format" value:@"json"], 
+                      [[OARequestParameter alloc] initWithName:@"clientip" value:[self getIPAddress]],
+                      [[OARequestParameter alloc] initWithName:@"content" value:[item customValueForKey:@"status"]], nil];
+    
+	[oRequest setParameters:params];
+    
+    [oRequest prepare];
+    
+    
+    CGFloat compression = 0.9f;
+	NSData *imageData = UIImageJPEGRepresentation([item image], compression);
+	
+	// TODO
+	// Note from Nate to creator of sendImage method - This seems like it could be a source of sluggishness.
+	// For example, if the image is large (say 3000px x 3000px for example), it would be better to resize the image
+	// to an appropriate size (max of img.ly) and then start trying to compress.
+	
+	while ([imageData length] > 700000 && compression > 0.1) {
+		// NSLog(@"Image size too big, compression more: current data size: %d bytes",[imageData length]);
+		compression -= 0.1;
+		imageData = UIImageJPEGRepresentation([item image], compression);
+		
+	}
+	
+	NSString *boundary = @"0xKhTmLbOuNdArY";
+	NSString *contentType =[NSString stringWithFormat:@"multipart/form-data;  charset=utf-8; boundary=%@", boundary];
+	[oRequest setValue: contentType forHTTPHeaderField:@"Content-Type"];
+	
+	NSMutableData *body =[NSMutableData data];
+	NSString *dispKey = @"Content-Disposition: form-data; name=\"pic\"; filename=\"pic\"\r\n";
+	
+	[body appendData: [[NSString stringWithFormat: @"--%@\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
+	[body appendData: [dispKey dataUsingEncoding:NSUTF8StringEncoding]];
+	[body appendData: [@"Content-Type: image/jpg\r\n\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
+	[body appendData:imageData];
+	[body appendData: [@"\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
+	
+	[body appendData: [[NSString stringWithFormat: @"--%@\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
+	
+	[body appendData: [@"Content-Disposition: form-data; name=\"content\"\r\n\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
+	[body appendData: [[item customValueForKey:@"status"] dataUsingEncoding:NSUTF8StringEncoding]];
+	[body appendData: [@"\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
+	
+	[body appendData: [[NSString stringWithFormat: @"--%@--\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
+	
+	[oRequest setHTTPBody:body];
+    
+    
+	// Notify delegate
+	[self sendDidStart];
+    
+	// Start the request
+	OAAsynchronousDataFetcher *fetcher = [OAAsynchronousDataFetcher asynchronousFetcherWithRequest:oRequest
+																						  delegate:self
+																				 didFinishSelector:@selector(sendImageTicket:didFinishWithData:)
+																				   didFailSelector:@selector(sendImageTicket:didFailWithError:)];	
+	
+	[fetcher start];
+	[oRequest release];
+}
+
+- (void)sendImageTicket:(OAServiceTicket *)ticket didFinishWithData:(NSData *)data {
+	// TODO better error handling here
+    SHKLog(@"%@", [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease]);
+    
+    [self sendDidFinish];
+}
+
+- (void)sendImageTicket:(OAServiceTicket *)ticket didFailWithError:(NSError*)error {
+	[self sendDidFailWithError:error];
+}
 
 
 #pragma mark -
