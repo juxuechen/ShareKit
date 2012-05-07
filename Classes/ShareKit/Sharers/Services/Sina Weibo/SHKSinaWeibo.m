@@ -398,7 +398,7 @@ static NSString *const kSHKSinaWeiboUserInfo = @"kSHKSinaWeiboUserInfo";
 			break;
 			
 		case SHKShareTypeUserInfo:            
-			[self sendUserInfo];
+//			[self sendUserInfo];
 			break;
 			
 		default:
