@@ -317,12 +317,20 @@ static NSString *const kSHKTencentWeiboUserInfo = @"kSHKTencentWeiboUserInfo";
     
 	[oRequest setHTTPMethod:@"POST"];
     
-    NSArray *params =[NSArray arrayWithObjects:
-                      [[OARequestParameter alloc] initWithName:@"format" value:@"json"], 
-                      [[OARequestParameter alloc] initWithName:@"clientip" value:[self getIPAddress]],
-                      [[OARequestParameter alloc] initWithName:@"content" value:[item customValueForKey:@"status"]], nil];
+    OARequestParameter *format = [[OARequestParameter alloc] initWithName:@"format"
+                                                                    value:@"json"];
     
+    OARequestParameter *clientip = [[OARequestParameter alloc] initWithName:@"clientip"
+                                                                      value:[self getIPAddress]];
+    
+    OARequestParameter *content = [[OARequestParameter alloc] initWithName:@"content"
+                                                                     value:[item customValueForKey:@"status"]];
+    
+	NSArray *params = [NSArray arrayWithObjects:format, clientip, content, nil];
 	[oRequest setParameters:params];
+	[format release];
+    [clientip release];
+    [content release];
 	
 	OAAsynchronousDataFetcher *fetcher = [OAAsynchronousDataFetcher asynchronousFetcherWithRequest:oRequest
                                                                                           delegate:self
@@ -371,12 +379,20 @@ static NSString *const kSHKTencentWeiboUserInfo = @"kSHKTencentWeiboUserInfo";
     
 	[oRequest setHTTPMethod:@"POST"];
     
-    NSArray *params =[NSArray arrayWithObjects:
-                      [[OARequestParameter alloc] initWithName:@"format" value:@"json"], 
-                      [[OARequestParameter alloc] initWithName:@"clientip" value:[self getIPAddress]],
-                      [[OARequestParameter alloc] initWithName:@"content" value:[item customValueForKey:@"status"]], nil];
+    OARequestParameter *format = [[OARequestParameter alloc] initWithName:@"format"
+                                                                    value:@"json"];
     
+    OARequestParameter *clientip = [[OARequestParameter alloc] initWithName:@"clientip"
+                                                                      value:[self getIPAddress]];
+    
+    OARequestParameter *content = [[OARequestParameter alloc] initWithName:@"content"
+                                                                     value:[item customValueForKey:@"status"]];
+    
+	NSArray *params = [NSArray arrayWithObjects:format, clientip, content, nil];
 	[oRequest setParameters:params];
+	[format release];
+    [clientip release];
+    [content release];
     
     [oRequest prepare];
     
@@ -485,9 +501,11 @@ static NSString *const kSHKTencentWeiboUserInfo = @"kSHKTencentWeiboUserInfo";
 
 	[oRequest setHTTPMethod:@"GET"];
     
-    [oRequest setParameters:[NSArray arrayWithObject:
-                             [[OARequestParameter alloc] initWithName:@"oauth_callback" 
-                                                                value:[authorizeCallbackURL absoluteString]]]];
+    OARequestParameter *callback = [[OARequestParameter alloc] initWithName:@"oauth_callback"
+                                                                      value:[authorizeCallbackURL absoluteString]];
+	NSArray *params = [NSArray arrayWithObjects:callback, nil];
+	[oRequest setParameters:params];
+	[callback release];
 	
     OAAsynchronousDataFetcher *fetcher = [OAAsynchronousDataFetcher asynchronousFetcherWithRequest:oRequest
                                                                                           delegate:self
@@ -520,9 +538,12 @@ static NSString *const kSHKTencentWeiboUserInfo = @"kSHKTencentWeiboUserInfo";
                                                                          signatureProvider:signatureProvider];
     
     [oRequest setHTTPMethod:@"GET"];
-    [oRequest setParameters:[NSArray arrayWithObject:
-                             [[OARequestParameter alloc] initWithName:@"oauth_verifier" 
-                                                                value:[authorizeResponseQueryVars valueForKey:@"v"]]]];
+    
+    OARequestParameter *verifier = [[OARequestParameter alloc] initWithName:@"oauth_verifier"
+                                                                      value:[authorizeResponseQueryVars valueForKey:@"v"]];
+	NSArray *params = [NSArray arrayWithObjects:verifier, nil];
+	[oRequest setParameters:params];
+	[verifier release];
 	
     OAAsynchronousDataFetcher *fetcher = [OAAsynchronousDataFetcher asynchronousFetcherWithRequest:oRequest
                                                                                           delegate:self
