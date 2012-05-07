@@ -60,9 +60,9 @@ static NSString *const kSHKTencentWeiboUserInfo = @"kSHKTencentWeiboUserInfo";
 		// -- //
 		
 		// You do not need to edit these, they are the same for everyone
-		self.authorizeURL = [NSURL URLWithString:@"http://open.t.qq.com/cgi-bin/authorize"];
-		self.requestURL = [NSURL URLWithString:@"http://open.t.qq.com/cgi-bin/request_token"];
-		self.accessURL = [NSURL URLWithString:@"http://open.t.qq.com/cgi-bin/access_token"];
+		self.authorizeURL = [NSURL URLWithString:@"https://open.t.qq.com/cgi-bin/authorize"];
+		self.requestURL = [NSURL URLWithString:@"https://open.t.qq.com/cgi-bin/request_token"];
+		self.accessURL = [NSURL URLWithString:@"https://open.t.qq.com/cgi-bin/access_token"];
 	}	
 	return self;
 }
@@ -326,14 +326,15 @@ static NSString *const kSHKTencentWeiboUserInfo = @"kSHKTencentWeiboUserInfo";
 	
 	OAAsynchronousDataFetcher *fetcher = [OAAsynchronousDataFetcher asynchronousFetcherWithRequest:oRequest
                                                                                           delegate:self
-                                                                                 didFinishSelector:@selector(sendStatusTicket:didFinishWithData:)
-                                                                                   didFailSelector:@selector(sendStatusTicket:didFailWithError:)];	
+                                                                                 didFinishSelector:@selector(sendStatusTicket:finishedWithData:)
+                                                                                   didFailSelector:@selector(sendStatusTicket:failedWithError:)];	
     
 	[fetcher start];
 	[oRequest release];
 }
 
-- (void)sendStatusTicket:(OAServiceTicket *)ticket didFinishWithData:(NSData *)data 
+
+- (void)sendStatusTicket:(OAServiceTicket *)ticket finishedWithData:(NSMutableData *)data 
 {	
     if (SHKDebugShowLogs) // check so we don't have to alloc the string with the data if we aren't logging
 		SHKLog(@"sendStatusTicket Response Body: %@", [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease]);
@@ -353,7 +354,7 @@ static NSString *const kSHKTencentWeiboUserInfo = @"kSHKTencentWeiboUserInfo";
 	}
 }
 
-- (void)sendStatusTicket:(OAServiceTicket *)ticket didFailWithError:(NSError*)error
+- (void)sendStatusTicket:(OAServiceTicket *)ticket failedWithError:(NSError*)error
 {
 	[self sendDidFailWithError:error];
 }
@@ -425,14 +426,14 @@ static NSString *const kSHKTencentWeiboUserInfo = @"kSHKTencentWeiboUserInfo";
 	// Start the request
 	OAAsynchronousDataFetcher *fetcher = [OAAsynchronousDataFetcher asynchronousFetcherWithRequest:oRequest
 																						  delegate:self
-																				 didFinishSelector:@selector(sendImageTicket:didFinishWithData:)
-																				   didFailSelector:@selector(sendImageTicket:didFailWithError:)];
+																				 didFinishSelector:@selector(sendImageTicket:finishedWithData:)
+																				   didFailSelector:@selector(sendImageTicket:failedWithError:)];
     
 	[fetcher start];
 	[oRequest release];
 }
 
-- (void)sendImageTicket:(OAServiceTicket *)ticket didFinishWithData:(NSData *)data
+- (void)sendImageTicket:(OAServiceTicket *)ticket finishedWithData:(NSMutableData *)data
 {
 	// TODO better error handling here
     SHKLog(@"%@", [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease]);
@@ -452,7 +453,7 @@ static NSString *const kSHKTencentWeiboUserInfo = @"kSHKTencentWeiboUserInfo";
 	}
 }
 
-- (void)sendImageTicket:(OAServiceTicket *)ticket didFailWithError:(NSError*)error 
+- (void)sendImageTicket:(OAServiceTicket *)ticket failedWithError:(NSError*)error 
 {
 	[self sendDidFailWithError:error];
 }

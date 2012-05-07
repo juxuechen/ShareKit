@@ -65,7 +65,7 @@
                                                   [token.secret URLEncodedString]]];
     
     NSURL *aUrl = [NSURL URLWithString:[NSString stringWithFormat:@"%@?%@&oauth_signature=%@", 
-                                        self.URL.URLStringWithoutQuery, 
+                                        [[self URL] URLStringWithoutQuery], 
                                         [self normalizeRequestParameters],
                                         [signature URLEncodedString]]];
     if (SHKDebugShowLogs) 
@@ -84,13 +84,7 @@
 
 - (void)_generateNonce
 {
-    CFUUIDRef theUUID = CFUUIDCreate(NULL);
-    CFStringRef string = CFUUIDCreateString(NULL, theUUID);
-    [NSMakeCollectable(theUUID) autorelease];
-    if (nonce) {
-        CFRelease(nonce);
-    }
-    nonce = (NSString *)string;
+    nonce = [[NSString stringWithFormat:@"%u", arc4random() % (9999999 - 123400) + 123400] retain];
 }
 
 - (NSString *)_signatureBaseString
