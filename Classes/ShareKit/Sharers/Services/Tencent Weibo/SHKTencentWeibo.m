@@ -37,14 +37,11 @@
 #import "TencentOAuthView.h"
 #import "JSONKit.h"
 
-#define API_DOMAIN  @"http://open.t.qq.com"
-
 static NSString *const kSHKTencentWeiboUserInfo = @"kSHKTencentWeiboUserInfo";
 
 
 @interface SHKTencentWeibo (Private)
 - (NSString *)getIPAddress;
-- (void)handleResponseData:(NSData *)data;
 - (void)handleUnsuccessfulTicket:(NSData *)data;
 @end
 
@@ -311,8 +308,7 @@ static NSString *const kSHKTencentWeiboUserInfo = @"kSHKTencentWeiboUserInfo";
 
 - (void)sendStatus
 {
-    TencentOAMutableURLRequest *oRequest = [[TencentOAMutableURLRequest alloc] initWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/api/t/add", API_DOMAIN]] 
-
+    TencentOAMutableURLRequest *oRequest = [[TencentOAMutableURLRequest alloc] initWithURL:[NSURL URLWithString:@"http://open.t.qq.com/api/t/add"] 
                                                                                   consumer:consumer
                                                                                      token:accessToken
                                                                                      realm:nil
@@ -365,8 +361,7 @@ static NSString *const kSHKTencentWeiboUserInfo = @"kSHKTencentWeiboUserInfo";
 
 - (void)sendImage
 {
-    TencentOAMutableURLRequest *oRequest = [[TencentOAMutableURLRequest alloc] initWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/api/t/add_pic", API_DOMAIN]] 
-                                            
+    TencentOAMutableURLRequest *oRequest = [[TencentOAMutableURLRequest alloc] initWithURL:[NSURL URLWithString:@"http://open.t.qq.com/api/t/add_pic"] 
                                                                                   consumer:consumer
                                                                                      token:accessToken
                                                                                      realm:nil
@@ -431,20 +426,34 @@ static NSString *const kSHKTencentWeiboUserInfo = @"kSHKTencentWeiboUserInfo";
 	OAAsynchronousDataFetcher *fetcher = [OAAsynchronousDataFetcher asynchronousFetcherWithRequest:oRequest
 																						  delegate:self
 																				 didFinishSelector:@selector(sendImageTicket:didFinishWithData:)
-																				   didFailSelector:@selector(sendImageTicket:didFailWithError:)];	
-	
+																				   didFailSelector:@selector(sendImageTicket:didFailWithError:)];
+    
 	[fetcher start];
 	[oRequest release];
 }
 
-- (void)sendImageTicket:(OAServiceTicket *)ticket didFinishWithData:(NSData *)data {
+- (void)sendImageTicket:(OAServiceTicket *)ticket didFinishWithData:(NSData *)data
+{
 	// TODO better error handling here
     SHKLog(@"%@", [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease]);
     
-    [self sendDidFinish];
+    if (ticket.didSucceed) 
+    {
+        NSDictionary *result = [data objectFromJSONData];
+        
+        if ([[result valueForKey:@"ret"] intValue] == 0)
+            [self sendDidFinish];
+        else 
+            [self handleUnsuccessfulTicket:data];
+    }
+	else
+	{		
+		[self handleUnsuccessfulTicket:data];
+	}
 }
 
-- (void)sendImageTicket:(OAServiceTicket *)ticket didFailWithError:(NSError*)error {
+- (void)sendImageTicket:(OAServiceTicket *)ticket didFailWithError:(NSError*)error 
+{
 	[self sendDidFailWithError:error];
 }
 
@@ -553,26 +562,6 @@ static NSString *const kSHKTencentWeiboUserInfo = @"kSHKTencentWeiboUserInfo";
 	freeifaddrs(interfaces);
 	SHKLog(@"current address: %@", address);
 	return address;
-}
-
-- (void)handleResponseData:(NSData *)data
-{
-	NSString *responseBody =[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-	SHKLog(@"api获取的数据:%@", responseBody);
-    
-    
-//	id jsonObject = [responseBody JSONValue];
-//	if ([jsonObject isKindOfClass:[NSDictionary class]]) {
-//		NSDictionary * responseDictionary = jsonObject;
-//		NSString *retCode= [responseDictionary valueForKey:@"ret"];
-//		NSString *retMsg = [responseDictionary valueForKey:@"msg"];
-//		if ([retCode intValue] != RETURN_CODE_NO_ERROR) {
-//			NSString *msgContent = [NSString stringWithFormat:@"ReturnCode:%d Message:%@", [retCode intValue], retMsg];
-//			NSError * error = [NSError errorWithDomain:msgContent code:[retCode intValue] userInfo:responseDictionary];
-//			[self sendDidFailWithError:error];
-//		}
-//	}
-	[responseBody release];
 }
 
 
