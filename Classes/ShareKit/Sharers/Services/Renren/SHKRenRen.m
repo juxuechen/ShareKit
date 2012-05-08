@@ -169,16 +169,34 @@ static SHKRenRen *sharedRenRen = nil;
 #pragma mark -
 #pragma mark Share API Methods
 
-- (BOOL)validate
+- (BOOL)validateItem
 {
+	if (self.item.shareType == SHKShareTypeUserInfo) {
+		return YES;
+	}
+	
 	NSString *status = [item customValueForKey:@"status"];
-	return status != nil && status.length > 0 && status.length <= 140;
+	return status != nil;
 }
+
+- (BOOL)validateItemAfterUserEdit 
+{
+	BOOL result = NO;
+	
+	BOOL isValid = [self validateItem];    
+	NSString *status = [item customValueForKey:@"status"];
+	
+	if (isValid && status.length <= 140) {
+		result = YES;
+	}
+	
+    return result;
+}	
 
 - (BOOL)send
 {	
-	if ( ! [self validate])
-		[self show];
+	if ( ! [self validateItemAfterUserEdit])
+		return NO;
 	
 	else
 	{	
