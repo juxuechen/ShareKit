@@ -166,6 +166,7 @@
 		AC2A83831557FEDB005EF457 /* ROGlobalStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = AC2A83511557FEDB005EF457 /* ROGlobalStyle.m */; };
 		AC2A83841557FEDB005EF457 /* ROImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = AC2A83531557FEDB005EF457 /* ROImageView.m */; };
 		AC2A83851557FEDB005EF457 /* SHKRenRen.m in Sources */ = {isa = PBXBuildFile; fileRef = AC2A83551557FEDB005EF457 /* SHKRenRen.m */; };
+		AC2A85401558B16B005EF457 /* SHKPlurk.m in Sources */ = {isa = PBXBuildFile; fileRef = AC2A853D1558B16B005EF457 /* SHKPlurk.m */; };
 		AC2A91AF15522BEA001F9418 /* SHKTencentWeibo.m in Sources */ = {isa = PBXBuildFile; fileRef = AC2A91AE15522BEA001F9418 /* SHKTencentWeibo.m */; };
 		AC2A91B315523084001F9418 /* TencentOAMutableURLRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = AC2A91B215523084001F9418 /* TencentOAMutableURLRequest.m */; };
 		AC9448FD15528E6B0011692C /* TencentOAuthView.m in Sources */ = {isa = PBXBuildFile; fileRef = AC9448FC15528E6B0011692C /* TencentOAuthView.m */; };
@@ -492,6 +493,8 @@
 		AC2A83531557FEDB005EF457 /* ROImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ROImageView.m; sourceTree = "<group>"; };
 		AC2A83541557FEDB005EF457 /* SHKRenRen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKRenRen.h; sourceTree = "<group>"; };
 		AC2A83551557FEDB005EF457 /* SHKRenRen.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKRenRen.m; sourceTree = "<group>"; };
+		AC2A853C1558B16B005EF457 /* SHKPlurk.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKPlurk.h; sourceTree = "<group>"; };
+		AC2A853D1558B16B005EF457 /* SHKPlurk.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKPlurk.m; sourceTree = "<group>"; };
 		AC2A91AD15522BEA001F9418 /* SHKTencentWeibo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKTencentWeibo.h; sourceTree = "<group>"; };
 		AC2A91AE15522BEA001F9418 /* SHKTencentWeibo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKTencentWeibo.m; sourceTree = "<group>"; };
 		AC2A91B115523084001F9418 /* TencentOAMutableURLRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TencentOAMutableURLRequest.h; sourceTree = "<group>"; };
@@ -969,6 +972,7 @@
 				AC1A7B2F152312DE009B9E6A /* NetEase Weibo */,
 				AC2A91AC15522BEA001F9418 /* Tencent Weibo */,
 				AC2A82F81557FEDB005EF457 /* Renren */,
+				AC2A853B1558B16B005EF457 /* Plurk */,
 				FDB495A11520349A00505A99 /* Readability */,
 				B7EFCD8914C6B966004910F1 /* Diigo */,
 				FA5AA3B4149625010064DB24 /* Vkontakte */,
@@ -1359,6 +1363,15 @@
 			path = UI;
 			sourceTree = "<group>";
 		};
+		AC2A853B1558B16B005EF457 /* Plurk */ = {
+			isa = PBXGroup;
+			children = (
+				AC2A853C1558B16B005EF457 /* SHKPlurk.h */,
+				AC2A853D1558B16B005EF457 /* SHKPlurk.m */,
+			);
+			path = Plurk;
+			sourceTree = "<group>";
+		};
 		AC2A91AC15522BEA001F9418 /* Tencent Weibo */ = {
 			isa = PBXGroup;
 			children = (
@@ -1714,6 +1727,7 @@
 				AC2A83831557FEDB005EF457 /* ROGlobalStyle.m in Sources */,
 				AC2A83841557FEDB005EF457 /* ROImageView.m in Sources */,
 				AC2A83851557FEDB005EF457 /* SHKRenRen.m in Sources */,
+				AC2A85401558B16B005EF457 /* SHKPlurk.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

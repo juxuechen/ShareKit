@@ -173,6 +173,24 @@
 }
 
 
+// Plurk - http://www.plurk.com/API
+- (NSString*)plurkConsumerKey
+{
+    return @"";
+}
+
+- (NSString*)plurkConsumerSecret
+{
+    return @"";
+}
+
+// You need to set this if using OAuth (Dont forget set it during create app on web)
+- (NSString*)plurkCallbackUrl
+{
+    return @"";
+}
+
+
 // Vkontakte
 // SHKVkontakteAppID is the Application ID provided by Vkontakte
 - (NSString*)vkontakteAppId {

@@ -71,6 +71,9 @@
 - (NSString*)renrenAppId;
 - (NSString*)renrenConsumerKey;
 - (NSString*)renrenConsumerSecret;
+- (NSString*)plurkConsumerKey;
+- (NSString*)plurkConsumerSecret;
+- (NSString*)plurkCallbackUrl;
 - (NSString*)vkontakteAppId;
 - (NSString*)facebookAppId;
 - (NSString*)facebookLocalAppId;

@@ -154,6 +154,23 @@
 }
 
 
+// Plurk
+- (NSString*)plurkConsumerKey
+{
+    return @"Vfh091HVf15O";
+}
+
+- (NSString*)plurkConsumerSecret
+{
+    return @"mFX8ntsPL2p2Dz17jwKWs8PU7eDHDaR9";
+}
+
+- (NSString*)plurkCallbackUrl
+{
+    return @"http://icyleaf.com";
+}
+
+
 // Vkontakte
 // SHKVkontakteAppID is the Application ID provided by Vkontakte
 - (NSString*)vkontakteAppId {
