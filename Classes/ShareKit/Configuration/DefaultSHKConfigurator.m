@@ -59,7 +59,7 @@
  leaving that decision up to the user.
  */
 
-// Sina Weibo 
+// Sina Weibo - http://open.weibo.com/
 - (NSString*)sinaWeiboConsumerKey {
 	return @"";
 }
@@ -88,7 +88,8 @@
 	return @"";
 }
 
-// NetEase Weibo
+
+// NetEase Weibo - http://open.t.163.com/
 - (NSString*)netEaseWeiboConsumerKey
 {
     return @"";
@@ -124,7 +125,7 @@
 }
 
 
-// Tencent Weibo
+// Tencent Weibo - http://open.t.qq.com/
 - (NSString*)tencentWeiboConsumerKey
 {
     return @"";
@@ -141,7 +142,7 @@
 }
 
 
-// Douban 
+// Douban - http://www.douban.com/service/apidoc/
 - (NSString*)doubanConsumerKey {
 	return @"";
 }
@@ -156,7 +157,7 @@
 }
 
 
-// RenRen
+// RenRen - http://dev.renren.com/
 - (NSString*)renrenAppId
 {
     return @"";
