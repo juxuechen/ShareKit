@@ -330,7 +330,7 @@ static Renren *sharedRenren = nil;
 		[cookies deleteCookie:cookie];
 	}
     if (![self isSessionValid]) {
-        self.renrenDelegate = delegate;
+        self.renrenDelegate = [delegate retain];
         self.permissions = nil;
         self.permissions = permissions;
         NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
@@ -408,7 +408,7 @@ static Renren *sharedRenren = nil;
 	NSString *sig = [ROUtility generateSig:params secretKey:self.secret];
 	[params setObject:sig forKey:@"sig"];
     
-    self.renrenDelegate = delegate;
+    self.renrenDelegate = [delegate retain];
     
     return [self openUrl:kRestserverBaseURL params:params httpMethod:@"POST" delegate:self];	
 }

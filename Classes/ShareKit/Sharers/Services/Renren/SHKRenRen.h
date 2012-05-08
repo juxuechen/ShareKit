@@ -28,12 +28,11 @@
 //
 
 #import "SHKSharer.h"
-#import "SHKOAuthSharer.h"
 #import "SHKFormControllerLargeTextField.h"
 #import "ROConnect.h"
 
 
-@interface SHKRenRen : SHKOAuthSharer <RenrenDelegate, SHKFormControllerLargeTextFieldDelegate>
+@interface SHKRenRen : SHKSharer <RenrenDelegate, SHKFormControllerLargeTextFieldDelegate>
 {
     Renren *renren;
 }
