@@ -94,20 +94,18 @@
 	if (aRequest.success)
 	{
 		[pendingForm saveForm];
-	}
-  else {
-    NSString *errorMessage = nil;
-    if (aRequest.response.statusCode == 401)
-      errorMessage = SHKLocalizedString(@"Sorry, %@ did not accept your credentials. Please try again.", [[self class] sharerTitle]);
+	} 
     else
-      errorMessage = SHKLocalizedString(@"Sorry, %@ encountered an error. Please try again.", [[self class] sharerTitle]);
-    
-    [[[[UIAlertView alloc] initWithTitle:SHKLocalizedString(@"Login Error")
-                                 message:errorMessage
-                                delegate:nil
-                       cancelButtonTitle:SHKLocalizedString(@"Close")
-                       otherButtonTitles:nil] autorelease] show];
-  }
+    {        
+        if (aRequest.response.statusCode == 401) 
+        {
+            [self authShowBadCredentialsAlert];
+        }
+        else
+        {
+            [self authShowOtherAuthorizationErrorAlert];
+        }
+    }
   
 	[self authDidFinish:aRequest.success];
 }
@@ -167,21 +165,21 @@
 
 - (void)sendFinished:(SHKRequest *)aRequest
 {	
-  //should use json kit for respond
 	if (aRequest.success)
 	{
-		if ([[aRequest getResult] rangeOfString:@"bookmark"].location != NSNotFound)
-		{
-			[self sendDidFinish];
-			return;
-		}
-	} else if (aRequest.response.statusCode == 401) {
-        
-        [self shouldReloginWithPendingAction:SHKPendingSend]; 
-        return;
+		[self sendDidFinish];
+	}
+    else
+    {   
+        if (aRequest.response.statusCode == 401)
+        {        
+        [self shouldReloginWithPendingAction:SHKPendingSend];       
+        }
+        else
+        {        
+        [self sendShowSimpleErrorAlert];
+        }
     }
-	
-	[self sendDidFailWithError:[SHK error:SHKLocalizedString(@"There was an error saving to @%", [[self class] sharerTitle])]];		
 }
 
 @end

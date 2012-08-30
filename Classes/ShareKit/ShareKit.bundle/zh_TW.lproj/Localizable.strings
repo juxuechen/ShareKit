@@ -4,7 +4,7 @@
 "Follow %@" = "關注 %@";
 "Continue" = "繼續";
 "Share" = "分享";
-"More..." = "更多...";
+"More..." = "更多…";
 "Cancel" = "取消";
 "Slug" = "Slug";
 "Private" = "私人";
@@ -53,9 +53,9 @@
 
 "There was an error saving to Pinboard" = "儲存到 Pinboard 時發生錯誤";
 
-"Sorry, Instapaper did not accept your credentials. Please try again." = "抱歉，你的 Instapaper 帳號密碼錯誤，請再試一次。";
-"Sorry, Instapaper encountered an error. Please try again." = "抱歉，Instapaper 發生錯誤，請稍候再試。";
-"There was a problem saving to Instapaper." = "儲存到 Instapaper 時發生錯誤。";
+"Sorry, %@ did not accept your credentials. Please try again." = "抱歉，你的 %@ 帳號密碼錯誤，請再試一次。";
+"Sorry, %@ encountered an error. Please try again." = "抱歉，%@ 發生錯誤，請稍候再試。";
+"There was a problem saving to %@." = "儲存到 %@ 時發生錯誤。";
 
 "Incorrect username and password" = "帳號和密碼錯誤";
 "There was an error logging into Google Reader" = "登入 Google Reader 時發生錯誤";
@@ -107,3 +107,27 @@
 "Sent from %@" = "由 %@ 發送";
 "Save to Photo Album" = "儲存相片";
 "Tag,Tag" = "標籤,標籤";
+"Logout of All Services" = "登出全部服務";
+
+"Check In" = "打卡";
+
+"Could not find any" = "無法找到";
+
+"Determine your location..." = "正在定位目前位置…";
+
+"Loading..." = "讀取中…";
+
+"Nearby Places" = "鄰近地標";
+
+"No Options" = "無選項";
+
+"Post To Groups" = "新增至群組";
+
+"Print" = "列印";
+
+"Search places" = "搜尋地標";
+
+"Searching places..." = "搜尋地標中…";
+
+"Select Group" = "選擇群組";
+"Flickr Groups" = "Flickr 群組";
