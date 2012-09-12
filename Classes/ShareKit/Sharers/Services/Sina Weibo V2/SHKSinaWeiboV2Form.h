@@ -1,8 +1,10 @@
 //
-//  OAAsynchronousDataFetcher.h
-//  OAuthConsumer
+//  SHKSinaWeiboForm.h
+//  ShareKit
 //
-//  Created by Zsombor Szabó on 12/3/08.
+//  Created by icyleaf on 11-03-31.
+//  Copyright 2011 icyleaf.com. All rights reserved.
+
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -21,26 +23,25 @@
 //  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
+//
+//
 
-#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
-#import "OAMutableURLRequest.h"
 
-@interface OAAsynchronousDataFetcher : NSObject {
-    OAMutableURLRequest *request;
-    NSHTTPURLResponse *response;
-    NSURLConnection *connection;
-    NSMutableData *responseData;
-    id delegate;
-    SEL didFinishSelector;
-    SEL didFailSelector;
+@interface SHKSinaWeiboV2Form : UIViewController <UITextViewDelegate>
+{
+	id delegate;
+	UITextView *textView;
+	UILabel *counter;
+	BOOL hasAttachment;
 }
 
-+ (id)asynchronousFetcherWithRequest:(OAMutableURLRequest *)aRequest delegate:(id)aDelegate didFinishSelector:(SEL)finishSelector didFailSelector:(SEL)failSelector;
-- (id)initWithRequest:(OAMutableURLRequest *)aRequest delegate:(id)aDelegate didFinishSelector:(SEL)finishSelector didFailSelector:(SEL)failSelector;
+@property (nonatomic, retain) id delegate;
+@property (nonatomic, retain) UITextView *textView;
+@property (nonatomic, retain) UILabel *counter;
+@property BOOL hasAttachment;
 
-- (void)start;
-- (void)cancel;
-- (void)startWithoutPrepare;
+- (void)layoutCounter;
 
 @end

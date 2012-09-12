@@ -46,8 +46,20 @@
 }
 
 - (void)start
-{    
-    [request prepare];
+{
+    [self start:YES];
+}
+
+- (void)startWithoutPrepare
+{
+    [self start:NO];
+}
+
+- (void)start:(bool)needPrepare
+{
+    if (needPrepare) {
+        [request prepare];
+    }
 	
 	if (connection)
 		[connection release];

@@ -1,9 +1,11 @@
 //
-//  OAAsynchronousDataFetcher.h
-//  OAuthConsumer
+//  SHKSinaWeiboV2.h
+//  ShareKit
 //
-//  Created by Zsombor Szabó on 12/3/08.
+//  Created by jimneylee on 12-08-14.
+//  Copyright 2012 jimneylee. All rights reserved.
 //
+
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
 //  in the Software without restriction, including without limitation the rights
@@ -21,26 +23,44 @@
 //  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
+//
+//
 
 #import <Foundation/Foundation.h>
+#import "SHKOAuthSharer.h"
+#import "SHKSinaWeiboV2Form.h"
 
-#import "OAMutableURLRequest.h"
 
-@interface OAAsynchronousDataFetcher : NSObject {
-    OAMutableURLRequest *request;
-    NSHTTPURLResponse *response;
-    NSURLConnection *connection;
-    NSMutableData *responseData;
-    id delegate;
-    SEL didFinishSelector;
-    SEL didFailSelector;
+@interface SHKSinaWeibo : SHKOAuthSharer 
+{
+    BOOL xAuth;	
+	NSString* accessTokenString;
+    NSString* uid;
 }
+    
+@property BOOL xAuth;
+@property (nonatomic, copy) NSString* accessTokenString;
+@property (nonatomic, copy) NSString* uid;
 
-+ (id)asynchronousFetcherWithRequest:(OAMutableURLRequest *)aRequest delegate:(id)aDelegate didFinishSelector:(SEL)finishSelector didFailSelector:(SEL)failSelector;
-- (id)initWithRequest:(OAMutableURLRequest *)aRequest delegate:(id)aDelegate didFinishSelector:(SEL)finishSelector didFailSelector:(SEL)failSelector;
+#pragma mark -
+#pragma mark UI Implementation
+    
+- (void)showSinaWeiboForm;
+    
+#pragma mark -
+#pragma mark Share API Methods
 
-- (void)start;
-- (void)cancel;
-- (void)startWithoutPrepare;
+- (void)shortenURL;
+- (void)shortenURLFinished:(SHKRequest *)aRequest;
+    
+- (void)sendForm:(SHKSinaWeiboV2Form *)form;
+    
+- (void)sendStatus;
+- (void)sendStatusTicket:(OAServiceTicket *)ticket didFinishWithData:(NSData *)data;
+- (void)sendStatusTicket:(OAServiceTicket *)ticket didFailWithError:(NSError*)error;
+
+- (void)sendImage;
+- (void)sendImageTicket:(OAServiceTicket *)ticket didFinishWithData:(NSData *)data;
+- (void)sendImageTicket:(OAServiceTicket *)ticket didFailWithError:(NSError*)error;
 
 @end

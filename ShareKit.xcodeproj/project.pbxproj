@@ -319,9 +319,11 @@
 		AC7F3BB915EF1A54008A1A4E /* TencentOAMutableURLRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = AC7F3BB515EF1A54008A1A4E /* TencentOAMutableURLRequest.m */; };
 		AC7F3BBA15EF1A54008A1A4E /* TencentOAuthView.m in Sources */ = {isa = PBXBuildFile; fileRef = AC7F3BB715EF1A54008A1A4E /* TencentOAuthView.m */; };
 		AC7F3BBE15EF1AF6008A1A4E /* SHKNetEaseWeibo.m in Sources */ = {isa = PBXBuildFile; fileRef = AC7F3BBD15EF1AF6008A1A4E /* SHKNetEaseWeibo.m */; };
-		AC7F3BC215EF1BA2008A1A4E /* SHKSinaWeibo.m in Sources */ = {isa = PBXBuildFile; fileRef = AC7F3BC115EF1BA2008A1A4E /* SHKSinaWeibo.m */; };
 		AC7F3BC615EF1BD4008A1A4E /* SHKPlurk.m in Sources */ = {isa = PBXBuildFile; fileRef = AC7F3BC515EF1BD4008A1A4E /* SHKPlurk.m */; };
 		C0D3077B147BDC8100E74EA3 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C0D3077A147BDC8100E74EA3 /* CoreLocation.framework */; };
+		F1983F401600CA8200371541 /* SHKSinaWeiboV2.m in Sources */ = {isa = PBXBuildFile; fileRef = F1983F3B1600CA8200371541 /* SHKSinaWeiboV2.m */; };
+		F1983F411600CA8200371541 /* SHKSinaWeiboV2Form.m in Sources */ = {isa = PBXBuildFile; fileRef = F1983F3D1600CA8200371541 /* SHKSinaWeiboV2Form.m */; };
+		F1983F421600CA8200371541 /* SHKSinaWeiboV2OAuthView.m in Sources */ = {isa = PBXBuildFile; fileRef = F1983F3F1600CA8200371541 /* SHKSinaWeiboV2OAuthView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -680,8 +682,6 @@
 		AC7F3BB715EF1A54008A1A4E /* TencentOAuthView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TencentOAuthView.m; sourceTree = "<group>"; };
 		AC7F3BBC15EF1AF6008A1A4E /* SHKNetEaseWeibo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKNetEaseWeibo.h; sourceTree = "<group>"; };
 		AC7F3BBD15EF1AF6008A1A4E /* SHKNetEaseWeibo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKNetEaseWeibo.m; sourceTree = "<group>"; };
-		AC7F3BC015EF1BA2008A1A4E /* SHKSinaWeibo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKSinaWeibo.h; sourceTree = "<group>"; };
-		AC7F3BC115EF1BA2008A1A4E /* SHKSinaWeibo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKSinaWeibo.m; sourceTree = "<group>"; };
 		AC7F3BC415EF1BD4008A1A4E /* SHKPlurk.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKPlurk.h; sourceTree = "<group>"; };
 		AC7F3BC515EF1BD4008A1A4E /* SHKPlurk.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKPlurk.m; sourceTree = "<group>"; };
 		B7EFCD8A14C6B966004910F1 /* SHKDiigo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKDiigo.h; sourceTree = "<group>"; };
@@ -709,6 +709,12 @@
 		C0D3077A147BDC8100E74EA3 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		E68738BE1416795C00D8C3DD /* SHKLogout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKLogout.h; sourceTree = "<group>"; };
 		E68738BF1416795C00D8C3DD /* SHKLogout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKLogout.m; sourceTree = "<group>"; };
+		F1983F3A1600CA8200371541 /* SHKSinaWeiboV2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SHKSinaWeiboV2.h; path = "Sina Weibo V2/SHKSinaWeiboV2.h"; sourceTree = "<group>"; };
+		F1983F3B1600CA8200371541 /* SHKSinaWeiboV2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SHKSinaWeiboV2.m; path = "Sina Weibo V2/SHKSinaWeiboV2.m"; sourceTree = "<group>"; };
+		F1983F3C1600CA8200371541 /* SHKSinaWeiboV2Form.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SHKSinaWeiboV2Form.h; path = "Sina Weibo V2/SHKSinaWeiboV2Form.h"; sourceTree = "<group>"; };
+		F1983F3D1600CA8200371541 /* SHKSinaWeiboV2Form.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SHKSinaWeiboV2Form.m; path = "Sina Weibo V2/SHKSinaWeiboV2Form.m"; sourceTree = "<group>"; };
+		F1983F3E1600CA8200371541 /* SHKSinaWeiboV2OAuthView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SHKSinaWeiboV2OAuthView.h; path = "Sina Weibo V2/SHKSinaWeiboV2OAuthView.h"; sourceTree = "<group>"; };
+		F1983F3F1600CA8200371541 /* SHKSinaWeiboV2OAuthView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SHKSinaWeiboV2OAuthView.m; path = "Sina Weibo V2/SHKSinaWeiboV2OAuthView.m"; sourceTree = "<group>"; };
 		F92EF487148E915E0070F913 /* SHKiOS5Twitter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKiOS5Twitter.h; sourceTree = "<group>"; };
 		F92EF488148E915E0070F913 /* SHKiOS5Twitter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKiOS5Twitter.m; sourceTree = "<group>"; };
 		FA5AA3B6149625460064DB24 /* SHKVkontakteOAuthView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKVkontakteOAuthView.m; sourceTree = "<group>"; };
@@ -1208,8 +1214,8 @@
 		43A536C011DBE3B9004A1712 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				F1983F381600CA6D00371541 /* Sina Weibo V2 */,
 				AC7F3BC315EF1BD4008A1A4E /* Plurk */,
-				AC7F3BBF15EF1BA2008A1A4E /* Sina Weibo */,
 				AC7F3BBB15EF1AF6008A1A4E /* NetEase Weibo */,
 				AC7F3BB115EF1A54008A1A4E /* Tencent Weibo */,
 				AC7F3B3915EF1913008A1A4E /* Renren */,
@@ -1659,15 +1665,6 @@
 			path = "NetEase Weibo";
 			sourceTree = "<group>";
 		};
-		AC7F3BBF15EF1BA2008A1A4E /* Sina Weibo */ = {
-			isa = PBXGroup;
-			children = (
-				AC7F3BC015EF1BA2008A1A4E /* SHKSinaWeibo.h */,
-				AC7F3BC115EF1BA2008A1A4E /* SHKSinaWeibo.m */,
-			);
-			path = "Sina Weibo";
-			sourceTree = "<group>";
-		};
 		AC7F3BC315EF1BD4008A1A4E /* Plurk */ = {
 			isa = PBXGroup;
 			children = (
@@ -1735,6 +1732,19 @@
 			);
 			name = Logout;
 			path = "Logout of All Services";
+			sourceTree = "<group>";
+		};
+		F1983F381600CA6D00371541 /* Sina Weibo V2 */ = {
+			isa = PBXGroup;
+			children = (
+				F1983F3A1600CA8200371541 /* SHKSinaWeiboV2.h */,
+				F1983F3B1600CA8200371541 /* SHKSinaWeiboV2.m */,
+				F1983F3C1600CA8200371541 /* SHKSinaWeiboV2Form.h */,
+				F1983F3D1600CA8200371541 /* SHKSinaWeiboV2Form.m */,
+				F1983F3E1600CA8200371541 /* SHKSinaWeiboV2OAuthView.h */,
+				F1983F3F1600CA8200371541 /* SHKSinaWeiboV2OAuthView.m */,
+			);
+			name = "Sina Weibo V2";
 			sourceTree = "<group>";
 		};
 		F92EF477148E8F1A0070F913 /* JSONKit */ = {
@@ -2000,8 +2010,10 @@
 				AC7F3BB915EF1A54008A1A4E /* TencentOAMutableURLRequest.m in Sources */,
 				AC7F3BBA15EF1A54008A1A4E /* TencentOAuthView.m in Sources */,
 				AC7F3BBE15EF1AF6008A1A4E /* SHKNetEaseWeibo.m in Sources */,
-				AC7F3BC215EF1BA2008A1A4E /* SHKSinaWeibo.m in Sources */,
 				AC7F3BC615EF1BD4008A1A4E /* SHKPlurk.m in Sources */,
+				F1983F401600CA8200371541 /* SHKSinaWeiboV2.m in Sources */,
+				F1983F411600CA8200371541 /* SHKSinaWeiboV2Form.m in Sources */,
+				F1983F421600CA8200371541 /* SHKSinaWeiboV2OAuthView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

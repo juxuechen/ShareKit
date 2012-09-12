@@ -1,10 +1,9 @@
 //
-//  SHKSinaWeibo.h
+//  SHKSinaWeiboV2OAuthView.h
 //  ShareKit
 //
-//  Created by icyleaf on 12-03-16.
-//  Copyright 2012 icyleaf.com. All rights reserved.
-
+//  Created by Robin Hos (Everdune) on 9/26/11.
+//  Sponsored by Twoppy
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -26,39 +25,11 @@
 //
 //
 
-#import <Foundation/Foundation.h>
-#import "SHKOAuthSharer.h"
-#import "SHKFormControllerLargeTextField.h"
+#import "SHKOAuthView.h"
 
-@interface SHKSinaWeibo : SHKOAuthSharer <SHKFormControllerLargeTextFieldDelegate>
-{	
-	BOOL xAuth;		
-}
-
-@property BOOL xAuth;
-
-
-#pragma mark -
-#pragma mark UI Implementation
-    
-- (void)showSinaWeiboForm;
-    
-#pragma mark -
-#pragma mark Share API Methods
-
-- (void)sendStatus;
-- (void)sendStatusTicket:(OAServiceTicket *)ticket didFinishWithData:(NSData *)data;
-- (void)sendStatusTicket:(OAServiceTicket *)ticket didFailWithError:(NSError*)error;
-
-- (void)sendImage;
-- (void)sendImageTicket:(OAServiceTicket *)ticket didFinishWithData:(NSData *)data;
-- (void)sendImageTicket:(OAServiceTicket *)ticket didFailWithError:(NSError*)error;
-
-// TODO: Finish it below
-//- (void)sendUserInfo;
-//- (void)sendUserInfo:(OAServiceTicket *)ticket didFinishWithData:(NSData *)data;
-//- (void)sendUserInfo:(OAServiceTicket *)ticket didFailWithError:(NSError*)error;
-
-- (void)followMe;
+// jimneylee learn from sharekit=sharekit 
+// VilemKurz:https://github.com/VilemKurz/ShareKit
+//
+@interface SHKSinaWeiboV2OAuthView : SHKOAuthView
 
 @end
