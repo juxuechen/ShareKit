@@ -42,16 +42,16 @@
 
 // Sina Weibo 
 - (NSString*)sinaWeiboConsumerKey {
-	return @"1631351849";
+	return @"2388700821";
 }
 
 - (NSString*)sinaWeiboConsumerSecret {
-	return @"9164c304b4e547b8cdbf024fc4534720";
+	return @"0f630a52cb06174df190d4981fb6d515";
 }
 
 // You need to set this if using OAuth (MUST be set, it could be any words)
 - (NSString*)sinaWeiboCallbackUrl {
-	return @"http://icyleaf.com";
+	return @"http://www.etao.com";
 }
 
 // To use xAuth, set to 1
@@ -61,12 +61,12 @@
 
 // Enter your sina weibo screen name (Only for xAuth)
 - (NSString*)sinaWeiboScreenname {
-	return @"icyleaf";
+	return @"Taobao";
 }
 
 //Enter your app's sina weibo account if you'd like to ask the user to follow it when logging in. (Only for xAuth)
 - (NSString*)sinaWeiboUserID {
-	return @"1708250715";
+	return @"4127260343";
 }
 
 // NetEase Weibo
@@ -95,7 +95,7 @@
 // Enter your sina weibo screen name (Only for xAuth)
 - (NSString*)netEaseaWeiboScreenname
 {
-    return @"icyleaf";
+    return @"淘宝Apple客户端";
 }
 
 //Enter your app's sina weibo account if you'd like to ask the user to follow it when logging in. (Only for xAuth)
