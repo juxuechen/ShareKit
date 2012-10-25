@@ -107,6 +107,7 @@
 			doShare = [shareDelegate aboutToShareItem:item withSharer:sharer];
 		}
 		if(doShare)
+            //这里进入分享页面或者绑定账号页面
 			[sharer share];
 	}
 	

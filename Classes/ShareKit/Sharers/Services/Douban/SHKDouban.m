@@ -112,7 +112,7 @@ static NSString *const kSHKDoubanUserInfo = @"kSHKDoubanUserInfo";
 - (void)show
 {
 	if (item.shareType == SHKShareTypeURL)
-	{
+	{//到绑定
 		[self shortenURL];
 	}
 	
@@ -123,7 +123,7 @@ static NSString *const kSHKDoubanUserInfo = @"kSHKDoubanUserInfo";
 	}
 	
 	else if (item.shareType == SHKShareTypeText)
-	{
+	{//到分享
 		[item setCustomValue:item.text forKey:@"status"];
 		[self showDoubanForm];
 	}
@@ -137,19 +137,24 @@ static NSString *const kSHKDoubanUserInfo = @"kSHKDoubanUserInfo";
 
 - (void)showDoubanForm
 {
-	SHKFormControllerLargeTextField *rootView = [[SHKFormControllerLargeTextField alloc] initWithNibName:nil bundle:nil delegate:self];	
+//	SHKFormControllerLargeTextField *rootView = [[SHKFormControllerLargeTextField alloc] initWithNibName:nil bundle:nil delegate:self];	
+//    
+//    rootView.text = [item customValueForKey:@"status"];
+//	rootView.maxTextLength = 140;
+//	rootView.image = item.image;
+//	rootView.imageTextLength = 25;
+//	
+//	self.navigationBar.tintColor = SHKCONFIG_WITH_ARGUMENT(barTintForView:,self);
+//	
+//	[self pushViewController:rootView animated:NO];
+//	[rootView release];
     
-    rootView.text = [item customValueForKey:@"status"];
-	rootView.maxTextLength = 140;
-	rootView.image = item.image;
-	rootView.imageTextLength = 25;
+    
+    [[SHK currentHelper] hideCurrentViewControllerAnimated:YES]; 
+//    [item setCustomValue:[item customValueForKey:@"status"] forKey:@"status"];
+	[self tryToSend];
 	
-	self.navigationBar.tintColor = SHKCONFIG_WITH_ARGUMENT(barTintForView:,self);
-	
-	[self pushViewController:rootView animated:NO];
-	[rootView release];
-	
-	[[SHK currentHelper] showViewController:self];
+//	[[SHK currentHelper] showViewController:self];
 }
 
 - (void)sendForm:(SHKFormControllerLargeTextField *)form
@@ -157,6 +162,12 @@ static NSString *const kSHKDoubanUserInfo = @"kSHKDoubanUserInfo";
 	[item setCustomValue:form.textView.text forKey:@"status"];
 	[self tryToSend];
 }
+
+- (void)sendText:(NSString *)text {
+    [item setCustomValue:text forKey:@"status"];
+	[self tryToSend];
+}
+
 
 #pragma mark -
 
@@ -190,7 +201,7 @@ static NSString *const kSHKDoubanUserInfo = @"kSHKDoubanUserInfo";
 
 - (void)shortenURLFinished:(SHKRequest *)aRequest
 {
-	[[SHKActivityIndicator currentIndicator] hide];
+    [[SHKActivityIndicator currentIndicator] hide];
     
     @try 
     {
@@ -210,7 +221,8 @@ static NSString *const kSHKDoubanUserInfo = @"kSHKDoubanUserInfo";
     [item setCustomValue:[NSString stringWithFormat:@"%@: %@", item.title, item.URL.absoluteString] 
                   forKey:@"status"];
     
-	[self showDoubanForm];
+    //绑定后直接分享，但是这里不去分享，只管绑定完成。
+//	[self showDoubanForm];
 }
 
 

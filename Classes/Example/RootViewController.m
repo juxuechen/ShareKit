@@ -12,6 +12,7 @@
 #import "ExampleShareText.h"
 #import "ExampleShareFile.h"
 #import "SHK.h"
+#import "ShareTogethorViewController.h"
 
 @implementation RootViewController
 
@@ -38,7 +39,7 @@
 // Customize the number of rows in the table view.
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section 
 {
-    return 4;//5;
+    return 5;//5;
 }
 
 
@@ -69,7 +70,11 @@
 		case 3:
 			cell.textLabel.text = SHKLocalizedString(@"Sharing a File");
 			break;
-			
+		
+        case 4:
+            cell.textLabel.text = @"一键分享";
+            break;
+        
 		//case 4:
 		//	cell.textLabel.text = @"Logout of All Services";
 		//	break;
@@ -105,7 +110,10 @@
 			
 		//case 4:
 		//	[SHK logoutOfAll];
-		//	break;			
+		//	break;
+            
+        case 4:
+            [self.navigationController pushViewController:[[ShareTogethorViewController alloc] init] animated:YES];
 			
 	}
 }

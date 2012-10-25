@@ -36,6 +36,7 @@
 #pragma mark UI Implementation
 
 - (void)showDoubanForm;
+- (void)sendText:(NSString *)text;
 
 #pragma mark -
 #pragma mark Share API Methods

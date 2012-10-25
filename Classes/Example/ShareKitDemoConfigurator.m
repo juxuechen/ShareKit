@@ -124,11 +124,11 @@
 
 // Douban
 - (NSString*)doubanConsumerKey {
-	return @"035c8265fdb968b10a158731f92c3a13";
+	return @"06690f9cfaf53987133b2ed6f0dfac95";
 }
 
 - (NSString*)doubanConsumerSecret {
-	return @"bd44db472be8bf16";
+	return @"34fc3d8a9ef78144";
 }
 
 // You need to set this if using OAuth (MUST be set, it could be any words)

@@ -30,6 +30,7 @@
 #import "SHKOAuthView.h"
 #import "OAuthConsumer.h"
 
+
 @interface SHKOAuthSharer : SHKSharer
 {
 	NSString *consumerKey;

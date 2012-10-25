@@ -682,7 +682,12 @@
         case SHKPendingShare:
                     
             //show UI or autoshare
-			[self share];
+//			[self share];
+//jx------
+            //从前是绑定成功后跳分享界面，现在改为绑定成功后，通知vc告知绑定成功。
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"tokenAccessTicket"
+                                                                object:nil
+                                                              userInfo:[NSDictionary dictionaryWithObjectsAndKeys:NSStringFromClass([self class]),@"class", nil]];
             
             //to show alert if reshare finishes with error (see SHKSharerDelegate)
             self.pendingAction = SHKPendingNone;
