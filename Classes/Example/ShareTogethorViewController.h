@@ -12,6 +12,7 @@
 @class SHKDouban;
 @class SHKSinaWeibo;
 @class SHKTencentWeibo;
+@class SHKRenRen;
 
 @interface ShareTogethorViewController : UIViewController 
 
@@ -28,6 +29,10 @@
 @property (strong, nonatomic)  SHKTencentWeibo *qqSharer;
 @property (strong, nonatomic)  IBOutlet UIButton *qqButton;
 @property (nonatomic)  BOOL qqFX;
+
+@property (strong, nonatomic)  SHKRenRen *renrenSharer;
+@property (strong, nonatomic)  IBOutlet UIButton *renrenButton;
+@property (nonatomic)  BOOL renrenFX;
 
 - (IBAction)buttonAction:(id)sender;
 

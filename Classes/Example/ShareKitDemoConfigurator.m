@@ -140,17 +140,17 @@
 // RenRen
 - (NSString*)renrenAppId
 {
-    return @"134180";
+    return @"238335129";
 }
 
 - (NSString*)renrenConsumerKey
 {
-    return @"ff5fe131651842c7adbdc061f676dc88";
+    return @"aed91e14d3d644a6bff9de60d34a2090";
 }
 
 - (NSString*)renrenConsumerSecret
 {
-    return @"41d17695626d4c43b3572ce7f923b8a3";
+    return @"0b728c3440834a87bed80f99351e974d";
 }
 
 

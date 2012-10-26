@@ -128,9 +128,10 @@ static SHKRenRen *sharedRenRen = nil;
 	}
 	
 	else if (item.shareType == SHKShareTypeText)
-	{
+	{//到分享  文字
         [item setCustomValue:item.text forKey:@"status"];
-		[self showRenRenForm];
+//		[self showRenRenForm];
+        [self tryToSend];
 	}
 }
 

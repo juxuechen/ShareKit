@@ -11,6 +11,7 @@
 #import "SHKDouban.h"
 #import "SHKSinaWeiboV2.h"
 #import "SHKTencentWeibo.h"
+#import "SHKRenRen.h"
 
 @interface ShareTogethorViewController ()
 
@@ -45,11 +46,20 @@
                                                           BOOL success = [[note.userInfo objectForKey:@"success"] boolValue];
                                                           self.doubanFX = success;
                                                       }
-                                                      if ([[note.userInfo objectForKey:@"sharer"] isEqualToString:@"SHKSinaWeibo"]) {
+                                                      else if ([[note.userInfo objectForKey:@"sharer"] isEqualToString:@"SHKSinaWeibo"]) {
                                                           BOOL success = [[note.userInfo objectForKey:@"success"] boolValue];
                                                           self.sinaFX = success;
                                                       }
+                                                      else if ([[note.userInfo objectForKey:@"sharer"] isEqualToString:@"SHKTencentWeibo"]) {
+                                                          BOOL success = [[note.userInfo objectForKey:@"success"] boolValue];
+                                                          self.qqFX = success;
+                                                      }
                                                   }];
+    [[NSNotificationCenter defaultCenter] addObserverForName:@"kNotificationDidGetLoggedInUserId"
+                                                      object:nil
+                                                       queue:nil usingBlock:^(NSNotification *note){
+                                                           self.renrenFX = YES;
+                                                       }];
 
 }
 
@@ -69,17 +79,17 @@
 #pragma mark -
 #pragma mark Public
 
-- (void)setDoubanFX:(BOOL)s {
-    _doubanFX = s;
-    NSString *imageName = s ? @"doubanS" : @"doubanNS";
+- (void)setDoubanFX:(BOOL)doubanFX {
+    _doubanFX = doubanFX;
+    NSString *imageName = doubanFX ? @"doubanS" : @"doubanNS";
     [self.doubanButton setImage:[UIImage imageNamed:imageName] forState:UIControlStateNormal];
     [self.doubanButton setImage:[UIImage imageNamed:imageName] forState:UIControlStateHighlighted];
 }
 
 
-- (void)setSinaFX:(BOOL)s {
-    _sinaFX = s;
-    NSString *imageName = s ? @"sinaS" : @"sinaNS";
+- (void)setSinaFX:(BOOL)sinaFX {
+    _sinaFX = sinaFX;
+    NSString *imageName = sinaFX ? @"sinaS" : @"sinaNS";
     [self.sinaButton setImage:[UIImage imageNamed:imageName] forState:UIControlStateNormal];
     [self.sinaButton setImage:[UIImage imageNamed:imageName] forState:UIControlStateHighlighted];
 }
@@ -92,10 +102,22 @@
     [self.qqButton setImage:[UIImage imageNamed:imageName] forState:UIControlStateHighlighted];
 }
 
+
+- (void)setRenrenFX:(BOOL)renrenFX {
+    _renrenFX = renrenFX;
+    NSString *imageName = renrenFX ? @"renrenS" : @"renrenNS";
+    [self.renrenButton setImage:[UIImage imageNamed:imageName] forState:UIControlStateNormal];
+    [self.renrenButton setImage:[UIImage imageNamed:imageName] forState:UIControlStateHighlighted];
+}
+
+
 #pragma mark -
 #pragma mark Share
 
 - (IBAction)buttonAction:(UIButton *)btn {
+    SHKItem *item = [SHKItem text:self.textView.text];
+    [SHK setRootViewController:self];
+    
     switch (btn.tag) {
         case 0:
         {
@@ -103,10 +125,8 @@
             
             if (self.doubanFX) {
                 self.doubanSharer = [[[SHKDouban alloc] init] autorelease];
-                SHKItem *item = [SHKItem text:self.textView.text];
                 [self.doubanSharer loadItem:item];
-                [SHK setRootViewController:self];
-                if (![self.doubanSharer restoreAccessToken]) {//未绑定
+                if (![self.doubanSharer isAuthorized]) {//未绑定
                     [self.doubanSharer share];
                 }
             }
@@ -118,10 +138,8 @@
             
             if (self.sinaFX) {
                 self.sinaSharer = [[[SHKSinaWeibo alloc] init] autorelease];
-                SHKItem *item = [SHKItem text:self.textView.text];
                 [self.sinaSharer loadItem:item];
-                [SHK setRootViewController:self];
-                if (![self.sinaSharer restoreAccessToken]) {//未绑定
+                if (![self.sinaSharer isAuthorized]) {//未绑定
                     [self.sinaSharer share];
                 }
             }
@@ -134,15 +152,25 @@
             
             if (self.qqFX) {
                 self.qqSharer = [[[SHKTencentWeibo alloc] init] autorelease];
-                SHKItem *item = [SHKItem text:self.textView.text];
                 [self.qqSharer loadItem:item];
-                [SHK setRootViewController:self];
-                if (![self.qqSharer restoreAccessToken]) {//未绑定
+                if (![self.qqSharer isAuthorized]) {//未绑定
                     [self.qqSharer share];
                 }
             }
         }
             break;
+        case 3:
+        {
+            self.renrenFX = !self.renrenFX;
+            
+            if (self.renrenFX) {
+                self.renrenSharer = [[[SHKRenRen alloc] init] autorelease];
+                [self.renrenSharer loadItem:item];
+                if (![self.renrenSharer isAuthorized]) {//未绑定
+                    [self.renrenSharer share];
+                }
+            }
+        }
         default:
             break;
     }
@@ -162,6 +190,9 @@
     }
     if (self.qqFX) {
         [self.qqSharer share];
+    }
+    if (self.renrenFX) {
+        [self.renrenSharer share];
     }
 }
 
