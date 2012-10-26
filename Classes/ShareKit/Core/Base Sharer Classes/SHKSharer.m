@@ -772,7 +772,9 @@
 {
 	[[NSNotificationCenter defaultCenter] postNotificationName:@"SHKAuthDidFinish"
                                                         object:self
-                                                      userInfo:[NSDictionary dictionaryWithObject:[NSNumber numberWithBool:success] forKey:@"success"]];
+                                                      userInfo:[NSDictionary dictionaryWithObjectsAndKeys:
+                                                                [NSNumber numberWithBool:success],@"success",
+                                                                NSStringFromClass([self class]),@"sharer",nil]];
     
     if ([self.shareDelegate respondsToSelector:@selector(sharerAuthDidFinish:success:)]) {		
         [self.shareDelegate sharerAuthDidFinish:self success:success];

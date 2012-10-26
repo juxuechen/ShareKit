@@ -10,6 +10,7 @@
 #import "SHKSharer.h"
 #import "SHKDouban.h"
 #import "SHKSinaWeiboV2.h"
+#import "SHKTencentWeibo.h"
 
 @interface ShareTogethorViewController ()
 
@@ -39,8 +40,15 @@
                                                       object:nil
                                                        queue:nil
                                                   usingBlock:^(NSNotification *note){
-                                                      NSLog(@"绑定成功 %@",note);
                                                       NSLog(@"绑定完成   userinfo %@",note.userInfo);
+                                                      if ([[note.userInfo objectForKey:@"sharer"] isEqualToString:@"SHKDouban"]) {
+                                                          BOOL success = [[note.userInfo objectForKey:@"success"] boolValue];
+                                                          self.doubanFX = success;
+                                                      }
+                                                      if ([[note.userInfo objectForKey:@"sharer"] isEqualToString:@"SHKSinaWeibo"]) {
+                                                          BOOL success = [[note.userInfo objectForKey:@"success"] boolValue];
+                                                          self.sinaFX = success;
+                                                      }
                                                   }];
 
 }
@@ -61,61 +69,99 @@
 #pragma mark -
 #pragma mark Public
 
-- (void)setDoubanShare:(BOOL)s {
-    _doubanShare = s;
+- (void)setDoubanFX:(BOOL)s {
+    _doubanFX = s;
     NSString *imageName = s ? @"doubanS" : @"doubanNS";
     [self.doubanButton setImage:[UIImage imageNamed:imageName] forState:UIControlStateNormal];
     [self.doubanButton setImage:[UIImage imageNamed:imageName] forState:UIControlStateHighlighted];
 }
 
 
-- (void)setSinaShare:(BOOL)s {
-    _sinaShare = s;
+- (void)setSinaFX:(BOOL)s {
+    _sinaFX = s;
     NSString *imageName = s ? @"sinaS" : @"sinaNS";
     [self.sinaButton setImage:[UIImage imageNamed:imageName] forState:UIControlStateNormal];
     [self.sinaButton setImage:[UIImage imageNamed:imageName] forState:UIControlStateHighlighted];
 }
 
 
+- (void)setQqFX:(BOOL)qqFX {
+    _qqFX = qqFX;
+    NSString *imageName = qqFX ? @"qqS" : @"qqNS";
+    [self.qqButton setImage:[UIImage imageNamed:imageName] forState:UIControlStateNormal];
+    [self.qqButton setImage:[UIImage imageNamed:imageName] forState:UIControlStateHighlighted];
+}
+
 #pragma mark -
 #pragma mark Share
 
-- (IBAction)douban:(id)sender {
-    self.doubanShare = !self.doubanShare;
-    
-    if (self.doubanShare) {
-        self.doubanSharer = [[[SHKDouban alloc] init] autorelease];
-        SHKItem *item = [SHKItem text:@"1234569999000"];
-        [self.doubanSharer loadItem:item];
-        [SHK setRootViewController:self];
-        if (![self.doubanSharer restoreAccessToken]) {//未绑定
-            [self.doubanSharer share];
+- (IBAction)buttonAction:(UIButton *)btn {
+    switch (btn.tag) {
+        case 0:
+        {
+            self.doubanFX = !self.doubanFX;
+            
+            if (self.doubanFX) {
+                self.doubanSharer = [[[SHKDouban alloc] init] autorelease];
+                SHKItem *item = [SHKItem text:self.textView.text];
+                [self.doubanSharer loadItem:item];
+                [SHK setRootViewController:self];
+                if (![self.doubanSharer restoreAccessToken]) {//未绑定
+                    [self.doubanSharer share];
+                }
+            }
         }
+            break;
+        case 1:
+        {
+            self.sinaFX = !self.sinaFX;
+            
+            if (self.sinaFX) {
+                self.sinaSharer = [[[SHKSinaWeibo alloc] init] autorelease];
+                SHKItem *item = [SHKItem text:self.textView.text];
+                [self.sinaSharer loadItem:item];
+                [SHK setRootViewController:self];
+                if (![self.sinaSharer restoreAccessToken]) {//未绑定
+                    [self.sinaSharer share];
+                }
+            }
+
+        }
+            break;
+        case 2:
+        {
+            self.qqFX = !self.qqFX;
+            
+            if (self.qqFX) {
+                self.qqSharer = [[[SHKTencentWeibo alloc] init] autorelease];
+                SHKItem *item = [SHKItem text:self.textView.text];
+                [self.qqSharer loadItem:item];
+                [SHK setRootViewController:self];
+                if (![self.qqSharer restoreAccessToken]) {//未绑定
+                    [self.qqSharer share];
+                }
+            }
+        }
+            break;
+        default:
+            break;
     }
+    
+    
 }
 
-
-- (IBAction)sina:(id)sender {
-    self.sinaShare = !self.sinaShare;
-    
-    if (self.sinaShare) {
-        self.sinaSharer = [[[SHKSinaWeibo alloc] init] autorelease];
-        SHKItem *item = [SHKItem text:@"1234569999000"];
-        [self.sinaSharer loadItem:item];
-        [SHK setRootViewController:self];
-        if (![self.sinaSharer restoreAccessToken]) {//未绑定
-            [self.sinaSharer share];
-        }
-    }
-}
 
 
 - (IBAction)share:(id)sender {
-    if (self.doubanShare) {
+    [self.textView resignFirstResponder];
+    if (self.doubanFX) {
         [self.doubanSharer share];
     }
-    if (self.sinaShare) {
+    if (self.sinaFX) {
         [self.sinaSharer share];
+    }
+    if (self.qqFX) {
+        [self.qqSharer share];
     }
 }
 

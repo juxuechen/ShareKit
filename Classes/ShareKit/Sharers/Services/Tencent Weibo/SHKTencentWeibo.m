@@ -164,8 +164,9 @@ static NSString *const kSHKTencentWeiboUserInfo = @"kSHKTencentWeiboUserInfo";
 	}
 	
 	else if (item.shareType == SHKShareTypeText)
-	{
-		[self showTencentWeiboForm];
+	{//到分享  文字
+//		[self showTencentWeiboForm];
+        [self tryToSend];
 	}
     
     else if (item.shareType == SHKShareTypeUserInfo)

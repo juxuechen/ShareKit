@@ -109,7 +109,7 @@ static NSString *accessTokenKey = @"access_token";
 
 - (void)promptAuthorization
 {		
-    NSString* urlStr = [NSString stringWithFormat:@"%@?client_id=%@&response_type=code&redirect_uri=%@", authorizeURL, self.consumerKey, [self.authorizeCallbackURL.absoluteString URLEncodedString]];
+    NSString* urlStr = [NSString stringWithFormat:@"%@?client_id=%@&response_type=code&redirect_uri=%@&display=mobile", authorizeURL, self.consumerKey, [self.authorizeCallbackURL.absoluteString URLEncodedString]];
     NSLog(@"url str = %@", urlStr);
     NSURL *url = [NSURL URLWithString:urlStr];
     
@@ -241,7 +241,7 @@ static NSString *accessTokenKey = @"access_token";
 - (void)show
 {
     if (item.shareType == SHKShareTypeURL)
-	{
+	{//到绑定
 		[self shortenURL];
 	}
 	
@@ -252,33 +252,34 @@ static NSString *accessTokenKey = @"access_token";
 	}
 	
 	else if (item.shareType == SHKShareTypeText)
-	{
+	{//到分享  文字
 		[item setCustomValue:item.text forKey:@"status"];
-		[self showSinaWeiboForm];
+//		[self showSinaWeiboForm];
+        [self tryToSend];
 	}
 }
 
-- (void)showSinaWeiboForm
-{
-	SHKSinaWeiboV2Form *rootView = [[SHKSinaWeiboV2Form alloc] initWithNibName:nil bundle:nil];	
-	rootView.delegate = self;
-	
-	// force view to load so we can set textView text
-	[rootView view];
-	
-	rootView.textView.text = [item customValueForKey:@"status"];
-	rootView.hasAttachment = item.image != nil;
-	
-	[self pushViewController:rootView animated:NO];
-	
-	[[SHK currentHelper] showViewController:self];	
-}
-
-- (void)sendForm:(SHKSinaWeiboV2Form *)form
-{	
-	[item setCustomValue:form.textView.text forKey:@"status"];
-	[self tryToSend];
-}
+//- (void)showSinaWeiboForm
+//{
+//	SHKSinaWeiboV2Form *rootView = [[SHKSinaWeiboV2Form alloc] initWithNibName:nil bundle:nil];	
+//	rootView.delegate = self;
+//	
+//	// force view to load so we can set textView text
+//	[rootView view];
+//	
+//	rootView.textView.text = [item customValueForKey:@"status"];
+//	rootView.hasAttachment = item.image != nil;
+//	
+//	[self pushViewController:rootView animated:NO];
+//	
+//	[[SHK currentHelper] showViewController:self];	
+//}
+//
+//- (void)sendForm:(SHKSinaWeiboV2Form *)form
+//{	
+//	[item setCustomValue:form.textView.text forKey:@"status"];
+//	[self tryToSend];
+//}
 
 #pragma mark -
 

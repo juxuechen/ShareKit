@@ -123,9 +123,10 @@ static NSString *const kSHKDoubanUserInfo = @"kSHKDoubanUserInfo";
 	}
 	
 	else if (item.shareType == SHKShareTypeText)
-	{//到分享
+	{//到分享  文字
 		[item setCustomValue:item.text forKey:@"status"];
-		[self showDoubanForm];
+//		[self showDoubanForm];
+        [self tryToSend];
 	}
     
     else if (item.shareType == SHKShareTypeUserInfo)
@@ -135,9 +136,9 @@ static NSString *const kSHKDoubanUserInfo = @"kSHKDoubanUserInfo";
 	}
 }
 
-- (void)showDoubanForm
-{
-//	SHKFormControllerLargeTextField *rootView = [[SHKFormControllerLargeTextField alloc] initWithNibName:nil bundle:nil delegate:self];	
+//- (void)showDoubanForm
+//{
+//	SHKFormControllerLargeTextField *rootView = [[SHKFormControllerLargeTextField alloc] initWithNibName:nil bundle:nil delegate:self];
 //    
 //    rootView.text = [item customValueForKey:@"status"];
 //	rootView.maxTextLength = 140;
@@ -148,20 +149,17 @@ static NSString *const kSHKDoubanUserInfo = @"kSHKDoubanUserInfo";
 //	
 //	[self pushViewController:rootView animated:NO];
 //	[rootView release];
-    
-    
-    [[SHK currentHelper] hideCurrentViewControllerAnimated:YES]; 
-//    [item setCustomValue:[item customValueForKey:@"status"] forKey:@"status"];
-	[self tryToSend];
-	
-//	[[SHK currentHelper] showViewController:self];
-}
-
-- (void)sendForm:(SHKFormControllerLargeTextField *)form
-{	
-	[item setCustomValue:form.textView.text forKey:@"status"];
-	[self tryToSend];
-}
+//    
+//    
+//    [[SHK currentHelper] hideCurrentViewControllerAnimated:YES]; 
+//	[self tryToSend];
+//}
+//
+//- (void)sendForm:(SHKFormControllerLargeTextField *)form
+//{	
+//	[item setCustomValue:form.textView.text forKey:@"status"];
+//	[self tryToSend];
+//}
 
 - (void)sendText:(NSString *)text {
     [item setCustomValue:text forKey:@"status"];
