@@ -191,6 +191,7 @@
 	}
 }
 
+//取消授权页面
 - (void)tokenAuthorizeCancelledView:(SHKOAuthView *)authView
 {
 	[[SHK currentHelper] hideCurrentViewControllerAnimated:YES];

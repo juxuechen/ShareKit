@@ -274,6 +274,10 @@
 		7ABCDBB3157757D1003BBFFD /* SHKFormFieldCellOptionPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 7ABCDBAF157757D1003BBFFD /* SHKFormFieldCellOptionPicker.m */; };
 		7ACA93FD156D192100E7006E /* FBFrictionlessRequestSettings.h in Headers */ = {isa = PBXBuildFile; fileRef = 7ACA93FB156D192100E7006E /* FBFrictionlessRequestSettings.h */; };
 		7ACA93FE156D192100E7006E /* FBFrictionlessRequestSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 7ACA93FC156D192100E7006E /* FBFrictionlessRequestSettings.m */; };
+		86765F9B163A3118002689F6 /* doubanNS.png in Resources */ = {isa = PBXBuildFile; fileRef = 86765F97163A3118002689F6 /* doubanNS.png */; };
+		86765F9C163A3118002689F6 /* doubanS.png in Resources */ = {isa = PBXBuildFile; fileRef = 86765F98163A3118002689F6 /* doubanS.png */; };
+		86765F9D163A3118002689F6 /* sinaNS.png in Resources */ = {isa = PBXBuildFile; fileRef = 86765F99163A3118002689F6 /* sinaNS.png */; };
+		86765F9E163A3118002689F6 /* sinaS.png in Resources */ = {isa = PBXBuildFile; fileRef = 86765F9A163A3118002689F6 /* sinaS.png */; };
 		86EEE8E31639063300EF62DB /* ShareTogethorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 86EEE8E11639063300EF62DB /* ShareTogethorViewController.m */; };
 		86EEE8E41639063300EF62DB /* ShareTogethorViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 86EEE8E21639063300EF62DB /* ShareTogethorViewController.xib */; };
 		AC7F3B3815EF18BC008A1A4E /* SHKDouban.m in Sources */ = {isa = PBXBuildFile; fileRef = AC7F3B3715EF18BC008A1A4E /* SHKDouban.m */; };
@@ -587,6 +591,10 @@
 		7AF2523714F0499E00CE8709 /* JSONKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONKit.m; sourceTree = "<group>"; };
 		7AF78BB114B71FD8008ACA5D /* SHKFormControllerLargeTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKFormControllerLargeTextField.h; sourceTree = "<group>"; };
 		7AF78BB214B71FD8008ACA5D /* SHKFormControllerLargeTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKFormControllerLargeTextField.m; sourceTree = "<group>"; };
+		86765F97163A3118002689F6 /* doubanNS.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = doubanNS.png; path = images/doubanNS.png; sourceTree = "<group>"; };
+		86765F98163A3118002689F6 /* doubanS.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = doubanS.png; path = images/doubanS.png; sourceTree = "<group>"; };
+		86765F99163A3118002689F6 /* sinaNS.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = sinaNS.png; path = images/sinaNS.png; sourceTree = "<group>"; };
+		86765F9A163A3118002689F6 /* sinaS.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = sinaS.png; path = images/sinaS.png; sourceTree = "<group>"; };
 		86EEE8E01639063300EF62DB /* ShareTogethorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ShareTogethorViewController.h; path = Example/ShareTogethorViewController.h; sourceTree = "<group>"; };
 		86EEE8E11639063300EF62DB /* ShareTogethorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ShareTogethorViewController.m; path = Example/ShareTogethorViewController.m; sourceTree = "<group>"; };
 		86EEE8E21639063300EF62DB /* ShareTogethorViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ShareTogethorViewController.xib; path = Example/ShareTogethorViewController.xib; sourceTree = "<group>"; };
@@ -819,6 +827,10 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				86765F97163A3118002689F6 /* doubanNS.png */,
+				86765F98163A3118002689F6 /* doubanS.png */,
+				86765F99163A3118002689F6 /* sinaNS.png */,
+				86765F9A163A3118002689F6 /* sinaS.png */,
 				43A5382611DBE480004A1712 /* example.pdf */,
 				43A5382711DBE480004A1712 /* sanFran.jpg */,
 				28F335F01007B36200424DE2 /* RootViewController.xib */,
@@ -1222,12 +1234,12 @@
 		43A536C011DBE3B9004A1712 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				AC7F3B3515EF18BC008A1A4E /* Douban */,
 				F1983F381600CA6D00371541 /* Sina Weibo V2 */,
+				AC7F3B3915EF1913008A1A4E /* Renren */,
+				AC7F3BB115EF1A54008A1A4E /* Tencent Weibo */,
 				AC7F3BC315EF1BD4008A1A4E /* Plurk */,
 				AC7F3BBB15EF1AF6008A1A4E /* NetEase Weibo */,
-				AC7F3BB115EF1A54008A1A4E /* Tencent Weibo */,
-				AC7F3B3915EF1913008A1A4E /* Renren */,
-				AC7F3B3515EF18BC008A1A4E /* Douban */,
 				7A0F91CB156B9FCE009CB40A /* Delicious */,
 				FDB495A11520349A00505A99 /* Readability */,
 				B7EFCD8914C6B966004910F1 /* Diigo */,
@@ -1957,6 +1969,10 @@
 				AC7F3B9415EF1913008A1A4E /* small-button-normal.png in Resources */,
 				AC7F3B9515EF1913008A1A4E /* small-button-normal@2x.png in Resources */,
 				86EEE8E41639063300EF62DB /* ShareTogethorViewController.xib in Resources */,
+				86765F9B163A3118002689F6 /* doubanNS.png in Resources */,
+				86765F9C163A3118002689F6 /* doubanS.png in Resources */,
+				86765F9D163A3118002689F6 /* sinaNS.png in Resources */,
+				86765F9E163A3118002689F6 /* sinaS.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

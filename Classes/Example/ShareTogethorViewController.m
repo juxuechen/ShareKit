@@ -33,20 +33,15 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    [[NSNotificationCenter defaultCenter] addObserverForName:@"tokenAccessTicket"
+    
+    
+    [[NSNotificationCenter defaultCenter] addObserverForName:@"SHKAuthDidFinish"
                                                       object:nil
                                                        queue:nil
                                                   usingBlock:^(NSNotification *note){
                                                       NSLog(@"绑定成功 %@",note);
-                                                      NSString *className = [note.userInfo objectForKey:@"class"];
-                                                      if ([className isEqualToString:@"SHKSinaWeibo"]) {
-                                                          [self.doubanButton setTitle:@"新浪绑定成功" forState:UIControlStateNormal];
-                                                      }
-                                                      if ([className isEqualToString:@"SHKDouban"]) {
-                                                          [self.doubanButton setTitle:@"豆瓣绑定成功" forState:UIControlStateNormal];
-                                                      }
+                                                      NSLog(@"绑定完成   userinfo %@",note.userInfo);
                                                   }];
-    
 
 }
 
@@ -63,37 +58,65 @@
 }
 
 
+#pragma mark -
+#pragma mark Public
+
+- (void)setDoubanShare:(BOOL)s {
+    _doubanShare = s;
+    NSString *imageName = s ? @"doubanS" : @"doubanNS";
+    [self.doubanButton setImage:[UIImage imageNamed:imageName] forState:UIControlStateNormal];
+    [self.doubanButton setImage:[UIImage imageNamed:imageName] forState:UIControlStateHighlighted];
+}
+
+
+- (void)setSinaShare:(BOOL)s {
+    _sinaShare = s;
+    NSString *imageName = s ? @"sinaS" : @"sinaNS";
+    [self.sinaButton setImage:[UIImage imageNamed:imageName] forState:UIControlStateNormal];
+    [self.sinaButton setImage:[UIImage imageNamed:imageName] forState:UIControlStateHighlighted];
+}
+
+
+#pragma mark -
+#pragma mark Share
+
 - (IBAction)douban:(id)sender {
-    self.doubanSharer = [[[SHKDouban alloc] init] autorelease];
-    SHKItem *item = [SHKItem text:@"1234569999000"];
-    [self.doubanSharer loadItem:item];
-    [SHK setRootViewController:self];
-    if (![self.doubanSharer authorize]) {//未绑定
-        [self.doubanSharer share];
-    }
-    else {
-        [self.doubanButton setTitle:@"不分享到豆瓣" forState:UIControlStateNormal];
+    self.doubanShare = !self.doubanShare;
+    
+    if (self.doubanShare) {
+        self.doubanSharer = [[[SHKDouban alloc] init] autorelease];
+        SHKItem *item = [SHKItem text:@"1234569999000"];
+        [self.doubanSharer loadItem:item];
+        [SHK setRootViewController:self];
+        if (![self.doubanSharer restoreAccessToken]) {//未绑定
+            [self.doubanSharer share];
+        }
     }
 }
 
 
 - (IBAction)sina:(id)sender {
-    self.sinaSharer = [[[SHKSinaWeibo alloc] init] autorelease];
-    SHKItem *item = [SHKItem text:@"1234569999000"];
-    [self.sinaSharer loadItem:item];
-    [SHK setRootViewController:self];
-    if (![self.sinaSharer authorize]) {//未绑定
-        [self.sinaSharer share];
-    }
-    else {
-        [self.sinaButton setTitle:@"不分享到新浪" forState:UIControlStateNormal];
+    self.sinaShare = !self.sinaShare;
+    
+    if (self.sinaShare) {
+        self.sinaSharer = [[[SHKSinaWeibo alloc] init] autorelease];
+        SHKItem *item = [SHKItem text:@"1234569999000"];
+        [self.sinaSharer loadItem:item];
+        [SHK setRootViewController:self];
+        if (![self.sinaSharer restoreAccessToken]) {//未绑定
+            [self.sinaSharer share];
+        }
     }
 }
 
 
 - (IBAction)share:(id)sender {
-    [self.doubanSharer share];
-    [self.sinaSharer share];
+    if (self.doubanShare) {
+        [self.doubanSharer share];
+    }
+    if (self.sinaShare) {
+        [self.sinaSharer share];
+    }
 }
 
 

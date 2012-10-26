@@ -227,6 +227,7 @@ BOOL SHKinit;
 			self.isDismissingView = YES;            
             [[currentView presentingViewController] dismissViewControllerAnimated:animated completion:^{                                                                           
                 [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                    //此处向twitter发送通知
                     [[NSNotificationCenter defaultCenter] postNotificationName:SHKHideCurrentViewFinishedNotification object:nil];
                 }];
             }];

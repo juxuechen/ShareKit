@@ -321,6 +321,7 @@ static NSString *const kSHKDoubanUserInfo = @"kSHKDoubanUserInfo";
 }
 
 #pragma mark - Overrewrite parent method
+//toke授权   出现绑定界面
 - (void)tokenAuthorize
 {	
     NSString *urlString = [NSString stringWithFormat:@"%@?oauth_token=%@&p=1", authorizeURL.absoluteString, requestToken.key];

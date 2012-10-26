@@ -683,11 +683,6 @@
                     
             //show UI or autoshare
 //			[self share];
-//jx------
-            //从前是绑定成功后跳分享界面，现在改为绑定成功后，通知vc告知绑定成功。
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"tokenAccessTicket"
-                                                                object:nil
-                                                              userInfo:[NSDictionary dictionaryWithObjectsAndKeys:NSStringFromClass([self class]),@"class", nil]];
             
             //to show alert if reshare finishes with error (see SHKSharerDelegate)
             self.pendingAction = SHKPendingNone;
@@ -775,7 +770,9 @@
 
 - (void)authDidFinish:(BOOL)success	
 {
-	[[NSNotificationCenter defaultCenter] postNotificationName:@"SHKAuthDidFinish" object:self userInfo:[NSDictionary dictionaryWithObject:[NSNumber numberWithBool:success] forKey:@"success"]];  
+	[[NSNotificationCenter defaultCenter] postNotificationName:@"SHKAuthDidFinish"
+                                                        object:self
+                                                      userInfo:[NSDictionary dictionaryWithObject:[NSNumber numberWithBool:success] forKey:@"success"]];
     
     if ([self.shareDelegate respondsToSelector:@selector(sharerAuthDidFinish:success:)]) {		
         [self.shareDelegate sharerAuthDidFinish:self success:success];
