@@ -7,10 +7,6 @@
 //
 
 #import "RootViewController.h"
-#import "ExampleShareLink.h"
-#import "ExampleShareImage.h"
-#import "ExampleShareText.h"
-#import "ExampleShareFile.h"
 #import "SHK.h"
 #import "ShareTogethorViewController.h"
 
@@ -39,7 +35,7 @@
 // Customize the number of rows in the table view.
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section 
 {
-    return 5;//5;
+    return 1;//5;
 }
 
 
@@ -55,23 +51,7 @@
     
 	switch (indexPath.row) 
 	{
-		case 0:
-			cell.textLabel.text = SHKLocalizedString(@"Sharing a Link");
-			break;
-			
-		case 1:
-			cell.textLabel.text = SHKLocalizedString(@"Sharing an Image");
-			break;
-			
-		case 2:
-			cell.textLabel.text = SHKLocalizedString(@"Sharing Text");
-			break;
-			
-		case 3:
-			cell.textLabel.text = SHKLocalizedString(@"Sharing a File");
-			break;
-		
-        case 4:
+        case 0:
             cell.textLabel.text = @"一键分享";
             break;
         
@@ -91,28 +71,11 @@
 {
 	switch (indexPath.row) 
 	{
-		case 0:
-			[self.navigationController pushViewController:[[[ExampleShareLink alloc] initWithNibName:nil bundle:nil] autorelease] animated:YES];
-			break;
-			
-		case 1:
-			
-			[self.navigationController pushViewController:[[[ExampleShareImage alloc] initWithNibName:nil bundle:nil] autorelease] animated:YES];
-			break;
-			
-		case 2:
-			[self.navigationController pushViewController:[[[ExampleShareText alloc] initWithNibName:nil bundle:nil] autorelease] animated:YES];
-			break;
-			
-		case 3:
-			[self.navigationController pushViewController:[[[ExampleShareFile alloc] initWithNibName:nil bundle:nil] autorelease] animated:YES];
-			break;
-			
 		//case 4:
 		//	[SHK logoutOfAll];
 		//	break;
             
-        case 4:
+        case 0:
             [self.navigationController pushViewController:[[ShareTogethorViewController alloc] init] animated:YES];
 			
 	}

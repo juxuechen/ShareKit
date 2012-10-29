@@ -119,16 +119,14 @@ static NSString *const kSHKDoubanUserInfo = @"kSHKDoubanUserInfo";
 	else if (item.shareType == SHKShareTypeImage)
 	{//到分享  图片
 		[item setCustomValue:item.title forKey:@"status"];
-//		[self showDoubanForm];
-        [self tryToSend];
+		[self showDoubanForm];
 	}
 	
 	else if (item.shareType == SHKShareTypeText)
 	{//到分享  文字
 		[item setCustomValue:item.text forKey:@"status"];
         //不需要再展示的UI
-//		[self showDoubanForm];
-        [self tryToSend];
+		[self showDoubanForm];
 	}
     
     else if (item.shareType == SHKShareTypeUserInfo)
@@ -138,30 +136,10 @@ static NSString *const kSHKDoubanUserInfo = @"kSHKDoubanUserInfo";
 	}
 }
 
-//- (void)showDoubanForm
-//{
-//	SHKFormControllerLargeTextField *rootView = [[SHKFormControllerLargeTextField alloc] initWithNibName:nil bundle:nil delegate:self];
-//    
-//    rootView.text = [item customValueForKey:@"status"];
-//	rootView.maxTextLength = 140;
-//	rootView.image = item.image;
-//	rootView.imageTextLength = 25;
-//	
-//	self.navigationBar.tintColor = SHKCONFIG_WITH_ARGUMENT(barTintForView:,self);
-//	
-//	[self pushViewController:rootView animated:NO];
-//	[rootView release];
-//    
-//    
-//    [[SHK currentHelper] hideCurrentViewControllerAnimated:YES]; 
-//	[self tryToSend];
-//}
-//
-//- (void)sendForm:(SHKFormControllerLargeTextField *)form
-//{	
-//	[item setCustomValue:form.textView.text forKey:@"status"];
-//	[self tryToSend];
-//}
+- (void)showDoubanForm
+{
+	[self tryToSend];
+}
 
 - (void)sendText:(NSString *)text {
     [item setCustomValue:text forKey:@"status"];

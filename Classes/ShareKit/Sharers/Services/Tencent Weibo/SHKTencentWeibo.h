@@ -30,9 +30,8 @@
 
 #import <Foundation/Foundation.h>
 #import "SHKOAuthSharer.h"
-#import "SHKFormControllerLargeTextField.h"
 
-@interface SHKTencentWeibo : SHKOAuthSharer <SHKFormControllerLargeTextFieldDelegate> 
+@interface SHKTencentWeibo : SHKOAuthSharer
 
 #pragma mark -
 #pragma mark UI Implementation

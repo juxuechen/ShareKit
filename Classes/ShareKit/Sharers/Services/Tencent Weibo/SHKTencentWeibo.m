@@ -160,14 +160,12 @@ static NSString *const kSHKTencentWeiboUserInfo = @"kSHKTencentWeiboUserInfo";
 	
     else if (item.shareType == SHKShareTypeImage)
 	{//到分享  图片
-//		[self showTencentWeiboForm];
-        [self tryToSend];
+		[self showTencentWeiboForm];
 	}
 	
 	else if (item.shareType == SHKShareTypeText)
 	{//到分享  文字
-//		[self showTencentWeiboForm];
-        [self tryToSend];
+		[self showTencentWeiboForm];
 	}
     
     else if (item.shareType == SHKShareTypeUserInfo)
@@ -177,28 +175,11 @@ static NSString *const kSHKTencentWeiboUserInfo = @"kSHKTencentWeiboUserInfo";
 	}
 }
 
-//- (void)showTencentWeiboForm
-//{
-//	SHKFormControllerLargeTextField *rootView = [[SHKFormControllerLargeTextField alloc] initWithNibName:nil bundle:nil delegate:self];	
-//	
-//	rootView.text = [item customValueForKey:@"status"];
-//	rootView.maxTextLength = 140;
-//	rootView.image = item.image;
-//	rootView.imageTextLength = 25;
-//	
-//	self.navigationBar.tintColor = SHKCONFIG_WITH_ARGUMENT(barTintForView:,self);
-//	
-//	[self pushViewController:rootView animated:NO];
-//	[rootView release];
-//	
-//	[[SHK currentHelper] showViewController:self];	
-//}
-
-- (void)sendForm:(SHKFormControllerLargeTextField *)form
-{	
-	[item setCustomValue:form.textView.text forKey:@"status"];
+- (void)showTencentWeiboForm
+{
 	[self tryToSend];
 }
+
 
 #pragma mark -
 

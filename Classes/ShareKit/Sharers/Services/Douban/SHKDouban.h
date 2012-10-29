@@ -28,9 +28,8 @@
 
 #import <Foundation/Foundation.h>
 #import "SHKOAuthSharer.h"
-#import "SHKFormControllerLargeTextField.h"
 
-@interface SHKDouban : SHKOAuthSharer <SHKFormControllerLargeTextFieldDelegate>
+@interface SHKDouban : SHKOAuthSharer
 
 #pragma mark -
 #pragma mark UI Implementation

@@ -28,7 +28,6 @@
 
 #import <Foundation/Foundation.h>
 #import "SHKOAuthSharer.h"
-#import "SHKSinaWeiboV2Form.h"
 
 
 @interface SHKSinaWeibo : SHKOAuthSharer 
@@ -53,7 +52,6 @@
 - (void)shortenURL;
 - (void)shortenURLFinished:(SHKRequest *)aRequest;
     
-- (void)sendForm:(SHKSinaWeiboV2Form *)form;
     
 - (void)sendStatus;
 - (void)sendStatusTicket:(OAServiceTicket *)ticket didFinishWithData:(NSData *)data;

@@ -248,39 +248,21 @@ static NSString *accessTokenKey = @"access_token";
     else if (item.shareType == SHKShareTypeImage)
 	{//到分享  图片
 		[item setCustomValue:item.title forKey:@"status"];
-//		[self showSinaWeiboForm];
-        [self tryToSend];
+		[self showSinaWeiboForm];
 	}
 	
 	else if (item.shareType == SHKShareTypeText)
 	{//到分享  文字
 		[item setCustomValue:item.text forKey:@"status"];
-//		[self showSinaWeiboForm];
-        [self tryToSend];
+		[self showSinaWeiboForm];
 	}
 }
 
 - (void)showSinaWeiboForm
 {
-	SHKSinaWeiboV2Form *rootView = [[SHKSinaWeiboV2Form alloc] initWithNibName:nil bundle:nil];	
-	rootView.delegate = self;
-	
-	// force view to load so we can set textView text
-	[rootView view];
-	
-	rootView.textView.text = [item customValueForKey:@"status"];
-	rootView.hasAttachment = item.image != nil;
-	
-	[self pushViewController:rootView animated:NO];
-	
-	[[SHK currentHelper] showViewController:self];	
-}
-
-- (void)sendForm:(SHKSinaWeiboV2Form *)form
-{	
-	[item setCustomValue:form.textView.text forKey:@"status"];
 	[self tryToSend];
 }
+
 
 #pragma mark -
 

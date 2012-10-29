@@ -447,39 +447,25 @@ static NSString *const kSHKFacebookUserInfo =@"kSHKFacebookUserInfo";
 
 - (void)showFacebookForm
 {
- 	SHKCustomFormControllerLargeTextField *rootView = [[SHKCustomFormControllerLargeTextField alloc] initWithNibName:nil bundle:nil delegate:self];  
- 	
-    switch (self.item.shareType) {
-        case SHKShareTypeText:
-            rootView.text = item.text;
-            break;
-        case SHKShareTypeImage:
-            rootView.image = item.image;
-            rootView.text = item.title;            
-        default:
-            break;
-    }    
-    
-    self.navigationBar.tintColor = SHKCONFIG_WITH_ARGUMENT(barTintForView:,self);
- 	[self pushViewController:rootView animated:NO];
-    [rootView release];
-    
-    [[SHK currentHelper] showViewController:self];  
+// 	SHKCustomFormControllerLargeTextField *rootView = [[SHKCustomFormControllerLargeTextField alloc] initWithNibName:nil bundle:nil delegate:self];  
+// 	
+//    switch (self.item.shareType) {
+//        case SHKShareTypeText:
+//            rootView.text = item.text;
+//            break;
+//        case SHKShareTypeImage:
+//            rootView.image = item.image;
+//            rootView.text = item.title;            
+//        default:
+//            break;
+//    }    
+//    
+//    self.navigationBar.tintColor = SHKCONFIG_WITH_ARGUMENT(barTintForView:,self);
+// 	[self pushViewController:rootView animated:NO];
+//    [rootView release];
+//    
+//    [[SHK currentHelper] showViewController:self];  
 }
 
-- (void)sendForm:(SHKCustomFormControllerLargeTextField *)form
-{  
- 	switch (self.item.shareType) {
-        case SHKShareTypeText:
-            self.item.text = form.textView.text;
-            break;
-        case SHKShareTypeImage:
-            self.item.title = form.textView.text;
-        default:
-            break;
-    }    
-    
- 	[self tryToSend];
-}  
 
 @end
