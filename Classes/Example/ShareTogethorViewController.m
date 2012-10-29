@@ -36,7 +36,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
-    
+    //授权页面消失
     [[NSNotificationCenter defaultCenter] addObserverForName:@"jx-SHKAuthDidFinish"
                                                       object:nil
                                                        queue:nil
@@ -64,6 +64,7 @@
                                                        }];
     
     
+    //授权状态
     [[NSNotificationCenter defaultCenter] addObserverForName:@"jx-tokenRequest"
                                                       object:nil
                                                        queue:nil
@@ -94,7 +95,7 @@
                                                   }];
 
     
-
+    //分享状态
     [[NSNotificationCenter defaultCenter] addObserverForName:@"jx-sharerStartedSending"
                                                       object:nil
                                                        queue:nil

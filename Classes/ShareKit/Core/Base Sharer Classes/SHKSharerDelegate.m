@@ -23,7 +23,7 @@
         [[NSNotificationCenter defaultCenter] postNotificationName:@"jx-sharerStartedSending"
                                                             object:self
                                                           userInfo:[NSDictionary dictionaryWithObjectsAndKeys:
-                                                                    NSStringFromClass([self class]),@"sharer",nil]];
+                                                                    NSStringFromClass([sharer class]),@"sharer",nil]];
     }
 }
 
@@ -35,7 +35,7 @@
         [[NSNotificationCenter defaultCenter] postNotificationName:@"jx-sharerFinishedSending"
                                                             object:self
                                                           userInfo:[NSDictionary dictionaryWithObjectsAndKeys:
-                                                                    NSStringFromClass([self class]),@"sharer",nil]];
+                                                                    NSStringFromClass([sharer class]),@"sharer",nil]];
     }
 }
 
@@ -49,7 +49,7 @@
                                                       userInfo:[NSDictionary dictionaryWithObjectsAndKeys:
                                                                 error,@"error",
                                                                 [NSNumber numberWithBool:shouldRelogin],@"shouldRelogin",
-                                                                NSStringFromClass([self class]),@"sharer",nil]];
+                                                                NSStringFromClass([sharer class]),@"sharer",nil]];
 
     //if user sent the item already but needs to relogin we do not show alert
     
