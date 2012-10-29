@@ -30,16 +30,12 @@
 #import "SHKConfiguration.h"
 #import "SHKSharerDelegate.h"
 
-@interface SHKSharer ()
 
-- (void)updateItemWithForm:(SHKFormController *)form;
-
-@end
 
 @implementation SHKSharer
 
 @synthesize shareDelegate;
-@synthesize item, pendingForm, request;
+@synthesize item, request;
 @synthesize lastError;
 @synthesize quiet, pendingAction;
 
@@ -47,7 +43,6 @@
 {
 	[item release];
     [shareDelegate release];
-	[pendingForm release];
 	[request release];
 	[lastError release];
 	
@@ -294,10 +289,11 @@
 - (void)share
 {
 	// isAuthorized - If service requires login and details have not been saved, present login dialog	
-	if (![self authorize])
-		self.pendingAction = SHKPendingShare;
+	if (![self authorize]) {
+//		self.pendingAction = SHKPendingShare;
+    }
 
-	// A. First check if auto share is set and isn't nobbled off	
+	// A. First check if auto share is set and isn't nobbled off
 	// B. If it is, try to send
 	// If either A or B fail, display the UI
 	else if ([SHKCONFIG(allowAutoShare) boolValue] == FALSE ||	// this calls show and would skip try to send... but for sharers with no UI, try to send gets called in show
@@ -342,20 +338,7 @@
 
 - (void)promptAuthorization
 {
-	if ([[self class] shareRequiresInternetConnection] && ![SHK connected])
-	{
-		if (!quiet)
-		{
-			[[[[UIAlertView alloc] initWithTitle:SHKLocalizedString(@"Offline")
-										 message:SHKLocalizedString(@"You must be online to login to %@", [self sharerTitle])
-										delegate:nil
-							   cancelButtonTitle:SHKLocalizedString(@"Close")
-							   otherButtonTitles:nil] autorelease] show];
-		}
-		return;
-	}
-	
-	[self authorizationFormShow];
+	//子类已经都有实现，此处代码不会执行。要删除SHKFormController相关部分，本地写入账号密码授权。
 }
 
 - (NSString *)getAuthValueForKey:(NSString *)key
@@ -368,91 +351,6 @@
 	[[NSUserDefaults standardUserDefaults] setBool:b forKey:[NSString stringWithFormat:@"%@_shouldAutoShare", [self sharerId]]];
 }
 
-#pragma mark Authorization Form
-
-- (void)authorizationFormShow
-{	
-	// Create the form
-	SHKFormController *form = [[SHKCONFIG(SHKFormControllerSubclass) alloc] initWithStyle:UITableViewStyleGrouped title:SHKLocalizedString(@"Login") rightButtonTitle:SHKLocalizedString(@"Login")];
-	[form addSection:[self authorizationFormFields] header:nil footer:[self authorizationFormCaption]];
-	form.delegate = self;
-	form.validateSelector = @selector(authorizationFormValidate:);
-	form.saveSelector = @selector(authorizationFormSave:);
-	form.cancelSelector = @selector(authorizationFormCancel:);
-	form.autoSelect = YES;
-	
-    [self pushViewController:form animated:NO];
-    [form release];
-    
-	[[SHK currentHelper] showViewController:self];
-}
-
-- (void)authorizationFormValidate:(SHKFormController *)form
-{
-	/*
-	 
-	Services should subclass this.
-	You can get a dictionary of the field values from [form formValues]
-	 
-	--
-	 
-	You should perform one of the following actions:
-	 
-	1.	Display an error - If the user input was incorrect, display an error to the user and tell them what to do to fix it
-	 
-	2.	Save the form - If everything is correct call [form saveForm]
-	 
-	3.	Display a pending indicator - If you need to authorize the details on the server, display an activity indicator with [form displayActivity:@"DESCRIPTION OF WHAT YOU ARE DOING"]
-		After your process completes be sure to perform either 1 or 2 above.
-	 	 
-	*/
-}
-
-- (void)authorizationFormSave:(SHKFormController *)form
-{		
-	// -- Save values 
-	NSDictionary *formValues = [form formValues];
-	
-	NSString *value;
-	NSString *sharerId = [self sharerId];
-	NSArray *fields = [[[form sections] objectAtIndex:0] objectForKey:@"rows"];
-	for(SHKFormFieldSettings *field in fields)
-	{
-		value = [formValues objectForKey:field.key];
-		[SHK setAuthValue:value forKey:field.key forSharer:sharerId];
-	}	
-		
-	// -- Try to share again
-	[self tryPendingAction];
-}
-
-- (void)authorizationFormCancel:(SHKFormController *)form
-{
-	[self sendDidCancel];
-}
-
-- (NSArray *)authorizationFormFields
-{
-	return [[self class] authorizationFormFields];
-}
-
-+ (NSArray *)authorizationFormFields
-{
-	return [NSArray arrayWithObjects:
-			[SHKFormFieldSettings label:SHKLocalizedString(@"Username") key:@"username" type:SHKFormFieldTypeTextNoCorrect start:nil],
-			[SHKFormFieldSettings label:SHKLocalizedString(@"Password") key:@"password" type:SHKFormFieldTypePassword start:nil],			
-			nil];
-}
-
-- (NSString *)authorizationFormCaption
-{
-	return [[self class] authorizationFormCaption];
-}
-
-+ (NSString *)authorizationFormCaption
-{
-	return nil;
-}
 
 + (void)logout
 {
@@ -483,120 +381,7 @@
 
 - (void)show
 {
-	NSArray *shareFormFields = [self shareFormFieldsForType:item.shareType];
-	
-	if (shareFormFields == nil)
-		[self tryToSend];
-	
-	else 
-	{	
-		SHKFormController *rootView = [[SHKCONFIG(SHKFormControllerSubclass) alloc] initWithStyle:UITableViewStyleGrouped 
-																		 title:nil
-															  rightButtonTitle:SHKLocalizedString(@"Send to %@", [[self class] sharerTitle])
-									   ];
-		[rootView addSection:[self shareFormFieldsForType:item.shareType] header:nil footer:item.URL!=nil?item.URL.absoluteString:nil];
-		
-		if ([SHKCONFIG(allowAutoShare) boolValue] == TRUE && [[self class] canAutoShare])
-		{
-			[rootView addSection:
-			[NSArray arrayWithObject:
-			[SHKFormFieldSettings label:SHKLocalizedString(@"Auto Share") key:@"autoShare" type:SHKFormFieldTypeSwitch start:([self shouldAutoShare]?SHKFormFieldSwitchOn:SHKFormFieldSwitchOff)]
-			 ]
-						header:nil
-						footer:SHKLocalizedString(@"Enable auto share to skip this step in the future.")];
-		}
-		
-		rootView.delegate = self;
-		rootView.validateSelector = @selector(shareFormValidate:);
-		rootView.saveSelector = @selector(shareFormSave:);
-		rootView.cancelSelector = @selector(shareFormCancel:);
-		
-		[self pushViewController:rootView animated:NO];
-        [rootView release];
-		
-		[[SHK currentHelper] showViewController:self];
-	}
-}
-
-#pragma mark -
-#pragma mark Share Form
-
-- (NSArray *)shareFormFieldsForType:(SHKShareType)type
-{
-	if (type == SHKShareTypeURL)
-		return [NSArray arrayWithObjects:
-				[SHKFormFieldSettings label:SHKLocalizedString(@"Title") key:@"title" type:SHKFormFieldTypeText start:item.title],
-				nil];
-	
-	return nil;
-}
-
-- (void)shareFormValidate:(SHKFormController *)form
-{	
-	/*
-	 
-	 Services should subclass this if they need to validate any data before sending.
-	 You can get a dictionary of the field values from [form formValues]
-	 
-	 --
-	 
-	 You should perform one of the following actions:
-	 
-	 1.	Display an error - If the user input was incorrect, display an error to the user and tell them what to do to fix it
-	 
-	 2.	Save the form - If everything is correct call [form save]
-	 
-	 3.	Display a pending indicator - If you need to authorize the details on the server, display an activity indicator with [form displayActivity:@"DESCRIPTION OF WHAT YOU ARE DOING"]
-	 After your process completes be sure to perform either 1 or 2 above.
-	 
-	*/
-	
-	
-	// default does no checking and proceeds to share
-	[form saveForm];
-}
-
-- (void)shareFormSave:(SHKFormController *)form
-{		
-    [self updateItemWithForm:form];
-	
-	// Update shouldAutoShare
-	if ([SHKCONFIG(allowAutoShare) boolValue] == TRUE && [[self class] canAutoShare])
-	{
-		NSDictionary *advancedOptions = [form formValuesForSection:1];
-		if ([advancedOptions objectForKey:@"autoShare"] != nil)
-			[self setShouldAutoShare:[[advancedOptions objectForKey:@"autoShare"] isEqualToString:SHKFormFieldSwitchOn]];	
-	}
-	
-	// Send the share
-	[self tryToSend];
-}
-
-- (void)shareFormCancel:(SHKFormController *)form
-{
-	[self sendDidCancel];
-}
-
-#pragma mark -
-
-- (void)updateItemWithForm:(SHKFormController *)form
-{
-	// Update item with new values from form
-    NSDictionary *formValues = [form formValues];
-	for(NSString *key in formValues)
-	{
-		if ([key isEqualToString:@"title"])
-			item.title = [formValues objectForKey:key];
-		
-		else if ([key isEqualToString:@"text"])
-			item.text = [formValues objectForKey:key];
-		
-		else if ([key isEqualToString:@"tags"])
-			item.tags = [formValues objectForKey:key];
-		
-		else
-			[item setCustomValue:[formValues objectForKey:key] forKey:key];
-	}
+	//子类实现
 }
 
 #pragma mark -
@@ -679,14 +464,14 @@
             //to show alert if reshare finishes with error (see SHKSharerDelegate)
             self.pendingAction = SHKPendingNone;            
             break;        
-        case SHKPendingShare:
+//        case SHKPendingShare:
                     
             //show UI or autoshare
 //			[self share];
             
             //to show alert if reshare finishes with error (see SHKSharerDelegate)
-            self.pendingAction = SHKPendingNone;
-			break;
+//            self.pendingAction = SHKPendingNone;
+//			break;
 		default:
 			break;
 	}
@@ -729,17 +514,6 @@
 
 - (void)shouldReloginWithPendingAction:(SHKSharerPendingAction)action
 {
-    
-    if (action == SHKPendingShare) {
-        
-        if (curOptionController) {
-            [self popViewControllerAnimated:NO];//dismiss option controller
-            curOptionController = nil;
-            NSAssert([[self topViewController] isKindOfClass:[SHKFormController class]], @"topViewController must be SHKFormController now!");
-            [self updateItemWithForm:(SHKFormController *)self.topViewController];
-        }        
-    }
-    
     self.pendingAction = action;
 	[self sendDidFailWithError:[SHK error:SHKLocalizedString(@"Could not authenticate you. Please relogin.")] shouldRelogin:YES];
 }

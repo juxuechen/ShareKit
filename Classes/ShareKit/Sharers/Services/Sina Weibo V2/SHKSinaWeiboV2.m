@@ -222,18 +222,6 @@ static NSString *accessTokenKey = @"access_token";
 	}
 }
 
-#pragma mark xAuth
-
-+ (NSString *)authorizationFormCaption
-{
-	return SHKLocalizedString(@"Create a free account at %@", @"weibo.com");
-}
-
-- (void)authorizationFormValidate:(SHKFormController *)form
-{
-	self.pendingForm = form;
-	[self tokenAccess];
-}
 
 #pragma mark -
 #pragma mark UI Implementation

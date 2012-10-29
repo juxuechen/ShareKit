@@ -118,8 +118,8 @@ static NSString *const kSHKFacebookUserInfo =@"kSHKFacebookUserInfo";
     
     if ([[NSUserDefaults standardUserDefaults] objectForKey:kSHKStoredItemKey])
     {
-        facebookSharer.pendingAction = SHKPendingShare;
-    } 
+//        facebookSharer.pendingAction = SHKPendingShare;
+    }
       
     [fb setSessionDelegate:facebookSharer];      
   }    

@@ -30,15 +30,12 @@
 #import <Foundation/Foundation.h>
 #import "DefaultSHKConfigurator.h"
 #import "SHKItem.h"
-#import "SHKActionSheet.h"
 #import "SHKRequest.h"
 #import "SHKActivityIndicator.h"
 #import "SHKFormFieldSettings.h"
 #import "UIWebView+SHK.h"
 
 extern NSString * const SHKHideCurrentViewFinishedNotification;
-
-@class SHKActionSheet;
 
 @interface SHK : NSObject 
 {

@@ -27,7 +27,6 @@
 
 #import <UIKit/UIKit.h>
 #import "SHK.h"
-#import "SHKFormController.h"
 
 @class SHKSharer;
 
@@ -48,7 +47,7 @@
 typedef enum 
 {
 	SHKPendingNone,
-	SHKPendingShare, //when ShareKit detects invalid credentials BEFORE user sends. User continues editing share content after login.
+//	SHKPendingShare, //when ShareKit detects invalid credentials BEFORE user sends. User continues editing share content after login.
 	SHKPendingRefreshToken, //when OAuth token expires
     SHKPendingSend, //when ShareKit detects invalid credentials AFTER user sends. Item is resent without showing edit dialogue (user edited already). 
 } SHKSharerPendingAction;
@@ -59,8 +58,6 @@ typedef enum
 	id shareDelegate;
 	
 	SHKItem *item;
-	SHKFormController *pendingForm;
-    SHKFormOptionController* curOptionController;
 	SHKRequest *request;
 		
 	NSError *lastError;
@@ -72,7 +69,6 @@ typedef enum
 @property (nonatomic, retain) id <SHKSharerDelegate> shareDelegate;
 
 @property (retain) SHKItem *item;
-@property (retain) SHKFormController *pendingForm;
 @property (retain) SHKRequest *request;
 
 @property (nonatomic, retain) NSError *lastError;
@@ -147,10 +143,6 @@ typedef enum
 
 #pragma mark Authorization Form
 
-- (void)authorizationFormShow;
-- (void)authorizationFormValidate:(SHKFormController *)form;
-- (void)authorizationFormSave:(SHKFormController *)form;
-- (void)authorizationFormCancel:(SHKFormController *)form;
 - (NSArray *)authorizationFormFields;
 - (NSString *)authorizationFormCaption;
 + (NSArray *)authorizationFormFields;
@@ -169,14 +161,6 @@ typedef enum
 #pragma mark UI Implementation
 
 - (void)show;
-
-#pragma mark -
-#pragma mark Share Form
-
-- (NSArray *)shareFormFieldsForType:(SHKShareType)type;
-- (void)shareFormValidate:(SHKFormController *)form;
-- (void)shareFormSave:(SHKFormController *)form;
-- (void)shareFormCancel:(SHKFormController *)form;
 
 #pragma mark -
 #pragma mark Pending Actions
