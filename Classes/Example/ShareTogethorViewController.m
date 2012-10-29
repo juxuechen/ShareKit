@@ -70,6 +70,14 @@
                                                   usingBlock:^(NSNotification *note){
                                                       NSLog(@"开始连接平台 %@",[note.userInfo objectForKey:@"sharer"]);
                                                   }];
+    [[NSNotificationCenter defaultCenter] addObserverForName:@"jx-tokenRequestAuthenticating"
+                                                      object:nil
+                                                       queue:nil
+                                                  usingBlock:^(NSNotification *note){
+                                                      NSLog(@"开始验证平台 %@",[note.userInfo objectForKey:@"sharer"]);
+
+                                                  }];
+    
     
     [[NSNotificationCenter defaultCenter] addObserverForName:@"jx-tokenRequestTicketFinish"
                                                       object:nil
@@ -84,6 +92,8 @@
                                                   usingBlock:^(NSNotification *note){
                                                       NSLog(@"连接平台%@失败,%@",[note.userInfo objectForKey:@"sharer"],[note.userInfo objectForKey:@"error"]);
                                                   }];
+
+    
 
     [[NSNotificationCenter defaultCenter] addObserverForName:@"jx-sharerStartedSending"
                                                       object:nil

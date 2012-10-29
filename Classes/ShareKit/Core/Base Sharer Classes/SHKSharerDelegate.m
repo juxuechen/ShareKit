@@ -18,7 +18,7 @@
 - (void)sharerStartedSending:(SHKSharer *)sharer
 {
 	if (!sharer.quiet) {
-		[[SHKActivityIndicator currentIndicator] displayActivity:SHKLocalizedString(@"Saving to %@", [[sharer class] sharerTitle])];
+//		[[SHKActivityIndicator currentIndicator] displayActivity:SHKLocalizedString(@"Saving to %@", [[sharer class] sharerTitle])];
         
         [[NSNotificationCenter defaultCenter] postNotificationName:@"jx-sharerStartedSending"
                                                             object:self
@@ -30,7 +30,7 @@
 - (void)sharerFinishedSending:(SHKSharer *)sharer
 {
 	if (!sharer.quiet) {
-		[[SHKActivityIndicator currentIndicator] displayCompleted:SHKLocalizedString(@"Saved!")];
+//		[[SHKActivityIndicator currentIndicator] displayCompleted:SHKLocalizedString(@"Saved!")];
         
         [[NSNotificationCenter defaultCenter] postNotificationName:@"jx-sharerFinishedSending"
                                                             object:self
@@ -42,7 +42,7 @@
 - (void)sharer:(SHKSharer *)sharer failedWithError:(NSError *)error shouldRelogin:(BOOL)shouldRelogin
 {
     
-    [[SHKActivityIndicator currentIndicator] hide];
+//    [[SHKActivityIndicator currentIndicator] hide];
     
     [[NSNotificationCenter defaultCenter] postNotificationName:@"jx-sharerfailed"
                                                         object:self
@@ -52,17 +52,19 @@
                                                                 NSStringFromClass([self class]),@"sharer",nil]];
 
     //if user sent the item already but needs to relogin we do not show alert
-    if (!sharer.quiet && sharer.pendingAction != SHKPendingShare && sharer.pendingAction != SHKPendingSend)
-	{				
-		[[[[UIAlertView alloc] initWithTitle:SHKLocalizedString(@"Error")
-									 message:sharer.lastError!=nil?[sharer.lastError localizedDescription]:SHKLocalizedString(@"There was an error while sharing")
-									delegate:nil
-						   cancelButtonTitle:SHKLocalizedString(@"Close")
-						   otherButtonTitles:nil] autorelease] show];
-    }		
-    if (shouldRelogin) {        
-        [sharer promptAuthorization];
-	}
+    
+    //去掉后面的业务逻辑处理，把所有状况都返回给vc。
+//    if (!sharer.quiet && sharer.pendingAction != SHKPendingShare && sharer.pendingAction != SHKPendingSend)
+//	{				
+//		[[[[UIAlertView alloc] initWithTitle:SHKLocalizedString(@"Error")
+//									 message:sharer.lastError!=nil?[sharer.lastError localizedDescription]:SHKLocalizedString(@"There was an error while sharing")
+//									delegate:nil
+//						   cancelButtonTitle:SHKLocalizedString(@"Close")
+//						   otherButtonTitles:nil] autorelease] show];
+//    }		
+//    if (shouldRelogin) {        
+//        [sharer promptAuthorization];
+//	}
 }
 
 - (void)sharerCancelledSending:(SHKSharer *)sharer

@@ -184,12 +184,6 @@
 						   cancelButtonTitle:SHKLocalizedString(@"Close")
 						   otherButtonTitles:nil] autorelease] show];
         
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"jx-SHKAuthDidFinish"
-                                                            object:self
-                                                          userInfo:[NSDictionary dictionaryWithObjectsAndKeys:
-                                                                    [NSNumber numberWithBool:success],@"success",
-                                                                    NSStringFromClass([self class]),@"sharer",nil]];
-        
 		[self authDidFinish:success];
 	}	
 	
@@ -204,19 +198,17 @@
 						   otherButtonTitles:nil] autorelease] show];
 		success = NO;
         
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"jx-SHKAuthDidFinish"
-                                                            object:self
-                                                          userInfo:[NSDictionary dictionaryWithObjectsAndKeys:
-                                                                    [NSNumber numberWithBool:success],@"success",
-                                                                    [queryParams objectForKey:@"oauth_problem"],@"oauth_problem",
-                                                                    NSStringFromClass([self class]),@"sharer",nil]];
-        
 		[self authDidFinish:success];
 	}
 
 	else 
 	{
 		self.authorizeResponseQueryVars = queryParams;
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"jx-tokenRequestAuthenticating"
+                                                            object:self
+                                                          userInfo:[NSDictionary dictionaryWithObjectsAndKeys:
+                                                                    NSStringFromClass([self class]),@"sharer",nil]];
 		
 		[self tokenAccess];
 	}
@@ -287,7 +279,7 @@
 	}
 	
 	
-	else
+	else 
 		// TODO - better error handling here
 		[self tokenAccessTicket:ticket didFailWithError:[SHK error:SHKLocalizedString(@"There was a problem requesting access from %@", [self sharerTitle])]];
 
@@ -297,7 +289,7 @@
 - (void)tokenAccessTicket:(OAServiceTicket *)ticket didFailWithError:(NSError*)error
 {
 	[[SHKActivityIndicator currentIndicator] hide];
-	
+    
 	[[[[UIAlertView alloc] initWithTitle:SHKLocalizedString(@"Access Error")
 								 message:error!=nil?[error localizedDescription]:SHKLocalizedString(@"There was an error while sharing")
 								delegate:nil

@@ -124,8 +124,7 @@ static NSString *const kSHKDoubanUserInfo = @"kSHKDoubanUserInfo";
 	
 	else if (item.shareType == SHKShareTypeText)
 	{//到分享  文字
-        //item在初始化的时候已经set过
-//		[item setCustomValue:item.text forKey:@"status"];
+		[item setCustomValue:item.text forKey:@"status"];
         //不需要再展示的UI
 //		[self showDoubanForm];
         [self tryToSend];
