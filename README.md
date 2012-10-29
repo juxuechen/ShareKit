@@ -19,12 +19,16 @@
 
 # 技术支持
 
+此仓库
+* Email: juxue.cheny@gmail.com
+* Twitter: @MariewCat
+* 新浪微博: @琚雪要吃荔枝
+
 原项目开发者
 * Email: icyleaf.cn@gmail.com
 * Twitter: @icyleaf
 * 新浪微博: @icyleaf
 
-此仓库
-* Email: juxue.cheny@gmail.com
-* Twitter: @MariewCat
-* 新浪微博: @琚雪要吃荔枝
+
+# 截图
+![ScreenShot](https://github.com/juxuechen/ShareKit/master/ss.png)
