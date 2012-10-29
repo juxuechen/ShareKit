@@ -31,4 +31,4 @@
 
 
 # 截图
-![alt text](/share.jpg)
+![alt text](/juxuechen/ShareKit/blob/cut-for-baby/share.jpg)
