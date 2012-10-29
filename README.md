@@ -31,4 +31,4 @@
 
 
 # 截图
-![ScreenShot](https://github.com/juxuechen/ShareKit/master/ss.png)
+![Alt text](/img.jpg)
