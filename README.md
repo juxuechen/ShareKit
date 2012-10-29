@@ -31,4 +31,4 @@
 
 
 # 截图
-![alt text](/ss.png)
+![alt text](/share.jpg)
