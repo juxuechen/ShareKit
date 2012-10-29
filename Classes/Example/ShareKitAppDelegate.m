@@ -10,7 +10,6 @@
 #import "RootViewController.h"
 
 //#import "SHKReadItLater.h"
-#import "SHKFacebook.h"
 #import "SHKConfiguration.h"
 #import "ShareKitDemoConfigurator.h"
 
@@ -34,45 +33,13 @@
 	[window addSubview:[navigationController view]];
     [window makeKeyAndVisible];
 	
-	navigationController.topViewController.title = SHKLocalizedString(@"Examples");
+	navigationController.topViewController.title = @"分享";
 	[navigationController setToolbarHidden:NO];
 	
-	[self performSelector:@selector(testOffline) withObject:nil afterDelay:0.5];
 	
 	return YES;
 }
 
-- (void)testOffline
-{	
-	[SHK flushOfflineQueue];
-}
-
-- (void)applicationWillTerminate:(UIApplication *)application 
-{
-	// Save data if appropriate
-}
-
-- (BOOL)handleOpenURL:(NSURL*)url
-{
-	NSString* scheme = [url scheme];
-  if ([scheme hasPrefix:[NSString stringWithFormat:@"fb%@", SHKCONFIG(facebookAppId)]])
-    return [SHKFacebook handleOpenURL:url];
-  return YES;
-}
-
-- (BOOL)application:(UIApplication *)application 
-            openURL:(NSURL *)url 
-  sourceApplication:(NSString *)sourceApplication 
-         annotation:(id)annotation 
-{
-  return [self handleOpenURL:url];
-}
-
-- (BOOL)application:(UIApplication *)application 
-      handleOpenURL:(NSURL *)url 
-{
-  return [self handleOpenURL:url];  
-}
 
 #pragma mark -
 #pragma mark Memory management
