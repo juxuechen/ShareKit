@@ -176,7 +176,7 @@
 
 - (BOOL)customBoolForSwitchKey:(NSString *)key
 {
-	return [[custom objectForKey:key] isEqualToString:SHKFormFieldSwitchOn];
+	return NO;
 }
 
 

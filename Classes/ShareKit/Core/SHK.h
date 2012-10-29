@@ -32,7 +32,6 @@
 #import "SHKItem.h"
 #import "SHKRequest.h"
 #import "SHKActivityIndicator.h"
-#import "SHKFormFieldSettings.h"
 #import "UIWebView+SHK.h"
 
 extern NSString * const SHKHideCurrentViewFinishedNotification;

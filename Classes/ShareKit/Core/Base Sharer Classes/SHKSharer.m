@@ -308,21 +308,8 @@
 
 - (BOOL)isAuthorized
 {	
-	if (![[self class] requiresAuthentication])
-		return YES;
-	
-	// Checks to make sure we just have at least one variable from the authorization form
-	// If the send request fails it'll reprompt the user for their new login anyway
-	
-	NSString *sharerId = [self sharerId];
-	NSArray *fields = [self authorizationFormFields];
-	for (SHKFormFieldSettings *field in fields)
-	{
-		if ([SHK getAuthValueForKey:field.key forSharer:sharerId] != nil)
-			return YES;
-	}
-	
-	return NO;
+	//子类实现
+    return NO;
 }
 
 - (BOOL)authorize
@@ -354,13 +341,7 @@
 
 + (void)logout
 {
-	NSString *sharerId = [self sharerId];
-	NSArray *authFields = [self authorizationFormFields];
-	if (authFields != nil)
-	{
-		for(SHKFormFieldSettings *field in authFields)
-			[SHK removeAuthValueForKey:field.key forSharer:sharerId];
-	}	
+	//子类实现
 }
 
 // Credit: GreatWiz

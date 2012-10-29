@@ -70,7 +70,6 @@
 		7A0F9210156BA2A0009CB40A /* (null) in Sources */ = {isa = PBXBuildFile; };
 		7A0F921C156BA2A0009CB40A /* SHKFacebook.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536DD11DBE3B9004A1712 /* SHKFacebook.m */; };
 		7A0F9235156BA2A0009CB40A /* SHKActivityIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536F111DBE3B9004A1712 /* SHKActivityIndicator.m */; };
-		7A0F9239156BA2A0009CB40A /* SHKFormFieldSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536F711DBE3B9004A1712 /* SHKFormFieldSettings.m */; };
 		7A0F923B156BA2A0009CB40A /* SHKOAuthView.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536FB11DBE3B9004A1712 /* SHKOAuthView.m */; };
 		7A26E5B9156CD8A70011E15F /* Base64Transcoder.c in Sources */ = {isa = PBXBuildFile; fileRef = 7A26E5B3156CD8A70011E15F /* Base64Transcoder.c */; };
 		7A26E5BA156CD8A70011E15F /* Base64Transcoder.c in Sources */ = {isa = PBXBuildFile; fileRef = 7A26E5B3156CD8A70011E15F /* Base64Transcoder.c */; };
@@ -152,7 +151,6 @@
 		7AB535481552BE7D00171BCE /* FBDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AC22D2514580A2000126878 /* FBDialog.m */; };
 		7AB5354A1552BE7D00171BCE /* SHKFacebook.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536DD11DBE3B9004A1712 /* SHKFacebook.m */; };
 		7AB5357D1552BE7D00171BCE /* SHKActivityIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536F111DBE3B9004A1712 /* SHKActivityIndicator.m */; };
-		7AB535851552BE7D00171BCE /* SHKFormFieldSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536F711DBE3B9004A1712 /* SHKFormFieldSettings.m */; };
 		7AB535891552BE7D00171BCE /* SHKOAuthView.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536FB11DBE3B9004A1712 /* SHKOAuthView.m */; };
 		7AB5358F1552BE7D00171BCE /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 43A536B411DBE3B9004A1712 /* Reachability.m */; };
 		7AB8051015AC7BC9004FB430 /* GTMNSString+HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = 427FBAEE15934A0D0024F825 /* GTMNSString+HTML.m */; };
@@ -267,8 +265,6 @@
 		43A536DD11DBE3B9004A1712 /* SHKFacebook.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKFacebook.m; sourceTree = "<group>"; };
 		43A536F011DBE3B9004A1712 /* SHKActivityIndicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKActivityIndicator.h; sourceTree = "<group>"; };
 		43A536F111DBE3B9004A1712 /* SHKActivityIndicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKActivityIndicator.m; sourceTree = "<group>"; };
-		43A536F611DBE3B9004A1712 /* SHKFormFieldSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKFormFieldSettings.h; sourceTree = "<group>"; };
-		43A536F711DBE3B9004A1712 /* SHKFormFieldSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKFormFieldSettings.m; sourceTree = "<group>"; };
 		43A536FA11DBE3B9004A1712 /* SHKOAuthView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKOAuthView.h; sourceTree = "<group>"; };
 		43A536FB11DBE3B9004A1712 /* SHKOAuthView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SHKOAuthView.m; sourceTree = "<group>"; };
 		43A5382611DBE480004A1712 /* example.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; name = example.pdf; path = Classes/Example/example.pdf; sourceTree = "<group>"; };
@@ -737,8 +733,6 @@
 			children = (
 				43A536F011DBE3B9004A1712 /* SHKActivityIndicator.h */,
 				43A536F111DBE3B9004A1712 /* SHKActivityIndicator.m */,
-				43A536F611DBE3B9004A1712 /* SHKFormFieldSettings.h */,
-				43A536F711DBE3B9004A1712 /* SHKFormFieldSettings.m */,
 				43A536FA11DBE3B9004A1712 /* SHKOAuthView.h */,
 				43A536FB11DBE3B9004A1712 /* SHKOAuthView.m */,
 			);
@@ -1141,7 +1135,6 @@
 				7A0F9210156BA2A0009CB40A /* (null) in Sources */,
 				7A0F921C156BA2A0009CB40A /* SHKFacebook.m in Sources */,
 				7A0F9235156BA2A0009CB40A /* SHKActivityIndicator.m in Sources */,
-				7A0F9239156BA2A0009CB40A /* SHKFormFieldSettings.m in Sources */,
 				7A0F923B156BA2A0009CB40A /* SHKOAuthView.m in Sources */,
 				7A26E5BA156CD8A70011E15F /* Base64Transcoder.c in Sources */,
 				7A26E5BE156CD8A70011E15F /* hmac.c in Sources */,
@@ -1215,7 +1208,6 @@
 				7AB535481552BE7D00171BCE /* FBDialog.m in Sources */,
 				7AB5354A1552BE7D00171BCE /* SHKFacebook.m in Sources */,
 				7AB5357D1552BE7D00171BCE /* SHKActivityIndicator.m in Sources */,
-				7AB535851552BE7D00171BCE /* SHKFormFieldSettings.m in Sources */,
 				7AB535891552BE7D00171BCE /* SHKOAuthView.m in Sources */,
 				7AB5358F1552BE7D00171BCE /* Reachability.m in Sources */,
 				7A26E5B9156CD8A70011E15F /* Base64Transcoder.c in Sources */,
