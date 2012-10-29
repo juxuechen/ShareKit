@@ -75,12 +75,7 @@ extern NSString * const SHKHideCurrentViewFinishedNotification;
 + (UIModalPresentationStyle)modalPresentationStyle;
 + (UIModalTransitionStyle)modalTransitionStyle;
 
-#pragma mark -
-#pragma mark Favorites
 
-+ (NSArray *)favoriteSharersForType:(SHKShareType)type;
-+ (void)pushOnFavorites:(NSString *)className forType:(SHKShareType)type;
-+ (void)setFavorites:(NSArray *)favs forType:(SHKShareType)type;
 
 #pragma mark -
 #pragma mark Credentials

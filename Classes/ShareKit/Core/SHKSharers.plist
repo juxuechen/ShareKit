@@ -8,25 +8,7 @@
 	<array>
 		<string>SHKDouban</string>
 		<string>SHKSinaWeibo</string>
-		<string>SHKNetEaseWeibo</string>
 		<string>SHKTencentWeibo</string>
-		<string>SHKRenRen</string>
-		<string>SHKPlurk</string>
-		<string>SHKReadability</string>
-		<string>SHKEvernote</string>
-		<string>SHKDelicious</string>
-		<string>SHKTwitter</string>
-		<string>SHKDiigo</string>
-		<string>SHKPinboard</string>
-		<string>SHKGoogleReader</string>
-		<string>SHKFacebook</string>
-		<string>SHKVkontakte</string>
-		<string>SHKReadItLater</string>
-		<string>SHKInstapaper</string>
-		<string>SHKTumblr</string>
-		<string>SHKFlickr</string>
-		<string>SHKLinkedIn</string>
-		<string>SHKFoursquareV2</string>
 	</array>
 </dict>
 </plist>
