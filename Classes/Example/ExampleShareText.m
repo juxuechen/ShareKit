@@ -59,7 +59,7 @@
 	self.textView = [[[UITextView alloc] initWithFrame:CGRectMake(0,0,self.view.bounds.size.width,self.view.bounds.size.height)] autorelease];
 	[self.view addSubview:textView];
 	
-	textView.text = SHKLocalizedString(@"111");
+	textView.text = @"123";
 	textView.editable = NO;
 }
 

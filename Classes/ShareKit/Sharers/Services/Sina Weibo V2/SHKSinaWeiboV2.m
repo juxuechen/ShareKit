@@ -121,7 +121,7 @@ static NSString *accessTokenKey = @"access_token";
 - (void)tokenAccess:(BOOL)refresh
 {
 	if (!refresh)
-		[[SHKActivityIndicator currentIndicator] displayActivity:SHKLocalizedString(@"Authenticating...")];
+		[[SHKActivityIndicator currentIndicator] displayActivity:@"正在验证..."];//SHKLocalizedString(@"Authenticating...")
             
     OAMutableURLRequest *oRequest = [[OAMutableURLRequest alloc] initWithURL:accessURL
                                                                     consumer:consumer

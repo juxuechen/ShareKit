@@ -491,7 +491,7 @@ static NSString *const kSHKTencentWeiboUserInfo = @"kSHKTencentWeiboUserInfo";
 
 - (void)tokenRequest
 {
-	[[SHKActivityIndicator currentIndicator] displayActivity:SHKLocalizedString(@"Connecting...")];
+	[[SHKActivityIndicator currentIndicator] displayActivity:@"正在连接..."];//SHKLocalizedString(@"Connecting...")
       
     TencentOAMutableURLRequest *oRequest = [[TencentOAMutableURLRequest alloc] initWithURL:requestURL
                                                                                   consumer:consumer
@@ -530,7 +530,7 @@ static NSString *const kSHKTencentWeiboUserInfo = @"kSHKTencentWeiboUserInfo";
 - (void)tokenAccess:(BOOL)refresh
 {
 	if (!refresh)
-		[[SHKActivityIndicator currentIndicator] displayActivity:SHKLocalizedString(@"Authenticating...")];
+		[[SHKActivityIndicator currentIndicator] displayActivity:@"正在验证..."];//SHKLocalizedString(@"Authenticating...")
 	
     TencentOAMutableURLRequest *oRequest = [[TencentOAMutableURLRequest alloc] initWithURL:accessURL
                                                                                   consumer:consumer

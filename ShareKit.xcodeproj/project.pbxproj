@@ -100,7 +100,6 @@
 		7A26E5C2156CD8A70011E15F /* sha1.c in Sources */ = {isa = PBXBuildFile; fileRef = 7A26E5B7156CD8A70011E15F /* sha1.c */; };
 		7A26E5C3156CD8A70011E15F /* sha1.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A26E5B8156CD8A70011E15F /* sha1.h */; };
 		7A26E5C4156CD8A70011E15F /* sha1.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A26E5B8156CD8A70011E15F /* sha1.h */; };
-		7A2882491553CC61007DC379 /* ShareKit.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 90E765A51418F2480026B656 /* ShareKit.bundle */; };
 		7A28824A1553CC6F007DC379 /* FBDialog.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 7AC22D1B14580A2000126878 /* FBDialog.bundle */; };
 		7A2882571553D7E1007DC379 /* SHKSharers.plist in Resources */ = {isa = PBXBuildFile; fileRef = 43A536AC11DBE3B9004A1712 /* SHKSharers.plist */; };
 		7A28825D1553FFB4007DC379 /* ShareKit.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 7AB5360F1552E26800171BCE /* ShareKit.bundle */; };
@@ -447,7 +446,6 @@
 		86EEE8E11639063300EF62DB /* ShareTogethorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ShareTogethorViewController.m; path = Example/ShareTogethorViewController.m; sourceTree = "<group>"; };
 		86EEE8E21639063300EF62DB /* ShareTogethorViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ShareTogethorViewController.xib; path = Example/ShareTogethorViewController.xib; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* ShareKit-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "ShareKit-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
-		90E765A51418F2480026B656 /* ShareKit.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = ShareKit.bundle; sourceTree = "<group>"; };
 		A57772B214BA0748003FC744 /* SSKeychain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSKeychain.h; sourceTree = "<group>"; };
 		A57772B314BA0748003FC744 /* SSKeychain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSKeychain.m; sourceTree = "<group>"; };
 		AA511B7E14C893A10022332B /* SHKFormOptionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHKFormOptionController.h; sourceTree = "<group>"; };
@@ -719,7 +717,6 @@
 				43A536B511DBE3B9004A1712 /* Sharers */,
 				43A536ED11DBE3B9004A1712 /* UI */,
 				43A536B211DBE3B9004A1712 /* Reachability */,
-				90E765A51418F2480026B656 /* ShareKit.bundle */,
 			);
 			path = ShareKit;
 			sourceTree = "<group>";
@@ -1464,7 +1461,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7A2882491553CC61007DC379 /* ShareKit.bundle in Resources */,
 				7A28824A1553CC6F007DC379 /* FBDialog.bundle in Resources */,
 				7A2882571553D7E1007DC379 /* SHKSharers.plist in Resources */,
 			);

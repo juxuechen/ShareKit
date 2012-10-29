@@ -77,7 +77,7 @@
 
 - (void)tokenRequest
 {
-	[[SHKActivityIndicator currentIndicator] displayActivity:SHKLocalizedString(@"Connecting...")];
+	[[SHKActivityIndicator currentIndicator] displayActivity:@"正在连接..."];//SHKLocalizedString(@"Connecting...")
     
     [[NSNotificationCenter defaultCenter] postNotificationName:@"jx-tokenRequest"
                                                         object:self
@@ -232,7 +232,7 @@
 - (void)tokenAccess:(BOOL)refresh
 {
 	if (!refresh)
-		[[SHKActivityIndicator currentIndicator] displayActivity:SHKLocalizedString(@"Authenticating...")];
+		[[SHKActivityIndicator currentIndicator] displayActivity:@"正在验证..."];//SHKLocalizedString(@"Authenticating...")
 	
     OAMutableURLRequest *oRequest = [[OAMutableURLRequest alloc] initWithURL:accessURL
                                                                    consumer:consumer
