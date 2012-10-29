@@ -89,16 +89,16 @@
 
 // Douban
 - (NSString*)doubanConsumerKey {
-	return @"06690f9cfaf53987133b2ed6f0dfac95";
+	return @"061cb3ff24ce7f1e12561bfd6e6b7d5a";
 }
 
 - (NSString*)doubanConsumerSecret {
-	return @"34fc3d8a9ef78144";
+	return @"232973bf980ce2d8";
 }
 
 // You need to set this if using OAuth (MUST be set, it could be any words)
 - (NSString*)doubanCallbackUrl {
-	return @"http://icyleaf.com";
+	return @"http://www.taobao.com";
 }
 
 
