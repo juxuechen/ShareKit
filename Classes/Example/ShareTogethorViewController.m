@@ -37,11 +37,11 @@
     // Do any additional setup after loading the view from its nib.
     
     
-    [[NSNotificationCenter defaultCenter] addObserverForName:@"SHKAuthDidFinish"
+    [[NSNotificationCenter defaultCenter] addObserverForName:@"jx-SHKAuthDidFinish"
                                                       object:nil
                                                        queue:nil
                                                   usingBlock:^(NSNotification *note){
-                                                      NSLog(@"绑定完成   userinfo %@",note.userInfo);
+                                                      NSLog(@"绑定结束   userinfo %@",note.userInfo);
                                                       if ([[note.userInfo objectForKey:@"sharer"] isEqualToString:@"SHKDouban"]) {
                                                           BOOL success = [[note.userInfo objectForKey:@"success"] boolValue];
                                                           self.doubanFX = success;
@@ -55,12 +55,56 @@
                                                           self.qqFX = success;
                                                       }
                                                   }];
+    
+    
     [[NSNotificationCenter defaultCenter] addObserverForName:@"kNotificationDidGetLoggedInUserId"
                                                       object:nil
                                                        queue:nil usingBlock:^(NSNotification *note){
                                                            self.renrenFX = YES;
                                                        }];
+    
+    
+    [[NSNotificationCenter defaultCenter] addObserverForName:@"jx-tokenRequest"
+                                                      object:nil
+                                                       queue:nil
+                                                  usingBlock:^(NSNotification *note){
+                                                      NSLog(@"开始连接平台 %@",[note.userInfo objectForKey:@"sharer"]);
+                                                  }];
+    
+    [[NSNotificationCenter defaultCenter] addObserverForName:@"jx-tokenRequestTicketFinish"
+                                                      object:nil
+                                                       queue:nil
+                                                  usingBlock:^(NSNotification *note){
+                                                      NSLog(@"连接平台%@成功",[note.userInfo objectForKey:@"sharer"]);
+                                                  }];
+    
+    [[NSNotificationCenter defaultCenter] addObserverForName:@"jx-tokenRequestTicketFail"
+                                                      object:nil
+                                                       queue:nil
+                                                  usingBlock:^(NSNotification *note){
+                                                      NSLog(@"连接平台%@失败,%@",[note.userInfo objectForKey:@"sharer"],[note.userInfo objectForKey:@"error"]);
+                                                  }];
 
+    [[NSNotificationCenter defaultCenter] addObserverForName:@"jx-sharerStartedSending"
+                                                      object:nil
+                                                       queue:nil
+                                                  usingBlock:^(NSNotification *note){
+                                                      NSLog(@"开始分享至平台%@",[note.userInfo objectForKey:@"sharer"]);
+                                                  }];
+    
+    [[NSNotificationCenter defaultCenter] addObserverForName:@"jx-sharerFinishedSending"
+                                                      object:nil
+                                                       queue:nil
+                                                  usingBlock:^(NSNotification *note){
+                                                      NSLog(@"分享成功至平台%@",[note.userInfo objectForKey:@"sharer"]);
+                                                  }];
+    
+    [[NSNotificationCenter defaultCenter] addObserverForName:@"jx-sharerfailed"
+                                                      object:nil
+                                                       queue:nil
+                                                  usingBlock:^(NSNotification *note){
+                                                      NSLog(@"分享失败至平台%@，%@",[note.userInfo objectForKey:@"sharer"],[note.userInfo objectForKey:@"error"]);
+                                                  }];
 }
 
 - (void)viewDidUnload

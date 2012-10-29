@@ -78,6 +78,11 @@
 - (void)tokenRequest
 {
 	[[SHKActivityIndicator currentIndicator] displayActivity:SHKLocalizedString(@"Connecting...")];
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"jx-tokenRequest"
+                                                        object:self
+                                                      userInfo:[NSDictionary dictionaryWithObjectsAndKeys:
+                                                                NSStringFromClass([self class]),@"sharer",nil]];
 	
     OAMutableURLRequest *oRequest = [[OAMutableURLRequest alloc] initWithURL:requestURL
                                                                    consumer:consumer
@@ -109,6 +114,11 @@
 		SHKLog(@"tokenRequestTicket Response Body: %@", [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease]);
 	
 	[[SHKActivityIndicator currentIndicator] hide];
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"jx-tokenRequestTicketFinish"
+                                                        object:self
+                                                      userInfo:[NSDictionary dictionaryWithObjectsAndKeys:
+                                                                NSStringFromClass([self class]),@"sharer",nil]];
 	
 	if (ticket.didSucceed) 
 	{
@@ -130,6 +140,12 @@
 - (void)tokenRequestTicket:(OAServiceTicket *)ticket didFailWithError:(NSError*)error
 {
 	[[SHKActivityIndicator currentIndicator] hide];
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"jx-tokenRequestTicketFail"
+                                                        object:self
+                                                      userInfo:[NSDictionary dictionaryWithObjectsAndKeys:
+                                                                error,@"error",
+                                                                NSStringFromClass([self class]),@"sharer",nil]];
 	
 	[[[[UIAlertView alloc] initWithTitle:SHKLocalizedString(@"Request Error")
 								 message:error!=nil?[error localizedDescription]:SHKLocalizedString(@"There was an error while sharing")
@@ -167,6 +183,13 @@
 									delegate:nil
 						   cancelButtonTitle:SHKLocalizedString(@"Close")
 						   otherButtonTitles:nil] autorelease] show];
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"jx-SHKAuthDidFinish"
+                                                            object:self
+                                                          userInfo:[NSDictionary dictionaryWithObjectsAndKeys:
+                                                                    [NSNumber numberWithBool:success],@"success",
+                                                                    NSStringFromClass([self class]),@"sharer",nil]];
+        
 		[self authDidFinish:success];
 	}	
 	
@@ -180,6 +203,14 @@
 						   cancelButtonTitle:SHKLocalizedString(@"Close")
 						   otherButtonTitles:nil] autorelease] show];
 		success = NO;
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"jx-SHKAuthDidFinish"
+                                                            object:self
+                                                          userInfo:[NSDictionary dictionaryWithObjectsAndKeys:
+                                                                    [NSNumber numberWithBool:success],@"success",
+                                                                    [queryParams objectForKey:@"oauth_problem"],@"oauth_problem",
+                                                                    NSStringFromClass([self class]),@"sharer",nil]];
+        
 		[self authDidFinish:success];
 	}
 

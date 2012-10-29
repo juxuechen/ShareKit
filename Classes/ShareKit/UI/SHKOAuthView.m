@@ -79,12 +79,13 @@
 
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
-{		
+{
+    NSLog(@"AuthView  request.URL %@",request.URL);
 	if ([request.URL.absoluteString rangeOfString:@"authorize"].location == NSNotFound
         && [request.URL.absoluteString rangeOfString:@"authenticate"].location == NSNotFound
         && [request.URL.absoluteString rangeOfString:[delegate authorizeCallbackURL].absoluteString options:NSCaseInsensitiveSearch].location != NSNotFound)
 	{
-		// Get query
+		// Get query 授权成功
 		NSMutableDictionary *queryParams = nil;
 		if (request.URL.query != nil)
 		{
@@ -118,8 +119,8 @@
 	[self stopSpinner];
 	
 	// Extra sanity check for Twitter OAuth users to make sure they are using BROWSER with a callback instead of pin based auth
-	if ([webView.request.URL.host isEqualToString:@"api.twitter.com"] && [webView stringByEvaluatingJavaScriptFromString:@"document.getElementById('oauth_pin').innerHTML"].length)
-		[delegate tokenAuthorizeView:self didFinishWithSuccess:NO queryParams:nil error:[SHK error:@"Your SHKTwitter config is incorrect.  You must set your application type to Browser and define a callback url.  See SHKConfig.h for more details"]];
+//	if ([webView.request.URL.host isEqualToString:@"api.twitter.com"] && [webView stringByEvaluatingJavaScriptFromString:@"document.getElementById('oauth_pin').innerHTML"].length)
+//		[delegate tokenAuthorizeView:self didFinishWithSuccess:NO queryParams:nil error:[SHK error:@"Your SHKTwitter config is incorrect.  You must set your application type to Browser and define a callback url.  See SHKConfig.h for more details"]];
 }
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error

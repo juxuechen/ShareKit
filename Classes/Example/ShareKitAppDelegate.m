@@ -9,7 +9,7 @@
 #import "ShareKitAppDelegate.h"
 #import "RootViewController.h"
 
-#import "SHKReadItLater.h"
+//#import "SHKReadItLater.h"
 #import "SHKFacebook.h"
 #import "SHKConfiguration.h"
 #import "ShareKitDemoConfigurator.h"

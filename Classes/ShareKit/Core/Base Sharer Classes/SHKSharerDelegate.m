@@ -17,20 +17,39 @@
 
 - (void)sharerStartedSending:(SHKSharer *)sharer
 {
-	if (!sharer.quiet)
+	if (!sharer.quiet) {
 		[[SHKActivityIndicator currentIndicator] displayActivity:SHKLocalizedString(@"Saving to %@", [[sharer class] sharerTitle])];
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"jx-sharerStartedSending"
+                                                            object:self
+                                                          userInfo:[NSDictionary dictionaryWithObjectsAndKeys:
+                                                                    NSStringFromClass([self class]),@"sharer",nil]];
+    }
 }
 
 - (void)sharerFinishedSending:(SHKSharer *)sharer
 {
-	if (!sharer.quiet)
+	if (!sharer.quiet) {
 		[[SHKActivityIndicator currentIndicator] displayCompleted:SHKLocalizedString(@"Saved!")];
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"jx-sharerFinishedSending"
+                                                            object:self
+                                                          userInfo:[NSDictionary dictionaryWithObjectsAndKeys:
+                                                                    NSStringFromClass([self class]),@"sharer",nil]];
+    }
 }
 
 - (void)sharer:(SHKSharer *)sharer failedWithError:(NSError *)error shouldRelogin:(BOOL)shouldRelogin
 {
     
     [[SHKActivityIndicator currentIndicator] hide];
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"jx-sharerfailed"
+                                                        object:self
+                                                      userInfo:[NSDictionary dictionaryWithObjectsAndKeys:
+                                                                error,@"error",
+                                                                [NSNumber numberWithBool:shouldRelogin],@"shouldRelogin",
+                                                                NSStringFromClass([self class]),@"sharer",nil]];
 
     //if user sent the item already but needs to relogin we do not show alert
     if (!sharer.quiet && sharer.pendingAction != SHKPendingShare && sharer.pendingAction != SHKPendingSend)
