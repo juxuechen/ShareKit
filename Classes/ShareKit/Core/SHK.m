@@ -31,10 +31,8 @@
 #import "SHKOfflineSharer.h"
 #import "SSKeychain.h"
 #import "Reachability.h"
-#import "SHKMail.h"
 #import <objc/runtime.h>
 #import <objc/message.h>
-#import <MessageUI/MessageUI.h>
 #include <sys/xattr.h>
 
 NSString * SHKLocalizedStringFormat(NSString* key);
@@ -73,11 +71,6 @@ BOOL SHKinit;
 	
 	if (!SHKinit)
 	{
-		SHKSwizzle([MFMailComposeViewController class], @selector(viewDidDisappear:), @selector(SHKviewDidDisappear:));			
-		
-		if (NSClassFromString(@"MFMessageComposeViewController") != nil)
-			SHKSwizzle([MFMessageComposeViewController class], @selector(viewDidDisappear:), @selector(SHKviewDidDisappear:));	
-		
 		SHKinit = YES;
 	}
 }

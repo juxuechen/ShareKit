@@ -143,10 +143,6 @@ typedef enum
 
 #pragma mark Authorization Form
 
-- (NSArray *)authorizationFormFields;
-- (NSString *)authorizationFormCaption;
-+ (NSArray *)authorizationFormFields;
-+ (NSString *)authorizationFormCaption;
 + (void)logout;
 + (BOOL)isServiceAuthorized;
 
