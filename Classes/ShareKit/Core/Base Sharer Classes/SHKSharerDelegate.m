@@ -47,9 +47,10 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:@"jx-sharerfailed"
                                                         object:self
                                                       userInfo:[NSDictionary dictionaryWithObjectsAndKeys:
-                                                                error,@"error",
+                                                                NSStringFromClass([sharer class]),@"sharer",
                                                                 [NSNumber numberWithBool:shouldRelogin],@"shouldRelogin",
-                                                                NSStringFromClass([sharer class]),@"sharer",nil]];
+                                                                error,@"error",
+                                                                nil]];
 
     //if user sent the item already but needs to relogin we do not show alert
     
