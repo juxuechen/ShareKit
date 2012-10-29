@@ -170,7 +170,10 @@
 #pragma mark Share
 
 - (IBAction)buttonAction:(UIButton *)btn {
-    SHKItem *item = [SHKItem text:self.textView.text];
+//    SHKItem *item = [SHKItem text:self.textView.text];
+    SHKItem *item = [SHKItem image:self.imageView.image title:self.textView.text];
+
+    
     [SHK setRootViewController:self];
     
     switch (btn.tag) {

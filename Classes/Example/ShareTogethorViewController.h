@@ -34,6 +34,8 @@
 @property (strong, nonatomic)  IBOutlet UIButton *renrenButton;
 @property (nonatomic)  BOOL renrenFX;
 
+@property (strong, nonatomic)  IBOutlet UIImageView *imageView;
+
 - (IBAction)buttonAction:(id)sender;
 
 - (IBAction)share:(id)sender;

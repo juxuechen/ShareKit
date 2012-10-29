@@ -117,9 +117,10 @@ static NSString *const kSHKDoubanUserInfo = @"kSHKDoubanUserInfo";
 	}
 	
 	else if (item.shareType == SHKShareTypeImage)
-	{
+	{//到分享  图片
 		[item setCustomValue:item.title forKey:@"status"];
-		[self showDoubanForm];
+//		[self showDoubanForm];
+        [self tryToSend];
 	}
 	
 	else if (item.shareType == SHKShareTypeText)

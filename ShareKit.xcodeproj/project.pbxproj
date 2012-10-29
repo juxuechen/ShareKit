@@ -197,6 +197,7 @@
 		86691BE2163A568B005632DF /* qqS.png in Resources */ = {isa = PBXBuildFile; fileRef = 86691BE1163A568B005632DF /* qqS.png */; };
 		86691BE5163A5D40005632DF /* renrenNS.png in Resources */ = {isa = PBXBuildFile; fileRef = 86691BE3163A5D40005632DF /* renrenNS.png */; };
 		86691BE6163A5D40005632DF /* renrenS.png in Resources */ = {isa = PBXBuildFile; fileRef = 86691BE4163A5D40005632DF /* renrenS.png */; };
+		867383B6163E53E500173114 /* mm.png in Resources */ = {isa = PBXBuildFile; fileRef = 867383B5163E53E500173114 /* mm.png */; };
 		86765F9B163A3118002689F6 /* doubanNS.png in Resources */ = {isa = PBXBuildFile; fileRef = 86765F97163A3118002689F6 /* doubanNS.png */; };
 		86765F9C163A3118002689F6 /* doubanS.png in Resources */ = {isa = PBXBuildFile; fileRef = 86765F98163A3118002689F6 /* doubanS.png */; };
 		86765F9D163A3118002689F6 /* sinaNS.png in Resources */ = {isa = PBXBuildFile; fileRef = 86765F99163A3118002689F6 /* sinaNS.png */; };
@@ -438,6 +439,7 @@
 		86691BE1163A568B005632DF /* qqS.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = qqS.png; path = images/qqS.png; sourceTree = "<group>"; };
 		86691BE3163A5D40005632DF /* renrenNS.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = renrenNS.png; path = images/renrenNS.png; sourceTree = "<group>"; };
 		86691BE4163A5D40005632DF /* renrenS.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = renrenS.png; path = images/renrenS.png; sourceTree = "<group>"; };
+		867383B5163E53E500173114 /* mm.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = mm.png; path = images/mm.png; sourceTree = "<group>"; };
 		86765F97163A3118002689F6 /* doubanNS.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = doubanNS.png; path = images/doubanNS.png; sourceTree = "<group>"; };
 		86765F98163A3118002689F6 /* doubanS.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = doubanS.png; path = images/doubanS.png; sourceTree = "<group>"; };
 		86765F99163A3118002689F6 /* sinaNS.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = sinaNS.png; path = images/sinaNS.png; sourceTree = "<group>"; };
@@ -633,6 +635,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				867383B5163E53E500173114 /* mm.png */,
 				86691BE3163A5D40005632DF /* renrenNS.png */,
 				86691BE4163A5D40005632DF /* renrenS.png */,
 				86691BE1163A568B005632DF /* qqS.png */,
@@ -1454,6 +1457,7 @@
 				86691BE2163A568B005632DF /* qqS.png in Resources */,
 				86691BE5163A5D40005632DF /* renrenNS.png in Resources */,
 				86691BE6163A5D40005632DF /* renrenS.png in Resources */,
+				867383B6163E53E500173114 /* mm.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
