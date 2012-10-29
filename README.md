@@ -31,4 +31,4 @@
 
 
 # 截图
-![Alt text](/img.jpg)
+![alt text](/ss.png)
