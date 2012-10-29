@@ -11,7 +11,6 @@
 #import "SHKDouban.h"
 #import "SHKSinaWeiboV2.h"
 #import "SHKTencentWeibo.h"
-#import "SHKRenRen.h"
 
 @interface ShareTogethorViewController ()
 
@@ -55,13 +54,6 @@
                                                           self.qqFX = success;
                                                       }
                                                   }];
-    
-    
-    [[NSNotificationCenter defaultCenter] addObserverForName:@"kNotificationDidGetLoggedInUserId"
-                                                      object:nil
-                                                       queue:nil usingBlock:^(NSNotification *note){
-                                                           self.renrenFX = YES;
-                                                       }];
     
     
     //授权状态
@@ -158,12 +150,6 @@
 }
 
 
-- (void)setRenrenFX:(BOOL)renrenFX {
-    _renrenFX = renrenFX;
-    NSString *imageName = renrenFX ? @"renrenS" : @"renrenNS";
-    [self.renrenButton setImage:[UIImage imageNamed:imageName] forState:UIControlStateNormal];
-    [self.renrenButton setImage:[UIImage imageNamed:imageName] forState:UIControlStateHighlighted];
-}
 
 
 #pragma mark -
@@ -217,18 +203,6 @@
             }
         }
             break;
-        case 3:
-        {
-            self.renrenFX = !self.renrenFX;
-            
-            if (self.renrenFX) {
-                self.renrenSharer = [[[SHKRenRen alloc] init] autorelease];
-                [self.renrenSharer loadItem:item];
-                if (![self.renrenSharer isAuthorized]) {//未绑定
-                    [self.renrenSharer share];
-                }
-            }
-        }
         default:
             break;
     }
@@ -248,9 +222,6 @@
     }
     if (self.qqFX) {
         [self.qqSharer share];
-    }
-    if (self.renrenFX) {
-        [self.renrenSharer share];
     }
 }
 
